@@ -1,0 +1,49 @@
+title: Players
+sections:
+  main:
+    display: Main
+    fields:
+      -
+        handle: title
+        field:
+          type: text
+          required: true
+          display: Name
+      -
+        handle: avatar
+        field:
+          type: assets
+          max_files: 1
+          display: Avatar
+          container: assets
+      -
+        handle: global_elo
+        field:
+          type: float
+          default: 1500
+          display: 'Global Elo'
+          width: 50
+      -
+        handle: total_games
+        field:
+          type: integer
+          default: 0
+          display: 'Total Games'
+          width: 50
+      -
+        handle: played_game_days
+        field:
+          type: integer
+          default: 0
+          display: 'Played Game Days'
+          width: 50
+      -
+        handle: status
+        field:
+          type: select
+          options:
+            active: Active
+            inactive: Inactive
+          default: active
+          display: Status
+          width: 50

@@ -1,0 +1,49 @@
+title: Sessions
+sections:
+  main:
+    display: Main
+    fields:
+      -
+        handle: title
+        field:
+          type: text
+          required: true
+          display: Title
+          instructions: 'Typically "LeagueName - Date"'
+      -
+        handle: league_id
+        field:
+          type: entries
+          collections:
+            - leagues
+          max_items: 1
+          display: League
+      -
+        handle: date
+        field:
+          type: date
+          display: Date
+      -
+        handle: present_players
+        field:
+          type: entries
+          collections:
+            - players
+          display: 'Present Players'
+      -
+        handle: courts_count
+        field:
+          type: integer
+          display: 'Courts Count'
+          width: 50
+      -
+        handle: games_per_court
+        field:
+          type: integer
+          display: 'Games per Court'
+          width: 50
+      -
+        handle: is_finished
+        field:
+          type: toggle
+          display: 'Is Finished'

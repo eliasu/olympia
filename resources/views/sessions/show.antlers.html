@@ -1,0 +1,308 @@
+<div class="max-w-4xl mx-auto py-8" x-data="sessionManager()">
+    <!-- Header -->
+    <header class="flex justify-between items-start mb-8">
+        <div>
+            <a href="{{ league_id:url }}" class="text-gray-500 hover:underline mb-2 inline-block">← Back to League</a>
+            <h1 class="text-3xl font-bold text-gray-900">{{ date }}</h1>
+            <div class="mt-2 flex gap-4 text-sm text-gray-600">
+                <span>{{ courts_count }} Courts</span>
+                <span>{{ present_players | count }} Players</span>
+                <span
+                    class="px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wide {{ is_finished ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800' }}">
+                    {{ is_finished ? 'Completed' : 'Live' }}
+                </span>
+            </div>
+        </div>
+
+        <div class="flex gap-2">
+            {{ if !is_finished }}
+            <!-- Admin Actions -->
+            <button @click="openPlayerModal()"
+                class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded shadow transition">
+                Manage Players
+            </button>
+            <button @click="generatePlan('{{ id }}')"
+                class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow transition"
+                :disabled="loading" :class="{'opacity-50 cursor-not-allowed': loading}">
+                <span x-show="!loading">Generate Plan</span>
+                <span x-show="loading">Processing...</span>
+            </button>
+
+            <button @click="finishSession('{{ id }}')"
+                class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded shadow transition"
+                :disabled="loading" :class="{'opacity-50 cursor-not-allowed': loading}">
+                Finish Session
+            </button>
+            {{ /if }}
+        </div>
+    </header>
+
+    <!-- Error Message -->
+    <div x-show="errorMessage" x-transition class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6"
+        style="display:none;">
+        <span x-text="errorMessage"></span>
+    </div>
+
+    <!-- Match Schedule -->
+    <div class="space-y-4">
+        {{ collection:matches session_id:is="{id}" sort="title:asc" }}
+        {{ if no_results }}
+        <div class="text-center py-12 bg-gray-50 rounded border border-dashed border-gray-300 text-gray-500">
+            No matches generated yet. Click "Generate Plan" to start.
+        </div>
+        {{ /if }}
+
+        <div class="bg-white rounded-lg shadow-sm border p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition hover:border-blue-300"
+            :class="{ 'opacity-100': true, 'opacity-75 bg-gray-50': {{ is_played ? 'true' : 'false' }} }" {{ if
+            !is_finished }}
+            @click="openScoreModal('{{ id }}', {{ team_a:id | json_encode }}, {{ team_b:id | json_encode }}, '{{ score_a }}', '{{ score_b }}')"
+            {{ /if }} role="button">
+            <div class="flex-1">
+                <div class="text-xs uppercase text-gray-400 font-bold mb-2">{{ title }}</div>
+
+                <div class="flex items-center justify-between gap-8">
+                    <!-- Team A -->
+                    <div class="flex-1 flex flex-col items-center gap-2">
+                        <div class="flex justify-center -space-x-2">
+                            {{ team_a }}
+                            <img src="{{ avatar ?? 'https://ui-avatars.com/api/?name=' + title }}"
+                                class="w-10 h-10 rounded-full border-2 border-white bg-gray-200" title="{{ title }}">
+                            {{ /team_a }}
+                        </div>
+                        <div class="text-sm font-medium text-center">
+                            {{ team_a | pluck:title | join:' & ' }}
+                        </div>
+                    </div>
+
+                    <!-- Score Display -->
+                    <div class="font-mono text-3xl font-bold text-gray-800 bg-gray-100 px-4 py-2 rounded">
+                        {{ if is_played }}
+                        {{ score_a }} : {{ score_b }}
+                        {{ else }}
+                        VS
+                        {{ /if }}
+                    </div>
+
+                    <!-- Team B -->
+                    <div class="flex-1 flex flex-col items-center gap-2">
+                        <div class="flex justify-center -space-x-2">
+                            {{ team_b }}
+                            <img src="{{ avatar ?? 'https://ui-avatars.com/api/?name=' + title }}"
+                                class="w-10 h-10 rounded-full border-2 border-white bg-gray-200" title="{{ title }}">
+                            {{ /team_b }}
+                        </div>
+                        <div class="text-sm font-medium text-center">
+                            {{ team_b | pluck:title | join:' & ' }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ /collection:matches }}
+    </div>
+
+    <!-- Score Modal -->
+    <div x-show="showModal" style="display: none;"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4 backdrop-blur-sm"
+        @keydown.escape.window="showModal = false">
+
+        <div class="bg-white rounded-xl shadow-xl max-w-lg w-full overflow-hidden" @click.away="showModal = false">
+            <div class="bg-gray-50 px-6 py-4 border-b">
+                <h3 class="font-bold text-lg">Enter Score</h3>
+            </div>
+
+            <div class="p-6">
+                <div class="flex items-center justify-around mb-8">
+                    <div class="text-center w-1/2">
+                        <div class="text-sm text-gray-500 mb-2">Team A</div>
+                        <input type="number" x-model="currentScoreA"
+                            class="w-20 text-center text-3xl font-bold border rounded p-2 focus:ring-2 focus:ring-blue-500 outline-none"
+                            min="0" max="99">
+                    </div>
+                    <div class="text-2xl font-bold text-gray-300">:</div>
+                    <div class="text-center w-1/2">
+                        <div class="text-sm text-gray-500 mb-2">Team B</div>
+                        <input type="number" x-model="currentScoreB"
+                            class="w-20 text-center text-3xl font-bold border rounded p-2 focus:ring-2 focus:ring-blue-500 outline-none"
+                            min="0" max="99">
+                    </div>
+                </div>
+
+                <div class="flex justify-end gap-3">
+                    <button @click="showModal = false"
+                        class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded">Cancel</button>
+                    <button @click="submitScore()"
+                        class="px-6 py-2 bg-blue-600 text-white font-bold rounded hover:bg-blue-700 transition">Save
+                        Result</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Manage Players Modal -->
+<div x-show="showPlayerModal" style="display: none;"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4 backdrop-blur-sm"
+    @keydown.escape.window="showPlayerModal = false">
+
+    <div class="bg-white rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] flex flex-col"
+        @click.away="showPlayerModal = false">
+        <div class="bg-gray-50 px-6 py-4 border-b flex justify-between items-center">
+            <h3 class="font-bold text-lg">Manage Present Players</h3>
+            <button @click="showPlayerModal = false" class="text-gray-400 hover:text-gray-600">&times;</button>
+        </div>
+
+        <div class="p-6 overflow-y-auto">
+            <div class="grid grid-cols-2 gap-4">
+                {{ collection:players status:is="active" sort="title:asc" }}
+                <label class="flex items-center space-x-3 p-3 border rounded hover:bg-gray-50 cursor-pointer">
+                    <input type="checkbox" value="{{ id }}" x-model="selectedPlayers"
+                        class="form-checkbox h-5 w-5 text-blue-600">
+                    <span class="text-gray-900 font-medium">{{ title }}</span>
+                </label>
+                {{ /collection:players }}
+            </div>
+        </div>
+
+        <div class="p-6 border-t bg-gray-50 flex justify-end gap-3">
+            <button @click="showPlayerModal = false"
+                class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded">Cancel</button>
+            <button @click="savePlayers('{{ id }}')"
+                class="px-6 py-2 bg-blue-600 text-white font-bold rounded hover:bg-blue-700 transition">Save
+                Selection</button>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+    function sessionManager() {
+        return {
+            loading: false,
+            errorMessage: '',
+            showModal: false,
+            showPlayerModal: false,
+            currentMatchId: null,
+            currentScoreA: 0,
+            currentScoreB: 0,
+            selectedPlayers: [
+                {{ present_players }}
+        '{{ id }}',
+            {{ /present_players }
+    }
+            ],
+
+    openPlayerModal() {
+        this.showPlayerModal = true;
+    },
+
+    savePlayers(sessionId) {
+        this.loading = true;
+        fetch('/league/update-players', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({
+                session_id: sessionId,
+                players: this.selectedPlayers
+            })
+        })
+            .then(r => r.json())
+            .then(data => {
+                this.loading = false;
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert('Error saving players');
+                }
+            });
+    },
+
+    generatePlan(sessionId) {
+        if (!confirm('Generate matches? This uses present players.')) return;
+        this.loading = true;
+        this.errorMessage = '';
+
+        fetch('/league/generate-plan', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({ session_id: sessionId })
+        })
+            .then(r => r.json())
+            .then(data => {
+                this.loading = false;
+                if (data.success) {
+                    location.reload();
+                } else {
+                    this.errorMessage = data.error || 'Unknown error';
+                }
+            })
+            .catch(e => {
+                this.loading = false;
+                this.errorMessage = e.message;
+            });
+    },
+
+    finishSession(sessionId) {
+        if (!confirm('Finish session? This will calculate Elo ratings and cannot be undone.')) return;
+        this.loading = true;
+
+        fetch('/league/finish-session', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({ session_id: sessionId })
+        })
+            .then(r => r.json())
+            .then(data => {
+                this.loading = false;
+                if (data.success) {
+                    location.reload();
+                } else {
+                    this.errorMessage = data.error;
+                }
+            });
+    },
+
+    openScoreModal(matchId, teamA, teamB, scoreA, scoreB) {
+        this.currentMatchId = matchId;
+        this.currentScoreA = scoreA || 0;
+        this.currentScoreB = scoreB || 0;
+        this.showModal = true;
+    },
+
+    submitScore() {
+        if (this.currentScoreA === '' || this.currentScoreB === '') return;
+
+        fetch('/league/update-score', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({
+                match_id: this.currentMatchId,
+                score_a: this.currentScoreA,
+                score_b: this.currentScoreB
+            })
+        })
+            .then(r => r.json())
+            .then(data => {
+                if (data.success) {
+                    this.showModal = false;
+                    location.reload();
+                } else {
+                    alert('Error saving score');
+                }
+            });
+    }
+        }
+    }
+</script>

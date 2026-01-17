@@ -1,0 +1,118 @@
+<div class="max-w-4xl mx-auto py-8">
+    <header class="mb-8 flex justify-between items-center">
+        <div>
+            <h1 class="text-4xl font-bold text-gray-900">{{ title }}</h1>
+            <p class="text-gray-500 mt-1">Season Leaderboard & Schedule</p>
+        </div>
+        <div>
+            <!-- Link to create session via CP or maybe just list sessions -->
+        </div>
+    </header>
+
+    <div x-data="{ tab: 'qualified' }" class="bg-white rounded-lg shadow mb-8">
+        <div class="flex border-b">
+            <button @click="tab = 'qualified'"
+                :class="{ 'border-blue-500 text-blue-600': tab === 'qualified', 'border-transparent text-gray-500 hover:text-gray-700': tab !== 'qualified' }"
+                class="flex-1 py-4 px-6 text-center border-b-2 font-medium transition-colors">
+                Qualified Players
+            </button>
+            <button @click="tab = 'anwaerter'"
+                :class="{ 'border-blue-500 text-blue-600': tab === 'anwaerter', 'border-transparent text-gray-500 hover:text-gray-700': tab !== 'anwaerter' }"
+                class="flex-1 py-4 px-6 text-center border-b-2 font-medium transition-colors">
+                Candidates (< {{ min_game_days }}) </button>
+        </div>
+
+        <div class="p-0">
+            <!-- Qualified Table -->
+            <div x-show="tab === 'qualified'" class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead class="bg-gray-50 text-xs uppercase text-gray-500">
+                        <tr>
+                            <th class="px-6 py-3">Rank</th>
+                            <th class="px-6 py-3">Player</th>
+                            <th class="px-6 py-3 text-right">Rating</th>
+                            <th class="px-6 py-3 text-right">Games</th>
+                            <th class="px-6 py-3 text-right">Days</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        {{ collection:players sort="global_elo:desc" status:is="active"
+                        played_game_days:gte="{min_game_days}" }}
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 font-bold text-gray-400">#{{ index + 1 }}</td>
+                            <td class="px-6 py-4 font-medium text-gray-900 flex items-center gap-3">
+                                {{ if avatar }}<img src="{{ avatar }}" class="w-8 h-8 rounded-full bg-gray-200">{{ /if
+                                }}
+                                <a href="{{ url }}" class="hover:underline">{{ title }}</a>
+                            </td>
+                            <td class="px-6 py-4 text-right font-mono font-bold text-blue-600">{{ global_elo |
+                                number_format:1 }}</td>
+                            <td class="px-6 py-4 text-right text-gray-600">{{ total_games }}</td>
+                            <td class="px-6 py-4 text-right text-gray-600">{{ played_game_days }}</td>
+                        </tr>
+                        {{ /collection:players }}
+                        {{ if no_results }}
+                        <tr>
+                            <td colspan="5" class="px-6 py-8 text-center text-gray-500">No qualified players yet.</td>
+                        </tr>
+                        {{ /if }}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Candidates Table -->
+            <div x-show="tab === 'anwaerter'" class="overflow-x-auto" style="display: none;">
+                <table class="w-full text-left">
+                    <thead class="bg-gray-50 text-xs uppercase text-gray-500">
+                        <tr>
+                            <th class="px-6 py-3">Player</th>
+                            <th class="px-6 py-3 text-right">Rating</th>
+                            <th class="px-6 py-3 text-right">Games</th>
+                            <th class="px-6 py-3 text-right">Days</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        {{ collection:players sort="global_elo:desc" status:is="active"
+                        played_game_days:lt="{min_game_days}" }}
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 font-medium text-gray-900 flex items-center gap-3">
+                                {{ if avatar }}<img src="{{ avatar }}" class="w-8 h-8 rounded-full bg-gray-200">{{ /if
+                                }}
+                                <a href="{{ url }}" class="hover:underline">{{ title }}</a>
+                            </td>
+                            <td class="px-6 py-4 text-right font-mono text-gray-500">{{ global_elo | number_format:1 }}
+                            </td>
+                            <td class="px-6 py-4 text-right text-gray-600">{{ total_games }}</td>
+                            <td class="px-6 py-4 text-right text-gray-600">{{ played_game_days }}</td>
+                        </tr>
+                        {{ /collection:players }}
+                        {{ if no_results }}
+                        <tr>
+                            <td colspan="4" class="px-6 py-8 text-center text-gray-500">No candidates.</td>
+                        </tr>
+                        {{ /if }}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sessions List -->
+    <div class="bg-white rounded-lg shadow p-6">
+        <h3 class="text-xl font-bold mb-4">Sessions / Game Days</h3>
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {{ collection:sessions league_id:is="{id}" sort="date:desc" }}
+            <a href="{{ url }}"
+                class="block p-4 border rounded-lg hover:border-blue-500 hover:shadow-md transition bg-gray-50">
+                <div class="font-bold text-lg mb-1">{{ date }}</div>
+                <div class="text-sm text-gray-500 flex justify-between">
+                    <span>{{ courts_count }} Courts</span>
+                    <span class="{{ is_finished ? 'text-green-600 font-bold' : 'text-blue-600 font-bold' }}">
+                        {{ is_finished ? 'Finished' : 'Active' }}
+                    </span>
+                </div>
+            </a>
+            {{ /collection:sessions }}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+title: Matches
+sections:
+  main:
+    display: Main
+    fields:
+      -
+        handle: title
+        field:
+          type: text
+          required: true
+          display: Title
+          instructions: 'Auto-generated title'
+      -
+        handle: session_id
+        field:
+          type: entries
+          collections:
+            - sessions
+          max_items: 1
+          display: Session
+      -
+        handle: team_a
+        field:
+          type: entries
+          collections:
+            - players
+          max_items: 2
+          display: 'Team A'
+          width: 50
+      -
+        handle: team_b
+        field:
+          type: entries
+          collections:
+            - players
+          max_items: 2
+          display: 'Team B'
+          width: 50
+      -
+        handle: score_a
+        field:
+          type: integer
+          display: 'Score A'
+          width: 50
+      -
+        handle: score_b
+        field:
+          type: integer
+          display: 'Score B'
+          width: 50
+      -
+        handle: elo_delta
+        field:
+          type: float
+          display: 'Elo Delta'
+      -
+        handle: is_played
+        field:
+          type: toggle
+          default: false
+          display: 'Is Played'

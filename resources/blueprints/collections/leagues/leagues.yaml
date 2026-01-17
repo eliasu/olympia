@@ -1,0 +1,68 @@
+title: Leagues
+sections:
+  main:
+    display: Main
+    fields:
+      -
+        handle: title
+        field:
+          type: text
+          required: true
+          display: 'Season Name'
+      -
+        handle: players
+        field:
+          type: entries
+          collections:
+            - players
+          display: Players
+          mode: select
+      -
+        handle: k_factor
+        field:
+          type: integer
+          default: 32
+          display: 'K Factor'
+          width: 33
+      -
+        handle: min_game_days
+        field:
+          type: integer
+          display: 'Min Game Days for Ranking'
+          width: 33
+      -
+        handle: point_limit
+        field:
+          type: integer
+          default: 11
+          display: 'Point Limit'
+          width: 33
+      -
+        handle: win_by_two
+        field:
+          type: toggle
+          display: 'Win by Two'
+          width: 50
+      -
+        handle: mixed_days_count
+        field:
+          type: integer
+          display: 'Mixed Days Count'
+          width: 50
+          instructions: 'How many days at the start are random/mixed before sorting by Elo.'
+      -
+        handle: schedule
+        field:
+          type: grid
+          display: Schedule
+          fields:
+            -
+              handle: date
+              field:
+                type: date
+                display: Date
+            -
+              handle: exclude
+              field:
+                type: toggle
+                display: Exclude

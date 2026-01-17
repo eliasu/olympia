@@ -1,0 +1,11 @@
+title: Leagues
+template: leagues/index
+layout: layout
+revisions: false
+route: '/leagues/{slug}'
+sort_dir: asc
+preview_targets:
+  -
+    label: Entry
+    url: '{permalink}'
+    refresh: true

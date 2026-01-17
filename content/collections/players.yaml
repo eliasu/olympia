@@ -1,0 +1,5 @@
+title: Players
+template: players/show
+revisions: false
+route: '/players/{slug}'
+sort_dir: asc

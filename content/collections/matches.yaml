@@ -1,0 +1,6 @@
+title: Matches
+route: '/matches/{slug}'
+sort_dir: desc
+date: true
+blueprints:
+  - matches

@@ -1,0 +1,6 @@
+title: Sessions
+template: sessions/show
+revisions: false
+route: '/sessions/{slug}'
+date: true
+sort_dir: desc
