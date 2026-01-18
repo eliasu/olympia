@@ -220,36 +220,81 @@ class LeagueService
         }
     }
     
-    /**
-     * Update cached league stats on the player entry.
-     * 
-     * @param string $playerId
-     */
     public function updatePlayerLeagueStats($playerId)
     {
         $player = Entry::find($playerId);
         if (!$player) return;
 
-        // Find all finished gamedays where player was present
+        // 1. Find all finished gamedays where player was present
         $gamedays = Entry::query()
             ->where('collection', 'gamedays')
             ->where('is_finished', true)
             ->whereJsonContains('present_players', $playerId)
             ->get();
             
-        // Group by league and count
-        $statsByLeague = $gamedays->groupBy(fn($day) => $day->get('league'))->map->count();
+        // 2. Find all played matches for this player
+        $allMatches = Entry::query()
+            ->where('collection', 'matches')
+            ->where('is_played', true)
+            ->get()
+            ->filter(function($match) use ($playerId) {
+                return in_array($playerId, (array)$match->get('team_a', [])) || 
+                       in_array($playerId, (array)$match->get('team_b', []));
+            });
+
+        // 3. Process performance by league
+        $performanceByLeague = [];
         
-        // Build Grid data
-        $gridData = [];
-        foreach ($statsByLeague as $leagueId => $count) {
-             // Verify league exists
-             if (Entry::find($leagueId)) {
-                $gridData[] = [
-                    'league' => [$leagueId],
-                    'played_games' => $count
+        foreach ($allMatches as $match) {
+            $gamedayIds = (array)$match->get('gameday', []);
+            if (empty($gamedayIds)) continue;
+            
+            $gamedayId = reset($gamedayIds);
+            $gameday = Entry::find($gamedayId);
+            if (!$gameday || !$gameday->get('is_finished')) continue;
+            
+            $leagueIds = (array)$gameday->get('league', []);
+            if (empty($leagueIds)) continue;
+            
+            $leagueId = reset($leagueIds);
+            
+            if (!isset($performanceByLeague[$leagueId])) {
+                $performanceByLeague[$leagueId] = [
+                    'delta_sum' => 0,
+                    'match_count' => 0
                 ];
-             }
+            }
+            
+            $delta = (float)$match->get('elo_delta', 0);
+            $isTeamA = in_array($playerId, (array)$match->get('team_a', []));
+            
+            // If player was in Team A, the delta stored is their gain.
+            // If player was in Team B, their gain is -delta.
+            $actualDelta = $isTeamA ? $delta : -$delta;
+            
+            $performanceByLeague[$leagueId]['delta_sum'] += $actualDelta;
+            $performanceByLeague[$leagueId]['match_count']++;
+        }
+
+        // 4. Build Grid data
+        $gridData = [];
+        $gamedaysByLeague = $gamedays->groupBy(function($day) {
+            $leagueIds = (array)$day->get('league', []);
+            return !empty($leagueIds) ? reset($leagueIds) : null;
+        });
+
+        foreach ($gamedaysByLeague as $leagueId => $days) {
+             if (!$leagueId || !Entry::find($leagueId)) continue;
+             
+             $perf = $performanceByLeague[$leagueId] ?? ['delta_sum' => 0, 'match_count' => 0];
+             $avgDelta = $perf['match_count'] > 0 ? $perf['delta_sum'] / $perf['match_count'] : 0;
+             $gridData[] = [
+                 'league' => [$leagueId],
+                 'played_games' => $days->count(),
+                 'match_count' => $perf['match_count'],
+                 'league_performance' => round($perf['delta_sum'], 2),
+                 'average_delta' => round($avgDelta, 2)
+             ];
         }
         
         $player->set('league_stats', $gridData);
@@ -261,20 +306,22 @@ class LeagueService
      * 
      * @param string $playerId
      * @param string $leagueId
-     * @return array {played_games: int}
+     * @return array
      */
     public function getPlayerLeagueStats($playerId, $leagueId)
     {
-        // Count finished gamedays in this league where player was present
-        $playedDays = Entry::query()
-            ->where('collection', 'gamedays')
-            ->where('league', $leagueId)
-            ->where('is_finished', true)
-            ->whereJsonContains('present_players', $playerId)
-            ->count();
+        $player = Entry::find($playerId);
+        if (!$player) return ['played_game_days' => 0, 'match_count' => 0, 'league_performance' => 0];
+
+        $stats = collect($player->get('league_stats', []))->first(function($row) use ($leagueId) {
+            $rowLeagueId = reset((array)($row['league'] ?? []));
+            return $rowLeagueId === $leagueId;
+        });
             
         return [
-            'played_game_days' => $playedDays,
+            'played_game_days' => (int)($stats['played_games'] ?? 0),
+            'match_count' => (int)($stats['match_count'] ?? 0),
+            'league_performance' => (float)($stats['league_performance'] ?? 0),
         ];
     }
 

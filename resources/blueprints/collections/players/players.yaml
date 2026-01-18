@@ -48,7 +48,7 @@ tabs:
             handle: league_stats
             field:
               type: grid
-              display: 'League Stats (Cached)'
+              display: 'League Stats'
               visibility: read_only
               reorderable: false
               add_row: false
@@ -67,6 +67,24 @@ tabs:
                   field:
                     type: integer
                     display: 'Played Days'
+                -
+                  handle: match_count
+                  field:
+                    type: integer
+                    display: 'Match Count'
+                    default: 0
+                -
+                  handle: league_performance
+                  field:
+                    type: float
+                    display: 'League Points'
+                    default: 0
+                -
+                  handle: average_delta
+                  field:
+                    type: float
+                    display: 'Avg. Delta'
+                    default: 0
           -
             handle: matches
             field:

@@ -35,5 +35,4 @@ preferences:
         - title
         - avatar
         - global_elo
-        - player_status
         - total_games
