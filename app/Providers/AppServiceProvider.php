@@ -22,10 +22,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // League <-> gamedays (One-to-Many)
-        Relate::oneToMany('leagues.gamedays', 'gamedays.league');
+        Relate::manyToOne('leagues.gamedays', 'gamedays.league');
 
         // Gameday <-> Matches (One-to-Many)
-        Relate::oneToMany('gamedays.matches', 'matches.gameday');
+        Relate::manyToOne('gamedays.matches', 'matches.gameday');
 
         // Players <-> Matches (Many-to-Many)
         // Since Match has team_a and team_b, we relate both to players.matches

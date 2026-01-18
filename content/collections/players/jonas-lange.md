@@ -1,30 +1,36 @@
 ---
-id: e1109ace-e8dd-4efe-91e0-4409edfa5fdc
+id: 53310c8d-1bd2-423a-ab69-dcff9d79112b
 blueprint: players
 title: 'Jonas Lange'
-global_elo: 1515.22
-total_games: 2
+global_elo: 1518.6
+total_games: 19
 player_status: active
 matches:
-  - a740f259-3816-4c0e-97af-b003ea32469a
-  - aec4b1f8-41ad-4659-bd04-ea469b8c9491
-  - e4833319-d75e-4740-9b7d-c096623b1a35
-  - 0109a89c-d826-415f-973b-37765ff57e53
-  - 3d42cbfb-0784-4f72-ab34-c340da2eb559
-  - bc82a74c-2f84-482b-9907-bedba77daeb3
-  - f866020d-a64c-4083-a2e6-620867b9b20b
-  - a1a1fc1c-2e55-4a78-ba96-a4c477da6f0e
-  - f3f153c1-7927-4815-9c44-e616e615331d
-  - c46d935d-4df7-45ca-8462-668faf1bf02a
-  - 81f9dae5-369b-4c5c-8eeb-fb24be9a55f2
-  - 51416036-0bae-4e63-975e-f4f7b974da9c
-  - 1d261484-08f6-41be-955c-673afdb43ea1
-  - db5e20ad-cd53-4f50-90ac-0d64eed47624
-  - c948ace8-8c3d-4c42-87f3-1bb557b8b846
-  - 413baf68-0b4c-4664-8348-76350fba3744
+  - 4cb999c7-bf60-444d-8361-dd14d07b2831
+  - 2fb33549-5835-4b04-8658-3a4931d880fd
+  - c4599714-8961-491c-8185-5e8268081e60
+  - 649ed246-e388-48f2-acf0-baeb9de7084a
+  - 369eaa8f-bc1a-4094-836a-89b2972467d2
+  - 6e2f1f97-9658-4e32-ae2c-dbbcd5e28342
+  - b83de537-6803-468b-834b-c2e578c78762
+  - e211036b-cc3d-49d4-9650-24bcadc1aa72
+  - 81c0024a-8a12-47bd-a3b3-e5bce27e74b7
+  - 572a32a2-5efa-4a99-90e4-f25f95c2ac8c
+  - 4c2bc7a0-34d0-4a13-80f2-72f15d834f91
+  - c675814b-4572-4f7e-92a9-7b2a29a6ded0
+  - 808ec85b-8b39-4ffc-b05a-4a14732822ce
+  - 420aa927-846a-4c5f-8981-2ddd884aee94
+  - 32a17c94-dbf4-4013-a3a7-451ae145e742
+  - 679e29f1-4b17-456c-8b25-05aba863ef80
+  - c5d74f68-7f36-4b75-b146-d73c3907c097
+  - f2fbfaef-3a92-4d7e-b9c3-9f006178b476
+  - 1e2dc298-2a30-44ca-b2d3-5e9be6c01604
+  - cf8d9ac3-aa16-499c-bb3a-5138fa0f5eaf
+  - fbe2a264-521d-442f-8746-dafba5cbf0d9
+  - ea203a95-899a-4c7b-aa17-401ac7ded9fb
 league_stats:
   -
     league:
-      - ed6e4b43-8de0-4c30-934c-59c37221670e
-    played_games: 1
+      - 424d0c8a-ff53-4023-95b5-76be7d34529e
+    played_games: 5
 ---

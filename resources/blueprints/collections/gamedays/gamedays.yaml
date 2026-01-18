@@ -30,7 +30,6 @@ tabs:
               collections:
                 - matches
               display: Matches
-              visibility: read_only
   sidebar:
     display: Sidebar
     sections:
@@ -52,6 +51,14 @@ tabs:
               validate:
                 - required
           -
+            handle: league
+            field:
+              max_items: 1
+              collections:
+                - leagues
+              type: entries
+              display: League
+          -
             handle: generated_plan
             field:
               type: toggle
@@ -65,14 +72,6 @@ tabs:
               display: Finished
               visibility: read_only
               width: 50
-          -
-            handle: league
-            field:
-              type: entries
-              collections:
-                - leagues
-              max_items: 1
-              display: League
           -
             handle: courts_count
             field:

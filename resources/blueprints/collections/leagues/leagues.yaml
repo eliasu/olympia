@@ -1,56 +1,66 @@
 title: Leagues
-sections:
+tabs:
   main:
     display: Main
-    fields:
+    sections:
       -
-        handle: title
-        field:
-          type: text
-          required: true
-          display: 'Season Name'
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              display: 'Season Name'
+              validate:
+                - required
+          -
+            handle: players
+            field:
+              type: entries
+              collections:
+                - players
+              display: Players
+              mode: select
+          -
+            handle: gamedays
+            field:
+              type: entries
+              collections:
+                - gamedays
+              display: Gamedays
+              listable: true
+              instructions: 'Gamedays in this league'
+  sidebar:
+    display: Sidebar
+    sections:
       -
-        handle: players
-        field:
-          type: entries
-          collections:
-            - players
-          display: Players
-          mode: select
-      -
-        handle: k_factor
-        field:
-          type: integer
-          default: 32
-          display: 'K Factor'
-          width: 33
-          instructions: 'Sensitivity of Elo updates. Higher = faster changes. Standard: 32.'
-      -
-        handle: min_game_days
-        field:
-          type: integer
-          display: 'Min Game Days for Ranking'
-          width: 33
-      -
-        handle: point_limit
-        field:
-          type: integer
-          default: 11
-          display: 'Point Limit'
-          width: 33
-      -
-        handle: win_by_two
-        field:
-          type: toggle
-          display: 'Win by Two'
-          width: 50
-      -
-        handle: gamedays
-        field:
-          type: entries
-          mode: stack
-          collections:
-            - gamedays
-          display: Gamedays
-          listable: true
-          instructions: 'Gamedays in this league'
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'
+          -
+            handle: min_game_days
+            field:
+              type: integer
+              display: 'Min Game Days for Ranking'
+          -
+            handle: point_limit
+            field:
+              type: integer
+              default: 11
+              display: 'Point Limit'
+          -
+            handle: win_by_two
+            field:
+              type: toggle
+              display: 'Win by Two'
+          -
+            handle: k_factor
+            field:
+              type: integer
+              default: 32
+              display: 'K Factor'
+              instructions: 'Sensitivity of Elo updates. Higher = faster changes. Standard: 32.'

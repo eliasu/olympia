@@ -1,75 +1,89 @@
 title: Players
-sections:
+tabs:
   main:
     display: Main
-    fields:
+    sections:
       -
-        handle: title
-        field:
-          type: text
-          required: true
-          display: Name
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              display: Name
+              validate:
+                - required
+          -
+            handle: avatar
+            field:
+              type: assets
+              max_files: 1
+              display: Avatar
+              container: assets
+          -
+            handle: global_elo
+            field:
+              type: float
+              default: 1500
+              display: 'Global Elo'
+              width: 33
+          -
+            handle: player_status
+            field:
+              type: select
+              options:
+                active: Active
+                inactive: Inactive
+              default: active
+              display: 'Player Status'
+              width: 33
+          -
+            handle: total_games
+            field:
+              type: integer
+              default: 0
+              display: 'Total Games'
+              width: 33
+          -
+            handle: league_stats
+            field:
+              type: grid
+              display: 'League Stats (Cached)'
+              visibility: read_only
+              reorderable: false
+              add_row: false
+              delete_row: false
+              fields:
+                -
+                  handle: league
+                  field:
+                    type: entries
+                    collections:
+                      - leagues
+                    max_items: 1
+                    display: League
+                -
+                  handle: played_games
+                  field:
+                    type: integer
+                    display: 'Played Games'
+          -
+            handle: matches
+            field:
+              type: entries
+              collections:
+                - matches
+              display: Matches
+              listable: true
+              visibility: read_only
+  sidebar:
+    display: Sidebar
+    sections:
       -
-        handle: avatar
-        field:
-          type: assets
-          max_files: 1
-          display: Avatar
-          container: assets
-      -
-        handle: global_elo
-        field:
-          type: float
-          default: 1500
-          display: 'Global Elo'
-          width: 50
-      -
-        handle: total_games
-        field:
-          type: integer
-          default: 0
-          display: 'Total Games'
-          width: 50
-
-      -
-        handle: league_stats
-        field:
-          type: grid
-          display: 'League Stats (Cached)'
-          visibility: read_only
-          fields:
-            -
-              handle: league
-              field:
-                type: entries
-                collections:
-                  - leagues
-                max_items: 1
-                display: League
-            -
-              handle: played_games
-              field:
-                type: integer
-                display: 'Played Games'
-          mode: table
-          reorderable: false
-          add_row: false
-          delete_row: false
-      -
-        handle: player_status
-        field:
-          type: select
-          options:
-            active: Active
-            inactive: Inactive
-          default: active
-          display: 'Player Status'
-          width: 50
-      -
-        handle: matches
-        field:
-          type: entries
-          collections:
-            - matches
-          display: Matches
-          listable: true
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'

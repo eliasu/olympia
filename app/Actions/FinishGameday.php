@@ -26,34 +26,37 @@ class FinishGameday extends Action
     {
         $service = new \App\Services\LeagueService();
         
-        $entry = $items->first();
+        $successCount = 0;
+        $errors = [];
         
-        if (!$entry || $entry->collection()->handle() !== 'gamedays') {
-            return;
-        }
-
-        try {
-            $entry = $items->first();
-            
-            if (!$entry->get('generated_plan')) {
-                return ['error' => 'Zuerst muss ein Plan generiert werden.'];
-            }
-            
-            if ($entry->get('is_finished')) {
-                return ['error' => 'Spieltag ist bereits abgeschlossen.'];
+        foreach ($items as $entry) {
+            if (!$entry || $entry->collection()->handle() !== 'gamedays') {
+                continue;
             }
 
-            $service->finalizeGameday($entry->id());
-            
-            return [
-                'success' => true,
-                'message' => 'Spieltag beendet und Elos berechnet.',
-                'redirect' => $entry->editUrl()
-            ];
-            
-        } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error('FinishGameday Action Failed: ' . $e->getMessage());
-            return ['error' => 'Fehler beim Beenden: ' . $e->getMessage()];
+            // ONLY execute on entries where is_finished is false AND plan generated is true
+            if ($entry->get('is_finished') || !$entry->get('generated_plan')) {
+                continue;
+            }
+
+            try {
+                $service->finalizeGameday($entry->id());
+                $successCount++;
+            } catch (\Exception $e) {
+                \Illuminate\Support\Facades\Log::error('FinishGameday Action Failed: ' . $e->getMessage());
+                $errors[] = "{$entry->get('title')}: " . $e->getMessage();
+            }
         }
+        
+        // Build response message
+        $message = "Spieltag beendet für {$successCount} Gameday(s).";
+        if (count($errors) > 0) {
+            $message .= " Fehler: " . implode(', ', $errors);
+        }
+        
+        return [
+            'success' => $successCount > 0,
+            'message' => $message
+        ];
     }
 }

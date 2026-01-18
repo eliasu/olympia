@@ -8,17 +8,18 @@ preferences:
       after_save: continue_editing
       columns:
         - title
-        - gamedays
         - slug
+        - players
     gamedays:
       columns:
         - title
         - date
+        - league
         - is_finished
         - generated_plan
         - courts_count
         - games_per_court
-        - league
+      after_save: continue_editing
     matches:
       columns:
         - title
@@ -31,5 +32,6 @@ preferences:
     players:
       columns:
         - title
+        - avatar
         - global_elo
         - player_status

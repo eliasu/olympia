@@ -26,30 +26,37 @@ class GeneratePlan extends Action
     {
         $service = new \App\Services\LeagueService();
         
-        // We expect this action to be run on a single Gameday entry
-        $entry = $items->first();
+        $successCount = 0;
+        $errors = [];
         
-        if (!$entry || $entry->collection()->handle() !== 'gamedays') {
-            return; // Should only run on gamedays
-        }
-
-        try {
-            $entry = $items->first();
-            if ($entry->get('generated_plan')) {
-                 return ['error' => 'Plan existiert bereits!'];
+        foreach ($items as $entry) {
+            if (!$entry || $entry->collection()->handle() !== 'gamedays') {
+                continue;
             }
 
-            $matches = $service->generateGamedayPlan($entry->id());
-            
-            return [
-                'success' => true,
-                'message' => 'Spielplan erfolgreich generiert. ' . count($matches) . ' Matches erstellt.',
-                'redirect' => $entry->editUrl()
-            ];
-            
-        } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error('GeneratePlan Action Failed: ' . $e->getMessage());
-            return ['error' => 'Fehler beim Generieren: ' . $e->getMessage()];
+            // ONLY execute on entries where plan generated is false
+            if ($entry->get('generated_plan')) {
+                continue;
+            }
+
+            try {
+                $service->generateGamedayPlan($entry->id());
+                $successCount++;
+            } catch (\Exception $e) {
+                \Illuminate\Support\Facades\Log::error('GeneratePlan Action Failed: ' . $e->getMessage());
+                $errors[] = "{$entry->get('title')}: " . $e->getMessage();
+            }
         }
+        
+        // Build response message
+        $message = "Spielplan generiert für {$successCount} Gameday(s).";
+        if (count($errors) > 0) {
+            $message .= " Fehler: " . implode(', ', $errors);
+        }
+        
+        return [
+            'success' => $successCount > 0,
+            'message' => $message
+        ];
     }
 }
