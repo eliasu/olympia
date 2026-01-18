@@ -17,9 +17,8 @@
                 <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white">{{ title }}</h1>
                 <div class="flex items-center justify-center md:justify-start gap-2 mt-1">
                     <span class="px-2 py-0.5 rounded text-xs font-semibold bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 uppercase tracking-wide">
-                        {{ player_status label="true" }}
+                        {{ player_status }}
                     </span>
-                    <span class="text-gray-500 dark:text-gray-400 text-sm">Mitglied seit {{ date format="Y" }}</span>
                 </div>
             </div>
 
@@ -110,21 +109,21 @@
                             <div>
                                 {{ if is_played }}
                                     <!-- Determine Win/Loss for Current Player (View ID) -->
-                                    {{ if team_a | contains(page:id) }}
+                                    {{ if team_a | pluck('id') | contains(page:id) }}
                                         {{ if score_a > score_b }}
                                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Sieg</span>
                                         {{ elseif score_a < score_b }}
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">Niederlage</span>
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">Lost</span>
                                         {{ else }}
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">Unentschieden</span>
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">Draw</span>
                                         {{ /if }}
                                     {{ else }}
                                         {{ if score_b > score_a }}
                                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Sieg</span>
                                         {{ elseif score_b < score_a }}
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">Niederlage</span>
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">Lost</span>
                                         {{ else }}
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">Unentschieden</span>
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">Draw</span>
                                         {{ /if }}
                                     {{ /if }}
                                 {{ else }}

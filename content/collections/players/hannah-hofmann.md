@@ -6,9 +6,6 @@ global_elo: 1496.06
 total_games: 15
 player_status: active
 matches:
-  - bcb53668-5be3-43f5-b802-3a35819de3fb
-  - 92c9188f-e1a5-409e-a34b-ae11dbfbfe3d
-  - 06b25130-c41d-4088-a198-40e0af8edd52
   - fc6d69b8-e8e5-4496-bf87-59fb11302b10
   - 46d71935-0fd0-4b96-8bee-572aacfdd154
   - d94bdf53-3b3e-421a-9a69-9ef21c46df1a

@@ -28,6 +28,7 @@ preferences:
         - team_b
         - score_b
         - is_played
+        - gameday
       per_page: 500
     players:
       columns:
