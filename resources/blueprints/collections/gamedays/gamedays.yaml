@@ -1,0 +1,89 @@
+title: Gamedays
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              display: Title
+              instructions: 'Typically "LeagueName - Date"'
+              validate:
+                - required
+          -
+            handle: present_players
+            field:
+              type: entries
+              collections:
+                - players
+              display: 'Present Players'
+              mode: select
+          -
+            handle: matches
+            field:
+              type: entries
+              mode: stack
+              collections:
+                - matches
+              display: Matches
+              visibility: read_only
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'
+          -
+            handle: date
+            field:
+              type: date
+              required: true
+              default: now
+              display: Date
+              validate:
+                - required
+          -
+            handle: generated_plan
+            field:
+              type: toggle
+              display: 'Plan Generated'
+              visibility: read_only
+              width: 50
+          -
+            handle: is_finished
+            field:
+              type: toggle
+              display: Finished
+              visibility: read_only
+              width: 50
+          -
+            handle: league
+            field:
+              type: entries
+              collections:
+                - leagues
+              max_items: 1
+              display: League
+          -
+            handle: courts_count
+            field:
+              type: integer
+              display: 'Courts Count'
+              validate:
+                - required
+          -
+            handle: games_per_court
+            field:
+              type: integer
+              display: 'Games per Court'
+              validate:
+                - required

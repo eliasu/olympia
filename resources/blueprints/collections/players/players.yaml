@@ -30,13 +30,31 @@ sections:
           default: 0
           display: 'Total Games'
           width: 50
+
       -
-        handle: played_game_days
+        handle: league_stats
         field:
-          type: integer
-          default: 0
-          display: 'Played Game Days'
-          width: 50
+          type: grid
+          display: 'League Stats (Cached)'
+          visibility: read_only
+          fields:
+            -
+              handle: league
+              field:
+                type: entries
+                collections:
+                  - leagues
+                max_items: 1
+                display: League
+            -
+              handle: played_games
+              field:
+                type: integer
+                display: 'Played Games'
+          mode: table
+          reorderable: false
+          add_row: false
+          delete_row: false
       -
         handle: player_status
         field:

@@ -6,3 +6,29 @@ preferences:
   collections:
     leagues:
       after_save: continue_editing
+      columns:
+        - title
+        - gamedays
+        - slug
+    gamedays:
+      columns:
+        - title
+        - date
+        - is_finished
+        - generated_plan
+        - courts_count
+        - games_per_court
+        - league
+    matches:
+      columns:
+        - title
+        - team_a
+        - score_a
+        - team_b
+        - score_b
+        - is_played
+    players:
+      columns:
+        - title
+        - global_elo
+        - player_status

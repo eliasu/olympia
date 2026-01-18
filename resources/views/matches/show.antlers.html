@@ -1,0 +1,98 @@
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    
+    <!-- Breadcrumb -->
+    <div class="text-center mb-8">
+        <a href="{{ gameday:url }}" class="text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 block mb-2">
+            &larr; Zurück zum Spieltag ({{ gameday:title }})
+        </a>
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-white">{{ title }}</h1>
+        <p class="text-gray-500 dark:text-gray-400">{{ gameday:league:title }}</p>
+    </div>
+
+    <!-- Scoreboard Card -->
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-700">
+        
+        <!-- Status Bar -->
+        <div class="bg-gray-50 dark:bg-gray-900/50 px-6 py-3 text-center border-b border-gray-100 dark:border-gray-700">
+             {{ if is_played }}
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 uppercase tracking-widest">
+                    Beendet
+                </span>
+                {{ if elo_delta }}
+                    <span class="ml-2 text-xs font-mono text-gray-500">Elo Impact: +/- {{ elo_delta | round(1) }}</span>
+                {{ /if }}
+             {{ else }}
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200 uppercase tracking-widest animate-pulse">
+                    Live / Offen
+                </span>
+             {{ /if }}
+        </div>
+
+        <div class="p-8 md:p-12">
+            <div class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
+                
+                <!-- Team A -->
+                <div class="flex-1 text-center">
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Team A</h2>
+                    <div class="flex justify-center -space-x-4 mb-6">
+                        {{ team_a }}
+                            <a href="{{ url }}" class="block relative z-10 hover:z-20 transform hover:scale-105 transition-all">
+                                <div class="h-16 w-16 md:h-20 md:w-20 rounded-full ring-4 ring-white dark:ring-gray-800 bg-gradient-to-tr from-blue-400 to-blue-600 flex items-center justify-center text-white text-xl font-bold shadow-lg">
+                                    {{ if avatar }}
+                                        <img src="{{ avatar }}" class="h-full w-full object-cover rounded-full">
+                                    {{ else }}
+                                        {{ title | substr(0,1) }}
+                                    {{ /if }}
+                                </div>
+                                <div class="mt-2 text-sm font-medium text-gray-900 dark:text-white truncate w-20 mx-auto">{{ title }}</div>
+                            </a>
+                        {{ /team_a }}
+                    </div>
+                </div>
+
+                <!-- Score -->
+                <div class="flex items-center gap-4">
+                    <div class="text-5xl md:text-7xl font-black {{ if score_a > score_b }}text-gray-900 dark:text-white{{ else }}text-gray-400 dark:text-gray-500{{ /if }}">
+                        {{ score_a ?? '-' }}
+                    </div>
+                    <div class="text-3xl text-gray-300 dark:text-gray-600 font-light">:</div>
+                    <div class="text-5xl md:text-7xl font-black {{ if score_b > score_a }}text-gray-900 dark:text-white{{ else }}text-gray-400 dark:text-gray-500{{ /if }}">
+                        {{ score_b ?? '-' }}
+                    </div>
+                </div>
+
+                <!-- Team B -->
+                <div class="flex-1 text-center">
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Team B</h2>
+                    <div class="flex justify-center -space-x-4 mb-6">
+                        {{ team_b }}
+                            <a href="{{ url }}" class="block relative z-10 hover:z-20 transform hover:scale-105 transition-all">
+                                <div class="h-16 w-16 md:h-20 md:w-20 rounded-full ring-4 ring-white dark:ring-gray-800 bg-gradient-to-tr from-red-400 to-red-600 flex items-center justify-center text-white text-xl font-bold shadow-lg">
+                                    {{ if avatar }}
+                                        <img src="{{ avatar }}" class="h-full w-full object-cover rounded-full">
+                                    {{ else }}
+                                        {{ title | substr(0,1) }}
+                                    {{ /if }}
+                                </div>
+                                <div class="mt-2 text-sm font-medium text-gray-900 dark:text-white truncate w-20 mx-auto">{{ title }}</div>
+                            </a>
+                        {{ /team_b }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+        {{ if elo_delta }}
+        <div class="bg-indigo-50 dark:bg-indigo-900/20 p-6 text-center border-t border-indigo-100 dark:border-indigo-800/50">
+            <h3 class="text-sm font-bold text-indigo-900 dark:text-indigo-200 uppercase tracking-wide mb-2">Auswirkung auf das Ranking</h3>
+            <p class="text-indigo-700 dark:text-indigo-300">
+                Die Gewinner erhalten je <span class="font-bold">+{{ elo_delta | round(1) }}</span> Punkte.
+                <br>
+                Die Verlierer geben je <span class="font-bold">{{ elo_delta | round(1)}}</span> Punkte ab.
+            </p>
+        </div>
+        {{ /if }}
+    </div>
+
+</div>

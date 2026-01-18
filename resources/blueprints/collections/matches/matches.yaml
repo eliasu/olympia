@@ -1,61 +1,86 @@
 title: Matches
-sections:
+tabs:
   main:
     display: Main
-    fields:
+    sections:
       -
-        handle: title
-        field:
-          type: text
-          required: true
-          display: Title
-          instructions: 'Auto-generated title'
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              display: Title
+              instructions: 'Auto-generated title'
+              validate:
+                - required
+          -
+            handle: gameday
+            field:
+              type: entries
+              collections:
+                - gamedays
+              max_items: 1
+              display: Gameday
+              mode: select
+          -
+            handle: team_a
+            field:
+              type: entries
+              collections:
+                - players
+              max_items: 2
+              display: 'Team A'
+              width: 50
+              mode: select
+          -
+            handle: team_b
+            field:
+              type: entries
+              collections:
+                - players
+              max_items: 2
+              display: 'Team B'
+              width: 50
+              mode: select
+          -
+            handle: score_a
+            field:
+              type: integer
+              display: 'Score A'
+              width: 50
+          -
+            handle: score_b
+            field:
+              type: integer
+              display: 'Score B'
+              width: 50
+          -
+            handle: elo_delta
+            field:
+              type: float
+              display: 'Elo Delta'
+          -
+            handle: is_played
+            field:
+              type: toggle
+              display: 'Is Played'
+  sidebar:
+    display: Sidebar
+    sections:
       -
-        handle: session
-        field:
-          type: entries
-          collections:
-            - sessions
-          max_items: 1
-          display: Session
-      -
-        handle: team_a
-        field:
-          type: entries
-          collections:
-            - players
-          max_items: 2
-          display: 'Team A'
-          width: 50
-      -
-        handle: team_b
-        field:
-          type: entries
-          collections:
-            - players
-          max_items: 2
-          display: 'Team B'
-          width: 50
-      -
-        handle: score_a
-        field:
-          type: integer
-          display: 'Score A'
-          width: 50
-      -
-        handle: score_b
-        field:
-          type: integer
-          display: 'Score B'
-          width: 50
-      -
-        handle: elo_delta
-        field:
-          type: float
-          display: 'Elo Delta'
-      -
-        handle: is_played
-        field:
-          type: toggle
-          default: false
-          display: 'Is Played'
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'
+          -
+            handle: date
+            field:
+              type: date
+              required: true
+              default: now
+              validate:
+                - required

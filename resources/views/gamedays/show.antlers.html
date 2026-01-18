@@ -1,0 +1,128 @@
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    
+    <!-- Header -->
+    <div class="mb-8 border-b border-gray-200 dark:border-gray-700 pb-8">
+        <a href="{{ league:url }}" class="text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 mb-2 inline-block">&larr; {{ league:title }}</a>
+        <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">{{ title }}</h1>
+        <p class="text-gray-500 dark:text-gray-400 mt-1">{{ date format="l, d. F Y" }}</p>
+        
+        <!-- Status Badge -->
+        <div class="mt-4">
+            {{ if is_finished }}
+                <span class="inline-flex items-center px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 font-bold border border-gray-200 dark:border-gray-700">
+                    Spieltag abgeschlossen
+                </span>
+            {{ elseif generated_plan }}
+                <span class="inline-flex items-center px-3 py-1 rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 font-bold">
+                    Plan erstellt
+                </span>
+            {{ else }}
+                <span class="inline-flex items-center px-3 py-1 rounded-full bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 font-bold">
+                    Entwurf
+                </span>
+            {{ /if }}
+        </div>
+    </div>
+
+<script>
+async function saveScore(matchId, scoreA, scoreB) {
+    if(scoreA === '' || scoreB === '') return;
+    
+    try {
+        const res = await fetch('/league/update-score', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({ 
+                match_id: matchId, 
+                score_a: scoreA, 
+                score_b: scoreB 
+            })
+        });
+        const data = await res.json();
+        if(data.success) {
+            // Optional: Show success indicator
+            console.log('Score saved successfully');
+        } else {
+            alert('Fehler beim Speichern');
+        }
+    } catch(e) {
+        alert('Netzwerkfehler beim Speichern');
+    }
+}
+</script>
+    <!-- Matches List -->
+    <div x-show="generatedPlan" x-transition class="space-y-6">
+        
+        <h2 class="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+            Matches
+            <span class="text-sm font-normal text-gray-400">({{ matches | count }})</span>
+        </h2>
+
+        {{ matches }}
+        <div class="bg-white dark:bg-gray-800 shadow-sm rounded-xl border border-gray-200 dark:border-gray-700 p-6 flex flex-col md:flex-row items-center justify-between gap-6">
+            
+            <!-- Team A -->
+            <div class="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
+                <div class="font-bold text-gray-900 dark:text-white mb-2">Team A</div>
+                <div class="flex -space-x-2">
+                    {{ team_a }}
+                        <div title="{{ title }}" class="h-10 w-10 rounded-full ring-2 ring-white dark:ring-gray-800 bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white text-xs font-bold shadow-md cursor-help">
+                            {{ title | substr(0,1) }}
+                        </div>
+                    {{ /team_a }}
+                </div>
+                <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                    {{ team_a:title | list }}
+                </div>
+            </div>
+
+            <!-- Score Input -->
+            <div class="flex items-center gap-4 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg">
+                <input 
+                    type="number" 
+                    value="{{ score_a }}"
+                    onchange="saveScore('{{ id }}', this.value, document.getElementById('score_b_{{ id }}').value)"
+                    {{ if is_finished }}disabled{{ /if }}
+                    class="w-16 text-center text-2xl font-bold rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-50"
+                    placeholder="-"
+                >
+                <span class="text-gray-400 font-bold">:</span>
+                <input 
+                    type="number" 
+                    id="score_b_{{ id }}"
+                    value="{{ score_b }}"
+                    onchange="saveScore('{{ id }}', document.querySelector('input[onchange*=\'{{ id }}\']').value, this.value)"
+                    {{ if is_finished }}disabled{{ /if }}
+                    class="w-16 text-center text-2xl font-bold rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-50"
+                    placeholder="-"
+                >
+            </div>
+
+            <!-- Team B -->
+            <div class="flex-1 flex flex-col items-center md:items-end text-center md:text-right">
+                <div class="font-bold text-gray-900 dark:text-white mb-2">Team B</div>
+                <div class="flex -space-x-2 flex-row-reverse space-x-reverse">
+                    {{ team_b }}
+                        <div title="{{ title }}" class="h-10 w-10 rounded-full ring-2 ring-white dark:ring-gray-800 bg-gradient-to-br from-red-400 to-red-600 flex items-center justify-center text-white text-xs font-bold shadow-md cursor-help">
+                            {{ title | substr(0,1) }}
+                        </div>
+                    {{ /team_b }}
+                </div>
+                <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                    {{ team_b:title | list }}
+                </div>
+            </div>
+
+        </div>
+        {{ /matches }}
+        
+        {{ if !matches }}
+            <div class="p-12 text-center text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-800/50 rounded-xl border-2 border-dashed border-gray-200 dark:border-gray-700">
+                Noch keine Matches generiert.
+            </div>
+        {{ /if }}
+
+</div>

@@ -24,6 +24,7 @@ sections:
           default: 32
           display: 'K Factor'
           width: 33
+          instructions: 'Sensitivity of Elo updates. Higher = faster changes. Standard: 32.'
       -
         handle: min_game_days
         field:
@@ -44,19 +45,12 @@ sections:
           display: 'Win by Two'
           width: 50
       -
-        handle: mixed_days_count
-        field:
-          type: integer
-          display: 'Mixed Days Count'
-          width: 50
-          instructions: 'How many days at the start are random/mixed before sorting by Elo.'
-      -
-        handle: sessions
+        handle: gamedays
         field:
           type: entries
           mode: stack
           collections:
-            - sessions
-          display: Sessions
+            - gamedays
+          display: Gamedays
           listable: true
-          instructions: 'Sessions/Days in this league'
+          instructions: 'Gamedays in this league'

@@ -1,0 +1,6 @@
+title: Gamedays
+template: gamedays/show
+revisions: false
+route: '/gamedays/{slug}'
+date: true
+sort_dir: desc

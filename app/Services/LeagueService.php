@@ -10,51 +10,50 @@ use Illuminate\Support\Facades\Log;
 class LeagueService
 {
     protected $league;
-    protected $session;
-
+    protected $gameday;
+    
     /**
-     * Generate a session plan (matchmaking).
+     * Generate a gameday plan (matchmaking).
      *
-     * @param string $sessionId
+     * @param string $gamedayId
      * @return array Matches created
      */
-    public function generateSessionPlan($sessionId)
+    public function generateGamedayPlan($gamedayId)
     {
-        $session = Entry::find($sessionId);
-        if (!$session) {
-            throw new \Exception("Session not found");
+        $gameday = Entry::find($gamedayId);
+        if (!$gameday) {
+            throw new \Exception("Gameday not found");
+        }
+        
+        // Check if plan already generated
+        if ($gameday->get('generated_plan')) {
+            throw new \Exception('Plan wurde bereits generiert. Bitte Gameday zurücksetzen, falls nötig.');
         }
 
-        $league = Entry::find($session->get('league'));
+        $leagueId = $gameday->get('league');
+        if (is_array($leagueId)) {
+            $leagueId = reset($leagueId);
+        }
+        
+        $league = Entry::find($leagueId);
         if (!$league) {
             throw new \Exception("League not found");
         }
 
-        $presentPlayerIds = $session->get('present_players', []);
+        $presentPlayerIds = $gameday->get('present_players', []);
         $players = collect($presentPlayerIds)->map(function ($id) {
             return Entry::find($id);
         })->filter();
 
-        $courtsCount = $session->get('courts_count');
-        $gamesPerCourt = $session->get('games_per_court');
+        $courtsCount = $gameday->get('courts_count');
+        $gamesPerCourt = $gameday->get('games_per_court');
         
         // Total slots available = Courts * Games * 4 (since doubles)
         $totalGames = $courtsCount * $gamesPerCourt;
         // In a perfect world, we have 4 players per game.
         
-        // Determine current status of league for "Fair" vs "Mixed"
-        // Check how many sessions have happened in this league before today.
-        // For simplicity, we can just check the league 'mixed_days_count' against
-        // the number of finished sessions or just passed days.
-        // Let's assume we rely on the session date or counting finished sessions.
-        
-        $finishedSessions = Entry::query()
-            ->where('collection', 'sessions')
-            ->where('league', $league->id())
-            ->where('is_finished', true)
-            ->count();
-            
-        $isMixedMode = $finishedSessions < $league->get('mixed_days_count', 0);
+        // Matchmaking: Pure "Power Pairing"
+        // Always try to balance games by Elo. If Elos are equal, random is fine (shimmed by sort stability or explicit shuffle).
 
         // --- Matchmaking Logic (Simplified for Pre-Generation) --- 
         // 1. Sort players to prioritize those with fewer total_games if needed, 
@@ -87,65 +86,96 @@ class LeagueService
             
             // Increment their games count
             $candidates->each(function($c, $key) use ($playerStats) {
-                $playerStats[$key]['games_today']++;
+                // Fix: Indirect modification of overloaded element error
+                // We must explicitly get, modify, and set the value for Collections of arrays
+                $stats = $playerStats[$key];
+                $stats['games_today']++;
+                $playerStats[$key] = $stats;
             });
             
             $selectedIds = $candidates->pluck('id');
             $selectedPlayersStats = $candidates->values();
 
             // Pair them
-            if ($isMixedMode) {
-                // Random pairs
-                $shuffled = $selectedPlayersStats->shuffle();
-                $teamA = $shuffled->take(2);
-                $teamB = $shuffled->slice(2, 2);
+            // Pair them using Power Pairing
+            // Goal: Minimize difference between (Elo A + Elo B) and (Elo C + Elo D)
+            // Strategy: Sort 4 players by Elo.
+            // Best balance is usually (Strongest + Weakest) vs (2nd Strongest + 2nd Weakest)
+            // i.e., (1st + 4th) vs (2nd + 3rd)
+            
+            // Randomize first to ensure if Elos are identical, we get random pairs
+            $candidates = $candidates->shuffle(); 
+            
+            // Sort by Elo descending
+            $sortedElo = $candidates->sortByDesc('elo')->values();
+            
+            // Check if we have variance. If all Elos are effectively same, just take random shuffle from above.
+            if ($sortedElo->first()['elo'] - $sortedElo->last()['elo'] < 1.0) {
+                 // Random pairing
+                $teamA = $candidates->take(2);
+                $teamB = $candidates->slice(2, 2);
             } else {
-                // Fair pairing: Try to balance Elo
-                // Sort 4 players by Elo
-                $sortedElo = $selectedPlayersStats->sortBy('elo')->values();
-                // Strongest + Weakest vs Middle two is usually a good balance strategy
-                // Or (1 & 4) vs (2 & 3)
+                 // Power Pairing: (1, 4) vs (2, 3)
                 $teamA = collect([$sortedElo[0], $sortedElo[3]]);
                 $teamB = collect([$sortedElo[1], $sortedElo[2]]);
             }
 
             // Create Match Entry
+            $matchTitle = $gameday->get('title') . ' - Match ' . ($i + 1);
+            
             $match = Entry::make()
                 ->collection('matches')
-                ->slug('match-' . $sessionId . '-' . ($i + 1))
+                ->slug('match-' . $gamedayId . '-' . ($i + 1))
                 ->data([
-                    'title' => 'Match ' . ($i + 1),
-                    'session' => $sessionId,
+                    'title' => $matchTitle,
                     'team_a' => $teamA->pluck('id')->all(),
                     'team_b' => $teamB->pluck('id')->all(),
                     'is_played' => false,
                 ]);
             
+            // Explicitly set relationship field
+            $match->set('gameday', [$gamedayId]);
+            
             $match->save();
             $matchesToCreate[] = $match->id();
         }
-
-        // Link matches to session? Not strictly necessary if matches have session_id, 
-        // but session blueprint has generated_matches field? No, I put generated_matches as "Link to Matches" in prompt but created "Matches" with session_id.
-        // Let's stick to querying Matches by session_id.
         
+        // Lock the gameday and save matches
+        $gameday->set('generated_plan', true);
+        $gameday->set('matches', $matchesToCreate);
+        $gameday->save();
+
         return $matchesToCreate;
     }
 
     /**
-     * Finalize the session: Update Elo.
+     * Finalize the gameday: Update Elo.
      * 
-     * @param string $sessionId
+     * @param string $gamedayId
      */
-    public function finalizeSession($sessionId)
+    public function finalizeGameday($gamedayId)
     {
-        $session = Entry::find($sessionId);
-        $league = Entry::find($session->get('league'));
+        $gameday = Entry::find($gamedayId);
+        
+        if (!$gameday->get('generated_plan')) {
+             throw new \Exception('Es wurde noch kein Plan generiert.');
+        }
+        
+        if ($gameday->get('is_finished')) {
+             throw new \Exception('Gameday ist bereits abgeschlossen.');
+        }
+
+        $leagueId = $gameday->get('league');
+        if (is_array($leagueId)) {
+            $leagueId = reset($leagueId);
+        }
+
+        $league = Entry::find($leagueId);
         $kFactor = $league->get('k_factor', 32);
         
         $matches = Entry::query()
             ->where('collection', 'matches')
-            ->where('session', $sessionId)
+            ->where('gameday', $gamedayId)
             ->where('is_played', true)
             ->get();
             
@@ -153,10 +183,74 @@ class LeagueService
             $this->processMatchElo($match, $kFactor);
         }
         
-        $session->set('is_finished', true);
-        $session->save();
+        $gameday->set('is_finished', true);
+        $gameday->save();
+        
+        // Update cached stats for all present players
+        $presentPlayers = $gameday->get('present_players', []);
+        foreach ($presentPlayers as $playerId) {
+            $this->updatePlayerLeagueStats($playerId);
+        }
     }
     
+    /**
+     * Update cached league stats on the player entry.
+     * 
+     * @param string $playerId
+     */
+    public function updatePlayerLeagueStats($playerId)
+    {
+        $player = Entry::find($playerId);
+        if (!$player) return;
+
+        // Find all finished gamedays where player was present
+        $gamedays = Entry::query()
+            ->where('collection', 'gamedays')
+            ->where('is_finished', true)
+            ->whereJsonContains('present_players', $playerId)
+            ->get();
+            
+        // Group by league and count
+        $statsByLeague = $gamedays->groupBy(fn($day) => $day->get('league'))->map->count();
+        
+        // Build Grid data
+        $gridData = [];
+        foreach ($statsByLeague as $leagueId => $count) {
+             // Verify league exists
+             if (Entry::find($leagueId)) {
+                $gridData[] = [
+                    'league' => [$leagueId],
+                    'played_games' => $count
+                ];
+             }
+        }
+        
+        $player->set('league_stats', $gridData);
+        $player->save();
+    }
+    
+    /**
+     * Get stats for a player in a specific league.
+     * 
+     * @param string $playerId
+     * @param string $leagueId
+     * @return array {played_games: int}
+     */
+    public function getPlayerLeagueStats($playerId, $leagueId)
+    {
+        // Count finished gamedays in this league where player was present
+        $playedDays = Entry::query()
+            ->where('collection', 'gamedays')
+            ->where('league', $leagueId)
+            ->where('is_finished', true)
+            ->whereJsonContains('present_players', $playerId)
+            ->count();
+            
+        return [
+            'played_game_days' => $playedDays,
+        ];
+    }
+
     protected function processMatchElo($match, $kFactor)
     {
         // Don't re-process if already has delta? Or maybe we assume safe to recalculate.
@@ -202,14 +296,14 @@ class LeagueService
         // Update Players
         foreach ($teamAPlayers as $player) {
             $newElo = $player->get('global_elo', 1500) + $delta;
-            $player->set('global_elo', $newElo);
+            $player->set('global_elo', round($newElo, 2));
             $player->set('total_games', $player->get('total_games', 0) + 1);
             $player->save();
         }
         
         foreach ($teamBPlayers as $player) {
             $newElo = $player->get('global_elo', 1500) - $delta;
-            $player->set('global_elo', $newElo);
+            $player->set('global_elo', round($newElo, 2));
             $player->set('total_games', $player->get('total_games', 0) + 1);
             $player->save();
         }

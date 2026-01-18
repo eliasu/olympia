@@ -17,9 +17,9 @@ class LeagueController extends Controller
 
     public function generatePlan(Request $request)
     {
-        $sessionId = $request->input('session_id');
+        $gamedayId = $request->input('gameday_id');
         try {
-            $matches = $this->service->generateSessionPlan($sessionId);
+            $matches = $this->service->generateGamedayPlan($gamedayId);
             return response()->json(['success' => true, 'matches' => $matches]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()], 400);
@@ -46,24 +46,24 @@ class LeagueController extends Controller
     }
     
     public function updatePlayers(Request $request) {
-        $sessionId = $request->input('session_id');
+        $gamedayId = $request->input('gameday_id');
         $players = $request->input('players', []);
         
-        $session = Entry::find($sessionId);
-        if (!$session) {
+        $gameday = Entry::find($gamedayId);
+        if (!$gameday) {
             return response()->json(['success' => false], 404);
         }
         
-        $session->set('present_players', $players);
-        $session->save();
+        $gameday->set('present_players', $players);
+        $gameday->save();
         
         return response()->json(['success' => true]);
     }
 
-    public function finishSession(Request $request) {
-        $sessionId = $request->input('session_id');
+    public function finishGameday(Request $request) {
+        $gamedayId = $request->input('gameday_id');
         try {
-            $this->service->finalizeSession($sessionId);
+            $this->service->finalizeGameday($gamedayId);
             return response()->json(['success' => true]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()], 400);
