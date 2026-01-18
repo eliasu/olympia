@@ -85,15 +85,32 @@ class FillScores extends Command
                     continue;
                 }
                 
-                // Generate random scores (realistic pickleball scores)
-                if (rand(0, 1) === 0) {
-                    // Team A wins
+                // 1. Calculate Team Elos
+                $teamAIds = (array) $match->get('team_a');
+                $teamBIds = (array) $match->get('team_b');
+                
+                $eloA = collect($teamAIds)->avg(fn($id) => (float) (Entry::find($id)?->get('global_elo') ?? 1500));
+                $eloB = collect($teamBIds)->avg(fn($id) => (float) (Entry::find($id)?->get('global_elo') ?? 1500));
+                
+                // 2. Calculate Winning Probability for Team A
+                $probabilityA = 1 / (1 + pow(10, ($eloB - $eloA) / 400));
+                
+                // 3. Determine Winner based on probability
+                $aWins = (rand(0, 1000) / 1000) <= $probabilityA;
+                
+                // 4. Generate realistic scores based on probability
+                // The higher the probability, the more dominant the score usually is.
+                $dominance = abs($probabilityA - 0.5) * 2; // 0 (equal) to 1 (totally dominant)
+                
+                if ($aWins) {
                     $scoreA = rand(11, 15);
-                    $scoreB = rand(0, min($scoreA - 2, 13));
+                    // Higher dominance = lower score for loser
+                    $maxLoserScore = (int) max(0, min($scoreA - 2, 9 - ($dominance * 8)));
+                    $scoreB = rand(0, $maxLoserScore);
                 } else {
-                    // Team B wins
                     $scoreB = rand(11, 15);
-                    $scoreA = rand(0, min($scoreB - 2, 13));
+                    $maxLoserScore = (int) max(0, min($scoreB - 2, 9 - ($dominance * 8)));
+                    $scoreA = rand(0, $maxLoserScore);
                 }
                 
                 $match->set('score_a', $scoreA);

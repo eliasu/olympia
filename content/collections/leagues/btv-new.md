@@ -9,18 +9,12 @@ win_by_two: true
 updated_by: 1861c4a9-8873-459c-97ce-38d399b7ed46
 updated_at: 1768770283
 gamedays:
-  - 673ef6bc-a6f6-4095-83c0-3d82e88685aa
-  - 23cd328c-c081-4b9f-a082-2cdd0441d091
-  - 01c6f64f-497f-49f5-ad90-f1ecefff6a64
-  - b57f59f1-be6c-411e-8cb7-1a70215519bb
-  - ab95fcdd-8d8d-4ff0-b816-62b7c88abeb7
-  - f0969375-0e8f-4cd8-8118-18eafdf64a8e
-  - b3af8c52-39a9-4315-bd53-442043d31fa1
-  - 1d4bdf3c-1ba4-4f74-812d-f7e670198ac6
-  - fd90f930-ef81-4ddd-9a79-e222689c31a4
-  - ef8aabe5-7b12-4e4a-98ec-3b44dbc7274b
-  - 9c413c32-9331-48c9-92ba-9787a9580dc6
-  - bdf567d9-50f6-449f-aecd-7b52eb14603d
-  - 16c3dcf9-afce-4a28-a2f9-f01ff4184d26
-  - 9ca4225c-4205-41a5-9cf6-501f8c595946
+  - 4d57d09d-9dd8-4ee4-a889-6b1da014c944
+  - 7a2ce60e-df64-4d73-b505-9cc2fbe0e86e
+  - a79c6647-e098-48f6-9449-74d7e57259ae
+  - 6241ae33-885c-42ce-abcd-76173b9e6ef7
+  - 7047a37a-c92f-4fc9-b9c7-ba9b130d6277
+  - 3e62731f-c9d7-4a35-9b7f-13374820b48c
+  - 0bc746d1-eac7-4040-adcb-dcd1b886bfbe
+  - b59e4838-420d-4ce8-ab5c-252b1c9d27d9
 ---

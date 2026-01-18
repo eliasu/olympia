@@ -75,52 +75,81 @@ class LeagueService
             return [
                 'id' => $p->id(), 
                 'elo' => (float)$p->get('global_elo', 1500),
+                'total_games' => (int)$p->get('total_games', 0),
                 'games_today' => 0
             ];
         });
 
         for ($i = 0; $i < $totalGames; $i++) {
-            // Select 4 players who have played the least TODAY.
-            $sortedByGames = $playerStats->sortBy('games_today');
-            $candidates = $sortedByGames->take(4);
+            // 1. SELECT A SEED PLAYER
+            // Priority: Least games played today, then least total league games (attendance)
+            $seedIndex = $playerStats
+                ->sortBy('total_games')
+                ->sortBy('games_today')
+                ->keys()
+                ->first();
             
-            // Increment their games count
-            $candidates->each(function($c, $key) use ($playerStats) {
-                // Fix: Indirect modification of overloaded element error
-                // We must explicitly get, modify, and set the value for Collections of arrays
-                $stats = $playerStats[$key];
-                $stats['games_today']++;
-                $playerStats[$key] = $stats;
-            });
+            if ($seedIndex === null) break; // Should not happen
             
-            $selectedIds = $candidates->pluck('id');
-            $selectedPlayersStats = $candidates->values();
+            $seed = $playerStats[$seedIndex];
+            
+            // 2. SELECT 3 COMPATIBLE PARTNERS
+            // We want players with similar Elo who also need to play.
+            $minGamesToday = $playerStats->min('games_today');
+            
+            // First attempt: Players with similar Elo and low games today
+            $candidatePool = $playerStats->reject(fn($p, $key) => $key === $seedIndex);
+            
+            $matchCandidates = $candidatePool
+                ->filter(fn($p) => $p['games_today'] <= $minGamesToday + 1)
+                ->map(function($p) use ($seed) {
+                    $p['elo_diff'] = abs($p['elo'] - $seed['elo']);
+                    return $p;
+                })
+                ->sortBy('elo_diff')
+                ->take(3);
+                
+            // Fallback: If not enough candidates found with low games, take anyone remaining
+            if ($matchCandidates->count() < 3) {
+                $stillNeeded = 3 - $matchCandidates->count();
+                $alreadySelectedIds = $matchCandidates->pluck('id')->push($seed['id']);
+                
+                $extraCandidates = $candidatePool
+                    ->reject(fn($p) => $alreadySelectedIds->contains($p['id']))
+                    ->sortBy('games_today')
+                    ->take($stillNeeded);
+                    
+                $matchCandidates = $matchCandidates->concat($extraCandidates);
+            }
 
-            // Pair them
-            // Pair them using Power Pairing
-            // Goal: Minimize difference between (Elo A + Elo B) and (Elo C + Elo D)
-            // Strategy: Sort 4 players by Elo.
-            // Best balance is usually (Strongest + Weakest) vs (2nd Strongest + 2nd Weakest)
-            // i.e., (1st + 4th) vs (2nd + 3rd)
+            // Ensure we have 4 players. If still not enough (e.g. extreme low player count), skip match.
+            if ($matchCandidates->count() < 3) continue;
+
+            $matchPlayersStats = collect([$seed])->concat($matchCandidates);
+            $selectedIds = $matchPlayersStats->pluck('id');
+
+            // 3. INCREMENT GAMES COUNT IN THE POOL
+            foreach ($playerStats as $key => $stats) {
+                if ($selectedIds->contains($stats['id'])) {
+                    $stats['games_today']++;
+                    $playerStats[$key] = $stats;
+                }
+            }
+
+            // 4. PAIR THEM INTO TEAMS
+            $sortedElo = $matchPlayersStats->sortByDesc('elo')->values();
             
-            // Randomize first to ensure if Elos are identical, we get random pairs
-            $candidates = $candidates->shuffle(); 
-            
-            // Sort by Elo descending
-            $sortedElo = $candidates->sortByDesc('elo')->values();
-            
-            // Check if we have variance. If all Elos are effectively same, just take random shuffle from above.
-            if ($sortedElo->first()['elo'] - $sortedElo->last()['elo'] < 1.0) {
-                 // Random pairing
-                $teamA = $candidates->take(2);
-                $teamB = $candidates->slice(2, 2);
+            if (rand(1, 100) <= 20) {
+                $shuffled = $matchPlayersStats->shuffle()->values();
+                $teamA = $shuffled->take(2);
+                $teamB = $shuffled->slice(2, 2);
             } else {
-                 // Power Pairing: (1, 4) vs (2, 3)
+                // Power Pairing: (Strongest + Weakest) vs (Middle Two)
                 $teamA = collect([$sortedElo[0], $sortedElo[3]]);
                 $teamB = collect([$sortedElo[1], $sortedElo[2]]);
             }
 
-            // Create Match Entry
+            // 5. CREATE MATCH ENTRY
             $matchTitle = $gameday->get('title') . ' - Match ' . ($i + 1);
             
             $match = Entry::make()
@@ -133,9 +162,7 @@ class LeagueService
                     'is_played' => false,
                 ]);
             
-            // Explicitly set relationship field
             $match->set('gameday', [$gamedayId]);
-            
             $match->save();
             $matchesToCreate[] = $match->id();
         }

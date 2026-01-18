@@ -66,7 +66,7 @@ tabs:
                   handle: played_games
                   field:
                     type: integer
-                    display: 'Played Games'
+                    display: 'Played Days'
           -
             handle: matches
             field:

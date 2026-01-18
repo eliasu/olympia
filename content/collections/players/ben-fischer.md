@@ -1,26 +1,26 @@
 ---
-id: cc82907a-4c2f-4bb3-b7d0-24f622d8cdc1
+id: b28b182e-5ae5-430d-b3c3-35998d374e0c
 blueprint: players
 title: 'Ben Fischer'
-global_elo: 1502.43
+global_elo: 1500.19
 total_games: 12
 player_status: active
 matches:
-  - 7a9c8c0c-de68-4820-bfbf-34cb3451d5cb
-  - a0edc6b7-97ee-46f4-907b-287fab665708
-  - 7e3a58c5-a2a5-4bc2-895a-113455f21cab
-  - 4ab02d96-ebc9-42c4-840b-255e69e8ec9d
-  - c9ebe68e-cd41-4a32-a497-158de6aedbf9
-  - 1334f271-d8fe-4336-9465-c8e1de93cc8b
-  - 55d66a23-940d-4453-b24c-ef08ef70e33b
-  - 79ad91c1-1c57-43c1-97b1-d4fd7bb7cd92
-  - 5a3e6fe7-3d50-426d-b60f-1fbaf75254e1
-  - fd0076b8-0302-4bd6-a5f6-64f97782de98
-  - eb8d8a5c-ba3a-4e78-930f-e7d39a37a234
-  - c9b716f7-9b39-493d-aacc-ddd75a6830b0
+  - 2c8141c5-f9dd-4ab6-b140-dd273a04411f
+  - 9870d7e4-4c1a-4b32-84b6-402f45b091e4
+  - ab33a3f4-3f79-46a1-810f-74a1a61800aa
+  - e4b4499b-0949-44bc-bb3e-60e2e71571ba
+  - bd0030a9-1de4-49c7-9fad-8500948b1f44
+  - 28a3ff09-aed5-40ae-a99e-c205bb517603
+  - c340dd3a-813b-4db7-8113-9d3e9d522376
+  - bceb48ae-bd01-404c-8a95-28fc19876b36
+  - 71942f41-86bd-45fc-b23d-2ad00c2fea05
+  - ecdb0f91-1e76-40dd-9c8b-0dfef40484f9
+  - f5c927d3-224d-46ee-951c-047617ce3e93
+  - 2c908515-69ae-4e58-a0b2-a5f685241f33
 league_stats:
   -
     league:
       - 424d0c8a-ff53-4023-95b5-76be7d34529e
-    played_games: 4
+    played_games: 3
 ---
