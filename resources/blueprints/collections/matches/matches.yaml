@@ -11,7 +11,7 @@ sections:
           display: Title
           instructions: 'Auto-generated title'
       -
-        handle: session_id
+        handle: session
         field:
           type: entries
           collections:

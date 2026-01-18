@@ -25,7 +25,7 @@ class LeagueService
             throw new \Exception("Session not found");
         }
 
-        $league = Entry::find($session->get('league_id'));
+        $league = Entry::find($session->get('league'));
         if (!$league) {
             throw new \Exception("League not found");
         }
@@ -50,7 +50,7 @@ class LeagueService
         
         $finishedSessions = Entry::query()
             ->where('collection', 'sessions')
-            ->where('league_id', $league->id())
+            ->where('league', $league->id())
             ->where('is_finished', true)
             ->count();
             
@@ -115,7 +115,7 @@ class LeagueService
                 ->slug('match-' . $sessionId . '-' . ($i + 1))
                 ->data([
                     'title' => 'Match ' . ($i + 1),
-                    'session_id' => $sessionId,
+                    'session' => $sessionId,
                     'team_a' => $teamA->pluck('id')->all(),
                     'team_b' => $teamB->pluck('id')->all(),
                     'is_played' => false,
@@ -140,12 +140,12 @@ class LeagueService
     public function finalizeSession($sessionId)
     {
         $session = Entry::find($sessionId);
-        $league = Entry::find($session->get('league_id'));
+        $league = Entry::find($session->get('league'));
         $kFactor = $league->get('k_factor', 32);
         
         $matches = Entry::query()
             ->where('collection', 'matches')
-            ->where('session_id', $sessionId)
+            ->where('session', $sessionId)
             ->where('is_played', true)
             ->get();
             

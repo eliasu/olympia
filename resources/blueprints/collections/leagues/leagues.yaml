@@ -51,18 +51,12 @@ sections:
           width: 50
           instructions: 'How many days at the start are random/mixed before sorting by Elo.'
       -
-        handle: schedule
+        handle: sessions
         field:
-          type: grid
-          display: Schedule
-          fields:
-            -
-              handle: date
-              field:
-                type: date
-                display: Date
-            -
-              handle: exclude
-              field:
-                type: toggle
-                display: Exclude
+          type: entries
+          mode: stack
+          collections:
+            - sessions
+          display: Sessions
+          listable: true
+          instructions: 'Sessions/Days in this league'

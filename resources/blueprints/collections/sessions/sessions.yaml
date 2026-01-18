@@ -11,7 +11,7 @@ sections:
           display: Title
           instructions: 'Typically "LeagueName - Date"'
       -
-        handle: league_id
+        handle: league
         field:
           type: entries
           collections:
@@ -43,7 +43,10 @@ sections:
           display: 'Games per Court'
           width: 50
       -
-        handle: is_finished
+        handle: matches
         field:
-          type: toggle
-          display: 'Is Finished'
+          type: entries
+          mode: stack
+          collections:
+            - matches
+          display: Matches

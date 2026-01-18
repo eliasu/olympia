@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Statamic\Statamic;
+use Stillat\Relationships\Support\Facades\Relate;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,9 +21,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Statamic::vite('app', [
-        //     'resources/js/cp.js',
-        //     'resources/css/cp.css',
-        // ]);
+        // League <-> Sessions (One-to-Many)
+        Relate::oneToMany('leagues.sessions', 'sessions.league');
+
+        // Session <-> Matches (One-to-Many)
+        Relate::oneToMany('sessions.matches', 'matches.session');
+
+        // Players <-> Matches (Many-to-Many)
+        // Since Match has team_a and team_b, we relate both to players.matches
+        Relate::manyToMany('matches.team_a', 'players.matches');
+        Relate::manyToMany('matches.team_b', 'players.matches');
     }
 }

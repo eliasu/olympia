@@ -38,12 +38,20 @@ sections:
           display: 'Played Game Days'
           width: 50
       -
-        handle: status
+        handle: player_status
         field:
           type: select
           options:
             active: Active
             inactive: Inactive
           default: active
-          display: Status
+          display: 'Player Status'
           width: 50
+      -
+        handle: matches
+        field:
+          type: entries
+          collections:
+            - matches
+          display: Matches
+          listable: true
