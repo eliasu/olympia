@@ -34,7 +34,9 @@
                 <!-- Team A -->
                 <div class="flex-1 text-center">
                     <h2 class="text-xl font-black text-gray-900 dark:text-white mb-6 uppercase tracking-widest text-blue-500">Team A</h2>
-                    <div class="flex justify-center -space-x-4 mb-6">
+                    
+                    <!-- Avatars -->
+                    <div class="flex justify-center -space-x-4 mb-4">
                         {{ team_a }}
                             <a href="{{ url }}" class="block relative z-10 hover:z-20 transform hover:scale-105 transition-all group">
                                 <div class="h-16 w-16 md:h-20 md:w-20 rounded-full ring-4 ring-white dark:ring-gray-800 bg-gradient-to-tr from-blue-400 to-blue-600 flex items-center justify-center text-white text-xl font-black shadow-lg overflow-hidden">
@@ -46,8 +48,14 @@
                                         {{ title | explode(' ') | map(->(n) => n | substr(0,1)) | join('') }}
                                     {{ /if }}
                                 </div>
-                                <div class="mt-2 text-[10px] font-black uppercase tracking-widest text-gray-500 dark:text-gray-400 truncate w-20 mx-auto group-hover:text-blue-500 transition-colors">{{ title }}</div>
                             </a>
+                        {{ /team_a }}
+                    </div>
+
+                    <!-- Names -->
+                     <div class="space-y-1">
+                        {{ team_a }}
+                            <a href="{{ url }}" class="block text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">{{ title }}</a>
                         {{ /team_a }}
                     </div>
                 </div>
@@ -66,7 +74,9 @@
                 <!-- Team B -->
                 <div class="flex-1 text-center">
                     <h2 class="text-xl font-black text-gray-900 dark:text-white mb-6 uppercase tracking-widest text-red-500">Team B</h2>
-                    <div class="flex justify-center -space-x-4 mb-6">
+                    
+                    <!-- Avatars -->
+                    <div class="flex justify-center -space-x-4 mb-4">
                         {{ team_b }}
                             <a href="{{ url }}" class="block relative z-10 hover:z-20 transform hover:scale-105 transition-all group">
                                 <div class="h-16 w-16 md:h-20 md:w-20 rounded-full ring-4 ring-white dark:ring-gray-800 bg-gradient-to-tr from-red-400 to-red-600 flex items-center justify-center text-white text-xl font-black shadow-lg overflow-hidden">
@@ -78,8 +88,14 @@
                                         {{ title | explode(' ') | map(->(n) => n | substr(0,1)) | join('') }}
                                     {{ /if }}
                                 </div>
-                                <div class="mt-2 text-[10px] font-black uppercase tracking-widest text-gray-500 dark:text-gray-400 truncate w-20 mx-auto group-hover:text-red-500 transition-colors">{{ title }}</div>
                             </a>
+                        {{ /team_b }}
+                    </div>
+
+                    <!-- Names -->
+                    <div class="space-y-1">
+                        {{ team_b }}
+                            <a href="{{ url }}" class="block text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400 transition-colors">{{ title }}</a>
                         {{ /team_b }}
                     </div>
                 </div>

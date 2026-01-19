@@ -1,8 +1,10 @@
 ---
-title: Home
 id: home
-template: home
 blueprint: pages
+title: 'Olympia League'
+template: home
+updated_by: 1861c4a9-8873-459c-97ce-38d399b7ed46
+updated_at: 1768836728
 ---
 ## Welcome to your brand new Statamic site!
 

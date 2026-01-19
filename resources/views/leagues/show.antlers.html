@@ -51,10 +51,7 @@
                 <h1 class="text-5xl font-black text-gray-900 dark:text-white tracking-tighter">{{ title }}</h1>
                 <div class="mt-4 flex flex-wrap gap-3">
                     <div class="inline-flex items-center px-3 py-1 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 text-xs font-bold border border-indigo-100 dark:border-indigo-800">
-                        ⚡ K-Factor: {{ k_factor }}
-                    </div>
-                    <div class="inline-flex items-center px-3 py-1 rounded-xl bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 text-xs font-bold border border-amber-100 dark:border-amber-800">
-                        🏆 {{ if min_game_days }}Min. {{ min_game_days }} Gamedays{{ else }}Open Ranking{{ /if }}
+                         🏆 {{ if min_game_days }}Min. {{ min_game_days }} Gamedays{{ else }}Open Ranking{{ /if }}
                     </div>
                 </div>
             </div>
@@ -160,7 +157,7 @@
             </h2>
 
             <div class="space-y-4">
-                {{ gamedays sort="is_finished:asc|date:desc" }}
+                {{ gamedays sort="is_finished:asc|date:desc" generated_plan:is="true" }}
                     <a href="{{ url }}" class="group block p-6 bg-white dark:bg-gray-800 rounded-[2rem] shadow-xl border-2 {{ if generated_plan && !is_finished }}border-emerald-500 bg-emerald-50/30 dark:bg-emerald-900/10 ring-8 ring-emerald-500/5{{ else }}border-gray-50 dark:border-gray-700/50 hover:border-indigo-200 dark:hover:border-indigo-800 bg-gray-50/50 dark:bg-gray-900/20{{ /if }} transition-all hover:scale-[1.02]">
                         <div class="flex items-start gap-4">
                             <!-- Date Badge -->
