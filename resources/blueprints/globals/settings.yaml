@@ -1,0 +1,41 @@
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: site_logo
+            field:
+              type: assets
+              display: Site Logo
+              max_files: 1
+              container: assets
+              folder: branding
+              mode: grid
+              restrict: false
+              allow_uploads: true
+          -
+            handle: primary_color
+            field:
+              type: color
+              display: Primary Color
+              default: '#4f46e5'
+          -
+            handle: secondary_color
+            field:
+              type: color
+              display: Secondary Color
+              default: '#9333ea'
+          -
+            handle: success_color
+            field:
+              type: color
+              display: Success Color
+              default: '#10b981'
+          -
+            handle: danger_color
+            field:
+              type: color
+              display: Danger Color
+              default: '#ef4444'

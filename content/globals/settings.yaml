@@ -1,0 +1,7 @@
+title: Settings
+data:
+  site_logo: branding/frame-12@2x.png
+  primary_color: '#a98914'
+  secondary_color: '#856f9b'
+  success_color: '#10b981'
+  danger_color: '#ef4444'
