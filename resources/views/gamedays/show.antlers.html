@@ -1,37 +1,71 @@
-<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    
-    <!-- Header -->
-    <div class="mb-8 border-b border-gray-200 dark:border-gray-700 pb-8">
-        <a href="{{ league:url }}" class="text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 mb-2 inline-block">&larr; {{ league:title }}</a>
-        <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">{{ title }}</h1>
-        <p class="text-gray-500 dark:text-gray-400 mt-1">{{ date format="l, d. F Y" }}</p>
-        
-        <!-- Status Badges -->
-        <div class="mt-4 flex flex-wrap gap-2">
-            {{ if is_finished }}
-                <span class="inline-flex items-center px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 font-bold border border-gray-200 dark:border-gray-700">
-                    Spieltag abgeschlossen
-                </span>
-            {{ elseif generated_plan }}
-                <span class="inline-flex items-center px-3 py-1 rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 font-bold">
-                    Plan erstellt
-                </span>
-            {{ else }}
-                <span class="inline-flex items-center px-3 py-1 rounded-full bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 font-bold">
-                    Entwurf
-                </span>
-            {{ /if }}
-
-            <span class="inline-flex items-center px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-300 font-bold border border-indigo-200 dark:border-indigo-800/50">
-                {{ present_players | count }} Spieler
-            </span>
-        </div>
-    </div>
-
 <script>
+window.gamedayData = {
+    matches: {{ matches | select('id', 'score_a', 'score_b', 'team_a', 'team_b', 'url') | json }},
+    players: {{ present_players | select('id', 'title', 'avatar_url', 'url') | json }}
+};
+
+function gamedayRanking(data) {
+    return {
+        matches: data.matches || [],
+        players: data.players || [],
+        get sortedPlayers() {
+            let stats = {};
+            
+            const getID = (obj) => {
+                if (!obj) return null;
+                if (typeof obj === 'string') return obj;
+                return obj.id || obj.uuid || null;
+            };
+
+            // Initialize stats
+            this.players.forEach(p => {
+                const id = getID(p);
+                if (!id) return;
+                stats[id] = { 
+                    id, 
+                    title: p.title || 'Unknown', 
+                    avatar_url: p.avatar_url, 
+                    url: p.url,
+                    wins: 0, 
+                    losses: 0, 
+                    points_for: 0, 
+                    points_against: 0, 
+                    diff: 0 
+                };
+            });
+
+            // Calculate stats
+            this.matches.forEach(m => {
+                const scoreA = parseInt(m.score_a);
+                const scoreB = parseInt(m.score_b);
+                if (isNaN(scoreA) || isNaN(scoreB)) return;
+                
+                [ {team: m.team_a, sFor: scoreA, sAgainst: scoreB}, 
+                  {team: m.team_b, sFor: scoreB, sAgainst: scoreA} 
+                ].forEach(set => {
+                    (set.team || []).forEach(p => {
+                        const id = getID(p);
+                        if (!id) return;
+                        if (!stats[id]) {
+                            stats[id] = { id, title: p.title || 'Unknown', avatar_url: p.avatar_url, url: p.url, wins: 0, losses: 0, points_for: 0, points_against: 0, diff: 0 };
+                        }
+                        stats[id].points_for += set.sFor;
+                        stats[id].points_against += set.sAgainst;
+                        if (set.sFor > set.sAgainst) stats[id].wins++;
+                        else if (set.sAgainst > set.sFor) stats[id].losses++;
+                    });
+                });
+            });
+
+            return Object.values(stats)
+                .map(p => ({ ...p, diff: p.points_for - p.points_against }))
+                .filter(p => (p.wins + p.losses) > 0)
+                .sort((a, b) => (b.wins - a.wins) || (b.diff - a.diff) || (b.points_for - a.points_for));
+        }
+    }
+}
 async function saveScore(matchId, scoreA, scoreB) {
     if(scoreA === '' || scoreB === '') return;
-    
     try {
         const res = await fetch('/league/update-score', {
             method: 'POST',
@@ -39,94 +73,197 @@ async function saveScore(matchId, scoreA, scoreB) {
                 'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             },
-            body: JSON.stringify({ 
-                match_id: matchId, 
-                score_a: scoreA, 
-                score_b: scoreB 
-            })
+            body: JSON.stringify({ match_id: matchId, score_a: scoreA, score_b: scoreB })
         });
         const data = await res.json();
         if(data.success) {
-            // Optional: Show success indicator
             console.log('Score saved successfully');
         } else {
-            alert('Fehler beim Speichern');
+            alert('Error saving score');
         }
     } catch(e) {
-        alert('Netzwerkfehler beim Speichern');
+        alert('Network error while saving');
     }
 }
 </script>
-    <!-- Matches List -->
-    <div x-show="generatedPlan" x-transition class="space-y-6">
-        
-        <h2 class="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-            Matches
-            <span class="text-sm font-normal text-gray-400">({{ matches | count }})</span>
-        </h2>
 
-        {{ matches }}
-        <div class="bg-white dark:bg-gray-800 shadow-sm rounded-xl border border-gray-200 dark:border-gray-700 p-6 flex flex-col md:flex-row items-center justify-between gap-6">
-            
-            <!-- Team A -->
-            <div class="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
-                <div class="font-bold text-gray-900 dark:text-white mb-2">Team A</div>
-                <div class="flex -space-x-2">
-                    {{ team_a }}
-                        <div title="{{ title }}" class="h-10 w-10 rounded-full ring-2 ring-white dark:ring-gray-800 bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white text-xs font-bold shadow-md cursor-help">
-                            {{ title | substr(0,1) }}
-                        </div>
-                    {{ /team_a }}
-                </div>
-                <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                    {{ team_a:title | list }}
-                </div>
-            </div>
+<div x-data="gamedayRanking(window.gamedayData)" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    
+    <!-- Top Header (Breadcrumb & Title) -->
+    <div class="mb-8 border-b border-gray-200 dark:border-gray-700 pb-8">
+        <a href="{{ league:url }}" class="text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 mb-2 inline-block">&larr; {{ league:title }}</a>
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+                <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">{{ title }}</h1>
+                <p class="text-gray-500 dark:text-gray-400 mt-1">{{ date format="l, F d, Y" }}</p>
+                
+                <!-- Status Badges -->
+                <div class="mt-4 flex flex-wrap gap-2">
+                    {{ if is_finished }}
+                        <span class="inline-flex items-center px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 font-bold border border-gray-200 dark:border-gray-700">
+                            Gameday finalized
+                        </span>
+                    {{ elseif generated_plan }}
+                        <span class="inline-flex items-center px-3 py-1 rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 font-bold">
+                            Plan generated
+                        </span>
+                    {{ else }}
+                        <span class="inline-flex items-center px-3 py-1 rounded-full bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 font-bold">
+                            Draft
+                        </span>
+                    {{ /if }}
 
-            <!-- Score Input -->
-            <div class="flex items-center gap-4 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg">
-                <input 
-                    type="number" 
-                    value="{{ score_a }}"
-                    onchange="saveScore('{{ id }}', this.value, document.getElementById('score_b_{{ id }}').value)"
-                    {{ if is_finished }}disabled{{ /if }}
-                    class="w-16 text-center text-2xl font-bold rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-50"
-                    placeholder="-"
-                >
-                <span class="text-gray-400 font-bold">:</span>
-                <input 
-                    type="number" 
-                    id="score_b_{{ id }}"
-                    value="{{ score_b }}"
-                    onchange="saveScore('{{ id }}', document.querySelector('input[onchange*=\'{{ id }}\']').value, this.value)"
-                    {{ if is_finished }}disabled{{ /if }}
-                    class="w-16 text-center text-2xl font-bold rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-50"
-                    placeholder="-"
-                >
-            </div>
-
-            <!-- Team B -->
-            <div class="flex-1 flex flex-col items-center md:items-end text-center md:text-right">
-                <div class="font-bold text-gray-900 dark:text-white mb-2">Team B</div>
-                <div class="flex -space-x-2 flex-row-reverse space-x-reverse">
-                    {{ team_b }}
-                        <div title="{{ title }}" class="h-10 w-10 rounded-full ring-2 ring-white dark:ring-gray-800 bg-gradient-to-br from-red-400 to-red-600 flex items-center justify-center text-white text-xs font-bold shadow-md cursor-help">
-                            {{ title | substr(0,1) }}
-                        </div>
-                    {{ /team_b }}
-                </div>
-                <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                    {{ team_b:title | list }}
+                    <span class="inline-flex items-center px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-300 font-bold border border-indigo-200 dark:border-indigo-800/50">
+                        {{ present_players | count }} Players
+                    </span>
                 </div>
             </div>
-
         </div>
-        {{ /matches }}
-        
-        {{ if !matches }}
-            <div class="p-12 text-center text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-800/50 rounded-xl border-2 border-dashed border-gray-200 dark:border-gray-700">
-                Noch keine Matches generiert.
-            </div>
-        {{ /if }}
+    </div>
 
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        <!-- MAIN CONTENT: Matches -->
+        <div class="{{ is_finished ? 'lg:col-span-8' : 'lg:col-span-12' }} space-y-8">
+            <h2 class="text-2xl font-black text-gray-900 dark:text-white tracking-tight flex items-center gap-3">
+                <span class="p-2 bg-indigo-100 dark:bg-indigo-900/50 rounded-xl text-indigo-600 dark:text-indigo-400">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                </span>
+                Matches
+                <span class="text-sm font-bold text-gray-400">({{ matches | count }})</span>
+            </h2>
+
+            <div class="space-y-4">
+                {{ matches }}
+                <div class="group relative bg-white dark:bg-gray-800 shadow-sm rounded-2xl border border-gray-200 dark:border-gray-700 p-6 transition-all hover:shadow-md">
+                    
+                    <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+                        <!-- Team A -->
+                        <div class="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
+                            <div class="font-black text-[10px] uppercase tracking-widest text-gray-400 mb-3">Team A</div>
+                            <div class="flex -space-x-2">
+                                {{ team_a }}
+                                    <a href="{{ url }}" title="{{ title }}" class="h-10 w-10 rounded-full border-2 border-white dark:border-gray-800 bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-500 overflow-hidden shadow-sm hover:scale-110 transition-transform z-10">
+                                        {{ if avatar_url }}
+                                            <img src="{{ avatar_url }}" class="h-full w-full object-cover">
+                                        {{ else }}
+                                            <span class="text-xs font-bold">{{ title | explode(' ') | map(->(n) => n | substr(0,1)) | join('') }}</span>
+                                        {{ /if }}
+                                    </a>
+                                {{ /team_a }}
+                            </div>
+                            <div class="mt-2">
+                                {{ team_a }}
+                                    <a href="{{ url }}" class="text-xs font-bold text-gray-900 dark:text-white hover:text-indigo-500 transition-colors inline-block mr-1">
+                                        {{ title }}{{ if !last }}, {{ /if }}
+                                    </a>
+                                {{ /team_a }}
+                            </div>
+                        </div>
+
+                        <!-- Score Input & Details Link -->
+                        <div class="flex flex-col items-center gap-3">
+                            <div class="flex items-center gap-4 bg-gray-50 dark:bg-gray-900/30 p-4 rounded-2xl border border-gray-100 dark:border-gray-700">
+                                <input 
+                                    type="number" 
+                                    value="{{ score_a }}"
+                                    onchange="saveScore('{{ id }}', this.value, document.getElementById('score_b_{{ id }}').value)"
+                                    {{ if is_finished }}disabled{{ /if }}
+                                    class="w-16 text-center text-2xl font-black rounded-xl border-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-50 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                    placeholder="-"
+                                >
+                                <span class="text-gray-300 dark:text-gray-600 font-bold text-xl">:</span>
+                                <input 
+                                    type="number" 
+                                    id="score_b_{{ id }}"
+                                    value="{{ score_b }}"
+                                    onchange="saveScore('{{ id }}', document.querySelector('input[onchange*=\'{{ id }}\']').value, this.value)"
+                                    {{ if is_finished }}disabled{{ /if }}
+                                    class="w-16 text-center text-2xl font-black rounded-xl border-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-50 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                    placeholder="-"
+                                >
+                            </div>
+                            {{ if is_finished }}
+                            <a href="{{ url }}" class="text-[10px] font-black uppercase tracking-widest text-indigo-500 hover:text-indigo-600 transition-colors">
+                                Match Details &rarr;
+                            </a>
+                            {{ /if }}
+                        </div>
+
+                        <!-- Team B -->
+                        <div class="flex-1 flex flex-col items-center md:items-end text-center md:text-right">
+                            <div class="font-black text-[10px] uppercase tracking-widest text-gray-400 mb-3">Team B</div>
+                            <div class="flex -space-x-2 flex-row-reverse space-x-reverse">
+                                {{ team_b }}
+                                    <a href="{{ url }}" title="{{ title }}" class="h-10 w-10 rounded-full border-2 border-white dark:border-gray-800 bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-500 overflow-hidden shadow-sm hover:scale-110 transition-transform z-10">
+                                        {{ if avatar_url }}
+                                            <img src="{{ avatar_url }}" class="h-full w-full object-cover">
+                                        {{ else }}
+                                            <span class="text-xs font-bold">{{ title | explode(' ') | map(->(n) => n | substr(0,1)) | join('') }}</span>
+                                        {{ /if }}
+                                    </a>
+                                {{ /team_b }}
+                            </div>
+                            <div class="mt-2">
+                                {{ team_b }}
+                                    <a href="{{ url }}" class="text-xs font-bold text-gray-900 dark:text-white hover:text-indigo-500 transition-colors inline-block mr-1">
+                                        {{ title }}{{ if !last }}, {{ /if }}
+                                    </a>
+                                {{ /team_b }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{ /matches }}
+            </div>
+            
+            {{ if !matches }}
+                <div class="p-20 text-center text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-800/30 rounded-[2.5rem] border-2 border-dashed border-gray-200 dark:border-gray-700">
+                    <svg class="w-12 h-12 mx-auto text-gray-300 dark:text-gray-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                    <p class="font-bold">No matches generated yet.</p>
+                </div>
+            {{ /if }}
+        </div>
+
+        <!-- SIDEBAR: Gameday Ranking (Only if finished) -->
+        {{ if is_finished }}
+        <div class="lg:col-span-4 space-y-8">
+            <section class="bg-white dark:bg-gray-800 rounded-[2.5rem] shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden sticky top-8">
+                <div class="p-8">
+                    <h2 class="text-xl font-black text-gray-900 dark:text-white tracking-tight flex items-center gap-3 mb-6">
+                        <span class="p-2 bg-amber-100 dark:bg-amber-900/50 rounded-xl text-amber-600 dark:text-amber-400">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        </span>
+                        Gameday Leaderboard
+                    </h2>
+                    
+                    <div class="space-y-4">
+                        <template x-for="(player, index) in sortedPlayers" :key="player.id">
+                            <a :href="player.url" class="flex items-center justify-between p-3 rounded-2xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all group">
+                                <div class="flex items-center gap-3 text-left">
+                                    <span class="w-5 text-sm font-black" :class="index < 3 ? 'text-amber-500' : 'text-gray-300 dark:text-gray-600'" x-text="index + 1 + '.'"></span>
+                                    <div class="h-9 w-9 flex-shrink-0 rounded-xl overflow-hidden shadow-sm bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-xs font-black text-indigo-600 dark:text-indigo-400">
+                                        <template x-if="player.avatar_url">
+                                            <img :src="player.avatar_url" class="h-full w-full object-cover">
+                                        </template>
+                                        <template x-if="!player.avatar_url">
+                                            <span x-text="player.title ? player.title.split(' ').map(n => n[0]).join('') : '?'"></span>
+                                        </template>
+                                    </div>
+                                    <div class="flex flex-col min-w-0">
+                                        <span class="text-sm font-bold text-gray-900 dark:text-white truncate" x-text="player.title"></span>
+                                        <span class="text-[9px] font-black uppercase tracking-widest text-gray-400" x-text="player.wins + 'W - ' + player.losses + 'L'"></span>
+                                    </div>
+                                </div>
+                                <div class="text-right flex-shrink-0">
+                                    <div class="text-sm font-black text-gray-900 dark:text-white" x-text="player.points_for"></div>
+                                    <div class="text-[9px] font-bold text-gray-400" x-text="(player.diff > 0 ? '+' : '') + player.diff + ' Diff'"></div>
+                                </div>
+                            </a>
+                        </template>
+                    </div>
+                </div>
+            </section>
+        </div>
+        {{ /if }}
+    </div>
 </div>

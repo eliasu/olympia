@@ -218,6 +218,9 @@ class LeagueService
         foreach ($presentPlayers as $playerId) {
             $this->updatePlayerLeagueStats($playerId);
         }
+
+        // 3. Recalculate ranks for this league
+        $this->recalculateLeagueRanks($leagueId);
     }
     
     public function updatePlayerLeagueStats($playerId)
@@ -326,7 +329,8 @@ class LeagueService
         if (!$player) return ['played_game_days' => 0, 'match_count' => 0, 'league_performance' => 0];
 
         $stats = collect($player->get('league_stats', []))->first(function($row) use ($leagueId) {
-            $rowLeagueId = reset((array)($row['league'] ?? []));
+            $rowLeagues = (array)($row['league'] ?? []);
+            $rowLeagueId = reset($rowLeagues);
             return $rowLeagueId === $leagueId;
         });
             
@@ -405,6 +409,47 @@ class LeagueService
                 $player->set('losses', (int)$player->get('losses', 0) + 1);
             }
             
+            $player->save();
+        }
+    }
+
+    /**
+     * Recalculate ranks for all players in a league based on their performance (LPI).
+     * 
+     * @param string $leagueId
+     */
+    public function recalculateLeagueRanks($leagueId)
+    {
+        $players = Entry::query()->where('collection', 'players')->get();
+        
+        $ranking = $players->map(function($player) use ($leagueId) {
+            $stats = collect($player->get('league_stats', []))->first(function($row) use ($leagueId) {
+                $rowLeagues = (array)($row['league'] ?? []);
+                $rowLeagueId = reset($rowLeagues);
+                return $rowLeagueId === $leagueId;
+            });
+            
+            return [
+                'id' => $player->id(),
+                'performance' => $stats['league_performance'] ?? -9999,
+                'has_stats' => !empty($stats)
+            ];
+        })
+        ->filter(fn($p) => $p['has_stats'])
+        ->sortByDesc('performance')
+        ->values();
+
+        foreach ($ranking as $index => $item) {
+            $player = Entry::find($item['id']);
+            $stats = $player->get('league_stats', []);
+            foreach ($stats as &$row) {
+                $rowLeagues = (array)($row['league'] ?? []);
+                $rowLeagueId = reset($rowLeagues);
+                if ($rowLeagueId === $leagueId) {
+                    $row['rank'] = $index + 1;
+                }
+            }
+            $player->set('league_stats', $stats);
             $player->save();
         }
     }

@@ -29,6 +29,7 @@ preferences:
         - score_b
         - is_played
         - gameday
+        - elo_delta
       per_page: 500
     players:
       columns:
