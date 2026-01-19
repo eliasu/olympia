@@ -77,22 +77,22 @@
                     <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                         <thead class="bg-gray-50/50 dark:bg-gray-900/50">
                             <tr>
-                                <th scope="col" class="px-6 py-4 text-left text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Rank</th>
-                                <th scope="col" class="px-6 py-4 text-left text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Player</th>
-                                <th scope="col" class="px-6 py-4 text-center text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Points</th>
-                                <th scope="col" class="px-6 py-4 text-center text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Rec.</th>
-                                <th scope="col" class="px-6 py-4 text-center text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Quali</th>
+                                <th scope="col" class="px-2 sm:px-4 md:px-6 py-4 text-left text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Rank</th>
+                                <th scope="col" class="px-2 sm:px-4 md:px-6 py-4 text-left text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Player</th>
+                                <th scope="col" class="px-2 sm:px-4 md:px-6 py-4 text-center text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Points</th>
+                                <th scope="col" class="hidden md:table-cell px-2 sm:px-4 md:px-6 py-4 text-center text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Rec.</th>
+                                <th scope="col" class="hidden sm:table-cell px-2 sm:px-4 md:px-6 py-4 text-center text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Quali</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-100 dark:divide-gray-700/50">
                             <template x-for="(player, index) in sortedPlayers" :key="player.url">
                                 <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-700/30 transition-colors">
-                                    <td class="px-6 py-5 whitespace-nowrap">
-                                        <span class="text-lg font-black" :class="player.rank && player.rank <= 3 ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-300 dark:text-gray-600'" x-text="player.rank ? `${player.rank}.` : '-'"></span>
+                                    <td class="px-2 sm:px-4 md:px-6 py-5 whitespace-nowrap">
+                                        <span class="text-base md:text-lg font-black" :class="player.rank && player.rank <= 3 ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-300 dark:text-gray-600'" x-text="player.rank ? `${player.rank}.` : '-'"></span>
                                     </td>
-                                    <td class="px-6 py-5 whitespace-nowrap">
+                                    <td class="px-2 sm:px-4 md:px-6 py-5 whitespace-nowrap">
                                         <a :href="player.url" class="flex items-center group">
-                                            <div class="h-10 w-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-black shadow-lg transform group-hover:scale-110 transition-all duration-200 overflow-hidden">
+                                            <div class="h-8 w-8 md:h-10 md:w-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-black shadow-lg transform group-hover:scale-110 transition-all duration-200 overflow-hidden">
                                                 <template x-if="player.avatar_url">
                                                     <img :src="player.avatar_url" class="h-full w-full object-cover">
                                                 </template>
@@ -106,13 +106,13 @@
                                             </div>
                                         </a>
                                     </td>
-                                    <td class="px-6 py-5 whitespace-nowrap text-center text-sm font-black text-gray-900 dark:text-white" x-text="player.league_performance"></td>
-                                    <td class="px-6 py-5 whitespace-nowrap text-center text-xs font-bold">
+                                    <td class="px-2 sm:px-4 md:px-6 py-5 whitespace-nowrap text-center text-sm font-black text-gray-900 dark:text-white" x-text="player.league_performance"></td>
+                                    <td class="hidden md:table-cell px-2 sm:px-4 md:px-6 py-5 whitespace-nowrap text-center text-xs font-bold">
                                         <span class="text-emerald-500" x-text="`${player.league_wins}W`"></span>
                                         <span class="text-gray-300 mx-0.5">/</span>
                                         <span class="text-rose-500" x-text="`${player.league_losses}L`"></span>
                                     </td>
-                                    <td class="px-6 py-5 whitespace-nowrap text-center">
+                                    <td class="hidden sm:table-cell px-2 sm:px-4 md:px-6 py-5 whitespace-nowrap text-center">
                                         <template x-if="player.played_days >= minGameDays">
                                             <div class="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)] mx-auto" title="Qualified"></div>
                                         </template>
