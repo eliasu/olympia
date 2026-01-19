@@ -275,9 +275,10 @@ class LeagueService
             $scoreA = (int)$match->get('score_a');
             $scoreB = (int)$match->get('score_b');
             
-            // If player was in Team A, the delta stored is their gain.
-            $actualDelta = $isTeamA ? $delta : -$delta;
             $won = $isTeamA ? ($scoreA > $scoreB) : ($scoreB > $scoreA);
+            
+            // Delta is stored as positive. If player won, gain it. If lost, lose it.
+            $actualDelta = $won ? $delta : -$delta;
             
             if ($won) {
                 $performanceByLeague[$leagueId]['wins']++;
@@ -379,8 +380,8 @@ class LeagueService
             $delta = -1;
         }
 
-        // Store Delta on Match
-        $match->set('elo_delta', $delta);
+        // Store Delta on Match (always positive for clean CP display)
+        $match->set('elo_delta', abs($delta));
         $match->save();
         
         // Update Players

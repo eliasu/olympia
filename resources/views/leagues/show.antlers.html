@@ -7,11 +7,8 @@
         },
         get sortedPlayers() {
             return [...this.players].sort((a, b) => {
-                const aQual = (a.played_days ?? 0) >= this.minGameDays;
-                const bQual = (b.played_days ?? 0) >= this.minGameDays;
-                if (aQual && !bQual) return -1;
-                if (!aQual && bQual) return 1;
-                return (b.average_delta ?? 0) - (a.average_delta ?? 0);
+                // Primary sort: Rank (ascending, 1 is best)
+                return (a.rank ?? 999) - (b.rank ?? 999);
             });
         }
      }">
@@ -33,7 +30,8 @@
                     "league_performance": {{ league_performance ?? 0 }},
                     "average_delta": {{ average_delta ?? 0 }},
                     "league_wins": {{ league_wins ?? 0 }},
-                    "league_losses": {{ league_losses ?? 0 }}
+                    "league_losses": {{ league_losses ?? 0 }},
+                    "rank": {{ rank ?? 999 }}
                     {{ /if }}
                 {{ /league_stats }}
             }{{ if !last }},{{ /if }}
@@ -51,7 +49,6 @@
                     <div class="inline-flex items-center px-3 py-1 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 text-xs font-bold border border-indigo-100 dark:border-indigo-800">
                         ⚡ K-Factor: {{ k_factor }}
                     </div>
-                    <div class="inline-flex items-center px-3 py-1 rounded-xl bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 text-xs font-bold border border-amber-100 dark:border-amber-800">
                     <div class="inline-flex items-center px-3 py-1 rounded-xl bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 text-xs font-bold border border-amber-100 dark:border-amber-800">
                         🏆 {{ if min_game_days }}Min. {{ min_game_days }} Gamedays{{ else }}Open Ranking{{ /if }}
                     </div>

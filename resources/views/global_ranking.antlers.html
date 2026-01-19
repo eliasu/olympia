@@ -7,25 +7,20 @@
     </div>
 
     <!-- Stats Overview -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
         <div class="bg-white dark:bg-gray-800 p-8 rounded-[2rem] shadow-xl border border-gray-100 dark:border-gray-700">
             <div class="text-xs font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Total Count</div>
             <div class="text-4xl font-black text-indigo-600 dark:text-indigo-400 tracking-tighter">
-                {{ collection:players }}{{ if first }}{{ total_results }}{{ /if }}{{ /collection:players }}
+                {{ collection:count in="players" }}
             </div>
             <div class="text-sm font-bold text-gray-500 dark:text-gray-500 mt-1">Active Players</div>
         </div>
         <div class="bg-white dark:bg-gray-800 p-8 rounded-[2rem] shadow-xl border border-gray-100 dark:border-gray-700">
-            <div class="text-xs font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Avg. Elo</div>
-            <div class="text-4xl font-black text-gray-900 dark:text-white tracking-tighter">
-                 {{ collection:players }}{{ if first }}{{ stats:global_elo:avg | round }}{{ /if }}{{ /collection:players }}
-            </div>
-            <div class="text-sm font-bold text-gray-500 dark:text-gray-500 mt-1">Skill Average</div>
-        </div>
-        <div class="bg-white dark:bg-gray-800 p-8 rounded-[2rem] shadow-xl border border-gray-100 dark:border-gray-700">
             <div class="text-xs font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Best Player</div>
             <div class="text-4xl font-black text-emerald-500 tracking-tighter">
-                {{ collection:players sort="global_elo:desc" limit="1" }}{{ global_elo | round }}{{ /collection:players }}
+                {{ collection:players sort="global_elo:desc" limit="1" as="best" }}
+                    {{ best }}{{ global_elo | round }}{{ /best }}
+                {{ /collection:players }}
             </div>
             <div class="text-sm font-bold text-gray-500 dark:text-gray-500 mt-1">Highest Rating</div>
         </div>
