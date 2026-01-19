@@ -1,42 +1,71 @@
 ---
-id: 0897fd0c-d222-41a5-a3d1-0aaba7a6e9c3
+id: 997cb253-eda5-4e25-9502-216ce286d137
 blueprint: players
 title: 'Lukas Hofmann'
-global_elo: 1444.75
-total_games: 25
+global_elo: 1467.54
+total_games: 50
 player_status: active
 matches:
-  - 8fb1bad5-ba87-4c55-bca2-15f381c0d56b
-  - 35319438-4218-4da0-b1cc-125cfadcf5a4
-  - 290cfab8-0339-4886-be6b-38689ff3f9aa
-  - d920b605-9ae1-472f-8ca2-53afefeb1eab
-  - 8b5c6028-630e-437e-9289-3b4e6c062e96
-  - 7e446f22-32f0-4b6c-be31-b759e4bdb065
-  - d3d50eba-afbf-4927-afaa-9ba4e0aa3c70
-  - 03a1e160-2200-4fae-8750-0ac376da1b40
-  - 89ce9672-a67c-41df-8139-207752159aa7
-  - 6009d756-6bfd-4e29-b104-3648c327a45e
-  - 14438dc3-f22b-45c0-abdf-1e263e5245f8
-  - 1debf083-977a-45db-89b4-b0d0c76f2003
-  - 98edb663-cd9e-4ba9-8971-d67ce497760e
-  - 3a14228b-3fbb-403b-80aa-4a5e4fc24d49
-  - ddaef38c-73a5-485a-a08f-5dfec05802ed
-  - db711dfc-2bc4-43a4-8365-987842a745f3
-  - ffe34c87-59a7-48f9-a920-c9f75a21dee3
-  - 6b1ed3cb-bdd4-440c-91e3-c7a1f9628c65
-  - 28187532-46ac-434c-8921-b9312e8e2b97
-  - 681fe142-7071-4155-ab7d-493199c405ff
-  - 6a3e0b84-efca-47e6-bc45-39f6ddf68de5
-  - 71c2e352-fc8e-440c-ad59-7d448de77c85
-  - 82f57c39-4b33-4447-87fa-a4134e4fd19d
-  - 6603efc4-5479-4acb-9789-ac3f04e9e923
-  - 88c8b57a-6eee-4f93-809a-b6e08b44b1fc
+  - d1845177-3664-48bb-b239-78400c5f46d7
+  - 0b2c8d46-0c91-4c9d-aaea-333487703d02
+  - ce91385c-1ffc-4551-8a22-1e809108b030
+  - c32f6b63-d478-404b-bd15-c9ae65846327
+  - f02c5aff-9f93-43c3-b592-71ec18cc4f25
+  - 936defc5-7f6a-460f-b173-d53429eea2b3
+  - 8e8b48c3-1d87-494f-85e4-3df687aa4c78
+  - 3198b18a-8f92-40af-8f19-38afcbae9bec
+  - 23e53970-e788-413a-8a01-9348fe2ce904
+  - 28ef1848-8644-41cb-95d9-fadcc5e95684
+  - 90e839a1-ee22-47d5-8e89-8e0cbda666f3
+  - 99c6987a-8e5d-41b9-856a-31223428814e
+  - aee4045a-da00-4a31-8adf-6944e90c5060
+  - 61ae2220-eb4c-44fc-b1d7-97b47616f874
+  - aa014c0f-b713-457e-8a7c-026374c4de20
+  - 774731b9-61f4-4883-a2ca-ebfdc9237d8f
+  - 1cb3d6f9-3f60-42fe-8392-d7bad23da2a1
+  - 095d7f29-b3c9-4070-ae5a-e2e9a88d5c4d
+  - 9590de11-51b9-4551-aafd-af83187b1d4a
+  - 276b45fe-281e-49ef-8919-750719d58ea2
+  - 1a87bd8e-18a2-4afc-a8e5-48648ccc9f78
+  - 51280bb4-99a1-4ec2-b481-365d39a550ce
+  - 3937ba7f-6cd6-4684-8f61-b5db4c142cd6
+  - 463987ba-1f9d-43e3-bf22-204f1e33180e
+  - 44b11c36-8d30-4ce6-ab3b-3547f80e98d1
+  - 0cffbbd4-9daf-4c10-877b-5ec3d47ae120
+  - b75daf90-adff-483f-8f46-a37ba07f9104
+  - 4196ee1a-8152-4394-bba3-2e5bf8ec9cd4
+  - 3217b007-c9fa-4179-8f2a-2dc381ecf8ba
+  - 5ef80cbb-8f46-40d0-bc9e-f27182124fa9
+  - f7142041-63eb-49db-995b-197991c42f6d
+  - 0414a37f-f10f-4079-9d7c-697e80d00b53
+  - 633db234-b6a8-4b47-9ab2-49c322e6a9f4
+  - eb7034f3-52d8-4867-a421-54bbf4f41910
+  - 8154240e-a35d-40e8-9229-4df003b48c15
+  - c015b28e-283a-4fad-9ba4-39eeb603d4f6
+  - b6922a51-6344-4561-97c6-ba7744549a0a
+  - 6c60e6ca-c5d4-4eb3-b20d-897973985da4
+  - 78497d8b-499c-4893-8868-18a21295be7f
+  - 0313236d-a388-400d-a92b-e8257d7ee7ee
+  - 3ac819c4-26b1-4b6f-8789-1736b18b1304
+  - e93a062b-def9-44ab-b49c-d18871f1bd81
+  - 0ea150fa-1579-4bf9-8c2a-afce910c2ac5
+  - d956e7a7-f8eb-40de-83c3-542bc78e8d3f
+  - 7597a86f-c53c-48fd-b93e-3ced0082ff62
+  - f57d02ae-521e-4cf0-98e9-7ebc884fd622
+  - 7d675147-584b-4e94-914f-8fd569e47e15
+  - d1b195c8-477b-4618-980e-705a46e02a44
+  - 6940dce1-b151-499e-ba38-18163536b44f
+  - fa8dbeb5-ac86-4d78-9b09-4f4a9ddfe245
+losses: 26
 league_stats:
   -
     league:
       - 424d0c8a-ff53-4023-95b5-76be7d34529e
-    played_games: 7
-    match_count: 25
-    league_performance: -55.24
-    average_delta: -2.21
+    played_games: 16
+    match_count: 50
+    league_performance: -32.47
+    average_delta: -0.65
+    league_wins: 24
+    league_losses: 26
+wins: 24
 ---

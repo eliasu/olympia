@@ -1,0 +1,67 @@
+---
+id: 6877bd3a-1266-4184-8d4f-ce2641db4327
+blueprint: players
+title: 'Lisa Schulz'
+global_elo: 1348.62
+total_games: 46
+player_status: active
+matches:
+  - 72e5f3ca-0a27-456a-b175-0600a0902144
+  - 5320909a-b625-47c1-bcef-82bf17547c6b
+  - 55f85fb0-1f5a-498d-9a2d-92aa159b090d
+  - 6f211dc0-28e7-46ff-ad9d-b72b1e96e642
+  - b361071e-bd18-4782-931f-8e1703ce27db
+  - 2892c835-17df-4661-a884-99d4ac184516
+  - 164115b1-9b11-49e2-9178-cf4860fb1d58
+  - b084e7d8-39f0-4f3a-806a-d26ed4b4c3c8
+  - e61c3170-4507-4ee3-9fd1-1732cd2d30f9
+  - 09540534-ea7d-4e25-83fe-0fc70429c22a
+  - 6a6ff87a-51c2-4dbb-b6d1-1d42c565d457
+  - 46f1d2fa-d7ec-44d7-bcef-fefe51714b8b
+  - 5eacbd90-e9c7-4006-acfa-88c77318ed5c
+  - 79ff28af-242f-4223-9dba-21d74ca43440
+  - 30aec399-166d-4c34-8c3b-3f960ed13bfd
+  - c83febf3-b70e-4186-af62-7da973f422ca
+  - ba483989-22a9-43b9-9006-0dd070e56e1a
+  - 580b513e-56a7-49f2-a604-7b27799ac751
+  - d8e32340-e371-413f-9074-e6224ae47f4e
+  - 7b9f3d49-bcbb-4623-a891-c7088da05e8d
+  - 49428c16-999c-4acb-9306-1b49c3778602
+  - ced0f21a-b0bd-4b87-8bb9-4984c7c6add1
+  - 10b4f49d-44a8-47e5-8fe8-4d5d1ca9935b
+  - dc6345c4-e900-49e9-b8d7-343496f0105e
+  - 34e4b6ce-f44c-4fd6-91c2-73beb1ad473e
+  - 178e5c7c-a350-47fc-a1cc-14960d01cabd
+  - f7142041-63eb-49db-995b-197991c42f6d
+  - 0414a37f-f10f-4079-9d7c-697e80d00b53
+  - 68430436-fc78-4b0d-8a62-109e7ec8b7ac
+  - c713c22e-7a21-49fe-b4eb-b3850af43048
+  - 633db234-b6a8-4b47-9ab2-49c322e6a9f4
+  - 053c9d3d-fc0e-4427-8bd8-662a0830e2fe
+  - 8154240e-a35d-40e8-9229-4df003b48c15
+  - b6922a51-6344-4561-97c6-ba7744549a0a
+  - 6c60e6ca-c5d4-4eb3-b20d-897973985da4
+  - 78497d8b-499c-4893-8868-18a21295be7f
+  - 3ac819c4-26b1-4b6f-8789-1736b18b1304
+  - 02bad40a-3ed3-4438-81e2-29fe9352b050
+  - d76502f7-9da6-4bce-9095-cf53f8da641f
+  - 502d5649-aea5-4f3d-8c35-97f62f87d619
+  - fbca7a39-7528-4f4b-81e5-5df7b3659825
+  - 985bf57a-e05b-46b8-8c92-1a44ff22a7b4
+  - d734f9dd-cd93-4111-9942-e362f84efd7a
+  - b2cafd34-df79-46fc-a5ac-98316c97ad27
+  - caa86c0a-505c-415d-9743-556398bcfc85
+  - f21d4d75-ea84-459d-8ec0-129d2d1b98ea
+wins: 14
+league_stats:
+  -
+    league:
+      - 424d0c8a-ff53-4023-95b5-76be7d34529e
+    played_games: 16
+    match_count: 46
+    league_performance: -151.38
+    average_delta: -3.29
+    league_wins: 14
+    league_losses: 32
+losses: 32
+---

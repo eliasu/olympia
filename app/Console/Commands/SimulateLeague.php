@@ -68,6 +68,13 @@ class SimulateLeague extends Command
             return 1;
         }
 
+        // 3. Link Players to League
+        $allPlayers = Entry::query()->where('collection', 'players')->get();
+        $league->set('players', $allPlayers->pluck('id')->all());
+        $league->save();
+        $this->info("🔗 Linked " . $allPlayers->count() . " players to the league.");
+
+        // Find the gamedays
         $gamedays = Entry::query()
             ->where('collection', 'gamedays')
             ->get()

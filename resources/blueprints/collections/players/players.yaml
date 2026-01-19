@@ -45,6 +45,20 @@ tabs:
               display: 'Total Games'
               width: 33
           -
+            handle: wins
+            field:
+              type: integer
+              default: 0
+              display: Wins
+              width: 33
+          -
+            handle: losses
+            field:
+              type: integer
+              default: 0
+              display: Losses
+              width: 33
+          -
             handle: league_stats
             field:
               type: grid
@@ -84,6 +98,18 @@ tabs:
                   field:
                     type: float
                     display: 'Avg. Delta'
+                    default: 0
+                -
+                  handle: league_wins
+                  field:
+                    type: integer
+                    display: Wins
+                    default: 0
+                -
+                  handle: league_losses
+                  field:
+                    type: integer
+                    display: Losses
                     default: 0
           -
             handle: matches

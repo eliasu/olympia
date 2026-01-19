@@ -261,16 +261,26 @@ class LeagueService
             if (!isset($performanceByLeague[$leagueId])) {
                 $performanceByLeague[$leagueId] = [
                     'delta_sum' => 0,
-                    'match_count' => 0
+                    'match_count' => 0,
+                    'wins' => 0,
+                    'losses' => 0
                 ];
             }
             
             $delta = (float)$match->get('elo_delta', 0);
             $isTeamA = in_array($playerId, (array)$match->get('team_a', []));
+            $scoreA = (int)$match->get('score_a');
+            $scoreB = (int)$match->get('score_b');
             
             // If player was in Team A, the delta stored is their gain.
-            // If player was in Team B, their gain is -delta.
             $actualDelta = $isTeamA ? $delta : -$delta;
+            $won = $isTeamA ? ($scoreA > $scoreB) : ($scoreB > $scoreA);
+            
+            if ($won) {
+                $performanceByLeague[$leagueId]['wins']++;
+            } else {
+                $performanceByLeague[$leagueId]['losses']++;
+            }
             
             $performanceByLeague[$leagueId]['delta_sum'] += $actualDelta;
             $performanceByLeague[$leagueId]['match_count']++;
@@ -286,14 +296,16 @@ class LeagueService
         foreach ($gamedaysByLeague as $leagueId => $days) {
              if (!$leagueId || !Entry::find($leagueId)) continue;
              
-             $perf = $performanceByLeague[$leagueId] ?? ['delta_sum' => 0, 'match_count' => 0];
+             $perf = $performanceByLeague[$leagueId] ?? ['delta_sum' => 0, 'match_count' => 0, 'wins' => 0, 'losses' => 0];
              $avgDelta = $perf['match_count'] > 0 ? $perf['delta_sum'] / $perf['match_count'] : 0;
              $gridData[] = [
                  'league' => [$leagueId],
                  'played_games' => $days->count(),
                  'match_count' => $perf['match_count'],
                  'league_performance' => round($perf['delta_sum'], 2),
-                 'average_delta' => round($avgDelta, 2)
+                 'average_delta' => round($avgDelta, 2),
+                 'league_wins' => $perf['wins'],
+                 'league_losses' => $perf['losses']
              ];
         }
         
@@ -372,6 +384,13 @@ class LeagueService
             $newElo = $player->get('global_elo', 1500) + $delta;
             $player->set('global_elo', round($newElo, 2));
             $player->set('total_games', $player->get('total_games', 0) + 1);
+            
+            if ($scoreA > $scoreB) {
+                $player->set('wins', (int)$player->get('wins', 0) + 1);
+            } else {
+                $player->set('losses', (int)$player->get('losses', 0) + 1);
+            }
+            
             $player->save();
         }
         
@@ -379,6 +398,13 @@ class LeagueService
             $newElo = $player->get('global_elo', 1500) - $delta;
             $player->set('global_elo', round($newElo, 2));
             $player->set('total_games', $player->get('total_games', 0) + 1);
+            
+            if ($scoreB > $scoreA) {
+                $player->set('wins', (int)$player->get('wins', 0) + 1);
+            } else {
+                $player->set('losses', (int)$player->get('losses', 0) + 1);
+            }
+            
             $player->save();
         }
     }

@@ -1,44 +1,45 @@
 ---
-id: 84c19a80-1c53-4f5d-96f1-0c398468af43
+id: 8811eb21-cf69-471c-acf0-940b925ca3b5
 blueprint: players
 title: 'Jan Lehmann'
-global_elo: 1447.76
-total_games: 27
+global_elo: 1478.89
+total_games: 24
 player_status: active
 matches:
-  - b91dd32c-8c90-4dbd-a93e-7faa7416802e
-  - 6e21cca7-3e31-48b8-a34d-c95b683f510b
-  - abd40cb6-65dc-4dbc-8c50-f54b77ad1379
-  - 290cfab8-0339-4886-be6b-38689ff3f9aa
-  - 8b5c6028-630e-437e-9289-3b4e6c062e96
-  - bddd6a38-48d6-4a5c-8f61-4dbb7028bf7f
-  - d3d50eba-afbf-4927-afaa-9ba4e0aa3c70
-  - 2b05d338-081f-4409-bc7d-52d3ad0d4670
-  - 56bae0d6-f0ff-4ac7-9046-2e33c9256eb2
-  - 582e7ff2-7c13-4b88-be9c-fede2dc140aa
-  - d1fea468-fcf0-4fbd-94a3-1762a584ce14
-  - 5c8721e7-29e6-46f7-b454-f7297fc4a7f1
-  - e1c85cc4-db47-4a7b-afb4-ac13363f1904
-  - cd8a4dec-4db6-4a2c-bc9d-41ae65006778
-  - e0c85b1b-59fb-4e69-8bf9-35ea8260d79b
-  - 1a4ec162-ad8c-4c43-af22-bc53f20776ad
-  - d155a285-a63e-4154-adf3-b405f602e5f4
-  - 4d44874f-1ac0-4c3a-b5ac-209e777fac13
-  - 24caacc0-1ef4-4887-b119-d561d312142c
-  - ce7c54aa-c502-4e93-a972-740ee5aa9f8d
-  - d83872a8-29d2-409a-9963-54eebc4512cb
-  - 9c0ea3ac-b9f8-490f-b766-006c8146b544
-  - d33d2c07-b831-4beb-98e8-35931798f2a2
-  - 1dadeb82-0d27-451d-beaa-1ed95658279b
-  - fdfaba6b-1c16-42aa-b31a-d68091852a27
-  - 6603efc4-5479-4acb-9789-ac3f04e9e923
-  - e305521d-561a-4b40-b3d1-6cd9d604ee06
+  - 0aa69bb3-ac24-47fc-acf1-716a3edbb645
+  - d0daefde-d4bc-4a72-aca5-4ee81a134dda
+  - c54e4c2f-7664-4743-b4f2-b0a4d76528d1
+  - 2d8475e1-17dc-48ac-9c0a-e0191f29d9b8
+  - 6cb4da11-963c-4332-8f88-7d2b96330158
+  - 0f9f37eb-7e1e-4ede-8e65-cb68f2b8e970
+  - 51280bb4-99a1-4ec2-b481-365d39a550ce
+  - 34e4b6ce-f44c-4fd6-91c2-73beb1ad473e
+  - c3570296-e5ec-48eb-bfbe-52827b2b066c
+  - 04c13b09-7852-4034-a19d-0d25c4081723
+  - 85214b83-98eb-4765-850b-b88cd18e942b
+  - 412779d9-fc0a-4d86-9d5c-ca7b4f79dd00
+  - 29c6e439-e084-4963-ad21-8efe9606f061
+  - 271dd0c8-74fa-4fad-8b55-444fa5ce08f9
+  - f8a075a9-9f5a-4fc8-8c4d-61626cf40ee0
+  - f57d02ae-521e-4cf0-98e9-7ebc884fd622
+  - 306e3c95-7db7-4884-b66b-5fc4202b2d90
+  - c203d2e4-7b4e-4a77-9f51-e3746ea2ee30
+  - 85d4aeca-46c9-470d-949c-24a6fbf56140
+  - 84906de1-fb44-42f7-93ad-8d494ae25432
+  - 37c21f59-ec37-4ade-85dd-a2b4f4f33aa1
+  - da84fbd6-05d9-4890-8695-fc4357f20633
+  - ea3fd96c-5569-4cc8-ae25-72dfcf55b868
+  - 02b8f072-5445-42b4-b3cf-f8f4efeaf32e
+losses: 13
+wins: 11
 league_stats:
   -
     league:
       - 424d0c8a-ff53-4023-95b5-76be7d34529e
-    played_games: 9
-    match_count: 27
-    league_performance: -52.22
-    average_delta: -1.93
+    played_games: 8
+    match_count: 24
+    league_performance: -21.12
+    average_delta: -0.88
+    league_wins: 11
+    league_losses: 13
 ---
