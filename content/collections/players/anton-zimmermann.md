@@ -1,0 +1,80 @@
+---
+id: 130f8e25-4ce7-4597-8530-27c38582824b
+blueprint: players
+title: 'Anton Zimmermann'
+global_elo: 1476.6
+total_games: 58
+player_status: active
+avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Anton+Zimmermann'
+matches:
+  - fd2bb7ee-eb6c-43cc-9540-3a6a6e1ea849
+  - 23114c5c-d84c-4d55-8fdf-7437361f487a
+  - 5e6f1857-e570-4efc-af40-675794029e16
+  - d9c4b05d-7fb9-4871-86e0-461761d9203a
+  - 26754784-7b31-4ba0-ac85-233cab48d705
+  - b4b662a2-e486-4a24-b93f-2ec565310396
+  - 01a11f11-dd89-4ab9-8ae6-f9f8238f62cd
+  - 4ae31140-be11-4b2d-98ca-cf7bcbc19cf2
+  - 384a37f2-9db2-43f7-8615-7bce0ffe0b41
+  - 6d59a4e5-4a55-4984-92cd-bee0594c6156
+  - 45e29b70-803d-494b-bf1b-a2a68c71e9df
+  - 19a2afdf-2db3-4a11-bcc4-d044a2aaaa12
+  - 34e589fc-4b7f-4fa9-8f07-a1cb43d3184e
+  - a55b4c86-eca6-4465-b7fb-36f3666158af
+  - 32bfd475-0c62-4ae3-a35d-afae513feed8
+  - 0f94c90d-6a0a-4dbf-b787-43f6b0414886
+  - d24c9bcd-276f-481e-95e5-c182bb72b35f
+  - 56287fcf-7b7b-480b-ad91-734de1fe43b6
+  - af9e2f0c-85e5-41b8-ab27-cd7847e54721
+  - 8150ee68-a894-482c-81f0-8f3495852aac
+  - bf7731cd-1d27-48b1-9e6d-8247fe98ad44
+  - b71474bb-6628-44e9-b617-bc668ee029e7
+  - 871dc1d9-4ea6-47fa-ba53-fd5710b664e2
+  - c0439f1c-cbbb-47f7-ac09-6fac97e36c3c
+  - 28dfd496-385f-49df-8756-df3aae89dc32
+  - e8009083-0329-43e4-8b0e-df9e0f0f37a9
+  - 3d121a29-c2f8-4935-801c-98475bca9940
+  - b5906ede-e51b-4d0f-8abb-2638496dad1a
+  - 9b35972e-e4a5-4755-917f-a52f083fe1ae
+  - 9bb86282-4fa7-442b-8f24-064f5d96d8b1
+  - f1b9c3c0-4753-46ab-8542-5726239b2592
+  - ee052aff-0e1e-4da8-b430-d1977520d41a
+  - 451c2014-7939-4a54-a941-1568d44c4971
+  - d6937c9a-269b-4aa6-942a-dd1c01e3f62b
+  - 12478ba1-d7cc-4cee-8298-ecb057dd74a5
+  - d60c301e-29a1-45b0-8df7-c44377a62ddc
+  - a997956d-f1fd-46fe-98fa-ea29721b9d15
+  - 3c7a19d7-7f71-41a4-96ee-83bc39f36047
+  - e3b51bf7-3ff7-4014-8570-379beded4ee2
+  - 87cebc60-60fb-45a8-a98f-a6fb42c69f7e
+  - 3d0eef79-8f9f-416c-9447-6572102fc297
+  - a2bd987c-bff8-488f-8ca4-5ff79cb24e9f
+  - 6a9df18d-7d13-4787-8b2e-4ef7d2567c96
+  - 42580bf3-905f-46e7-aa28-e8fb919d8202
+  - 35a8d8ea-fb0e-4048-8f25-bb7355cc143e
+  - 1b26d355-bc82-4815-94e2-fe2e6938faf4
+  - f7272709-3f0e-4cd8-a7b7-6d587540a65d
+  - 0b8f98d0-b286-43f0-9f59-b9bc93541eee
+  - 4d0f38fa-9350-49c5-bb30-f4320bed547d
+  - e6d28be5-8ad6-4e15-9753-977935161b0f
+  - d4da991b-6829-4727-92c0-7559ecf81241
+  - 5f160ea6-8e92-4e91-b256-6ee8dde134e8
+  - 09305465-b31e-471a-8691-725cb26e00ae
+  - 1a22b681-e547-4648-b1b7-3c019370667d
+  - 45b84448-679a-4775-aa4c-f1a496e9f2f6
+  - cd4c4dbf-563e-4f72-8087-49d4eca45fce
+  - eaa30532-3594-4320-ad0d-68b76d30329b
+  - 6c673bab-21e1-4450-b5a1-4d2d3a9b1348
+losses: 26
+wins: 32
+league_stats:
+  -
+    league:
+      - 424d0c8a-ff53-4023-95b5-76be7d34529e
+    played_games: 16
+    match_count: 58
+    league_performance: -23.41
+    average_delta: -0.4
+    league_wins: 32
+    league_losses: 26
+---

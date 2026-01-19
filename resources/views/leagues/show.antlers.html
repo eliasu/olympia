@@ -76,9 +76,8 @@
                             <tr>
                                 <th scope="col" class="px-6 py-4 text-left text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Rank</th>
                                 <th scope="col" class="px-6 py-4 text-left text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Spieler</th>
-                                <th scope="col" class="px-6 py-4 text-center text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Avg. Delta</th>
-                                <th scope="col" class="px-6 py-4 text-center text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Rec.</th>
                                 <th scope="col" class="px-6 py-4 text-center text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Punkte</th>
+                                <th scope="col" class="px-6 py-4 text-center text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Rec.</th>
                                 <th scope="col" class="px-6 py-4 text-center text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Quali</th>
                             </tr>
                         </thead>
@@ -90,8 +89,13 @@
                                     </td>
                                     <td class="px-6 py-5 whitespace-nowrap">
                                         <a :href="player.url" class="flex items-center group">
-                                            <div class="h-10 w-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold shadow-lg transform group-hover:scale-110 transition-all duration-200">
-                                                <span x-text="player.title.substring(0,1)"></span>
+                                            <div class="h-10 w-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-black shadow-lg transform group-hover:scale-110 transition-all duration-200 overflow-hidden">
+                                                <template x-if="player.avatar_url">
+                                                    <img :src="player.avatar_url" class="h-full w-full object-cover">
+                                                </template>
+                                                <template x-if="!player.avatar_url">
+                                                    <span x-text="player.title.substring(0,1)"></span>
+                                                </template>
                                             </div>
                                             <div class="ml-4">
                                                 <div class="text-sm font-bold text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors" x-text="player.title"></div>
@@ -99,15 +103,12 @@
                                             </div>
                                         </a>
                                     </td>
-                                    <td class="px-6 py-5 whitespace-nowrap text-center">
-                                        <span class="text-base font-black" :class="player.average_delta > 0 ? 'text-emerald-500' : 'text-rose-500'" x-text="player.average_delta > 0 ? `+${player.average_delta}` : player.average_delta"></span>
-                                    </td>
+                                    <td class="px-6 py-5 whitespace-nowrap text-center text-sm font-black text-gray-900 dark:text-white" x-text="player.league_performance"></td>
                                     <td class="px-6 py-5 whitespace-nowrap text-center text-xs font-bold">
                                         <span class="text-emerald-500" x-text="`${player.league_wins}W`"></span>
                                         <span class="text-gray-300 mx-0.5">/</span>
                                         <span class="text-rose-500" x-text="`${player.league_losses}L`"></span>
                                     </td>
-                                    <td class="px-6 py-5 whitespace-nowrap text-center text-sm font-black text-gray-900 dark:text-white" x-text="player.league_performance"></td>
                                     <td class="px-6 py-5 whitespace-nowrap text-center">
                                         <template x-if="player.played_days >= minGameDays">
                                             <div class="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)] mx-auto" title="Qualifiziert"></div>

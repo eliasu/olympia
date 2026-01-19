@@ -1,0 +1,92 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Header -->
+    <div class="mb-12">
+        <a href="/" class="text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 mb-2 inline-block">&larr; Dashboard</a>
+        <h1 class="text-5xl font-black text-gray-900 dark:text-white tracking-tighter">Global Ranking</h1>
+        <p class="mt-4 text-lg text-gray-600 dark:text-gray-400 font-medium">Alle Spieler der Olympia Pickleball League im Überblick.</p>
+    </div>
+
+    <!-- Stats Overview -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-[2rem] shadow-xl border border-gray-100 dark:border-gray-700">
+            <div class="text-xs font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Gesamtanzahl</div>
+            <div class="text-4xl font-black text-indigo-600 dark:text-indigo-400 tracking-tighter">
+                {{ collection:players }}{{ if first }}{{ total_results }}{{ /if }}{{ /collection:players }}
+            </div>
+            <div class="text-sm font-bold text-gray-500 dark:text-gray-500 mt-1">Aktive Spieler</div>
+        </div>
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-[2rem] shadow-xl border border-gray-100 dark:border-gray-700">
+            <div class="text-xs font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Avg. Elo</div>
+            <div class="text-4xl font-black text-gray-900 dark:text-white tracking-tighter">
+                 {{ collection:players }}{{ if first }}{{ stats:global_elo:avg | round }}{{ /if }}{{ /collection:players }}
+            </div>
+            <div class="text-sm font-bold text-gray-500 dark:text-gray-500 mt-1">Skill-Durchschnitt</div>
+        </div>
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-[2rem] shadow-xl border border-gray-100 dark:border-gray-700">
+            <div class="text-xs font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Best Player</div>
+            <div class="text-4xl font-black text-emerald-500 tracking-tighter">
+                {{ collection:players sort="global_elo:desc" limit="1" }}{{ global_elo | round }}{{ /collection:players }}
+            </div>
+            <div class="text-sm font-bold text-gray-500 dark:text-gray-500 mt-1">Höchste Wertung</div>
+        </div>
+    </div>
+
+    <div class="bg-white dark:bg-gray-800 shadow-2xl rounded-[3rem] overflow-hidden border border-gray-100 dark:border-gray-700">
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <thead class="bg-gray-50/50 dark:bg-gray-900/50">
+                    <tr>
+                        <th scope="col" class="px-8 py-6 text-left text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Rank</th>
+                        <th scope="col" class="px-8 py-6 text-left text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Spieler</th>
+                        <th scope="col" class="px-8 py-6 text-center text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Global Elo</th>
+                        <th scope="col" class="px-8 py-6 text-center text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Win / Loss</th>
+                        <th scope="col" class="px-8 py-6 text-center text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Spiele gesamt</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100 dark:divide-gray-700/50">
+                    {{ collection:players sort="global_elo:desc" }}
+                        <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-700/30 transition-all duration-200">
+                            <td class="px-8 py-6 whitespace-nowrap">
+                                <span class="text-xl font-black {{ if index < 3 }}text-indigo-600 dark:text-indigo-400{{ else }}text-gray-300 dark:text-gray-600{{ /if }} tracking-tighter">
+                                    {{ index | add(1) }}.
+                                </span>
+                            </td>
+                            <td class="px-8 py-6 whitespace-nowrap">
+                                <a href="{{ url }}" class="flex items-center group">
+                                    <div class="h-12 w-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-black shadow-lg transform group-hover:scale-110 transition-all duration-200 overflow-hidden">
+                                        {{ if avatar_url }}
+                                            <img src="{{ avatar_url }}" class="h-full w-full object-cover">
+                                        {{ elseif avatar }}
+                                            <img src="{{ avatar }}" class="h-full w-full object-cover">
+                                        {{ else }}
+                                            {{ title | substr(0,1) }}
+                                        {{ /if }}
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="text-base font-black text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{{ title }}</div>
+                                        <div class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Active Player</div>
+                                    </div>
+                                </a>
+                            </td>
+                            <td class="px-8 py-6 whitespace-nowrap text-center">
+                                <div class="inline-flex items-center px-4 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 text-lg font-black border border-indigo-100 dark:border-indigo-800">
+                                    {{ global_elo | round }}
+                                </div>
+                            </td>
+                            <td class="px-8 py-6 whitespace-nowrap text-center">
+                                <div class="flex items-center justify-center gap-2 font-black text-sm">
+                                    <span class="text-emerald-500">{{ wins ?? 0 }}W</span>
+                                    <span class="text-gray-200 dark:text-gray-700">/</span>
+                                    <span class="text-rose-500">{{ losses ?? 0 }}L</span>
+                                </div>
+                            </td>
+                            <td class="px-8 py-6 whitespace-nowrap text-center text-sm font-bold text-gray-500 dark:text-gray-400">
+                                {{ total_games ?? 0 }}
+                            </td>
+                        </tr>
+                    {{ /collection:players }}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

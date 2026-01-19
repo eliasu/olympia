@@ -31,7 +31,8 @@ class CreatePlayers extends Command
                     'title' => $name,
                     'global_elo' => $elo,
                     'total_games' => 0,
-                    'player_status' => 'active'
+                    'player_status' => 'active',
+                    'avatar_url' => "https://api.dicebear.com/7.x/avataaars/svg?seed=" . urlencode($name)
                 ]);
             
             $player->save();

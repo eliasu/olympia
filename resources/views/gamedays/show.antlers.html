@@ -6,8 +6,8 @@
         <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">{{ title }}</h1>
         <p class="text-gray-500 dark:text-gray-400 mt-1">{{ date format="l, d. F Y" }}</p>
         
-        <!-- Status Badge -->
-        <div class="mt-4">
+        <!-- Status Badges -->
+        <div class="mt-4 flex flex-wrap gap-2">
             {{ if is_finished }}
                 <span class="inline-flex items-center px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 font-bold border border-gray-200 dark:border-gray-700">
                     Spieltag abgeschlossen
@@ -21,6 +21,10 @@
                     Entwurf
                 </span>
             {{ /if }}
+
+            <span class="inline-flex items-center px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-300 font-bold border border-indigo-200 dark:border-indigo-800/50">
+                {{ present_players | count }} Spieler
+            </span>
         </div>
     </div>
 

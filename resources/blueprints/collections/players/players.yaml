@@ -21,6 +21,12 @@ tabs:
               display: Avatar
               container: assets
           -
+            handle: avatar_url
+            field:
+              type: text
+              display: 'Avatar URL'
+              instructions: 'External URL for player avatar'
+          -
             handle: global_elo
             field:
               type: float

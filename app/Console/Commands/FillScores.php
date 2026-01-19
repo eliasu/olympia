@@ -103,13 +103,13 @@ class FillScores extends Command
                 $dominance = abs($probabilityA - 0.5) * 2; // 0 (equal) to 1 (totally dominant)
                 
                 if ($aWins) {
-                    $scoreA = rand(11, 15);
-                    // Higher dominance = lower score for loser
-                    $maxLoserScore = (int) max(0, min($scoreA - 2, 9 - ($dominance * 8)));
+                    $scoreA = 11;
+                    // Higher dominance = lower score for loser. Max 9 for loser.
+                    $maxLoserScore = (int) max(0, min(9, 8 - ($dominance * 10)));
                     $scoreB = rand(0, $maxLoserScore);
                 } else {
-                    $scoreB = rand(11, 15);
-                    $maxLoserScore = (int) max(0, min($scoreB - 2, 9 - ($dominance * 8)));
+                    $scoreB = 11;
+                    $maxLoserScore = (int) max(0, min(9, 8 - ($dominance * 10)));
                     $scoreA = rand(0, $maxLoserScore);
                 }
                 
