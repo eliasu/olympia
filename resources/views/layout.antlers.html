@@ -14,15 +14,15 @@
         <nav x-data="{ mobileMenuOpen: false }" class="sticky top-0 z-50 bg-white/80 dark:bg-gray-800/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-700">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between h-16">
-                    <div class="flex items-center gap-8">
-                        <a href="/" class="flex items-center gap-2 group">
+
+                        <a href="/" class="flex items-center  group">
                             {{ settings }}
                                 {{ if site_logo }}
-                                    <img src="{{ site_logo }}" alt="{{ site:name }}" class="h-8 w-auto">
+                                    <img src="{{ site_logo }}" alt="{{ site:name }}" class="h-14 w-auto">
                                 {{ else }}
-                                    <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-black group-hover:rotate-12 transition-transform">O</div>
-                                    <span class="font-black text-xl tracking-tighter text-gray-900 dark:text-white">Olympia</span>
+                                    <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-black group-hover:rotate-12 transition-transform">B</div>
                                 {{ /if }}
+                                <span class="font-black text-xl tracking-tighter text-gray-900 dark:text-white">BTV Olympia</span>
                             {{ /settings }}
                         </a>
                         
@@ -37,7 +37,7 @@
                                 <a href="{{ url }}" class="text-xs font-bold uppercase tracking-widest {{ if segment_1 == 'leagues' && segment_2 == slug }}text-indigo-600{{ else }}text-gray-500 hover:text-gray-900 dark:hover:text-white{{ /if }} transition-colors">{{ title }}</a>
                             {{ /collection:leagues }}
                         </div>
-                    </div>
+
 
                     <!-- Mobile Hamburger Button -->
                     <div class="flex items-center md:hidden">

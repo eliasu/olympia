@@ -1,5 +1,6 @@
 title: Settings
 data:
+  site_logo: website-assets/signet-pickleball-shadow-yellow-256w.png
   primary_color: '#4f46e5'
   secondary_color: '#9333ea'
   success_color: '#10b981'
