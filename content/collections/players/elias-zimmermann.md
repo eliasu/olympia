@@ -2,8 +2,8 @@
 id: a868823c-d601-4b0e-b680-244b507d3251
 blueprint: players
 title: 'Elias Zimmermann'
-global_elo: 1453.37
-total_games: 36
+global_elo: 1424.58
+total_games: 63
 player_status: active
 avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Elias+Zimmermann'
 matches:
@@ -43,17 +43,44 @@ matches:
   - 86d57039-8512-4f96-9b6a-87bedf142a60
   - fd90d439-944f-4c33-ac97-ca9f576baba4
   - e10087ee-9e48-42d8-9ddb-1a3826ce4be4
-wins: 14
-losses: 22
+  - fe13b793-26be-420b-912d-44a3f0eb999f
+  - 201e8268-a663-47a5-919c-9e24bd4c3d17
+  - 8e0d88b4-0c0b-4e5f-a64b-246f3a9caae1
+  - f9eb6601-1de4-4a46-a64a-2dabc437c09e
+  - 90ca7bd1-2430-42ae-9660-e37de952d6bf
+  - a04a5acc-b70c-427c-bbd6-49d1f5847db3
+  - 6f7ba2f6-d02f-4c4a-9a87-439a9d056c0d
+  - 66812d19-a4c6-403c-b0aa-a9ff1f3e8238
+  - 0f9fe349-43bb-4d36-9708-e26aa6cd8548
+  - a875b84a-6bc2-44f2-baad-2c51438ebcc7
+  - 19f93228-8fa4-4fdd-97cb-c1c9fd348ec2
+  - 307c2818-c5cb-4688-b7c7-f714e8fb454c
+  - e423946e-93dc-483f-83de-ab4366886400
+  - 3a894f09-15d4-437a-9ee2-3a52cdad9c43
+  - 08613845-fe86-4756-9a69-f4a3a884f40a
+  - e7591151-3d3a-4c2f-96bf-351415b6067f
+  - 35de82fc-350f-44b0-8212-1bb6702f07f8
+  - 79e4d1ef-22a1-4378-b3fd-4b54f479e092
+  - 4f72b669-929a-4313-9ad6-cab0d50c124e
+  - b840dcc8-107d-4d41-ac60-b5ee10a2c1f1
+  - 59565c4b-9fd9-4717-9530-ae53cac2278e
+  - effbe961-2b65-4c58-8256-37ebbbbb6df3
+  - 83c84ae1-4d6b-47fb-9469-261c2bec8519
+  - 73c1d8a1-307d-4a78-930a-0afddc2f6460
+  - 54e8a4a8-ce93-48c6-8a7f-a8838eba437f
+  - af386dcc-5dad-4ada-a791-bb7f1f9b6401
+  - fa5a8501-13c6-4537-afbc-602e7a3fc36b
+wins: 28
+losses: 35
 league_stats:
   -
     league:
       - 424d0c8a-ff53-4023-95b5-76be7d34529e
-    played_games: 12
-    match_count: 36
-    league_performance: -46.66
-    average_delta: -1.3
-    league_wins: 14
-    league_losses: 22
-    rank: 35
+    played_games: 13
+    match_count: 63
+    league_performance: -75.45
+    average_delta: -1.2
+    league_wins: 28
+    league_losses: 35
+    rank: 36
 ---

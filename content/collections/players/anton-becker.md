@@ -2,8 +2,8 @@
 id: 6ba2323e-a8af-4fa4-80e3-9be3a6e6b858
 blueprint: players
 title: 'Anton Becker'
-global_elo: 1624.66
-total_games: 28
+global_elo: 1588.64
+total_games: 56
 player_status: active
 avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Anton+Becker'
 matches:
@@ -35,17 +35,45 @@ matches:
   - 045f643a-be96-4588-a9e3-9eb32eca6e87
   - 6d6adca5-1d82-4bfb-a2d4-6fb050e206ef
   - d3e1afaf-97c5-49e9-be50-17592b0207c9
-wins: 20
-losses: 8
+  - 201e8268-a663-47a5-919c-9e24bd4c3d17
+  - 238d07d5-b7c2-4642-b58d-00e8aee867b6
+  - 1059906b-adbd-463f-8acc-3e3bde88f486
+  - 19f5775c-45f8-4add-9e28-d215cefdf0ae
+  - 90ca7bd1-2430-42ae-9660-e37de952d6bf
+  - 58f9d8c5-b505-47dc-bde4-f674b9118a5c
+  - 6f7ba2f6-d02f-4c4a-9a87-439a9d056c0d
+  - 66812d19-a4c6-403c-b0aa-a9ff1f3e8238
+  - 0f9fe349-43bb-4d36-9708-e26aa6cd8548
+  - 19f93228-8fa4-4fdd-97cb-c1c9fd348ec2
+  - 2f45ecce-6949-47c3-bb32-39b006db99d3
+  - 307c2818-c5cb-4688-b7c7-f714e8fb454c
+  - e423946e-93dc-483f-83de-ab4366886400
+  - 307c6a6f-7d22-49b2-998f-bc7723b0e6f9
+  - 7ffb2d69-c0b7-44ab-9b2f-d0e7dfc26f0e
+  - 99e23876-38e2-492a-8bfe-d3f0de6119a0
+  - 3ddc4fbc-2356-4fa1-b075-9089a8bd6a18
+  - ab20abdc-7f23-4b8c-996c-3e1766d5ae00
+  - 79e4d1ef-22a1-4378-b3fd-4b54f479e092
+  - a941f066-cecf-45c2-b94a-bfe1a535d776
+  - b840dcc8-107d-4d41-ac60-b5ee10a2c1f1
+  - b1a8b072-fc9f-47a5-ae0e-594ee9033d35
+  - 200c965f-e3f6-4847-9fa4-f720497e9045
+  - 219abdaa-d35b-4349-bba0-4e5104ff50cc
+  - 73c1d8a1-307d-4a78-930a-0afddc2f6460
+  - b2aa5bd7-bf9f-4b2e-8fc1-1cea5478c49f
+  - 77697956-e634-46a5-afc3-410e56dee3a3
+  - bd656d8e-224a-4542-9f42-75f42277a709
+wins: 35
+losses: 21
 league_stats:
   -
     league:
       - 424d0c8a-ff53-4023-95b5-76be7d34529e
-    played_games: 10
-    match_count: 28
-    league_performance: 124.67
-    average_delta: 4.45
-    league_wins: 20
-    league_losses: 8
-    rank: 1
+    played_games: 11
+    match_count: 56
+    league_performance: 88.65
+    average_delta: 1.58
+    league_wins: 35
+    league_losses: 21
+    rank: 5
 ---

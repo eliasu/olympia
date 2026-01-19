@@ -2,8 +2,8 @@
 id: ca7e7ed6-57da-4a2b-983c-3120a839a600
 blueprint: players
 title: 'Anna Hofmann'
-global_elo: 1498.67
-total_games: 32
+global_elo: 1431.68
+total_games: 61
 player_status: active
 avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Anna+Hofmann'
 matches:
@@ -39,17 +39,46 @@ matches:
   - 120c1105-ab67-47e2-8b53-86bec33a7d2b
   - 6d5158ed-479c-4357-9c85-cd6df74029c1
   - 874878b4-25b3-4fc6-bafc-ca4fab03bf8f
-wins: 17
-losses: 15
+  - d35671e9-7acc-477f-a31e-245e0ae81448
+  - fe13b793-26be-420b-912d-44a3f0eb999f
+  - 238d07d5-b7c2-4642-b58d-00e8aee867b6
+  - 90ca7bd1-2430-42ae-9660-e37de952d6bf
+  - db2f9e33-982d-41b1-9a5b-94b20f1387fb
+  - a04a5acc-b70c-427c-bbd6-49d1f5847db3
+  - 6f7ba2f6-d02f-4c4a-9a87-439a9d056c0d
+  - ac6debf4-bcf7-49b3-87ec-b29224838b85
+  - 0f9fe349-43bb-4d36-9708-e26aa6cd8548
+  - a875b84a-6bc2-44f2-baad-2c51438ebcc7
+  - abccba64-16d9-4ebd-b735-0ccd19c6ffba
+  - db2a2646-b77e-49c2-b6ac-bb5cd95d21d7
+  - e855c108-21d0-4139-8bf6-50f8078cf582
+  - e423946e-93dc-483f-83de-ab4366886400
+  - e1abdf4d-640c-42d4-b6a5-6262866befbc
+  - 08613845-fe86-4756-9a69-f4a3a884f40a
+  - e7591151-3d3a-4c2f-96bf-351415b6067f
+  - 3ddc4fbc-2356-4fa1-b075-9089a8bd6a18
+  - 4777909e-7576-4d55-aa67-e57d00f625c5
+  - 0e39fec5-cec7-4a82-b1ba-cd7ef181649a
+  - b840dcc8-107d-4d41-ac60-b5ee10a2c1f1
+  - b1a8b072-fc9f-47a5-ae0e-594ee9033d35
+  - 9f376b91-ccda-44bb-8a4d-02e7483094d2
+  - 200c965f-e3f6-4847-9fa4-f720497e9045
+  - 219abdaa-d35b-4349-bba0-4e5104ff50cc
+  - b2aa5bd7-bf9f-4b2e-8fc1-1cea5478c49f
+  - 6b55ed14-6aa6-4519-8d44-28b049355476
+  - 77697956-e634-46a5-afc3-410e56dee3a3
+  - bd656d8e-224a-4542-9f42-75f42277a709
+wins: 26
+losses: 35
 league_stats:
   -
     league:
       - 424d0c8a-ff53-4023-95b5-76be7d34529e
-    played_games: 9
-    match_count: 32
-    league_performance: -1.33
-    average_delta: -0.04
-    league_wins: 17
-    league_losses: 15
-    rank: 24
+    played_games: 10
+    match_count: 61
+    league_performance: -68.33
+    average_delta: -1.12
+    league_wins: 26
+    league_losses: 35
+    rank: 38
 ---

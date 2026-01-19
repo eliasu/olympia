@@ -51,7 +51,7 @@ class FillScores extends Command
         } else {
             $this->error("❌ Please specify a league slug or use --all flag");
             $this->info("Examples:");
-            $this->info("  php artisan fill:scores btv-liga-2026");
+            $this->info("  php artisan fill:scores btv-new");
             $this->info("  php artisan fill:scores --all");
             return 1;
         }

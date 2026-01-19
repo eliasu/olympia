@@ -79,7 +79,7 @@
                             <tr>
                                 <th scope="col" class="px-2 sm:px-4 md:px-6 py-4 text-left text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Rank</th>
                                 <th scope="col" class="px-2 sm:px-4 md:px-6 py-4 text-left text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Player</th>
-                                <th scope="col" class="px-2 sm:px-4 md:px-6 py-4 text-center text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Points</th>
+                                <th scope="col" class="hidden md:table-cell px-2 sm:px-4 md:px-6 py-4 text-center text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Trend</th>
                                 <th scope="col" class="hidden md:table-cell px-2 sm:px-4 md:px-6 py-4 text-center text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Rec.</th>
                                 <th scope="col" class="hidden sm:table-cell px-2 sm:px-4 md:px-6 py-4 text-center text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Quali</th>
                             </tr>
@@ -106,7 +106,29 @@
                                             </div>
                                         </a>
                                     </td>
-                                    <td class="px-2 sm:px-4 md:px-6 py-5 whitespace-nowrap text-center text-sm font-black text-gray-900 dark:text-white" x-text="player.league_performance"></td>
+                                    <td class="hidden md:table-cell px-2 sm:px-4 md:px-6 py-5 whitespace-nowrap text-center">
+                                        <template x-if="player.average_delta >= 5">
+                                            <svg class="w-5 h-5 mx-auto text-emerald-500" style="transform: rotate(0deg);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                                        </template>
+                                        <template x-if="player.average_delta >= 1 && player.average_delta < 5">
+                                            <svg class="w-5 h-5 mx-auto text-emerald-400" style="transform: rotate(30deg);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                                        </template>
+                                        <template x-if="player.average_delta > 0 && player.average_delta < 1">
+                                            <svg class="w-5 h-5 mx-auto text-emerald-300" style="transform: rotate(60deg);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                                        </template>
+                                        <template x-if="player.average_delta === 0">
+                                            <svg class="w-5 h-5 mx-auto text-gray-400" style="transform: rotate(90deg);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                                        </template>
+                                        <template x-if="player.average_delta < 0 && player.average_delta > -1">
+                                            <svg class="w-5 h-5 mx-auto text-rose-300" style="transform: rotate(120deg);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                                        </template>
+                                        <template x-if="player.average_delta <= -1 && player.average_delta > -5">
+                                            <svg class="w-5 h-5 mx-auto text-rose-400" style="transform: rotate(150deg);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                                        </template>
+                                        <template x-if="player.average_delta <= -5">
+                                            <svg class="w-5 h-5 mx-auto text-rose-500" style="transform: rotate(180deg);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                                        </template>
+                                    </td>
                                     <td class="hidden md:table-cell px-2 sm:px-4 md:px-6 py-5 whitespace-nowrap text-center text-xs font-bold">
                                         <span class="text-emerald-500" x-text="`${player.league_wins}W`"></span>
                                         <span class="text-gray-300 mx-0.5">/</span>

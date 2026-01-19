@@ -2,8 +2,8 @@
 id: 105bc411-f55e-4447-86ea-772d0596a7b1
 blueprint: players
 title: 'Clara Schmid'
-global_elo: 1537.6
-total_games: 23
+global_elo: 1594.86
+total_games: 52
 player_status: active
 avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Clara+Schmid'
 matches:
@@ -30,17 +30,46 @@ matches:
   - 5e1079f5-1cb4-47a5-a077-1587ffa02de9
   - 4142874e-9e20-4982-9a02-e0191d4be6a6
   - e623a49f-6e96-4f35-ab5c-4bc7cc65a01e
-losses: 10
+  - 98659d3d-0180-4c12-b0f8-ad158c1813ba
+  - 201e8268-a663-47a5-919c-9e24bd4c3d17
+  - 3137bfbd-b723-4927-a5f4-600a9c17f3be
+  - 1059906b-adbd-463f-8acc-3e3bde88f486
+  - 19f5775c-45f8-4add-9e28-d215cefdf0ae
+  - db2f9e33-982d-41b1-9a5b-94b20f1387fb
+  - a04a5acc-b70c-427c-bbd6-49d1f5847db3
+  - ac6debf4-bcf7-49b3-87ec-b29224838b85
+  - 339401b7-1779-49d6-8d2c-cb9591d00ca5
+  - 19f93228-8fa4-4fdd-97cb-c1c9fd348ec2
+  - 2f45ecce-6949-47c3-bb32-39b006db99d3
+  - 307c2818-c5cb-4688-b7c7-f714e8fb454c
+  - f720c9bc-4e97-47fd-b01e-25cbc6632d0f
+  - f80717c4-5c86-4348-8b4c-e00f22fbce5d
+  - 307c6a6f-7d22-49b2-998f-bc7723b0e6f9
+  - 7ffb2d69-c0b7-44ab-9b2f-d0e7dfc26f0e
+  - 35de82fc-350f-44b0-8212-1bb6702f07f8
+  - 3ddc4fbc-2356-4fa1-b075-9089a8bd6a18
+  - ebba3647-1031-4279-8783-1536b77c7741
+  - 79e4d1ef-22a1-4378-b3fd-4b54f479e092
+  - a941f066-cecf-45c2-b94a-bfe1a535d776
+  - b1a8b072-fc9f-47a5-ae0e-594ee9033d35
+  - 200c965f-e3f6-4847-9fa4-f720497e9045
+  - 219abdaa-d35b-4349-bba0-4e5104ff50cc
+  - 1943e368-2fe9-4c6e-9e96-473bb26c50ea
+  - b2aa5bd7-bf9f-4b2e-8fc1-1cea5478c49f
+  - 77697956-e634-46a5-afc3-410e56dee3a3
+  - bd656d8e-224a-4542-9f42-75f42277a709
+  - 4ff92124-f341-4b32-8325-27402512e48b
+losses: 22
 league_stats:
   -
     league:
       - 424d0c8a-ff53-4023-95b5-76be7d34529e
-    played_games: 7
-    match_count: 23
-    league_performance: 37.61
-    average_delta: 1.64
-    league_wins: 13
-    league_losses: 10
-    rank: 9
-wins: 13
+    played_games: 8
+    match_count: 52
+    league_performance: 94.88
+    average_delta: 1.82
+    league_wins: 30
+    league_losses: 22
+    rank: 2
+wins: 30
 ---

@@ -1,6 +1,6 @@
 <script>
 window.gamedayData = {
-    matches: {{ matches | select('id', 'score_a', 'score_b', 'team_a', 'team_b', 'url') | json }},
+    matches: {{ matches | select('id', 'score_a', 'score_b', 'team_a', 'team_b', 'url', 'elo_delta') | json }},
     players: {{ present_players | select('id', 'title', 'avatar_url', 'url') | json }}
 };
 
@@ -28,39 +28,58 @@ function gamedayRanking(data) {
                     url: p.url,
                     wins: 0, 
                     losses: 0, 
-                    points_for: 0, 
-                    points_against: 0, 
-                    diff: 0 
+                    elo_delta: 0  // Track Elo performance
                 };
             });
 
-            // Calculate stats
+            // Calculate stats from matches
             this.matches.forEach(m => {
                 const scoreA = parseInt(m.score_a);
                 const scoreB = parseInt(m.score_b);
-                if (isNaN(scoreA) || isNaN(scoreB)) return;
+                const eloDelta = parseFloat(m.elo_delta) || 0;
                 
-                [ {team: m.team_a, sFor: scoreA, sAgainst: scoreB}, 
-                  {team: m.team_b, sFor: scoreB, sAgainst: scoreA} 
-                ].forEach(set => {
-                    (set.team || []).forEach(p => {
-                        const id = getID(p);
-                        if (!id) return;
-                        if (!stats[id]) {
-                            stats[id] = { id, title: p.title || 'Unknown', avatar_url: p.avatar_url, url: p.url, wins: 0, losses: 0, points_for: 0, points_against: 0, diff: 0 };
-                        }
-                        stats[id].points_for += set.sFor;
-                        stats[id].points_against += set.sAgainst;
-                        if (set.sFor > set.sAgainst) stats[id].wins++;
-                        else if (set.sAgainst > set.sFor) stats[id].losses++;
-                    });
+                if (isNaN(scoreA) || isNaN(scoreB) || eloDelta === 0) return;
+                
+                const teamAWon = scoreA > scoreB;
+                
+                // Team A
+                (m.team_a || []).forEach(p => {
+                    const id = getID(p);
+                    if (!id) return;
+                    if (!stats[id]) {
+                        stats[id] = { id, title: p.title || 'Unknown', avatar_url: p.avatar_url, url: p.url, wins: 0, losses: 0, elo_delta: 0 };
+                    }
+                    
+                    if (teamAWon) {
+                        stats[id].wins++;
+                        stats[id].elo_delta += eloDelta;
+                    } else {
+                        stats[id].losses++;
+                        stats[id].elo_delta -= eloDelta;
+                    }
+                });
+                
+                // Team B
+                (m.team_b || []).forEach(p => {
+                    const id = getID(p);
+                    if (!id) return;
+                    if (!stats[id]) {
+                        stats[id] = { id, title: p.title || 'Unknown', avatar_url: p.avatar_url, url: p.url, wins: 0, losses: 0, elo_delta: 0 };
+                    }
+                    
+                    if (!teamAWon) {
+                        stats[id].wins++;
+                        stats[id].elo_delta += eloDelta;
+                    } else {
+                        stats[id].losses++;
+                        stats[id].elo_delta -= eloDelta;
+                    }
                 });
             });
 
             return Object.values(stats)
-                .map(p => ({ ...p, diff: p.points_for - p.points_against }))
                 .filter(p => (p.wins + p.losses) > 0)
-                .sort((a, b) => (b.wins - a.wins) || (b.diff - a.diff) || (b.points_for - a.points_for));
+                .sort((a, b) => b.elo_delta - a.elo_delta);  // Sort by Elo performance
         }
     }
 }
@@ -253,10 +272,6 @@ async function saveScore(matchId, scoreA, scoreB) {
                                         <span class="text-sm font-bold text-gray-900 dark:text-white truncate" x-text="player.title"></span>
                                         <span class="text-[9px] font-black uppercase tracking-widest text-gray-400" x-text="player.wins + 'W - ' + player.losses + 'L'"></span>
                                     </div>
-                                </div>
-                                <div class="text-right flex-shrink-0">
-                                    <div class="text-sm font-black text-gray-900 dark:text-white" x-text="player.points_for"></div>
-                                    <div class="text-[9px] font-bold text-gray-400" x-text="(player.diff > 0 ? '+' : '') + player.diff + ' Diff'"></div>
                                 </div>
                             </a>
                         </template>

@@ -2,8 +2,8 @@
 id: dc0e4ed5-aed7-4d0d-bb60-840ac253801e
 blueprint: players
 title: 'Emil Schröder'
-global_elo: 1562.42
-total_games: 24
+global_elo: 1581.1
+total_games: 53
 player_status: active
 avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Emil+Schr%C3%B6der'
 matches:
@@ -31,17 +31,46 @@ matches:
   - a4a127ac-aa83-4da7-b463-b644bbca5c42
   - 9b151937-5218-41bf-800c-904bbe5e5a69
   - f9d08f0f-acba-41d1-977f-0035ee86fd5a
-losses: 9
-wins: 15
+  - 98659d3d-0180-4c12-b0f8-ad158c1813ba
+  - 201e8268-a663-47a5-919c-9e24bd4c3d17
+  - 238d07d5-b7c2-4642-b58d-00e8aee867b6
+  - 1059906b-adbd-463f-8acc-3e3bde88f486
+  - 19f5775c-45f8-4add-9e28-d215cefdf0ae
+  - 58f9d8c5-b505-47dc-bde4-f674b9118a5c
+  - 66812d19-a4c6-403c-b0aa-a9ff1f3e8238
+  - 0f9fe349-43bb-4d36-9708-e26aa6cd8548
+  - 2372ba8b-f963-4d3e-a96c-c28a7f30cfc5
+  - 2f45ecce-6949-47c3-bb32-39b006db99d3
+  - 307c2818-c5cb-4688-b7c7-f714e8fb454c
+  - f720c9bc-4e97-47fd-b01e-25cbc6632d0f
+  - e423946e-93dc-483f-83de-ab4366886400
+  - f80717c4-5c86-4348-8b4c-e00f22fbce5d
+  - 307c6a6f-7d22-49b2-998f-bc7723b0e6f9
+  - 7ffb2d69-c0b7-44ab-9b2f-d0e7dfc26f0e
+  - 99e23876-38e2-492a-8bfe-d3f0de6119a0
+  - 3ddc4fbc-2356-4fa1-b075-9089a8bd6a18
+  - ab20abdc-7f23-4b8c-996c-3e1766d5ae00
+  - 4f72b669-929a-4313-9ad6-cab0d50c124e
+  - a941f066-cecf-45c2-b94a-bfe1a535d776
+  - 59565c4b-9fd9-4717-9530-ae53cac2278e
+  - effbe961-2b65-4c58-8256-37ebbbbb6df3
+  - 200c965f-e3f6-4847-9fa4-f720497e9045
+  - 219abdaa-d35b-4349-bba0-4e5104ff50cc
+  - 54e8a4a8-ce93-48c6-8a7f-a8838eba437f
+  - b2aa5bd7-bf9f-4b2e-8fc1-1cea5478c49f
+  - 77697956-e634-46a5-afc3-410e56dee3a3
+  - bd656d8e-224a-4542-9f42-75f42277a709
+losses: 25
+wins: 28
 league_stats:
   -
     league:
       - 424d0c8a-ff53-4023-95b5-76be7d34529e
-    played_games: 7
-    match_count: 24
-    league_performance: 62.44
-    average_delta: 2.6
-    league_wins: 15
-    league_losses: 9
-    rank: 5
+    played_games: 8
+    match_count: 53
+    league_performance: 81.11
+    average_delta: 1.53
+    league_wins: 28
+    league_losses: 25
+    rank: 3
 ---
