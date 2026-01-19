@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ae8f81ee03aaf511523669af0ec0d13c",
+    "content-hash": "957c7729a104752dcd7ad8759a724240",
     "packages": [
         {
             "name": "ajthinking/archetype",
@@ -516,6 +516,54 @@
                 }
             ],
             "time": "2024-02-05T11:56:58+00:00"
+        },
+        {
+            "name": "doefom/statamic-table-of-contents",
+            "version": "v1.2.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doefom/statamic-table-of-contents.git",
+                "reference": "dec7f8bb7ff33f64607b5b7d08acbe5ff9b70550"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doefom/statamic-table-of-contents/zipball/dec7f8bb7ff33f64607b5b7d08acbe5ff9b70550",
+                "reference": "dec7f8bb7ff33f64607b5b7d08acbe5ff9b70550",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "statamic/cms": "^5.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Doefom\\StatamicTableOfContents\\ServiceProvider"
+                    ]
+                },
+                "statamic": {
+                    "name": "Statamic Table Of Contents",
+                    "description": "Automatically generate a table of contents from a bard or markdown field anywhere in your antlers templates."
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Doefom\\StatamicTableOfContents\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "support": {
+                "issues": "https://github.com/doefom/statamic-table-of-contents/issues",
+                "source": "https://github.com/doefom/statamic-table-of-contents/tree/v1.2.5"
+            },
+            "time": "2024-09-15T08:14:32+00:00"
         },
         {
             "name": "dragonmantank/cron-expression",
@@ -10748,12 +10796,12 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }

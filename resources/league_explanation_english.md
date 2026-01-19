@@ -1,13 +1,17 @@
+# 🏆 BTV League Explanation
+
+## 📖 Table of Contents
+1. [Overview](#overview)
+2. [Elo Rating System](#elo-rating-system)
+3. [Pairing System (Matchmaking)](#pairing-system)
+4. [League Ranking (LPI)](#league-ranking)
+5. [Example Scenarios](#example-scenarios)
+6. [Frequently Asked Questions (FAQ)](#faq)
+7. [Edge Cases](#edge-cases)
+8. [Summary](#summary)
+
 ---
-id: 40b37d94-b73c-45b0-b3cb-5a1d14b71bb4
-blueprint: page
-title: Faq
-updated_by: 1861c4a9-8873-459c-97ce-38d399b7ed46
-updated_at: 1768835856
-template: faq
-headline: 'How to BTV League'
-subheadline: 'Complete explanation of Elo ratings and league rankings.'
----
+
 ## 🎯 Overview
 
 ### What is the Goal?

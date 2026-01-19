@@ -1,0 +1,60 @@
+title: Page
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              validate:
+                - required
+          -
+            handle: headline
+            field:
+              type: text
+              display: Headline
+          -
+            handle: subheadline
+            field:
+              type: text
+              display: Subheadline
+          -
+            handle: content
+            field:
+              type: markdown
+              display: Content
+              instructions: 'Main page content in Markdown format'
+              container: assets
+              folder: /
+              automatic_links: true
+              parser: default
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: template
+            field:
+              type: template
+              display: Template
+              instructions: 'Select a template for this page'
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'
+          -
+            handle: parent
+            field:
+              type: entries
+              collections:
+                - pages
+              max_items: 1
+              listable: false
+              localizable: true

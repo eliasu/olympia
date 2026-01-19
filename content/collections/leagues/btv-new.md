@@ -30,6 +30,7 @@ gamedays:
   - 1f461416-609a-4afa-9e75-fc6e3af4498f
   - 43c548a0-ec7e-4c90-b744-5edf87ac41f3
   - 7b234d1d-52d5-4812-832d-2fba47efecd5
+  - 05328831-6917-4331-a2e4-4ad3ec6e2a6c
 players:
   - 5d5ae558-824c-45da-b640-25d8da2caffe
   - f70358bd-ed44-4183-a4ac-502fbb5ef742

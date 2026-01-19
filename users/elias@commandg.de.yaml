@@ -37,3 +37,5 @@ preferences:
         - avatar
         - global_elo
         - total_games
+    pages:
+      after_save: continue_editing
