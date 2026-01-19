@@ -16,8 +16,14 @@
                 <div class="flex justify-between h-16">
                     <div class="flex items-center gap-8">
                         <a href="/" class="flex items-center gap-2 group">
-                            <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-black group-hover:rotate-12 transition-transform">O</div>
-                            <span class="font-black text-xl tracking-tighter text-gray-900 dark:text-white">Olympia</span>
+                            {{ settings }}
+                                {{ if site_logo }}
+                                    <img src="{{ site_logo }}" alt="{{ site:name }}" class="h-8 w-auto">
+                                {{ else }}
+                                    <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-black group-hover:rotate-12 transition-transform">O</div>
+                                    <span class="font-black text-xl tracking-tighter text-gray-900 dark:text-white">Olympia</span>
+                                {{ /if }}
+                            {{ /settings }}
                         </a>
                         
                         <!-- Desktop Navigation -->
