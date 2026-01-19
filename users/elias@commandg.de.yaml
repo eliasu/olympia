@@ -30,7 +30,8 @@ preferences:
         - is_played
         - gameday
         - elo_delta
-      per_page: 500
+      per_page: 10
+      after_save: continue_editing
     players:
       columns:
         - title

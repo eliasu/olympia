@@ -2,8 +2,8 @@
 id: ddf58684-3465-485f-be83-532c25a1a5b8
 blueprint: players
 title: 'Frieda Huber'
-global_elo: 1422.42
-total_games: 52
+global_elo: 1409.81
+total_games: 57
 player_status: active
 avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Frieda+Huber'
 matches:
@@ -59,17 +59,32 @@ matches:
   - 54e8a4a8-ce93-48c6-8a7f-a8838eba437f
   - af386dcc-5dad-4ada-a791-bb7f1f9b6401
   - fa5a8501-13c6-4537-afbc-602e7a3fc36b
-losses: 30
+  - 2f10ea69-3992-4f9d-aeba-f9128ffecd38
+  - 3f19d2b9-242b-4647-8bb0-fd84ea8b23ae
+  - f1c1d9d0-de23-4c33-b3a9-d2c95c8ac4b7
+  - 8b3864f6-1aca-4791-a0ae-8dfca7a2a32b
+  - 3442095a-569b-45e5-bcfe-8847d3beaeb2
+  - afb0aa05-18d1-4bbe-a57d-5df7ffbba7e9
+  - 003f882b-b749-4aa8-ab80-eba4a9ca8c7b
+  - 64890b7a-9316-4b28-b3b0-c44b81280f8d
+  - 10da221a-b3b5-4282-bd98-4e69c1f5a8b8
+  - 41992d9d-a181-46f5-837e-feb287bfd2f3
+  - 52a373b1-6d6e-4d19-8b89-7f3d9e0c8a38
+  - db838bb4-d003-4d94-904b-4786d5aac847
+  - 9d38db9f-4d30-4326-97ca-5ee76e0b3000
+  - 2f28676d-93db-4b2f-856c-d633baf0dda3
+  - 2d4b6680-4c6a-44fa-ab71-dcc93935fe9a
+losses: 35
 league_stats:
   -
     league:
       - 424d0c8a-ff53-4023-95b5-76be7d34529e
-    played_games: 9
-    match_count: 52
-    league_performance: -77.56
-    average_delta: -1.49
+    played_games: 14
+    match_count: 57
+    league_performance: -117.12
+    average_delta: -2.05
     league_wins: 22
-    league_losses: 30
-    rank: 39
+    league_losses: 35
+    rank: 40
 wins: 22
 ---

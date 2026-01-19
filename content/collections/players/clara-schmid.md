@@ -2,8 +2,8 @@
 id: 105bc411-f55e-4447-86ea-772d0596a7b1
 blueprint: players
 title: 'Clara Schmid'
-global_elo: 1594.86
-total_games: 52
+global_elo: 1543.21
+total_games: 57
 player_status: active
 avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Clara+Schmid'
 matches:
@@ -59,17 +59,28 @@ matches:
   - 77697956-e634-46a5-afc3-410e56dee3a3
   - bd656d8e-224a-4542-9f42-75f42277a709
   - 4ff92124-f341-4b32-8325-27402512e48b
-losses: 22
+  - 6350218c-1591-4c0c-81dc-0c356436b523
+  - 3f19d2b9-242b-4647-8bb0-fd84ea8b23ae
+  - 30575f45-f842-443b-89dc-c0a66f0c69f7
+  - 8b3864f6-1aca-4791-a0ae-8dfca7a2a32b
+  - 3442095a-569b-45e5-bcfe-8847d3beaeb2
+  - 6e9673ff-645d-445b-9765-12f5b80eb831
+  - 003f882b-b749-4aa8-ab80-eba4a9ca8c7b
+  - 41992d9d-a181-46f5-837e-feb287bfd2f3
+  - 52a373b1-6d6e-4d19-8b89-7f3d9e0c8a38
+  - db838bb4-d003-4d94-904b-4786d5aac847
+  - 9d38db9f-4d30-4326-97ca-5ee76e0b3000
+losses: 24
 league_stats:
   -
     league:
       - 424d0c8a-ff53-4023-95b5-76be7d34529e
-    played_games: 8
-    match_count: 52
-    league_performance: 94.88
-    average_delta: 1.82
-    league_wins: 30
-    league_losses: 22
-    rank: 2
-wins: 30
+    played_games: 13
+    match_count: 57
+    league_performance: 70.18
+    average_delta: 1.23
+    league_wins: 33
+    league_losses: 24
+    rank: 8
+wins: 33
 ---

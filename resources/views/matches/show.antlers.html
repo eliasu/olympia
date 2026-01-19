@@ -1,8 +1,9 @@
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    
+
     <!-- Breadcrumb -->
     <div class="text-center mb-8">
-        <a href="{{ gameday:url }}" class="text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 block mb-2">
+        <a href="{{ gameday:url }}"
+            class="text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 block mb-2">
             &larr; Back to gameday ({{ gameday:title }})
         </a>
         <h1 class="text-2xl font-bold text-gray-900 dark:text-white">{{ title }}</h1>
@@ -10,164 +11,217 @@
     </div>
 
     <!-- Scoreboard Card -->
-    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-700">
-        
+    <div
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-700">
+
         <!-- Status Bar -->
         <div class="bg-gray-50 dark:bg-gray-900/50 px-6 py-3 text-center border-b border-gray-100 dark:border-gray-700">
-             {{ if is_played }}
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 uppercase tracking-widest">
-                    Finished
-                </span>
-                {{ if elo_delta }}
-                    <span class="ml-2 text-xs font-mono text-gray-500">Elo Impact: +/- {{ elo_delta | round(1) }}</span>
-                {{ /if }}
-             {{ else }}
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200 uppercase tracking-widest animate-pulse">
-                    Live / Open
-                </span>
-             {{ /if }}
+            {{ if is_played }}
+            <span
+                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 uppercase tracking-widest">
+                Finished
+            </span>
+            {{ if elo_delta }}
+            <span class="ml-2 text-xs font-mono text-gray-500">Elo Impact: ± {{ elo_delta | abs | round(1) }}</span>
+            {{ /if }}
+            {{ else }}
+            <span
+                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200 uppercase tracking-widest animate-pulse">
+                Live / Open
+            </span>
+            {{ /if }}
         </div>
 
         <div class="p-8 md:p-12">
             <div class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
-                
+
                 <!-- Team A -->
                 <div class="flex-1 text-center">
-                    <h2 class="text-xl font-black text-gray-900 dark:text-white mb-6 uppercase tracking-widest text-blue-500">Team A</h2>
-                    
+                    <h2
+                        class="text-xl font-black text-gray-900 dark:text-white mb-6 uppercase tracking-widest text-blue-500">
+                        Team A</h2>
+
                     <!-- Avatars -->
                     <div class="flex justify-center -space-x-4 mb-4">
                         {{ team_a }}
-                            <a href="{{ url }}" class="block relative z-10 hover:z-20 transform hover:scale-105 transition-all group">
-                                <div class="h-16 w-16 md:h-20 md:w-20 rounded-full ring-4 ring-white dark:ring-gray-800 bg-gradient-to-tr from-blue-400 to-blue-600 flex items-center justify-center text-white text-xl font-black shadow-lg overflow-hidden">
-                                    {{ if avatar_url }}
-                                        <img src="{{ avatar_url }}" class="h-full w-full object-cover">
-                                    {{ elseif avatar }}
-                                        <img src="{{ avatar }}" class="h-full w-full object-cover">
-                                    {{ else }}
-                                        {{ title | explode(' ') | map(->(n) => n | substr(0,1)) | join('') }}
-                                    {{ /if }}
-                                </div>
-                            </a>
+                        <a href="{{ url }}"
+                            class="block relative z-10 hover:z-20 transform hover:scale-105 transition-all group">
+                            <div
+                                class="h-16 w-16 md:h-20 md:w-20 rounded-full ring-4 ring-white dark:ring-gray-800 bg-gradient-to-tr from-blue-400 to-blue-600 flex items-center justify-center text-white text-xl font-black shadow-lg overflow-hidden">
+                                {{ if avatar_url }}
+                                <img src="{{ avatar_url }}" class="h-full w-full object-cover">
+                                {{ elseif avatar }}
+                                <img src="{{ avatar }}" class="h-full w-full object-cover">
+                                {{ else }}
+                                {{ title | explode(' ') | map(->(n) => n | substr(0,1)) | join('') }}
+                                {{ /if }}
+                            </div>
+                        </a>
                         {{ /team_a }}
                     </div>
 
                     <!-- Names -->
-                     <div class="space-y-1">
+                    <div class="space-y-1">
                         {{ team_a }}
-                            <a href="{{ url }}" class="block text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">{{ title }}</a>
+                        <a href="{{ url }}"
+                            class="block text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">{{
+                            title }}</a>
                         {{ /team_a }}
                     </div>
                 </div>
 
                 <!-- Score -->
                 <div class="flex items-center gap-4">
-                    <div class="text-6xl md:text-8xl font-black {{ if score_a > score_b }}text-gray-900 dark:text-white{{ else }}text-gray-300 dark:text-gray-600{{ /if }} tracking-tighter">
-                        {{ score_a ?? '-' }}
+                    <div
+                        class="text-6xl md:text-8xl font-black {{ if score_a > score_b }}text-gray-900 dark:text-white{{ else }}text-gray-300 dark:text-gray-600{{ /if }} tracking-tighter">
+                        {{ score_a ?? '0' }}
                     </div>
                     <div class="text-3xl text-gray-200 dark:text-gray-700 font-light">:</div>
-                    <div class="text-6xl md:text-8xl font-black {{ if score_b > score_a }}text-gray-900 dark:text-white{{ else }}text-gray-300 dark:text-gray-600{{ /if }} tracking-tighter">
-                        {{ score_b ?? '-' }}
+                    <div
+                        class="text-6xl md:text-8xl font-black {{ if score_b > score_a }}text-gray-900 dark:text-white{{ else }}text-gray-300 dark:text-gray-600{{ /if }} tracking-tighter">
+                        {{ score_b ?? '0' }}
                     </div>
                 </div>
 
                 <!-- Team B -->
                 <div class="flex-1 text-center">
-                    <h2 class="text-xl font-black text-gray-900 dark:text-white mb-6 uppercase tracking-widest text-red-500">Team B</h2>
-                    
+                    <h2
+                        class="text-xl font-black text-gray-900 dark:text-white mb-6 uppercase tracking-widest text-red-500">
+                        Team B</h2>
+
                     <!-- Avatars -->
                     <div class="flex justify-center -space-x-4 mb-4">
                         {{ team_b }}
-                            <a href="{{ url }}" class="block relative z-10 hover:z-20 transform hover:scale-105 transition-all group">
-                                <div class="h-16 w-16 md:h-20 md:w-20 rounded-full ring-4 ring-white dark:ring-gray-800 bg-gradient-to-tr from-red-400 to-red-600 flex items-center justify-center text-white text-xl font-black shadow-lg overflow-hidden">
-                                    {{ if avatar_url }}
-                                        <img src="{{ avatar_url }}" class="h-full w-full object-cover">
-                                    {{ elseif avatar }}
-                                        <img src="{{ avatar }}" class="h-full w-full object-cover">
-                                    {{ else }}
-                                        {{ title | explode(' ') | map(->(n) => n | substr(0,1)) | join('') }}
-                                    {{ /if }}
-                                </div>
-                            </a>
+                        <a href="{{ url }}"
+                            class="block relative z-10 hover:z-20 transform hover:scale-105 transition-all group">
+                            <div
+                                class="h-16 w-16 md:h-20 md:w-20 rounded-full ring-4 ring-white dark:ring-gray-800 bg-gradient-to-tr from-red-400 to-red-600 flex items-center justify-center text-white text-xl font-black shadow-lg overflow-hidden">
+                                {{ if avatar_url }}
+                                <img src="{{ avatar_url }}" class="h-full w-full object-cover">
+                                {{ elseif avatar }}
+                                <img src="{{ avatar }}" class="h-full w-full object-cover">
+                                {{ else }}
+                                {{ title | explode(' ') | map(->(n) => n | substr(0,1)) | join('') }}
+                                {{ /if }}
+                            </div>
+                        </a>
                         {{ /team_b }}
                     </div>
 
                     <!-- Names -->
                     <div class="space-y-1">
                         {{ team_b }}
-                            <a href="{{ url }}" class="block text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400 transition-colors">{{ title }}</a>
+                        <a href="{{ url }}"
+                            class="block text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400 transition-colors">{{
+                            title }}</a>
                         {{ /team_b }}
                     </div>
                 </div>
 
             </div>
         </div>
-        
+        <!-- # Calculate actual deltas per team
+        # Team A won if score_a > score_b
+        # If Team A won: they get +delta, Team B gets -delta
+        # If Team B won: they get +delta, Team A gets -delta
+        # But delta is stored as ABSOLUTE value in the match -->
         {{ if is_played and elo_delta }}
+        {{
+        team_a_won = score_a > score_b
+        team_a_delta = team_a_won ? elo_delta : (0 - elo_delta)
+        team_b_delta = team_a_won ? (0 - elo_delta) : elo_delta
+        }}
+
         <div class="bg-gray-50 dark:bg-gray-900/50 p-8 border-t border-gray-100 dark:border-gray-700">
-            <h3 class="text-xs font-black text-gray-400 uppercase tracking-[0.2em] mb-6 text-center">Individual Elo Development</h3>
-            
+            <h3 class="text-xs font-black text-gray-400 uppercase tracking-[0.2em] mb-6 text-center">Individual Elo
+                Development</h3>
+
+
+            {{ if score_a > score_b }}
+            {{ team_a_delta = elo_delta }}
+            {{ team_b_delta = 0 - elo_delta }}
+            {{ else }}
+            {{ team_a_delta = 0 - elo_delta }}
+            {{ team_b_delta = elo_delta }}
+            {{ /if }}
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Winners -->
+                <!-- Team A Players -->
                 <div class="space-y-3">
-                    <div class="text-[10px] font-black uppercase tracking-widest text-emerald-500 flex items-center gap-2 mb-4">
-                        <span class="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
-                        Winners (+{{ elo_delta | round(1) }})
+                    <div
+                        class="text-[10px] font-black uppercase tracking-widest flex items-center gap-2 mb-4 {{ score_a > score_b ? 'text-emerald-500' : 'text-rose-500' }}">
+                        <span
+                            class="w-2 h-2 rounded-full {{ score_a > score_b ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]' : 'bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.5)]' }}"></span>
+                        {{ if score_a > score_b }}Winners{{ else }}Losers{{ /if }}
+                        <span
+                            class="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-black {{ team_a_delta >= 0 ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700' }}">
+                            {{ team_a_delta >= 0 ? '+' : '' }}{{ team_a_delta | round(1) }}
+                        </span>
                     </div>
-                    {{ if score_a > score_b }}
-                        {{ team_a }}
-                            <div class="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-2xl border border-emerald-100 dark:border-emerald-900/30 shadow-sm transition-all hover:bg-emerald-50/50 dark:hover:bg-emerald-900/10">
-                                <span class="text-sm font-bold text-gray-900 dark:text-white">{{ title }}</span>
-                                <div class="flex items-center gap-3 font-mono text-xs">
-                                    <span class="text-gray-400">{{ global_elo | subtract(elo_delta) | round(1) }}</span>
-                                    <svg class="w-3 h-3 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
-                                    <span class="font-black text-emerald-600 dark:text-emerald-400">{{ global_elo | round(1) }}</span>
-                                </div>
-                            </div>
-                        {{ /team_a }}
-                    {{ else }}
-                        {{ team_b }}
-                            <div class="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-2xl border border-emerald-100 dark:border-emerald-900/30 shadow-sm transition-all hover:bg-emerald-50/50 dark:hover:bg-emerald-900/10">
-                                <span class="text-sm font-bold text-gray-900 dark:text-white">{{ title }}</span>
-                                <div class="flex items-center gap-3 font-mono text-xs">
-                                    <span class="text-gray-400">{{ global_elo | subtract(elo_delta) | round(1) }}</span>
-                                    <svg class="w-3 h-3 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
-                                    <span class="font-black text-emerald-600 dark:text-emerald-400">{{ global_elo | round(1) }}</span>
-                                </div>
-                            </div>
-                        {{ /team_b }}
-                    {{ /if }}
+                    {{ team_a }}
+                    {{ old_elo = global_elo - team_a_delta }}
+                    {{ is_gain = team_a_delta >= 0 }}
+                    <div
+                        class="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-2xl border {{ is_gain ? 'border-emerald-100 dark:border-emerald-900/30' : 'border-rose-100 dark:border-rose-900/30' }} shadow-sm transition-all {{ is_gain ? 'hover:bg-emerald-50/50 dark:hover:bg-emerald-900/10' : 'hover:bg-rose-50/50 dark:hover:bg-rose-900/10' }}">
+                        <span class="text-sm font-bold text-gray-900 dark:text-white">{{ title }}</span>
+                        <div class="flex items-center gap-3 font-mono text-xs">
+                            <span class="text-gray-400">{{ old_elo | round(1) }}</span>
+                            {{ if is_gain }}
+                            <svg class="w-3 h-3 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                    d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                            </svg>
+                            {{ else }}
+                            <svg class="w-3 h-3 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                    d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                            </svg>
+                            {{ /if }}
+                            <span
+                                class="font-black {{ is_gain ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400' }}">{{
+                                global_elo | round(1) }}</span>
+                        </div>
+                    </div>
+                    {{ /team_a }}
                 </div>
 
-                <!-- Losers -->
+                <!-- Team B Players -->
                 <div class="space-y-3">
-                    <div class="text-[10px] font-black uppercase tracking-widest text-rose-500 flex items-center gap-2 mb-4">
-                        <span class="w-2 h-2 rounded-full bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.5)]"></span>
-                        Losers (-{{ elo_delta | round(1) }})
+                    <div
+                        class="text-[10px] font-black uppercase tracking-widest flex items-center gap-2 mb-4 {{ score_b > score_a ? 'text-emerald-500' : 'text-rose-500' }}">
+                        <span
+                            class="w-2 h-2 rounded-full {{ score_b > score_a ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]' : 'bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.5)]' }}"></span>
+                        {{ if score_b > score_a }}Winners{{ else }}Losers{{ /if }}
+                        <span
+                            class="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-black {{ team_b_delta >= 0 ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700' }}">
+                            {{ team_b_delta >= 0 ? '+' : '' }}{{ team_b_delta | round(1) }}
+                        </span>
                     </div>
-                    {{ if score_a > score_b }}
-                        {{ team_b }}
-                            <div class="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-2xl border border-rose-100 dark:border-rose-900/30 shadow-sm transition-all hover:bg-rose-50/50 dark:hover:bg-rose-900/10">
-                                <span class="text-sm font-bold text-gray-900 dark:text-white">{{ title }}</span>
-                                <div class="flex items-center gap-3 font-mono text-xs">
-                                    <span class="text-gray-400">{{ global_elo | add(elo_delta) | round(1) }}</span>
-                                    <svg class="w-3 h-3 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
-                                    <span class="font-black text-rose-600 dark:text-rose-400">{{ global_elo | round(1) }}</span>
-                                </div>
-                            </div>
-                        {{ /team_b }}
-                    {{ else }}
-                        {{ team_a }}
-                            <div class="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-2xl border border-rose-100 dark:border-rose-900/30 shadow-sm transition-all hover:bg-rose-50/50 dark:hover:bg-rose-900/10">
-                                <span class="text-sm font-bold text-gray-900 dark:text-white">{{ title }}</span>
-                                <div class="flex items-center gap-3 font-mono text-xs">
-                                    <span class="text-gray-400">{{ global_elo | add(elo_delta) | round(1) }}</span>
-                                    <svg class="w-3 h-3 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
-                                    <span class="font-black text-rose-600 dark:text-rose-400">{{ global_elo | round(1) }}</span>
-                                </div>
-                            </div>
-                        {{ /team_a }}
-                    {{ /if }}
+                    {{ team_b }}
+                    {{ old_elo = global_elo - team_b_delta }}
+                    {{ is_gain = team_b_delta >= 0 }}
+                    <div
+                        class="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-2xl border {{ is_gain ? 'border-emerald-100 dark:border-emerald-900/30' : 'border-rose-100 dark:border-rose-900/30' }} shadow-sm transition-all {{ is_gain ? 'hover:bg-emerald-50/50 dark:hover:bg-emerald-900/10' : 'hover:bg-rose-50/50 dark:hover:bg-rose-900/10' }}">
+                        <span class="text-sm font-bold text-gray-900 dark:text-white">{{ title }}</span>
+                        <div class="flex items-center gap-3 font-mono text-xs">
+                            <span class="text-gray-400">{{ old_elo | round(1) }}</span>
+                            {{ if is_gain }}
+                            <svg class="w-3 h-3 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                    d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                            </svg>
+                            {{ else }}
+                            <svg class="w-3 h-3 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                    d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                            </svg>
+                            {{ /if }}
+                            <span
+                                class="font-black {{ is_gain ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400' }}">{{
+                                global_elo | round(1) }}</span>
+                        </div>
+                    </div>
+                    {{ /team_b }}
                 </div>
             </div>
         </div>

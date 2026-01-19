@@ -52,6 +52,13 @@ matches:
   - 6b55ed14-6aa6-4519-8d44-28b049355476
   - fa5a8501-13c6-4537-afbc-602e7a3fc36b
   - 4ff92124-f341-4b32-8325-27402512e48b
+  - 2f10ea69-3992-4f9d-aeba-f9128ffecd38
+  - 6350218c-1591-4c0c-81dc-0c356436b523
+  - f1c1d9d0-de23-4c33-b3a9-d2c95c8ac4b7
+  - 30575f45-f842-443b-89dc-c0a66f0c69f7
+  - 8b3864f6-1aca-4791-a0ae-8dfca7a2a32b
+  - 6e9673ff-645d-445b-9765-12f5b80eb831
+  - afb0aa05-18d1-4bbe-a57d-5df7ffbba7e9
 wins: 24
 losses: 21
 league_stats:

@@ -2,8 +2,8 @@
 id: c22a8984-96de-4428-ac99-25df13c57349
 blueprint: players
 title: 'Greta Becker'
-global_elo: 1368.77
-total_games: 32
+global_elo: 1420.42
+total_games: 37
 player_status: active
 avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Greta+Becker'
 matches:
@@ -39,17 +39,25 @@ matches:
   - 8b5814ec-329b-4e53-bac2-b13fbd716956
   - fd57a68c-8986-4d8b-8f0d-33d2dd9ae450
   - 6f6fa99a-9032-440c-88b3-083a0c2b6ded
-wins: 7
-losses: 25
+  - 64890b7a-9316-4b28-b3b0-c44b81280f8d
+  - 10da221a-b3b5-4282-bd98-4e69c1f5a8b8
+  - 41992d9d-a181-46f5-837e-feb287bfd2f3
+  - 52a373b1-6d6e-4d19-8b89-7f3d9e0c8a38
+  - db838bb4-d003-4d94-904b-4786d5aac847
+  - 9d38db9f-4d30-4326-97ca-5ee76e0b3000
+  - 2f28676d-93db-4b2f-856c-d633baf0dda3
+  - 2d4b6680-4c6a-44fa-ab71-dcc93935fe9a
+wins: 9
+losses: 28
 league_stats:
   -
     league:
       - 424d0c8a-ff53-4023-95b5-76be7d34529e
-    played_games: 12
-    match_count: 32
-    league_performance: -131.24
-    average_delta: -4.1
-    league_wins: 7
-    league_losses: 25
-    rank: 41
+    played_games: 17
+    match_count: 37
+    league_performance: -106.53
+    average_delta: -2.88
+    league_wins: 9
+    league_losses: 28
+    rank: 38
 ---

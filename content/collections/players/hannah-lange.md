@@ -2,8 +2,8 @@
 id: b51374a7-067d-4784-b68e-efadfd19e173
 blueprint: players
 title: 'Hannah Lange'
-global_elo: 1611.96
-total_games: 21
+global_elo: 1624.57
+total_games: 26
 player_status: active
 avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Hannah+Lange'
 matches:
@@ -28,16 +28,24 @@ matches:
   - 0290eabb-c583-402e-b259-4231c200b690
   - 6d6adca5-1d82-4bfb-a2d4-6fb050e206ef
   - d3e1afaf-97c5-49e9-be50-17592b0207c9
-wins: 16
+  - 64890b7a-9316-4b28-b3b0-c44b81280f8d
+  - 10da221a-b3b5-4282-bd98-4e69c1f5a8b8
+  - 41992d9d-a181-46f5-837e-feb287bfd2f3
+  - 52a373b1-6d6e-4d19-8b89-7f3d9e0c8a38
+  - db838bb4-d003-4d94-904b-4786d5aac847
+  - 9d38db9f-4d30-4326-97ca-5ee76e0b3000
+  - 2f28676d-93db-4b2f-856c-d633baf0dda3
+  - 2d4b6680-4c6a-44fa-ab71-dcc93935fe9a
+wins: 21
 league_stats:
   -
     league:
       - 424d0c8a-ff53-4023-95b5-76be7d34529e
-    played_games: 7
-    match_count: 21
-    league_performance: 111.96
-    average_delta: 5.33
-    league_wins: 16
+    played_games: 12
+    match_count: 26
+    league_performance: 151.51
+    average_delta: 5.83
+    league_wins: 21
     league_losses: 5
     rank: 1
 losses: 5

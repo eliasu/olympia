@@ -477,8 +477,8 @@ class LeagueService
         // Calculate Elo delta (TRUE ELO - no win protection)
         $delta = $kFactor * ($actualA - $expectedA);
         
-        // Store absolute delta on match for display
-        $match->set('elo_delta', abs($delta));
+        // Store SIGNED delta for Team A (positive = Team A gains, negative = Team A loses)
+        $match->set('elo_delta', $delta);
         $match->save();
         
         // Update Team A players
