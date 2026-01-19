@@ -421,33 +421,50 @@ class LeagueService
      */
     public function recalculateLeagueRanks($leagueId)
     {
+        $league = Entry::find($leagueId);
+        if (!$league) return;
+        
+        $minGameDays = (int)$league->get('min_game_days', 0);
         $players = Entry::query()->where('collection', 'players')->get();
         
-        $ranking = $players->map(function($player) use ($leagueId) {
+        $rankingData = $players->map(function($player) use ($leagueId, $minGameDays) {
             $stats = collect($player->get('league_stats', []))->first(function($row) use ($leagueId) {
                 $rowLeagues = (array)($row['league'] ?? []);
                 $rowLeagueId = reset($rowLeagues);
                 return $rowLeagueId === $leagueId;
             });
             
+            $playedGames = (int)($stats['played_games'] ?? 0);
+            $isQualified = $playedGames >= $minGameDays;
+
             return [
                 'id' => $player->id(),
-                'performance' => $stats['league_performance'] ?? -9999,
-                'has_stats' => !empty($stats)
+                'performance' => (float)($stats['league_performance'] ?? -9999),
+                'has_stats' => !empty($stats),
+                'is_qualified' => $isQualified,
+                'played_games' => $playedGames
             ];
         })
         ->filter(fn($p) => $p['has_stats'])
-        ->sortByDesc('performance')
+        ->sort(function($a, $b) {
+            // 1. Qualified first
+            if ($a['is_qualified'] && !$b['is_qualified']) return -1;
+            if (!$a['is_qualified'] && $b['is_qualified']) return 1;
+            
+            // 2. Performance within group
+            return $b['performance'] <=> $a['performance'];
+        })
         ->values();
 
-        foreach ($ranking as $index => $item) {
+        foreach ($rankingData as $index => $item) {
             $player = Entry::find($item['id']);
             $stats = $player->get('league_stats', []);
             foreach ($stats as &$row) {
                 $rowLeagues = (array)($row['league'] ?? []);
                 $rowLeagueId = reset($rowLeagues);
                 if ($rowLeagueId === $leagueId) {
-                    $row['rank'] = $index + 1;
+                    // Only assign rank number if qualified, otherwise null
+                    $row['rank'] = $item['is_qualified'] ? ($index + 1) : null;
                 }
             }
             $player->set('league_stats', $stats);

@@ -7,8 +7,13 @@
         },
         get sortedPlayers() {
             return [...this.players].sort((a, b) => {
-                // Primary sort: Rank (ascending, 1 is best)
-                return (a.rank ?? 999) - (b.rank ?? 999);
+                // If both are ranked, sort by rank
+                if (a.rank !== null && b.rank !== null) return a.rank - b.rank;
+                // If only one is ranked, ranked goes first
+                if (a.rank !== null) return -1;
+                if (b.rank !== null) return 1;
+                // If neither are ranked, sort by performance
+                return b.league_performance - a.league_performance;
             });
         }
      }">
@@ -31,7 +36,7 @@
                     "average_delta": {{ average_delta ?? 0 }},
                     "league_wins": {{ league_wins ?? 0 }},
                     "league_losses": {{ league_losses ?? 0 }},
-                    "rank": {{ rank ?? 999 }}
+                    "rank": {{ rank ? rank : 'null' }}
                     {{ /if }}
                 {{ /league_stats }}
             }{{ if !last }},{{ /if }}
@@ -84,7 +89,7 @@
                             <template x-for="(player, index) in sortedPlayers" :key="player.url">
                                 <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-700/30 transition-colors">
                                     <td class="px-6 py-5 whitespace-nowrap">
-                                        <span class="text-lg font-black" :class="index < 3 ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-300 dark:text-gray-600'" x-text="`${index + 1}.` "></span>
+                                        <span class="text-lg font-black" :class="player.rank && player.rank <= 3 ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-300 dark:text-gray-600'" x-text="player.rank ? `${player.rank}.` : '-'"></span>
                                     </td>
                                     <td class="px-6 py-5 whitespace-nowrap">
                                         <a :href="player.url" class="flex items-center group">

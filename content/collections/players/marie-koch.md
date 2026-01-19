@@ -42,5 +42,5 @@ league_stats:
     average_delta: -2.63
     league_wins: 9
     league_losses: 14
-    rank: 46
+    rank: 37
 ---
