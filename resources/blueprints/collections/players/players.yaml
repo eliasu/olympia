@@ -122,6 +122,12 @@ tabs:
                   field:
                     type: integer
                     display: Rank
+  matches:
+    display: Matches
+    sections:
+      -
+        display: 'New Section'
+        fields:
           -
             handle: matches
             field:

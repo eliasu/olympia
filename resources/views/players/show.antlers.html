@@ -1,24 +1,26 @@
 <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    
+
     <!-- Profile Hero -->
     <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden mb-8">
         <div class="h-32 bg-gradient-to-r from-blue-500 to-indigo-600"></div>
         <div class="px-8 pb-8 flex flex-col md:flex-row items-center md:items-end -mt-16 md:-mt-20 relative">
-            
-            <div class="h-24 w-24 md:h-32 md:w-32 rounded-full ring-8 ring-white dark:ring-gray-800 bg-indigo-600 flex items-center justify-center text-white text-3xl md:text-5xl font-black shadow-2xl overflow-hidden mb-6 md:mb-0">
+
+            <div
+                class="h-24 w-24 md:h-32 md:w-32 rounded-full ring-8 ring-white dark:ring-gray-800 bg-indigo-600 flex items-center justify-center text-white text-3xl md:text-5xl font-black shadow-2xl overflow-hidden mb-6 md:mb-0">
                 {{ if avatar_url }}
-                    <img src="{{ avatar_url }}" class="h-full w-full object-cover">
+                <img src="{{ avatar_url }}" class="h-full w-full object-cover">
                 {{ elseif avatar }}
-                    <img src="{{ avatar }}" class="h-full w-full object-cover">
+                <img src="{{ avatar }}" class="h-full w-full object-cover">
                 {{ else }}
-                    {{ title | substr(0,1) }}
+                {{ title | substr(0,1) }}
                 {{ /if }}
             </div>
-            
+
             <div class="mt-4 md:mt-0 md:ml-6 flex-1 text-center md:text-left">
                 <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white">{{ title }}</h1>
                 <div class="flex items-center justify-center md:justify-start gap-2 mt-1">
-                    <span class="px-2 py-0.5 rounded text-xs font-semibold bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 uppercase tracking-wide">
+                    <span
+                        class="px-2 py-0.5 rounded text-xs font-semibold bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 uppercase tracking-wide">
                         {{ player_status }}
                     </span>
                 </div>
@@ -26,7 +28,8 @@
 
             <div class="mt-6 md:mt-0 flex flex-col items-center md:items-end">
                 <div class="text-xs font-bold text-blue-200 uppercase tracking-wider mb-1">Global Elo</div>
-                <div class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">
+                <div
+                    class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">
                     {{ global_elo }}
                 </div>
             </div>
@@ -34,11 +37,12 @@
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
+
         <!-- Left Column: Stats -->
         <div class="space-y-8">
             <!-- Summary Card -->
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow cursor-default p-6 border border-gray-100 dark:border-gray-700">
+            <div
+                class="bg-white dark:bg-gray-800 rounded-xl shadow cursor-default p-6 border border-gray-100 dark:border-gray-700">
                 <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Statistics</h3>
                 <div class="space-y-3">
                     <div class="flex items-center justify-between py-1 border-b border-gray-50 dark:border-gray-900/50">
@@ -61,33 +65,39 @@
             </div>
 
             <!-- League Stats -->
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow cursor-default p-6 border border-gray-100 dark:border-gray-700">
+            <div
+                class="bg-white dark:bg-gray-800 rounded-xl shadow cursor-default p-6 border border-gray-100 dark:border-gray-700">
                 <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Leagues</h3>
                 <div class="space-y-4">
                     {{ league_stats }}
-                        <a href="{{ league:url }}" class="block p-4 rounded-xl bg-gray-50 dark:bg-gray-900/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors border border-transparent hover:border-blue-200 dark:hover:border-blue-900 group">
-                            <div class="flex items-center justify-between mb-2 gap-16">
-                                <span class="font-bold text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{{ league:title }}</span>
-                                <span class="text-xs font-black px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-200  tracking-tighter">
-                                    Rank #{{ rank ?? '-' }}
-                                </span>
+                    <a href="{{ league:url }}"
+                        class="block p-4 rounded-xl bg-gray-50 dark:bg-gray-900/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors border border-transparent hover:border-blue-200 dark:hover:border-blue-900 group">
+                        <div class="flex items-center justify-between mb-2 gap-16">
+                            <span
+                                class="font-bold text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{{
+                                league:title }}</span>
+                            <span
+                                class="text-xs font-black px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-200  tracking-tighter">
+                                Rank #{{ rank ?? '-' }}
+                            </span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs font-bold">
+                            <span class="text-gray-500 dark:text-gray-400 uppercase tracking-widest">Games</span>
+                            <div>
+                                <span class="text-green-600 dark:text-green-400">{{ league_wins }}W</span>
+                                <span class="text-gray-300 mx-1">/</span>
+                                <span class="text-red-600 dark:text-red-400">{{ league_losses }}L</span>
                             </div>
-                            <div class="flex items-center justify-between text-xs font-bold">
-                                <span class="text-gray-500 dark:text-gray-400 uppercase tracking-widest">Games</span>
-                                <div>
-                                    <span class="text-green-600 dark:text-green-400">{{ league_wins }}W</span>
-                                    <span class="text-gray-300 mx-1">/</span>
-                                    <span class="text-red-600 dark:text-red-400">{{ league_losses }}L</span>
-                                </div>
-                            </div>
-                            <div class="mt-2 text-[10px] text-gray-400 dark:text-gray-500 flex justify-between uppercase tracking-widest">
-                                <span>{{ match_count }} Matches</span>
-                                <span>{{ played_games }} Gamedays</span>
-                            </div>
-                        </a>
+                        </div>
+                        <div
+                            class="mt-2 text-[10px] text-gray-400 dark:text-gray-500 flex justify-between uppercase tracking-widest">
+                            <span>{{ match_count }} Matches</span>
+                            <span>{{ played_games }} Gamedays</span>
+                        </div>
+                    </a>
                     {{ /league_stats }}
                     {{ if !league_stats }}
-                        <p class="text-gray-400 text-sm italic">No league data found.</p>
+                    <p class="text-gray-400 text-sm italic">No league data found.</p>
                     {{ /if }}
                 </div>
             </div>
@@ -96,79 +106,117 @@
         <!-- Right Column: Match History -->
         <div class="lg:col-span-2">
             <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Match History</h2>
-            
+
+            {{ matches sort="gameday:date:desc" paginate="10" }}
             <div class="space-y-4">
-                {{ matches sort="gameday:date:desc" limit="10" }}
-                    <a href="{{ url }}" class="block bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-4 hover:shadow-md transition-shadow">
-                        <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-                            
-                            <!-- Context -->
-                            <div class="text-center sm:text-left w-full sm:w-auto">
-                                <div class="text-xs text-gray-500 dark:text-gray-400 font-medium">{{ gameday:date format="d.m.Y" }}</div>
-                                <div class="text-sm font-bold text-gray-900 dark:text-white">{{ gameday:league:title }}</div>
-                            </div>
+                {{ results }}
+                <a href="{{ url }}"
+                    class="block bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-4 hover:shadow-md transition-shadow">
+                    <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
 
-                            <!-- Scoreboard -->
-                            <div class="flex items-center gap-4">
-                                <!-- Team A -->
-                                <div class="flex flex-col items-center">
-                                    <div class="flex -space-x-1">
-                                        {{ team_a }}<div class="h-6 w-6 rounded-full bg-blue-100 dark:bg-blue-900"></div>{{ /team_a }}
-                                    </div>
-                                    <span class="text-xs font-bold text-gray-500 mt-1">Team A</span>
-                                </div>
-
-                                <!-- Score -->
-                                <div class="flex items-center gap-2 px-3 py-1 bg-gray-100 dark:bg-gray-900 rounded-lg text-lg font-black font-mono">
-                                    <span class="{{ if score_a > score_b }}text-green-600 dark:text-green-400{{ else }}text-gray-400{{ /if }}">{{ score_a ?? '-' }}</span>
-                                    <span class="text-gray-300">:</span>
-                                    <span class="{{ if score_b > score_a }}text-green-600 dark:text-green-400{{ else }}text-gray-400{{ /if }}">{{ score_b ?? '-' }}</span>
-                                </div>
-
-                                <!-- Team B -->
-                                <div class="flex flex-col items-center">
-                                    <div class="flex -space-x-1">
-                                        {{ team_b }}<div class="h-6 w-6 rounded-full bg-red-100 dark:bg-red-900"></div>{{ /team_b }}
-                                    </div>
-                                    <span class="text-xs font-bold text-gray-500 mt-1">Team B</span>
-                                </div>
-                            </div>
-
-                            <!-- Result Badge -->
-                            <div>
-                                {{ if is_played }}
-                                    <!-- Determine Win/Loss for Current Player (View ID) -->
-                                    {{ if team_a | pluck('id') | contains(page:id) }}
-                                        {{ if score_a > score_b }}
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Win</span>
-                                        {{ elseif score_a < score_b }}
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">Lost</span>
-                                        {{ else }}
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">Draw</span>
-                                        {{ /if }}
-                                    {{ else }}
-                                        {{ if score_b > score_a }}
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Win</span>
-                                        {{ elseif score_b < score_a }}
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">Lost</span>
-                                        {{ else }}
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">Draw</span>
-                                        {{ /if }}
-                                    {{ /if }}
-                                {{ else }}
-                                    <span class="text-xs text-gray-400 italic">Open</span>
-                                {{ /if }}
+                        <!-- Context -->
+                        <div class="text-center sm:text-left w-full sm:w-auto">
+                            <div class="text-xs text-gray-500 dark:text-gray-400 font-medium">{{ gameday:date
+                                format="d.m.Y" }}</div>
+                            <div class="text-sm font-bold text-gray-900 dark:text-white">{{ gameday:league:title }}
                             </div>
                         </div>
-                    </a>
-                {{ /matches }}
-                
-                {{ if !matches }}
-                    <div class="p-8 text-center text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-dashed border-gray-200 dark:border-gray-700">
-                        No matches found.
+
+                        <!-- Scoreboard -->
+                        <div class="flex items-center gap-4">
+                            <!-- Team A -->
+                            <div class="flex flex-col items-center">
+                                <div class="flex -space-x-2">
+                                    {{ team_a }}
+                                    <div
+                                        class="h-8 w-8 rounded-full ring-2 ring-white dark:ring-gray-800 bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white text-xs font-bold overflow-hidden">
+                                        {{ if avatar_url }}
+                                        <img src="{{ avatar_url }}" class="h-full w-full object-cover">
+                                        {{ elseif avatar }}
+                                        <img src="{{ avatar }}" class="h-full w-full object-cover">
+                                        {{ else }}
+                                        {{ title | substr(0,1) }}
+                                        {{ /if }}
+                                    </div>
+                                    {{ /team_a }}
+                                </div>
+                                <span class="text-xs font-bold text-gray-500 mt-1">Team A</span>
+                            </div>
+
+                            <!-- Score -->
+                            <div
+                                class="flex items-center gap-2 px-3 py-1 bg-gray-100 dark:bg-gray-900 rounded-lg text-lg font-black font-mono">
+                                <span
+                                    class="{{ if score_a > score_b }}text-green-600 dark:text-green-400{{ else }}text-gray-400{{ /if }}">{{
+                                    score_a ?? '-' }}</span>
+                                <span class="text-gray-300">:</span>
+                                <span
+                                    class="{{ if score_b > score_a }}text-green-600 dark:text-green-400{{ else }}text-gray-400{{ /if }}">{{
+                                    score_b ?? '-' }}</span>
+                            </div>
+
+                            <!-- Team B -->
+                            <div class="flex flex-col items-center">
+                                <div class="flex -space-x-2">
+                                    {{ team_b }}
+                                    <div
+                                        class="h-8 w-8 rounded-full ring-2 ring-white dark:ring-gray-800 bg-gradient-to-br from-red-400 to-red-600 flex items-center justify-center text-white text-xs font-bold overflow-hidden">
+                                        {{ if avatar_url }}
+                                        <img src="{{ avatar_url }}" class="h-full w-full object-cover">
+                                        {{ elseif avatar }}
+                                        <img src="{{ avatar }}" class="h-full w-full object-cover">
+                                        {{ else }}
+                                        {{ title | substr(0,1) }}
+                                        {{ /if }}
+                                    </div>
+                                    {{ /team_b }}
+                                </div>
+                                <span class="text-xs font-bold text-gray-500 mt-1">Team B</span>
+                            </div>
+                        </div>
+
+                        <!-- Result Badge -->
+                        <div>
+                            {{ if is_played }}
+                            {{ if team_a | pluck('id') | contains(page:id) }}
+                            {{ if score_a > score_b }}
+                            <span
+                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Win</span>
+                            {{ elseif score_a < score_b }} <span
+                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
+                                Lost</span>
+                                {{ else }}
+                                <span
+                                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">Draw</span>
+                                {{ /if }}
+                                {{ else }}
+                                {{ if score_b > score_a }}
+                                <span
+                                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Win</span>
+                                {{ elseif score_b < score_a }} <span
+                                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
+                                    Lost</span>
+                                    {{ else }}
+                                    <span
+                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">Draw</span>
+                                    {{ /if }}
+                                    {{ /if }}
+                                    {{ else }}
+                                    <span class="text-xs text-gray-400 italic">Open</span>
+                                    {{ /if }}
+                        </div>
                     </div>
+                </a>
+                {{ /results }}
+
+                {{ if no_results }}
+                <div
+                    class="p-8 text-center text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-dashed border-gray-200 dark:border-gray-700">
+                    No matches found.
+                </div>
                 {{ /if }}
             </div>
+            {{ /matches }}
         </div>
     </div>
 </div>
