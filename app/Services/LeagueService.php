@@ -441,6 +441,7 @@ class LeagueService
 
     /**
      * Process match Elo calculation (TRUE ELO - No win protection).
+     * Now with hybrid Elo history tracking.
      *
      * @param \Statamic\Entries\Entry $match
      * @param int $kFactor
@@ -461,6 +462,10 @@ class LeagueService
         $scoreA = (int)$match->get('score_a');
         $scoreB = (int)$match->get('score_b');
         
+        // === STEP 1: Capture Elo BEFORE changes ===
+        $teamAEloBefore = $teamAPlayers->map(fn($p) => round((float)$p->get('global_elo', 1500), 2))->values()->all();
+        $teamBEloBefore = $teamBPlayers->map(fn($p) => round((float)$p->get('global_elo', 1500), 2))->values()->all();
+        
         // Calculate team average Elo
         $eloA = $teamAPlayers->avg(fn($p) => (float)$p->get('global_elo', 1500));
         $eloB = $teamBPlayers->avg(fn($p) => (float)$p->get('global_elo', 1500));
@@ -477,13 +482,16 @@ class LeagueService
         // Calculate Elo delta (TRUE ELO - no win protection)
         $delta = $kFactor * ($actualA - $expectedA);
         
-        // Store SIGNED delta for Team A (positive = Team A gains, negative = Team A loses)
-        $match->set('elo_delta', $delta);
-        $match->save();
+        // Get gameday and league info for history
+        $gamedayId = $match->get('gameday')[0] ?? null;
+        $gameday = $gamedayId ? Entry::find($gamedayId) : null;
+        $leagueId = $gameday ? ($gameday->get('league')[0] ?? null) : null;
+        $matchDate = $match->get('date') ?? now();
         
-        // Update Team A players
+        // === STEP 2: Update Team A players ===
         foreach ($teamAPlayers as $player) {
-            $newElo = $player->get('global_elo', 1500) + $delta;
+            $oldElo = $player->get('global_elo', 1500);
+            $newElo = $oldElo + $delta;
             $player->set('global_elo', round($newElo, 2));
             $player->set('total_games', $player->get('total_games', 0) + 1);
             
@@ -493,12 +501,23 @@ class LeagueService
                 $player->set('losses', (int)$player->get('losses', 0) + 1);
             }
             
+            // Add to player's elo_history
+            $history = $player->get('elo_history', []);
+            $history[] = [
+                'date' => $matchDate,
+                'elo' => round($newElo, 2),
+                'match' => $match->id(),
+                'league' => $leagueId,
+            ];
+            $player->set('elo_history', $history);
+            
             $player->save();
         }
         
-        // Update Team B players
+        // === STEP 3: Update Team B players ===
         foreach ($teamBPlayers as $player) {
-            $newElo = $player->get('global_elo', 1500) - $delta;
+            $oldElo = $player->get('global_elo', 1500);
+            $newElo = $oldElo - $delta;
             $player->set('global_elo', round($newElo, 2));
             $player->set('total_games', $player->get('total_games', 0) + 1);
             
@@ -508,8 +527,30 @@ class LeagueService
                 $player->set('losses', (int)$player->get('losses', 0) + 1);
             }
             
+            // Add to player's elo_history
+            $history = $player->get('elo_history', []);
+            $history[] = [
+                'date' => $matchDate,
+                'elo' => round($newElo, 2),
+                'match' => $match->id(),
+                'league' => $leagueId,
+            ];
+            $player->set('elo_history', $history);
+            
             $player->save();
         }
+        
+        // === STEP 4: Capture Elo AFTER changes ===
+        $teamAEloAfter = $teamAPlayers->map(fn($p) => round((float)$p->get('global_elo', 1500), 2))->values()->all();
+        $teamBEloAfter = $teamBPlayers->map(fn($p) => round((float)$p->get('global_elo', 1500), 2))->values()->all();
+        
+        // === STEP 5: Save all data to match ===
+        $match->set('elo_delta', $delta);
+        $match->set('team_a_elo_before', $teamAEloBefore);
+        $match->set('team_a_elo_after', $teamAEloAfter);
+        $match->set('team_b_elo_before', $teamBEloBefore);
+        $match->set('team_b_elo_after', $teamBEloAfter);
+        $match->save();
     }
 
     /**

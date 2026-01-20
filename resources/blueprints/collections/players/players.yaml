@@ -122,6 +122,38 @@ tabs:
                   field:
                     type: integer
                     display: Rank
+          -
+            handle: elo_history
+            field:
+              type: grid
+              display: 'Elo History'
+              instructions: 'Historical Elo progression for charts'
+              visibility: read_only
+              reorderable: false
+              add_row: false
+              delete_row: false
+              fields:
+                -
+                  handle: date
+                  field:
+                    type: date
+                    display: Date
+                    time_enabled: true
+                -
+                  handle: elo
+                  field:
+                    type: float
+                    display: 'Elo Rating'
+                -
+                  handle: match
+                  field:
+                    type: text
+                    display: 'Match ID'
+                -
+                  handle: league
+                  field:
+                    type: text
+                    display: 'League ID'
   matches:
     display: Matches
     sections:

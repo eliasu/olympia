@@ -61,6 +61,34 @@ tabs:
               type: float
               display: 'Elo Delta'
           -
+            handle: team_a_elo_before
+            field:
+              type: array
+              display: 'Team A Elo Before'
+              instructions: 'Elo values of Team A players before this match'
+              visibility: read_only
+          -
+            handle: team_a_elo_after
+            field:
+              type: array
+              display: 'Team A Elo After'
+              instructions: 'Elo values of Team A players after this match'
+              visibility: read_only
+          -
+            handle: team_b_elo_before
+            field:
+              type: array
+              display: 'Team B Elo Before'
+              instructions: 'Elo values of Team B players before this match'
+              visibility: read_only
+          -
+            handle: team_b_elo_after
+            field:
+              type: array
+              display: 'Team B Elo After'
+              instructions: 'Elo values of Team B players after this match'
+              visibility: read_only
+          -
             handle: is_played
             field:
               type: toggle
