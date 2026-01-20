@@ -189,6 +189,7 @@
                                 <span
                                     class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">Draw</span>
                                 {{ /if }}
+                                {{ player_delta = elo_delta }}
                                 {{ else }}
                                 {{ if score_b > score_a }}
                                 <span
@@ -200,6 +201,13 @@
                                     <span
                                         class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">Draw</span>
                                     {{ /if }}
+                                    {{ player_delta = 0 - elo_delta }}
+                                    {{ /if }}
+                                    
+                                    {{ if elo_delta }}
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold font-mono {{ player_delta >= 0 ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300' : 'bg-rose-100 text-rose-700 dark:bg-rose-900 dark:text-rose-300' }}">
+                                        {{ player_delta >= 0 ? '+' : '' }}{{ player_delta | round(1) }}
+                                    </span>
                                     {{ /if }}
                                     {{ else }}
                                     <span class="text-xs text-gray-400 italic">Open</span>

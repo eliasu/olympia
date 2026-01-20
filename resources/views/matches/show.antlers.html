@@ -120,30 +120,15 @@
 
             </div>
         </div>
-        <!-- # Calculate actual deltas per team
-        # Team A won if score_a > score_b
-        # If Team A won: they get +delta, Team B gets -delta
-        # If Team B won: they get +delta, Team A gets -delta
-        # But delta is stored as ABSOLUTE value in the match -->
-        {{ if is_played and elo_delta }}
-        {{
-        team_a_won = score_a > score_b
-        team_a_delta = team_a_won ? elo_delta : (0 - elo_delta)
-        team_b_delta = team_a_won ? (0 - elo_delta) : elo_delta
-        }}
+
 
         <div class="bg-gray-50 dark:bg-gray-900/50 p-8 border-t border-gray-100 dark:border-gray-700">
             <h3 class="text-xs font-black text-gray-400 uppercase tracking-[0.2em] mb-6 text-center">Individual Elo
                 Development</h3>
 
 
-            {{ if score_a > score_b }}
             {{ team_a_delta = elo_delta }}
             {{ team_b_delta = 0 - elo_delta }}
-            {{ else }}
-            {{ team_a_delta = 0 - elo_delta }}
-            {{ team_b_delta = elo_delta }}
-            {{ /if }}
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- Team A Players -->
@@ -167,7 +152,7 @@
                         {{ old_elo = 'N/A' }}
                         {{ new_elo = 'N/A' }}
                     {{ /if }}
-                    {{ is_gain = new_elo >= old_elo }}
+                    {{ is_gain = (old_elo != 'N/A' && new_elo != 'N/A') ? (new_elo > old_elo) : false }}
                     <div
                         class="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-2xl border {{ is_gain ? 'border-emerald-100 dark:border-emerald-900/30' : 'border-rose-100 dark:border-rose-900/30' }} shadow-sm transition-all {{ is_gain ? 'hover:bg-emerald-50/50 dark:hover:bg-emerald-900/10' : 'hover:bg-rose-50/50 dark:hover:bg-rose-900/10' }}">
                         <span class="text-sm font-bold text-gray-900 dark:text-white">{{ title }}</span>
@@ -213,7 +198,7 @@
                         {{ old_elo = 'N/A' }}
                         {{ new_elo = 'N/A' }}
                     {{ /if }}
-                    {{ is_gain = new_elo >= old_elo }}
+                    {{ is_gain = (old_elo != 'N/A' && new_elo != 'N/A') ? (new_elo > old_elo) : false }}
                     <div
                         class="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-2xl border {{ is_gain ? 'border-emerald-100 dark:border-emerald-900/30' : 'border-rose-100 dark:border-rose-900/30' }} shadow-sm transition-all {{ is_gain ? 'hover:bg-emerald-50/50 dark:hover:bg-emerald-900/10' : 'hover:bg-rose-50/50 dark:hover:bg-rose-900/10' }}">
                         <span class="text-sm font-bold text-gray-900 dark:text-white">{{ title }}</span>
@@ -239,7 +224,6 @@
                 </div>
             </div>
         </div>
-        {{ /if }}
     </div>
 
 </div>

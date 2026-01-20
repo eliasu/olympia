@@ -27,6 +27,11 @@ tabs:
               display: 'Avatar URL'
               instructions: 'External URL for player avatar'
           -
+            handle: gobal_stats
+            field:
+              type: section
+              display: 'Gobal Stats'
+          -
             handle: global_elo
             field:
               type: float
@@ -64,6 +69,11 @@ tabs:
               default: 0
               display: Losses
               width: 33
+          -
+            handle: leagues_stats
+            field:
+              type: section
+              display: 'Leagues Stats'
           -
             handle: league_stats
             field:
@@ -122,6 +132,25 @@ tabs:
                   field:
                     type: integer
                     display: Rank
+  matches:
+    display: Matches
+    sections:
+      -
+        fields:
+          -
+            handle: matches
+            field:
+              type: entries
+              collections:
+                - matches
+              display: Matches
+              listable: true
+              visibility: read_only
+  elo_history:
+    display: 'Elo History'
+    sections:
+      -
+        fields:
           -
             handle: elo_history
             field:
@@ -154,21 +183,6 @@ tabs:
                   field:
                     type: text
                     display: 'League ID'
-  matches:
-    display: Matches
-    sections:
-      -
-        display: 'New Section'
-        fields:
-          -
-            handle: matches
-            field:
-              type: entries
-              collections:
-                - matches
-              display: Matches
-              listable: true
-              visibility: read_only
   sidebar:
     display: Sidebar
     sections:

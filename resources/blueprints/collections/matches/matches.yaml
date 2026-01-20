@@ -23,6 +23,13 @@ tabs:
               max_items: 1
               display: Gameday
               mode: select
+              width: 75
+          -
+            handle: is_played
+            field:
+              type: toggle
+              display: 'Is Played'
+              width: 25
           -
             handle: team_a
             field:
@@ -55,6 +62,11 @@ tabs:
               type: integer
               display: 'Score B'
               width: 50
+  elo_calculation:
+    display: 'Elo Calculation'
+    sections:
+      -
+        fields:
           -
             handle: elo_delta
             field:
@@ -67,6 +79,7 @@ tabs:
               display: 'Team A Elo Before'
               instructions: 'Elo values of Team A players before this match'
               visibility: read_only
+              width: 50
           -
             handle: team_a_elo_after
             field:
@@ -74,6 +87,7 @@ tabs:
               display: 'Team A Elo After'
               instructions: 'Elo values of Team A players after this match'
               visibility: read_only
+              width: 50
           -
             handle: team_b_elo_before
             field:
@@ -81,6 +95,7 @@ tabs:
               display: 'Team B Elo Before'
               instructions: 'Elo values of Team B players before this match'
               visibility: read_only
+              width: 50
           -
             handle: team_b_elo_after
             field:
@@ -88,11 +103,7 @@ tabs:
               display: 'Team B Elo After'
               instructions: 'Elo values of Team B players after this match'
               visibility: read_only
-          -
-            handle: is_played
-            field:
-              type: toggle
-              display: 'Is Played'
+              width: 50
   sidebar:
     display: Sidebar
     sections:
