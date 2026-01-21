@@ -47,7 +47,7 @@
                                                         {{ if avatar_url }}
                                                             <img src="{{ avatar_url }}" class="h-full w-full object-cover">
                                                         {{ else }}
-                                                            {{ title | explode(' ') | map(->(n) => n | substr(0,1)) | join('') }}
+                                                            {{ title | truncate:2:'' | upper }}
                                                         {{ /if }}
                                                     </div>
                                                 {{ /present_players }}
@@ -100,7 +100,7 @@
                                                     {{ if avatar_url }}
                                                         <img src="{{ avatar_url }}" class="h-full w-full object-cover">
                                                     {{ else }}
-                                                        {{ title | explode(' ') | map(->(n) => n | substr(0,1)) | join('') }}
+                                                        {{ title | truncate:2:'' | upper }}
                                                     {{ /if }}
                                                 </div>
                                             {{ /present_players }}

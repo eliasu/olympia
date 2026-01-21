@@ -165,7 +165,7 @@ async function saveScore(matchId, scoreA, scoreB) {
                                         {{ if avatar_url }}
                                             <img src="{{ avatar_url }}" class="h-full w-full object-cover">
                                         {{ else }}
-                                            <span class="text-xs font-bold">{{ title | explode(' ') | map(->(n) => n | substr(0,1)) | join('') }}</span>
+                                            <span class="text-xs font-bold">{{ title | truncate:2:'' | upper }}</span>
                                         {{ /if }}
                                     </a>
                                 {{ /team_a }}
@@ -217,7 +217,7 @@ async function saveScore(matchId, scoreA, scoreB) {
                                         {{ if avatar_url }}
                                             <img src="{{ avatar_url }}" class="h-full w-full object-cover">
                                         {{ else }}
-                                            <span class="text-xs font-bold">{{ title | explode(' ') | map(->(n) => n | substr(0,1)) | join('') }}</span>
+                                            <span class="text-xs font-bold">{{ title | truncate:2:'' | upper }}</span>
                                         {{ /if }}
                                     </a>
                                 {{ /team_b }}

@@ -53,7 +53,7 @@
                                 {{ elseif avatar }}
                                 <img src="{{ avatar }}" class="h-full w-full object-cover">
                                 {{ else }}
-                                {{ title | explode(' ') | map(->(n) => n | substr(0,1)) | join('') }}
+                                {{ title | truncate:2:'' | upper }}
                                 {{ /if }}
                             </div>
                         </a>
@@ -101,7 +101,7 @@
                                 {{ elseif avatar }}
                                 <img src="{{ avatar }}" class="h-full w-full object-cover">
                                 {{ else }}
-                                {{ title | explode(' ') | map(->(n) => n | substr(0,1)) | join('') }}
+                                {{ title | truncate:2:'' | upper }}
                                 {{ /if }}
                             </div>
                         </a>
