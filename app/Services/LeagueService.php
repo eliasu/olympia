@@ -58,11 +58,26 @@ class LeagueService
         $gamesPerCourt = $gameday->get('games_per_court');
         $totalGames = $courtsCount * $gamesPerCourt;
         
-        // Initialize player statistics with history tracking
-        $playerStats = $players->map(function ($p) {
+        // Initialize player statistics with league-specific Elo for matchmaking
+        $playerStats = $players->map(function ($p) use ($leagueId) {
+            // Get league-specific stats
+            $leagueStats = $this->getPlayerLeagueStats($p->id(), $leagueId);
+            $leaguePerformance = $leagueStats['league_performance'];
+            $playedDays = $leagueStats['played_game_days'];
+            
+            // Calculate League Elo for matchmaking
+            // New players (0 gamedays): Use Global Elo as starting point
+            // Existing players: Use League Elo = 1500 + league_performance
+            if ($playedDays === 0) {
+                $matchmakingElo = (float)$p->get('global_elo', 1500);
+            } else {
+                $matchmakingElo = 1500 + $leaguePerformance;
+            }
+            
             return [
                 'id' => $p->id(), 
-                'elo' => (float)$p->get('global_elo', 1500),
+                'elo' => $matchmakingElo,  // League Elo for matchmaking
+                'global_elo' => (float)$p->get('global_elo', 1500),  // Keep for reference
                 'total_games' => (int)$p->get('total_games', 0),
                 'games_today' => 0,
                 'partners_today' => [],      // Track partners for diversity
