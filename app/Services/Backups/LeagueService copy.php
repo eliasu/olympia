@@ -304,7 +304,7 @@ class LeagueService
              $avgDelta = $perf['match_count'] > 0 ? $perf['delta_sum'] / $perf['match_count'] : 0;
              $gridData[] = [
                  'league' => [$leagueId],
-                 'played_games' => $days->count(),
+                 'played_gamedays' => $days->count(),
                  'match_count' => $perf['match_count'],
                  'league_performance' => round($perf['delta_sum'], 2),
                  'average_delta' => round($avgDelta, 2),
@@ -336,7 +336,7 @@ class LeagueService
         });
             
         return [
-            'played_game_days' => (int)($stats['played_games'] ?? 0),
+            'played_game_days' => (int)($stats['played_gamedays'] ?? 0),
             'match_count' => (int)($stats['match_count'] ?? 0),
             'league_performance' => (float)($stats['league_performance'] ?? 0),
         ];
@@ -434,7 +434,7 @@ class LeagueService
                 return $rowLeagueId === $leagueId;
             });
             
-            $playedGames = (int)($stats['played_games'] ?? 0);
+            $playedGames = (int)($stats['played_gamedays'] ?? 0);
             $isQualified = $playedGames >= $minGameDays;
 
             return [
@@ -442,7 +442,7 @@ class LeagueService
                 'performance' => (float)($stats['league_performance'] ?? -9999),
                 'has_stats' => !empty($stats),
                 'is_qualified' => $isQualified,
-                'played_games' => $playedGames
+                'played_gamedays' => $playedGames
             ];
         })
         ->filter(fn($p) => $p['has_stats'])

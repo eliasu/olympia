@@ -257,7 +257,7 @@ LPI = 31.2 / 5 = +6.24 points per day
 
 **Visible in Dashboard:**
 - `league_performance`: +31.2 (Total sum)
-- `played_games`: 5 (Number of game days)
+- `played_gamedays`: 5 (Number of game days)
 - `average_delta`: +1.88 (Avg per match)
 - **LPI (for ranking)**: +6.24
 

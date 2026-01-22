@@ -98,12 +98,12 @@
                                 </td>
                                 <td
                                     class="hidden sm:table-cell px-2 sm:px-4 md:px-6 py-5 whitespace-nowrap text-center">
-                                    {{ if played_games >= ^min_game_days }}
+                                    {{ if played_gamedays >= ^min_game_days }}
                                     <div class="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)] mx-auto"
                                         title="Qualified"></div>
                                     {{ else }}
                                     <span class="text-[10px] font-black text-gray-300 dark:text-gray-600">{{
-                                        played_games }}/{{ ^min_game_days }}</span>
+                                        played_gamedays }}/{{ ^min_game_days }}</span>
                                     {{ /if }}
                                 </td>
                             </tr>

@@ -73,12 +73,21 @@ class LeagueService
         $totalGames = $courtsCount * $gamesPerCourt;
         
         // Initialize player tracking for matchmaking
-        // Uses global Elo for skill-based matching
-        $playerStats = $players->map(function ($p) {
+        // Uses global Elo for skill-based matching, but league-specific match counts for fairness
+        $playerStats = $players->map(function ($p) use ($leagueId) {
+            // Get league-specific match count
+            $leagueStats = collect($p->get('league_stats', []))->first(function($row) use ($leagueId) {
+                $rowLeagues = (array)($row['league'] ?? []);
+                $rowLeagueId = reset($rowLeagues);
+                return $rowLeagueId === $leagueId;
+            });
+            
+            $leagueMatchCount = (int)($leagueStats['match_count'] ?? 0);
+            
             return [
                 'id' => $p->id(), 
                 'elo' => (float)$p->get('global_elo', 1500),
-                'total_games' => (int)$p->get('total_games', 0),
+                'league_matches' => $leagueMatchCount,  // Use league-specific count
                 'games_today' => 0,
                 'partners_today' => [],      // Track partners for diversity
                 'opponents_today' => [],     // Track opponents for diversity
@@ -144,9 +153,9 @@ class LeagueService
      */
     protected function selectDiversePlayers($playerStats, $eloSpread)
     {
-        // Sort by priority: fewest games today, then fewest total games
+        // Sort by priority: fewest games today, then fewest league matches
         $available = $playerStats
-            ->sortBy('total_games')
+            ->sortBy('league_matches')
             ->sortBy('games_today')
             ->values();
         
@@ -444,7 +453,7 @@ class LeagueService
              
              $gridData[] = [
                  'league' => [$leagueId],
-                 'played_games' => $days->count(),
+                 'played_gamedays' => $days->count(),
                  'match_count' => $perf['match_count'],
                  'league_wins' => $perf['wins'],
                  'league_losses' => $perf['losses'],
@@ -477,7 +486,7 @@ class LeagueService
         });
             
         return [
-            'played_game_days' => (int)($stats['played_games'] ?? 0),
+            'played_game_days' => (int)($stats['played_gamedays'] ?? 0),
             'match_count' => (int)($stats['match_count'] ?? 0),
             'win_percentage' => (float)($stats['win_percentage'] ?? 0),
         ];
@@ -638,24 +647,23 @@ class LeagueService
                 return $rowLeagueId === $leagueId;
             });
             
-            $playedGames = (int)($stats['played_games'] ?? 0);
-            $wins = (int)($stats['league_wins'] ?? 0);
-            $losses = (int)($stats['league_losses'] ?? 0);
-            $totalMatches = $wins + $losses;
-            $isQualified = $playedGames >= $minGameDays;
+            $playedGamedays = (int)($stats['played_gamedays'] ?? 0);
+            $leagueWins = (int)($stats['league_wins'] ?? 0);
+            $leagueLosses = (int)($stats['league_losses'] ?? 0);
+            $isQualified = $playedGamedays >= $minGameDays;
             
-            // Calculate win percentage
-            $winPercentage = $totalMatches > 0 ? ($wins / $totalMatches) * 100 : 0;
+            // Use pre-calculated win percentage from league_stats
+            $winPercentage = (float)($stats['win_percentage'] ?? 0);
 
             return [
                 'id' => $player->id(),
                 'win_percentage' => $winPercentage,
-                'total_wins' => $wins,
-                'total_losses' => $losses,
+                'league_wins' => $leagueWins,
+                'league_losses' => $leagueLosses,
                 'global_elo' => (float)$player->get('global_elo', 1500),
                 'has_stats' => !empty($stats),
                 'is_qualified' => $isQualified,
-                'played_games' => $playedGames
+                'played_gamedays' => $playedGamedays
             ];
         })
         ->filter(fn($p) => $p['has_stats'])
@@ -669,9 +677,9 @@ class LeagueService
                 return $b['win_percentage'] <=> $a['win_percentage'];
             }
             
-            // 3. Tiebreaker: Total wins (descending)
-            if ($a['total_wins'] != $b['total_wins']) {
-                return $b['total_wins'] <=> $a['total_wins'];
+            // 3. Tiebreaker: League wins (descending)
+            if ($a['league_wins'] != $b['league_wins']) {
+                return $b['league_wins'] <=> $a['league_wins'];
             }
             
             // 4. Final tiebreaker: Global Elo (descending)

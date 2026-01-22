@@ -93,7 +93,7 @@ tabs:
                     max_items: 1
                     display: League
                 -
-                  handle: played_games
+                  handle: played_gamedays
                   field:
                     type: integer
                     display: 'Played Days'
