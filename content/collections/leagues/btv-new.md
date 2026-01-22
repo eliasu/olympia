@@ -7,7 +7,7 @@ min_game_days: 7
 point_limit: 11
 win_by_two: true
 updated_by: 1861c4a9-8873-459c-97ce-38d399b7ed46
-updated_at: 1769105497
+updated_at: 1769119142
 players:
   - 62fb2a83-7987-4309-a38e-b15d552eeb70
   - 566e22ef-20ed-41d3-ac79-07208a3d75dc
@@ -59,7 +59,7 @@ players:
   - bb1417c7-c33a-4f32-8df9-abf5df0130cb
   - 70727ae8-762e-48da-b2be-21bcd55c98b0
   - ff8850c9-740b-4493-a3fc-6e86b1f6de80
-active: true
+active: false
 gamedays:
   - 24ac4ff1-95ae-41f4-a80b-c2b578aeaa11
   - edd276e8-b492-4107-9dff-4f08fbeabff9
