@@ -10,6 +10,14 @@
                         class="inline-flex items-center px-3 py-1 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 text-xs font-bold border border-indigo-100 dark:border-indigo-800">
                         🏆 {{ if min_game_days }}Min. {{ min_game_days }} Gamedays{{ else }}Open Ranking{{ /if }}
                     </div>
+                    <div
+                        class="inline-flex items-center px-3 py-1 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs font-bold border border-blue-100 dark:border-blue-800">
+                        👥 {{ league_players:count :league="id" }} Players
+                    </div>
+                    <div
+                        class="inline-flex items-center px-3 py-1 rounded-xl bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 text-xs font-bold border border-purple-100 dark:border-purple-800">
+                        📅 {{ collection:count in="gamedays" league:contains="{id}" is_finished:is="true" }}/{{ collection:count in="gamedays" league:contains="{id}" }} Gamedays
+                    </div>
                 </div>
             </div>
         </div>

@@ -129,23 +129,29 @@
         <div class="lg:col-span-2">
             <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Match History</h2>
 
-            {{ matches sort="gameday:date:desc" paginate="10" }}
+            {{ matches sort="gameday:date:desc" paginate="20" }}
             <div class="space-y-4">
                 {{ results }}
-                <a href="{{ url }}"
-                    class="block bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-4 hover:shadow-md transition-shadow">
-                    <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                <div
+                    class="relative group bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-4 hover:shadow-md transition-all">
+                    
+                    <!-- Main Match Link (Stretched) -->
+                    <a href="{{ url }}" class="absolute inset-0 z-0 rounded-xl"></a>
 
-                        <!-- Context -->
-                        <div class="text-center sm:text-left w-full sm:w-auto">
-                            <div class="text-xs text-gray-500 dark:text-gray-400 font-medium">{{ gameday:date
-                                format="d.m.Y" }}</div>
-                            <div class="text-sm font-bold text-gray-900 dark:text-white">{{ gameday:league:title }}
-                            </div>
+                    <div class="relative z-10 grid grid-cols-1 sm:grid-cols-12 items-center gap-4 pointer-events-none">
+
+                        <!-- Context (Span 3 for more title space) -->
+                        <div class="sm:col-span-3 text-center sm:text-left min-w-0 pointer-events-auto">
+                            <a href="{{ gameday:url }}" class="block text-xs text-gray-500 dark:text-gray-400 font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors truncate">
+                                {{ gameday:date format="d.m.Y" }} &bull; {{ gameday:title }}
+                            </a>
+                            <a href="{{ gameday:league:url }}" class="block text-sm font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors truncate">
+                                {{ gameday:league:title }}
+                            </a>
                         </div>
 
-                        <!-- Scoreboard -->
-                        <div class="flex items-center gap-4">
+                        <!-- Scoreboard (Span 6 to be centered and consistent) -->
+                        <div class="sm:col-span-6 flex justify-center items-center gap-4">
                             <!-- Team A -->
                             <div class="flex flex-col items-center">
                                 <div class="flex -space-x-2">
@@ -197,8 +203,8 @@
                             </div>
                         </div>
 
-                        <!-- Result Badge -->
-                        <div>
+                        <!-- Result Badge (Span 3 for right alignment) -->
+                        <div class="sm:col-span-3 flex justify-center sm:justify-end pointer-events-auto">
                             {{ if is_played }}
                             {{ if team_a | pluck('id') | contains(page:id) }}
                             {{ if score_a > score_b }}
@@ -227,7 +233,7 @@
                                     {{ /if }}
                                     
                                     {{ if elo_delta }}
-                                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold font-mono {{ player_delta >= 0 ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300' : 'bg-rose-100 text-rose-700 dark:bg-rose-900 dark:text-rose-300' }}">
+                                    <span class="inline-flex items-center ml-2 px-2 py-0.5 rounded-full text-xs font-bold font-mono {{ player_delta >= 0 ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300' : 'bg-rose-100 text-rose-700 dark:bg-rose-900 dark:text-rose-300' }}">
                                         {{ player_delta >= 0 ? '+' : '' }}{{ player_delta | round(1) }}
                                     </span>
                                     {{ /if }}
@@ -236,7 +242,7 @@
                                     {{ /if }}
                         </div>
                     </div>
-                </a>
+                </div>
                 {{ /results }}
 
                 {{ if no_results }}

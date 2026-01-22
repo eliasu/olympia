@@ -19,28 +19,7 @@ class LeaguePlayers extends Tags
         $leagueId = $this->params->get('league');
         $sort = $this->params->get('sort');
         
-        if (!$leagueId) {
-            return [];
-        }
-        
-        // Find all gamedays for this league
-        $gamedays = Entry::query()
-            ->where('collection', 'gamedays')
-            ->get()
-            ->filter(function($gameday) use ($leagueId) {
-                $gamedayLeagues = (array)$gameday->get('league', []);
-                return in_array($leagueId, $gamedayLeagues);
-            });
-        
-        // Collect all unique player IDs from present_players
-        $playerIds = collect();
-        foreach ($gamedays as $gameday) {
-            $presentPlayers = (array)$gameday->get('present_players', []);
-            $playerIds = $playerIds->merge($presentPlayers);
-        }
-        
-        // Get unique player IDs
-        $uniquePlayerIds = $playerIds->unique()->values()->all();
+        $uniquePlayerIds = $this->getUniquePlayerIds($leagueId);
         
         // Fetch player entries
         $players = collect($uniquePlayerIds)
@@ -64,6 +43,50 @@ class LeaguePlayers extends Tags
         }
         
         return $players->all();
+    }
+
+    /**
+     * Get the count of players who participated in at least one gameday of this league.
+     * 
+     * Usage: {{ league_players:count :league="id" }}
+     * 
+     * @return int
+     */
+    public function count()
+    {
+        $leagueId = $this->params->get('league');
+        return count($this->getUniquePlayerIds($leagueId));
+    }
+
+    /**
+     * Get unique player IDs for a league
+     * 
+     * @param string $leagueId
+     * @return array
+     */
+    protected function getUniquePlayerIds($leagueId)
+    {
+        if (!$leagueId) {
+            return [];
+        }
+        
+        // Find all gamedays for this league
+        $gamedays = Entry::query()
+            ->where('collection', 'gamedays')
+            ->get()
+            ->filter(function($gameday) use ($leagueId) {
+                $gamedayLeagues = (array)$gameday->get('league', []);
+                return in_array($leagueId, $gamedayLeagues);
+            });
+        
+        // Collect all unique player IDs from present_players
+        $playerIds = collect();
+        foreach ($gamedays as $gameday) {
+            $presentPlayers = (array)$gameday->get('present_players', []);
+            $playerIds = $playerIds->merge($presentPlayers);
+        }
+        
+        return $playerIds->unique()->values()->all();
     }
     
     /**
