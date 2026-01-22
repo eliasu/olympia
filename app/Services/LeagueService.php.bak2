@@ -1,0 +1,632 @@
+<?php
+
+namespace App\Services;
+
+use Statamic\Facades\Entry;
+use Statamic\Facades\Collection;
+use Illuminate\Support\Collection as LaravelCollection;
+use Illuminate\Support\Facades\Log;
+
+class LeagueService
+{
+    protected $league;
+    protected $gameday;
+    
+    // Configuration
+    const ELO_SPREAD = 150;              // ±150 Elo for matchmaking
+    const PARTNER_PENALTY = 1000;        // Strong avoidance of same partners
+    const OPPONENT_PENALTY = 500;        // Moderate avoidance of same opponents
+    
+    /**
+     * Generate a gameday plan (matchmaking).
+     *
+     * @param string $gamedayId
+     * @return array Matches created
+     */
+    public function generateGamedayPlan($gamedayId)
+    {
+        $gameday = Entry::find($gamedayId);
+        if (!$gameday) {
+            throw new \Exception("Gameday not found");
+        }
+        
+        // Check if plan already generated
+        if ($gameday->get('generated_plan')) {
+            throw new \Exception('Plan wurde bereits generiert. Bitte Gameday zurücksetzen, falls nötig.');
+        }
+
+        $leagueId = $gameday->get('league');
+        if (is_array($leagueId)) {
+            $leagueId = reset($leagueId);
+        }
+        
+        $league = Entry::find($leagueId);
+        if (!$league) {
+            throw new \Exception("League not found");
+        }
+
+        $presentPlayerIds = $gameday->get('present_players', []);
+        $players = collect($presentPlayerIds)->map(function ($id) {
+            return Entry::find($id);
+        })->filter();
+
+        if ($players->count() < 4) {
+            throw new \Exception('Mindestens 4 Spieler benötigt.');
+        }
+
+        $courtsCount = $gameday->get('courts_count');
+        $gamesPerCourt = $gameday->get('games_per_court');
+        $totalGames = $courtsCount * $gamesPerCourt;
+        
+        // Initialize player statistics with league-specific Elo for matchmaking
+        $playerStats = $players->map(function ($p) use ($leagueId) {
+            // For matchmaking, use global Elo
+            // (League performance is now win% which doesn't translate to Elo)
+            $matchmakingElo = (float)$p->get('global_elo', 1500);
+            
+            return [
+                'id' => $p->id(), 
+                'elo' => $matchmakingElo,  // League Elo for matchmaking
+                'global_elo' => (float)$p->get('global_elo', 1500),  // Keep for reference
+                'total_games' => (int)$p->get('total_games', 0),
+                'games_today' => 0,
+                'partners_today' => [],      // Track partners for diversity
+                'opponents_today' => [],     // Track opponents for diversity
+            ];
+        });
+
+        $matchesToCreate = [];
+        
+        // Generate matches
+        for ($i = 0; $i < $totalGames; $i++) {
+            // 1. SELECT 4 PLAYERS with skill-based diversity
+            $selectedPlayers = $this->selectDiversePlayers($playerStats, self::ELO_SPREAD);
+            
+            if ($selectedPlayers->count() < 4) {
+                Log::warning("Not enough players for match " . ($i + 1));
+                continue;
+            }
+
+            // 2. CREATE BALANCED TEAMS
+            $teams = $this->createBalancedTeams($selectedPlayers);
+            
+            // 3. UPDATE PLAYER TRACKING
+            $this->updatePlayerTracking($playerStats, $teams);
+            
+            // 4. CREATE MATCH ENTRY
+            $matchTitle = $gameday->get('title') . ' - Match ' . ($i + 1);
+            
+            $match = Entry::make()
+                ->collection('matches')
+                ->slug('match-' . $gamedayId . '-' . ($i + 1))
+                ->data([
+                    'title' => $matchTitle,
+                    'team_a' => $teams['team_a']->pluck('id')->all(),
+                    'team_b' => $teams['team_b']->pluck('id')->all(),
+                    'is_played' => false,
+                ]);
+            
+            $match->set('gameday', [$gamedayId]);
+            $match->save();
+            $matchesToCreate[] = $match->id();
+        }
+        
+        // Lock the gameday and save matches
+        $gameday->set('generated_plan', true);
+        $gameday->set('matches', $matchesToCreate);
+        $gameday->save();
+
+        return $matchesToCreate;
+    }
+
+    /**
+     * Select 4 players with skill-based diversity and history tracking.
+     *
+     * @param \Illuminate\Support\Collection $playerStats
+     * @param int $eloSpread
+     * @return \Illuminate\Support\Collection
+     */
+    protected function selectDiversePlayers($playerStats, $eloSpread)
+    {
+        // 1. Sort by priority: Least games today, then least total games
+        $available = $playerStats
+            ->sortBy('total_games')
+            ->sortBy('games_today')
+            ->values();
+        
+        $minGames = $available->min('games_today');
+        
+        // 2. Eligible pool: Players with minimal games today
+        $eligiblePool = $available->filter(fn($p) => 
+            $p['games_today'] <= $minGames + 1
+        )->values();
+        
+        if ($eligiblePool->count() < 4) {
+            // Fallback: Take the 4 with fewest games
+            return $available->take(4);
+        }
+        
+        // 3. SELECT SEED PLAYER (player with fewest games)
+        $seed = $eligiblePool->first();
+        $seedElo = $seed['elo'];
+        
+        // 4. FIND 3 PARTNERS IN ELO BAND
+        $candidates = $eligiblePool
+            ->reject(fn($p) => $p['id'] === $seed['id'])
+            ->filter(fn($p) => abs($p['elo'] - $seedElo) <= $eloSpread);
+        
+        // Expand search if not enough candidates (edge case: few players)
+        if ($candidates->count() < 3) {
+            $candidates = $eligiblePool->reject(fn($p) => $p['id'] === $seed['id']);
+        }
+        
+        // 5. PRIORITIZE DIVERSITY
+        $selected = $candidates
+            ->map(function($p) use ($seed) {
+                // Calculate selection score (lower = better)
+                $eloDiff = abs($p['elo'] - $seed['elo']);
+                
+                // Check if this player was already partner/opponent with seed today
+                $wasPartner = in_array($p['id'], $seed['partners_today']);
+                $wasOpponent = in_array($p['id'], $seed['opponents_today']);
+                
+                $diversityPenalty = 0;
+                if ($wasPartner) $diversityPenalty += self::PARTNER_PENALTY;
+                if ($wasOpponent) $diversityPenalty += self::OPPONENT_PENALTY;
+                
+                $p['selection_score'] = $eloDiff + $diversityPenalty;
+                return $p;
+            })
+            ->sortBy('selection_score')
+            ->take(3);
+        
+        // Fallback if still not enough
+        if ($selected->count() < 3) {
+            $alreadySelected = $selected->pluck('id')->push($seed['id']);
+            $extras = $candidates
+                ->reject(fn($p) => $alreadySelected->contains($p['id']))
+                ->sortBy('games_today')
+                ->take(3 - $selected->count());
+            $selected = $selected->concat($extras);
+        }
+        
+        return collect([$seed])->concat($selected);
+    }
+
+    /**
+     * Create balanced teams using power pairing.
+     * Strongest + Weakest vs. Middle Two
+     *
+     * @param \Illuminate\Support\Collection $players
+     * @return array
+     */
+    protected function createBalancedTeams($players)
+    {
+        // Sort by Elo (descending)
+        $sorted = $players->sortByDesc('elo')->values();
+        
+        // Power Pairing: Strongest + Weakest vs. Middle Two
+        // Example: [1650, 1580, 1520, 1480]
+        // Team A: 1650 + 1480 = Avg 1565
+        // Team B: 1580 + 1520 = Avg 1550
+        $teamA = collect([$sorted[0], $sorted[3]]);
+        $teamB = collect([$sorted[1], $sorted[2]]);
+        
+        return [
+            'team_a' => $teamA,
+            'team_b' => $teamB
+        ];
+    }
+
+    /**
+     * Update player tracking (games played, partners, opponents).
+     *
+     * @param \Illuminate\Support\Collection $playerStats (by reference)
+     * @param array $teams
+     */
+    protected function updatePlayerTracking(&$playerStats, $teams)
+    {
+        $teamAIds = $teams['team_a']->pluck('id')->all();
+        $teamBIds = $teams['team_b']->pluck('id')->all();
+        
+        foreach ($playerStats as $key => $stats) {
+            $playerId = $stats['id'];
+            
+            if (in_array($playerId, $teamAIds)) {
+                // Player is in Team A
+                $stats['games_today']++;
+                
+                // Partner = other player in Team A
+                $partner = array_values(array_diff($teamAIds, [$playerId]));
+                $stats['partners_today'] = array_merge(
+                    $stats['partners_today'], 
+                    $partner
+                );
+                
+                // Opponents = Team B
+                $stats['opponents_today'] = array_merge(
+                    $stats['opponents_today'], 
+                    $teamBIds
+                );
+                
+                $playerStats[$key] = $stats;
+            } 
+            elseif (in_array($playerId, $teamBIds)) {
+                // Player is in Team B
+                $stats['games_today']++;
+                
+                $partner = array_values(array_diff($teamBIds, [$playerId]));
+                $stats['partners_today'] = array_merge(
+                    $stats['partners_today'], 
+                    $partner
+                );
+                
+                $stats['opponents_today'] = array_merge(
+                    $stats['opponents_today'], 
+                    $teamAIds
+                );
+                
+                $playerStats[$key] = $stats;
+            }
+        }
+    }
+
+    /**
+     * Finalize the gameday: Update Elo ratings.
+     * 
+     * @param string $gamedayId
+     */
+    public function finalizeGameday($gamedayId)
+    {
+        $gameday = Entry::find($gamedayId);
+        
+        if (!$gameday->get('generated_plan')) {
+             throw new \Exception('Es wurde noch kein Plan generiert.');
+        }
+        
+        if ($gameday->get('is_finished')) {
+             throw new \Exception('Gameday ist bereits abgeschlossen.');
+        }
+
+        $leagueId = $gameday->get('league');
+        if (is_array($leagueId)) {
+            $leagueId = reset($leagueId);
+        }
+
+        $league = Entry::find($leagueId);
+        $kFactor = $league->get('k_factor', 32);
+        
+        $matches = Entry::query()
+            ->where('collection', 'matches')
+            ->where('gameday', $gamedayId)
+            ->where('is_played', true)
+            ->get();
+            
+        foreach ($matches as $match) {
+            $this->processMatchElo($match, $kFactor);
+        }
+        
+        $gameday->set('is_finished', true);
+        $gameday->save();
+        
+        // Update cached stats for all present players
+        $presentPlayers = $gameday->get('present_players', []);
+        foreach ($presentPlayers as $playerId) {
+            $this->updatePlayerLeagueStats($playerId);
+        }
+
+        // Recalculate ranks for this league
+        $this->recalculateLeagueRanks($leagueId);
+    }
+    
+    /**
+     * Update player's league statistics.
+     *
+     * @param string $playerId
+     */
+    public function updatePlayerLeagueStats($playerId)
+    {
+        $player = Entry::find($playerId);
+        if (!$player) return;
+
+        // 1. Find all finished gamedays where player was present
+        $gamedays = Entry::query()
+            ->where('collection', 'gamedays')
+            ->where('is_finished', true)
+            ->whereJsonContains('present_players', $playerId)
+            ->get();
+            
+        // 2. Find all played matches for this player
+        $allMatches = Entry::query()
+            ->where('collection', 'matches')
+            ->where('is_played', true)
+            ->get()
+            ->filter(function($match) use ($playerId) {
+                return in_array($playerId, (array)$match->get('team_a', [])) || 
+                       in_array($playerId, (array)$match->get('team_b', []));
+            });
+
+        // 3. Process performance by league
+        $performanceByLeague = [];
+        
+        foreach ($allMatches as $match) {
+            $gamedayIds = (array)$match->get('gameday', []);
+            if (empty($gamedayIds)) continue;
+            
+            $gamedayId = reset($gamedayIds);
+            $gameday = Entry::find($gamedayId);
+            if (!$gameday || !$gameday->get('is_finished')) continue;
+            
+            $leagueIds = (array)$gameday->get('league', []);
+            if (empty($leagueIds)) continue;
+            
+            $leagueId = reset($leagueIds);
+            
+            if (!isset($performanceByLeague[$leagueId])) {
+                $performanceByLeague[$leagueId] = [
+                    'delta_sum' => 0,
+                    'match_count' => 0,
+                    'wins' => 0,
+                    'losses' => 0
+                ];
+            }
+            
+            $delta = (float)$match->get('elo_delta', 0);
+            $isTeamA = in_array($playerId, (array)$match->get('team_a', []));
+            $scoreA = (int)$match->get('score_a');
+            $scoreB = (int)$match->get('score_b');
+            
+            $won = $isTeamA ? ($scoreA > $scoreB) : ($scoreB > $scoreA);
+            
+            // IMPORTANT: elo_delta is now stored as SIGNED value (positive for Team A gain, negative for Team A loss)
+            // Team A player: Use delta as-is
+            // Team B player: Invert delta
+            $actualDelta = $isTeamA ? $delta : -$delta;
+            
+            if ($won) {
+                $performanceByLeague[$leagueId]['wins']++;
+            } else {
+                $performanceByLeague[$leagueId]['losses']++;
+            }
+            
+            $performanceByLeague[$leagueId]['delta_sum'] += $actualDelta;
+            $performanceByLeague[$leagueId]['match_count']++;
+        }
+
+        // 4. Build Grid data
+        $gridData = [];
+        $gamedaysByLeague = $gamedays->groupBy(function($day) {
+            $leagueIds = (array)$day->get('league', []);
+            return !empty($leagueIds) ? reset($leagueIds) : null;
+        });
+
+        foreach ($gamedaysByLeague as $leagueId => $days) {
+             if (!$leagueId || !Entry::find($leagueId)) continue;
+             
+             $perf = $performanceByLeague[$leagueId] ?? ['delta_sum' => 0, 'match_count' => 0, 'wins' => 0, 'losses' => 0];
+             $avgDelta = $perf['match_count'] > 0 ? $perf['delta_sum'] / $perf['match_count'] : 0;
+             
+             $gridData[] = [
+                 'league' => [$leagueId],
+                 'played_games' => $days->count(),
+                 'match_count' => $perf['match_count'],
+                 'league_performance' => round($perf['delta_sum'], 2),
+                 'average_delta' => round($avgDelta, 2),
+                 'league_wins' => $perf['wins'],
+              $perf = $performanceByLeague[$leagueId] ?? ['delta_sum' => 0, 'match_count' => 0, 'wins' => 0, 'losses' => 0];
+              
+              // Calculate win percentage
+              $totalMatches = $perf['wins'] + $perf['losses'];
+              $winPercentage = $totalMatches > 0 ? ($perf['wins'] / $totalMatches) * 100 : 0;
+              
+              $gridData[] = [
+                  'league' => [$leagueId],
+                  'played_games' => $days->count(),
+                  'match_count' => $perf['match_count'],
+                  'league_wins' => $perf['wins'],
+                  'league_losses' => $perf['losses'],
+                  'win_percentage' => round($winPercentage, 2)
+              ];
+     * @param string $leagueId
+     * @return array
+     */
+    public function getPlayerLeagueStats($playerId, $leagueId)
+    {
+        $player = Entry::find($playerId);
+        if (!$player) return ['played_game_days' => 0, 'match_count' => 0, 'league_performance' => 0];
+
+        $stats = collect($player->get('league_stats', []))->first(function($row) use ($leagueId) {
+            $rowLeagues = (array)($row['league'] ?? []);
+            $rowLeagueId = reset($rowLeagues);
+            return $rowLeagueId === $leagueId;
+        });
+            
+        return [
+            'played_game_days' => (int)($stats['played_games'] ?? 0),
+            'match_count' => (int)($stats['match_count'] ?? 0),
+            'league_performance' => (float)($stats['league_performance'] ?? 0),
+        ];
+    }
+
+    /**
+     * Process match Elo calculation (TRUE ELO - No win protection).
+     * Now with hybrid Elo history tracking.
+     *
+     * @param \Statamic\Entries\Entry $match
+     * @param int $kFactor
+     */
+    protected function processMatchElo($match, $kFactor)
+    {
+        $teamAIds = $match->get('team_a');
+        $teamBIds = $match->get('team_b');
+        
+        $teamAPlayers = collect($teamAIds)->map(fn($id) => Entry::find($id))->filter();
+        $teamBPlayers = collect($teamBIds)->map(fn($id) => Entry::find($id))->filter();
+        
+        if ($teamAPlayers->count() < 2 || $teamBPlayers->count() < 2) {
+            Log::warning("Match {$match->id()} has incomplete teams");
+            return;
+        }
+        
+        $scoreA = (int)$match->get('score_a');
+        $scoreB = (int)$match->get('score_b');
+        
+        // === STEP 1: Capture Elo BEFORE changes ===
+        $teamAEloBefore = $teamAPlayers->map(fn($p) => round((float)$p->get('global_elo', 1500), 2))->values()->all();
+        $teamBEloBefore = $teamBPlayers->map(fn($p) => round((float)$p->get('global_elo', 1500), 2))->values()->all();
+        
+        // Calculate team average Elo
+        $eloA = $teamAPlayers->avg(fn($p) => (float)$p->get('global_elo', 1500));
+        $eloB = $teamBPlayers->avg(fn($p) => (float)$p->get('global_elo', 1500));
+        
+        // Expected win probability for Team A
+        $expectedA = 1 / (1 + pow(10, ($eloB - $eloA) / 400));
+        
+        // Actual performance based on score
+        $pointsTotal = $scoreA + $scoreB;
+        if ($pointsTotal == 0) return; // Prevent division by zero
+        
+        $actualA = $scoreA / $pointsTotal;
+        
+        // Calculate Elo delta (TRUE ELO - no win protection)
+        $delta = $kFactor * ($actualA - $expectedA);
+        
+        // Get gameday and league info for history
+        $gamedayId = $match->get('gameday')[0] ?? null;
+        $gameday = $gamedayId ? Entry::find($gamedayId) : null;
+        $leagueId = $gameday ? ($gameday->get('league')[0] ?? null) : null;
+        $matchDate = $match->get('date') ?? now();
+        
+        // === STEP 2: Update Team A players ===
+        foreach ($teamAPlayers as $player) {
+            $oldElo = $player->get('global_elo', 1500);
+            $newElo = $oldElo + $delta;
+            $player->set('global_elo', round($newElo, 2));
+            $player->set('total_games', $player->get('total_games', 0) + 1);
+            
+            if ($scoreA > $scoreB) {
+                $player->set('wins', (int)$player->get('wins', 0) + 1);
+            } else {
+                $player->set('losses', (int)$player->get('losses', 0) + 1);
+            }
+            
+            // Add to player's elo_history
+            $history = $player->get('elo_history', []);
+            $history[] = [
+                'date' => $matchDate,
+                'elo' => round($newElo, 2),
+                'match' => $match->id(),
+                'league' => $leagueId,
+            ];
+            $player->set('elo_history', $history);
+            
+            $player->save();
+        }
+        
+        // === STEP 3: Update Team B players ===
+        foreach ($teamBPlayers as $player) {
+            $oldElo = $player->get('global_elo', 1500);
+            $newElo = $oldElo - $delta;
+            $player->set('global_elo', round($newElo, 2));
+            $player->set('total_games', $player->get('total_games', 0) + 1);
+            
+            if ($scoreB > $scoreA) {
+                $player->set('wins', (int)$player->get('wins', 0) + 1);
+            } else {
+                $player->set('losses', (int)$player->get('losses', 0) + 1);
+            }
+            
+            // Add to player's elo_history
+            $history = $player->get('elo_history', []);
+            $history[] = [
+                'date' => $matchDate,
+                'elo' => round($newElo, 2),
+                'match' => $match->id(),
+                'league' => $leagueId,
+            ];
+            $player->set('elo_history', $history);
+            
+            $player->save();
+        }
+        
+        // === STEP 4: Capture Elo AFTER changes ===
+        $teamAEloAfter = $teamAPlayers->map(fn($p) => round((float)$p->get('global_elo', 1500), 2))->values()->all();
+        $teamBEloAfter = $teamBPlayers->map(fn($p) => round((float)$p->get('global_elo', 1500), 2))->values()->all();
+        
+        // === STEP 5: Save all data to match ===
+        $match->set('elo_delta', $delta);
+        $match->set('team_a_elo_before', $teamAEloBefore);
+        $match->set('team_a_elo_after', $teamAEloAfter);
+        $match->set('team_b_elo_before', $teamBEloBefore);
+        $match->set('team_b_elo_after', $teamBEloAfter);
+        $match->save();
+    }
+
+    /**
+     * Recalculate ranks for all players in a league based on LPI (League Performance Index).
+     * LPI = Average Elo Delta per Gameday (fairer for part-time players)
+     * 
+     * @param string $leagueId
+     */
+    public function recalculateLeagueRanks($leagueId)
+    {
+        $league = Entry::find($leagueId);
+        if (!$league) return;
+        
+        $minGameDays = (int)$league->get('min_game_days', 0);
+        $players = Entry::query()->where('collection', 'players')->get();
+        
+        $rankingData = $players->map(function($player) use ($leagueId, $minGameDays) {
+            $stats = collect($player->get('league_stats', []))->first(function($row) use ($leagueId) {
+                $rowLeagues = (array)($row['league'] ?? []);
+                $rowLeagueId = reset($rowLeagues);
+                return $rowLeagueId === $leagueId;
+            });
+            
+            $playedGames = (int)($stats['played_games'] ?? 0);
+            $rawPerformance = (float)($stats['league_performance'] ?? 0);
+            $isQualified = $playedGames >= $minGameDays;
+            
+            // NEW: Calculate LPI (League Performance Index)
+            // LPI = Average performance per gameday (fairer for part-time players)
+            $lpi = $playedGames > 0 ? $rawPerformance / $playedGames : -9999;
+
+            return [
+                'id' => $player->id(),
+                'performance' => $lpi,  // Use LPI instead of raw sum
+                'raw_performance' => $rawPerformance,
+                'has_stats' => !empty($stats),
+                'is_qualified' => $isQualified,
+                'played_games' => $playedGames
+            ];
+        })
+        ->filter(fn($p) => $p['has_stats'])
+        ->sort(function($a, $b) {
+            // 1. Qualified players first
+            if ($a['is_qualified'] && !$b['is_qualified']) return -1;
+            if (!$a['is_qualified'] && $b['is_qualified']) return 1;
+            
+            // 2. Sort by LPI within group
+            return $b['performance'] <=> $a['performance'];
+        })
+        ->values();
+
+        // Assign ranks
+        foreach ($rankingData as $index => $item) {
+            $player = Entry::find($item['id']);
+            $stats = $player->get('league_stats', []);
+            
+            foreach ($stats as &$row) {
+                $rowLeagues = (array)($row['league'] ?? []);
+                $rowLeagueId = reset($rowLeagues);
+                if ($rowLeagueId === $leagueId) {
+                    // Only assign rank number if qualified
+                    $row['rank'] = $item['is_qualified'] ? ($index + 1) : null;
+                }
+            }
+            
+            $player->set('league_stats', $stats);
+            $player->save();
+        }
+    }
+}

@@ -58,6 +58,7 @@ tabs:
                 - leagues
               type: entries
               display: League
+              mode: select
           -
             handle: generated_plan
             field:

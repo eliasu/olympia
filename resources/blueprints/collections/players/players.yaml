@@ -104,18 +104,6 @@ tabs:
                     display: 'Match Count'
                     default: 0
                 -
-                  handle: league_performance
-                  field:
-                    type: float
-                    display: 'League Points'
-                    default: 0
-                -
-                  handle: average_delta
-                  field:
-                    type: float
-                    display: 'Avg. Delta'
-                    default: 0
-                -
                   handle: league_wins
                   field:
                     type: integer

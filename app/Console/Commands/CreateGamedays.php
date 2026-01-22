@@ -8,13 +8,13 @@ use Carbon\Carbon;
 
 class CreateGamedays extends Command
 {
-    protected $signature = 'create:gamedays {league} {count=5} {--start-date=}';
-    protected $description = 'Create gamedays with random players for a league';
+    protected $signature = 'create:gamedays {league} {--count=16 : Number of gamedays} {--c= : Shortcut for count} {--start-date=}';
+    protected $description = 'Create gamedays with smart player attendance (better players attend more often)';
 
     public function handle()
     {
         $leagueSlug = $this->argument('league');
-        $count = (int) $this->argument('count');
+        $count = (int) $this->option('count');
         $startDate = $this->option('start-date') 
             ? Carbon::parse($this->option('start-date'))
             : Carbon::now()->next(Carbon::MONDAY);
@@ -43,27 +43,27 @@ class CreateGamedays extends Command
         
         $this->info("Creating {$count} gamedays for league: {$league->get('title')}");
         $this->info("Starting from: {$startDate->format('d.m.Y')}");
+        $this->info("Smart attendance: Better players (higher Elo) attend more often");
         
         $bar = $this->output->createProgressBar($count);
         $bar->start();
         
         for ($i = 0; $i < $count; $i++) {
             $date = $startDate->copy()->addWeeks($i);
-            $title = "Gameday " . ($i + 1) . " - " . $date->format('d.m.Y');
-            $slug = \Illuminate\Support\Str::slug($title);
+            $title = "Gameday " . ($i + 1);
             
-            // Select 15-25 random players
-            $playerCount = rand(15, 25);
-            $selectedPlayers = $allPlayers->random(min($playerCount, $allPlayers->count()))
-                ->pluck('id')
-                ->all();
+            // For dated entries: slug is just the suffix, date is set separately
+            $slug = 'gameday';
+            
+            // Smart attendance: Select players based on Elo
+            $selectedPlayers = $this->selectPlayersWithSmartAttendance($allPlayers);
             
             $gameday = Entry::make()
                 ->collection('gamedays')
                 ->slug($slug)
+                ->date($date)  // Set date separately for dated entries
                 ->data([
                     'title' => $title,
-                    'date' => $date->toDateString(),
                     'courts_count' => 4,
                     'games_per_court' => 4,
                     'generated_plan' => false,
@@ -82,5 +82,40 @@ class CreateGamedays extends Command
         $this->info("✅ Created {$count} gamedays successfully!");
         
         return 0;
+    }
+    
+    /**
+     * Select players with smart attendance probability based on Elo.
+     * Higher Elo = higher attendance probability.
+     */
+    protected function selectPlayersWithSmartAttendance($allPlayers)
+    {
+        $selected = [];
+        
+        foreach ($allPlayers as $player) {
+            $elo = (float)$player->get('global_elo', 1500);
+            
+            // Calculate attendance probability based on Elo
+            // Elo 1200 (Beginner): ~60% chance
+            // Elo 1500 (Intermediate): ~75% chance
+            // Elo 1600 (Advanced): ~85% chance
+            // Elo 1750 (Pro): ~95% chance
+            $attendanceProbability = min(0.95, max(0.60, 0.5 + ($elo - 1200) / 1000));
+            
+            // Random attendance based on probability
+            if (rand(1, 100) / 100 <= $attendanceProbability) {
+                $selected[] = $player->id();
+            }
+        }
+        
+        // Ensure minimum 15 players
+        if (count($selected) < 15) {
+            $missing = 15 - count($selected);
+            $notSelected = $allPlayers->reject(fn($p) => in_array($p->id(), $selected));
+            $additional = $notSelected->random(min($missing, $notSelected->count()))->pluck('id')->all();
+            $selected = array_merge($selected, $additional);
+        }
+        
+        return $selected;
     }
 }

@@ -1,0 +1,198 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- Header -->
+    <div class="mb-12">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+                <h1 class="text-5xl font-black text-gray-900 dark:text-white tracking-tighter">{{ title }}</h1>
+                <div class="mt-4 flex flex-wrap gap-3">
+                    <div
+                        class="inline-flex items-center px-3 py-1 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 text-xs font-bold border border-indigo-100 dark:border-indigo-800">
+                        🏆 {{ if min_game_days }}Min. {{ min_game_days }} Gamedays{{ else }}Open Ranking{{ /if }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
+
+        <!-- Left Column: Leaderboard (Win %) -->
+        <div class="lg:col-span-2 space-y-6">
+            <h2 class="text-2xl font-black text-gray-900 dark:text-white tracking-tight flex items-center gap-3">
+                <span class="p-2 bg-indigo-100 dark:bg-indigo-900 rounded-lg text-indigo-600 dark:text-indigo-400">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
+                        </path>
+                    </svg>
+                </span>
+                League Ranking
+            </h2>
+
+            <div
+                class="bg-white dark:bg-gray-800 shadow-2xl rounded-[2rem] overflow-hidden border border-gray-100 dark:border-gray-700">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                        <thead class="bg-gray-50/50 dark:bg-gray-900/50">
+                            <tr>
+                                <th scope="col"
+                                    class="px-2 sm:px-4 md:px-6 py-4 text-left text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">
+                                    Rank</th>
+                                <th scope="col"
+                                    class="px-2 sm:px-4 md:px-6 py-4 text-left text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">
+                                    Player</th>
+                                <th scope="col"
+                                    class="hidden md:table-cell px-2 sm:px-4 md:px-6 py-4 text-center text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">
+                                    Win %</th>
+                                <th scope="col"
+                                    class="hidden md:table-cell px-2 sm:px-4 md:px-6 py-4 text-center text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">
+                                    Rec.</th>
+                                <th scope="col"
+                                    class="hidden sm:table-cell px-2 sm:px-4 md:px-6 py-4 text-center text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">
+                                    Quali</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100 dark:divide-gray-700/50">
+                            {{ collection:players }}
+                            {{ league_stats }}
+                            {{ if league:0 == ^id }}
+                            <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-700/30 transition-colors">
+                                <td class="px-2 sm:px-4 md:px-6 py-5 whitespace-nowrap">
+                                    <span
+                                        class="text-base md:text-lg font-black {{ if rank && rank <= 3 }}text-indigo-600 dark:text-indigo-400{{ else }}text-gray-300 dark:text-gray-600{{ /if }}">
+                                        {{ if rank }}{{ rank }}.{{ else }}-{{ /if }}
+                                    </span>
+                                </td>
+                                <td class="px-2 sm:px-4 md:px-6 py-5 whitespace-nowrap">
+                                    <a href="{{ url }}" class="flex items-center group">
+                                        <div
+                                            class="h-8 w-8 md:h-10 md:w-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-black shadow-lg transform group-hover:scale-110 transition-all duration-200 overflow-hidden">
+                                            {{ if avatar_url }}
+                                            <img src="{{ avatar_url }}" class="h-full w-full object-cover">
+                                            {{ else }}
+                                            <span>{{ title | substr(0,1) }}</span>
+                                            {{ /if }}
+                                        </div>
+                                        <div class="ml-4">
+                                            <div
+                                                class="text-sm font-bold text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                                                {{ title }}</div>
+                                            <div class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                                                Elo: {{ global_elo }}</div>
+                                        </div>
+                                    </a>
+                                </td>
+                                <td
+                                    class="hidden md:table-cell px-2 sm:px-4 md:px-6 py-5 whitespace-nowrap text-center">
+                                    <span
+                                        class="text-sm font-black {{ if win_percentage >= 60 }}text-emerald-500{{ elseif win_percentage >= 40 }}text-gray-500{{ else }}text-rose-500{{ /if }}">
+                                        {{ win_percentage }}%
+                                    </span>
+                                </td>
+                                <td
+                                    class="hidden md:table-cell px-2 sm:px-4 md:px-6 py-5 whitespace-nowrap text-center text-xs font-bold">
+                                    <span class="text-emerald-500">{{ league_wins }}W</span>
+                                    <span class="text-gray-300 mx-0.5">/</span>
+                                    <span class="text-rose-500">{{ league_losses }}L</span>
+                                </td>
+                                <td
+                                    class="hidden sm:table-cell px-2 sm:px-4 md:px-6 py-5 whitespace-nowrap text-center">
+                                    {{ if played_games >= ^min_game_days }}
+                                    <div class="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)] mx-auto"
+                                        title="Qualified"></div>
+                                    {{ else }}
+                                    <span class="text-[10px] font-black text-gray-300 dark:text-gray-600">{{
+                                        played_games }}/{{ ^min_game_days }}</span>
+                                    {{ /if }}
+                                </td>
+                            </tr>
+                            {{ /if }}
+                            {{ /league_stats }}
+                            {{ /collection:players }}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Schedule (Gamedays) -->
+        <div class="space-y-6">
+            <h2 class="text-2xl font-black text-gray-900 dark:text-white tracking-tight flex items-center gap-3">
+                <span class="p-2 bg-amber-100 dark:bg-amber-900 rounded-lg text-amber-600 dark:text-amber-400">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                        </path>
+                    </svg>
+                </span>
+                Gamedays
+            </h2>
+
+            <div class="space-y-4">
+                {{ gamedays sort="is_finished:asc|date:desc" generated_plan:is="true" }}
+                <a href="{{ url }}"
+                    class="group block p-6 bg-white dark:bg-gray-800 rounded-[2rem] shadow-xl border-2 {{ if generated_plan && !is_finished }}border-emerald-500 bg-emerald-50/30 dark:bg-emerald-900/10 ring-8 ring-emerald-500/5{{ else }}border-gray-50 dark:border-gray-700/50 hover:border-indigo-200 dark:hover:border-indigo-800 bg-gray-50/50 dark:bg-gray-900/20{{ /if }} transition-all hover:scale-[1.02]">
+                    <div class="flex items-start gap-4">
+                        <!-- Date Badge -->
+                        <div
+                            class="flex-shrink-0 flex flex-col items-center justify-center w-14 h-14 rounded-2xl {{ if generated_plan && !is_finished }}bg-emerald-500 text-white shadow-lg shadow-emerald-500/30{{ else }}bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400{{ /if }} border border-black/5">
+                            <span class="text-[10px] font-black uppercase tracking-tighter leading-none mb-1">{{ date
+                                format="M" }}</span>
+                            <span class="text-xl font-black leading-none">{{ date format="d" }}</span>
+                        </div>
+
+                        <div class="flex-1 min-w-0">
+                            <div class="flex justify-between items-start mb-1 gap-2">
+                                <h3
+                                    class="text-base font-black text-gray-900 dark:text-white leading-tight truncate group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                                    {{ title }}</h3>
+                                {{ if is_finished }}
+                                <div
+                                    class="flex-shrink-0 px-2 py-0.5 rounded-md bg-gray-200 dark:bg-gray-600 text-gray-500 dark:text-gray-300 text-[9px] font-black uppercase tracking-widest">
+                                    Done</div>
+                                {{ elseif generated_plan }}
+                                <div
+                                    class="flex-shrink-0 px-2 py-0.5 rounded-md bg-emerald-500 text-white text-[9px] font-black uppercase tracking-widest animate-pulse shadow-sm">
+                                    Live</div>
+                                {{ else }}
+                                <div
+                                    class="flex-shrink-0 px-2 py-0.5 rounded-md bg-yellow-500 text-white text-[9px] font-black uppercase tracking-widest shadow-sm">
+                                    Draft</div>
+                                {{ /if }}
+                            </div>
+
+                            <div class="flex items-center justify-between mt-3">
+                                <div class="flex -space-x-1.5">
+                                    {{ present_players limit="4" }}
+                                    <div
+                                        class="h-6 w-6 rounded-full border-2 border-white dark:border-gray-800 bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-[8px] font-black text-gray-500">
+                                        {{ title | substr(0,1) }}
+                                    </div>
+                                    {{ /present_players }}
+                                    {{ if present_players | count > 4 }}
+                                    <div
+                                        class="h-6 w-6 rounded-full border-2 border-white dark:border-gray-800 bg-indigo-50 dark:bg-indigo-900/50 flex items-center justify-center text-[7px] font-black text-indigo-600">
+                                        +{{ present_players|count|subtract(4) }}
+                                    </div>
+                                    {{ /if }}
+                                </div>
+                                <span
+                                    class="text-[10px] font-black text-indigo-500 uppercase tracking-widest group-hover:translate-x-1 transition-transform">Info
+                                    &rarr;</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {{ /gamedays }}
+
+                {{ if !gamedays }}
+                <div
+                    class="py-12 text-center bg-gray-50 dark:bg-gray-900/50 rounded-[2rem] border-2 border-dashed border-gray-100 dark:border-gray-800">
+                    <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">No scheduled gamedays</p>
+                </div>
+                {{ /if }}
+            </div>
+        </div>
+    </div>
+</div>

@@ -7,75 +7,84 @@ use Statamic\Facades\Entry;
 
 class CreatePlayers extends Command
 {
-    protected $signature = 'create:players {count=10} {elo=1500}';
-    protected $description = 'Create random players with specified Elo rating';
+    protected $signature = 'create:players 
+        {--beginners=0 : Number of beginner players (Elo ~1200)} 
+        {--intermediates=0 : Number of intermediate players (Elo ~1500)} 
+        {--advanced=0 : Number of advanced players (Elo ~1600)} 
+        {--pros=0 : Number of pro players (Elo ~1750)}';
+
+    protected $description = 'Create players with skill-based Elo ratings';
+
+    const SKILL_GROUPS = [
+        'Beginner' => ['elo' => 1200, 'variance' => 0],
+        'Intermediate' => ['elo' => 1500, 'variance' => 0],
+        'Advanced' => ['elo' => 1600, 'variance' => 0],
+        'Pro' => ['elo' => 1750, 'variance' => 0],
+    ];
 
     public function handle()
     {
-        $count = (int) $this->argument('count');
-        $elo = (float) $this->argument('elo');
+        $playerCounts = [
+            'Beginner' => $this->option('beginners'),
+            'Intermediate' => $this->option('intermediates'),
+            'Advanced' => $this->option('advanced'),
+            'Pro' => $this->option('pros'),
+        ];
         
-        $this->info("Creating {$count} players with Elo {$elo}...");
+        $totalPlayers = array_sum($playerCounts);
         
-        $names = $this->generateNames($count);
-        $bar = $this->output->createProgressBar($count);
-        $bar->start();
-        
-        foreach ($names as $name) {
-            $slug = \Illuminate\Support\Str::slug($name);
-            
-            $player = Entry::make()
-                ->collection('players')
-                ->slug($slug)
-                ->data([
-                    'title' => $name,
-                    'global_elo' => $elo,
-                    'total_games' => 0,
-                    'player_status' => 'active',
-                    'avatar_url' => "https://api.dicebear.com/7.x/avataaars/svg?seed=" . urlencode($name)
-                ]);
-            
-            $player->save();
-            $bar->advance();
+        if ($totalPlayers === 0) {
+            $this->error('❌ No players specified! Use --beginners, --intermediates, --advanced, or --pros');
+            $this->info('Example: php artisan create:players --beginners=10 --intermediates=20');
+            return 1;
         }
         
-        $bar->finish();
-        $this->newLine();
-        $this->info("✅ Created {$count} players successfully!");
+        $this->info("👥 Creating {$totalPlayers} players...");
+        $created = $this->createSkillBasedPlayers($playerCounts);
+        
+        $this->info("✅ Created {$created} players: " . implode(', ', array_map(
+            fn($k, $v) => "{$v} {$k}", 
+            array_keys(array_filter($playerCounts)), 
+            array_filter($playerCounts)
+        )));
         
         return 0;
     }
-    
-    private function generateNames($count)
+
+    protected function createSkillBasedPlayers(array $playerCounts)
     {
-        $firstNames = [
-            'Max', 'Anna', 'Tom', 'Lisa', 'Jan', 'Sarah', 'Tim', 'Laura', 'Felix', 'Emma',
-            'Lukas', 'Sophie', 'Noah', 'Mia', 'Leon', 'Hannah', 'Paul', 'Lena', 'Jonas', 'Lea',
-            'David', 'Marie', 'Finn', 'Julia', 'Ben', 'Emily', 'Luis', 'Charlotte', 'Elias', 'Amelie',
-            'Henry', 'Sophia', 'Anton', 'Clara', 'Oskar', 'Emilia', 'Theo', 'Ida', 'Jakob', 'Greta',
-            'Moritz', 'Frieda', 'Emil', 'Mathilda', 'Karl', 'Paula', 'Friedrich', 'Lotte', 'Otto', 'Alma'
-        ];
-        
-        $lastNames = [
-            'Müller', 'Schmidt', 'Weber', 'Meyer', 'Fischer', 'Wagner', 'Becker', 'Schulz', 'Hoffmann', 'Koch',
-            'Werner', 'Richter', 'Klein', 'Krause', 'Schmitt', 'Zimmermann', 'Braun', 'Hartmann', 'Lange', 'Schmid',
-            'Krüger', 'Wolf', 'Schröder', 'Neumann', 'Schwarz', 'Hofmann', 'Schneider', 'Keller', 'Lehmann', 'Huber'
-        ];
-        
-        $names = [];
-        $used = [];
-        
-        for ($i = 0; $i < $count; $i++) {
-            do {
-                $firstName = $firstNames[array_rand($firstNames)];
-                $lastName = $lastNames[array_rand($lastNames)];
-                $fullName = "{$firstName} {$lastName}";
-            } while (in_array($fullName, $used));
-            
-            $used[] = $fullName;
-            $names[] = $fullName;
+        $faker = \Faker\Factory::create();
+        $createdCount = 0;
+
+        foreach ($playerCounts as $skillLevel => $count) {
+            if ($count <= 0) continue;
+
+            $skillConfig = self::SKILL_GROUPS[$skillLevel];
+            $baseElo = $skillConfig['elo'];
+            $variance = $skillConfig['variance'];
+
+            for ($i = 0; $i < $count; $i++) {
+                $elo = $baseElo + rand(-$variance, $variance);
+                $playerName = $faker->firstName() . ' ' . $skillLevel;
+
+                $player = Entry::make()
+                    ->collection('players')
+                    ->slug(\Illuminate\Support\Str::slug($faker->firstName() . '-' . $skillLevel . '-' . $i))
+                    ->data([
+                        'title' => $playerName,
+                        'global_elo' => (float)$elo,
+                        'total_games' => 0,
+                        'wins' => 0,
+                        'losses' => 0,
+                        'player_status' => 'active',
+                        'avatar_url' => "https://api.dicebear.com/7.x/avataaars/svg?seed=" . urlencode($playerName)
+                    ]);
+
+                $player->save();
+                $createdCount++;
+            }
         }
-        
-        return $names;
+
+        return $createdCount;
     }
 }

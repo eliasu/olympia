@@ -14,14 +14,6 @@ tabs:
               validate:
                 - required
           -
-            handle: players
-            field:
-              type: entries
-              collections:
-                - players
-              display: Players
-              mode: select
-          -
             handle: gamedays
             field:
               type: entries
