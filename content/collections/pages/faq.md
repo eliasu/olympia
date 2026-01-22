@@ -3,7 +3,7 @@ id: 40b37d94-b73c-45b0-b3cb-5a1d14b71bb4
 blueprint: page
 title: Faq
 updated_by: 1861c4a9-8873-459c-97ce-38d399b7ed46
-updated_at: 1768835856
+updated_at: 1769095598
 template: faq
 headline: 'How to BTV League'
 subheadline: 'Complete explanation of Elo ratings and league rankings.'
@@ -11,18 +11,18 @@ subheadline: 'Complete explanation of Elo ratings and league rankings.'
 ## 🎯 Overview
 
 ### What is the Goal?
-Our league system measures **your actual performance**, not just how often you show up. A player who attends 5 days and consistently plays well can beat a player who attended 12 days but performed weaker.
+Our league system measures **your actual performance**, not just how often you show up. A player who attends 5 days and wins 80% of their games can beat a player who attended 12 days but only won 55%.
 
 ### Two Separate Ratings:
 
 | Rating | Purpose | Calculation |
 |---------|-------|------------|
 | **Global Elo** | All-time Strength | Permanent, across all leagues |
-| **League Performance Index (LPI)** | Season Rating | Per league, reset each season |
+| **League Ranking** | Season Rating | Per league, reset each season |
 
 **Important:** 
 - **Global Elo** is used for pairings (team composition)
-- **LPI** determines who wins the league
+- **Win Percentage** determines who wins the league
 
 ---
 
@@ -56,10 +56,10 @@ Delta = K-Factor × (Actual - Expected)
 
 | Score | Your Gain/Loss |
 |-------|---------------------|
-| 11:10 | ±0.6 Elo |
-| 11:9 | ±1.6 Elo |
-| 11:7 | ±4.0 Elo |
-| 11:5 | ±6.1 Elo |
+| 21:20 | ±0.8 Elo |
+| 21:18 | ±2.1 Elo |
+| 21:14 | ±5.3 Elo |
+| 21:10 | ±8.0 Elo |
 
 **Conclusion:** With equally strong teams, you gain little, lose little.
 
@@ -67,9 +67,9 @@ Delta = K-Factor × (Actual - Expected)
 
 | Result | Score | Your Gain/Loss |
 |----------|-------|---------------------|
-| You win narrowly | 11:9 | **-2.9 Elo** ❌ (too close!) |
-| You win clearly | 11:5 | **+1.6 Elo** ✅ |
-| You lose | 9:11 | **-6.1 Elo** 💥 |
+| You win narrowly | 21:18 | **-3.8 Elo** ❌ (too close!) |
+| You win clearly | 21:10 | **+2.1 Elo** ✅ |
+| You lose | 18:21 | **-8.0 Elo** 💥 |
 
 **Conclusion:** As the favorite, you must win clearly, otherwise you lose points!
 
@@ -77,15 +77,15 @@ Delta = K-Factor × (Actual - Expected)
 
 | Result | Score | Your Gain/Loss |
 |----------|-------|---------------------|
-| You lose narrowly | 9:11 | **+2.9 Elo** ✅ (good performance!) |
-| You lose badly | 5:11 | **-1.6 Elo** (ok) |
-| You win | 11:9 | **+6.1 Elo** 🚀 (Upset!) |
+| You lose narrowly | 18:21 | **+3.8 Elo** ✅ (good performance!) |
+| You lose badly | 10:21 | **-2.1 Elo** (ok) |
+| You win | 21:18 | **+8.0 Elo** 🚀 (Upset!) |
 
 **Conclusion:** As the underdog, you can gain points even in defeat!
 
 ### 🎯 Important Principles:
 
-1. **Score Difference Counts:** 11:5 is better than 11:9
+1. **Score Difference Counts:** 21:10 is better than 21:18
 2. **No Win Protection:** Winning doesn't guarantee points
 3. **Honest System:** Favorite wins against weak teams yield little
 4. **Upsets Are Rewarded:** Surprise wins yield many points
@@ -205,223 +205,320 @@ Team B: Middle Two = 1580 + 1520 = Avg 1550
 
 ---
 
-## 🏆 League Ranking (LPI System)
+## 🏆 League Ranking System
 
-### What is the League Performance Index (LPI)?
+### How Are Players Ranked?
 
-**LPI = Average Elo Points per Game Day**
+**Simple:** Win Percentage
 
-**Formula:**
 ```
-LPI = Sum of All Elo Deltas / Number of Game Days
-```
-
-### Why LPI Instead of Total Points?
-
-**Problem with Total Points:**
-```
-Player A: 5 days, +90 points → Loses
-Player B: 12 days, +144 points → Wins
-
-But: Player A has better performance per day! (+18 vs +12)
+Win% = (Wins / Total Matches) × 100
 ```
 
-**Solution with LPI:**
+That's it. The player with the highest Win% wins the league.
+
+### Why Win Percentage?
+
+#### **Problem with Total Points:**
 ```
-Player A: +90 / 5 = +18.0 LPI → Wins! ✅
-Player B: +144 / 12 = +12.0 LPI
-```
+Player A: 5 days, 20 wins, 5 losses → 80% Win
+Player B: 15 days, 45 wins, 30 losses → 60% Win
 
-### 📊 LPI Calculation Example
-
-**Player: Max Müller**
-
-| Game Day | Matches | Elo Deltas | Day Sum |
-|----------|---------|------------|-------------|
-| Day 1 | 3 Matches | +2.5, -1.2, +3.8 | +5.1 |
-| Day 2 | 4 Matches | +1.0, +2.2, -0.5, +4.1 | +6.8 |
-| Day 3 | 3 Matches | -2.1, +5.5, +1.8 | +5.2 |
-| Day 4 | 4 Matches | +3.2, +0.8, +2.9, +1.5 | +8.4 |
-| Day 5 | 3 Matches | +4.2, -1.1, +2.6 | +5.7 |
-
-**Calculation:**
-```
-Total Points: +5.1 +6.8 +5.2 +8.4 +5.7 = +31.2
-Game Days: 5
-LPI = 31.2 / 5 = +6.24 points per day
+Player B has more total wins, but Player A performs better!
 ```
 
-**Visible in Dashboard:**
-- `league_performance`: +31.2 (Total sum)
-- `played_games`: 5 (Number of game days)
-- `average_delta`: +1.88 (Avg per match)
-- **LPI (for ranking)**: +6.24
+#### **Solution: Win Percentage**
+```
+Player A: 80% Win% → Rank 1 ✅
+Player B: 60% Win% → Rank 2
 
-### 🎯 Qualification & Ranking
+Fair: Performance matters, not just attendance
+```
+
+### 📊 Win Percentage Explained
+
+**Simple Calculation:**
+- Count your wins
+- Count your losses
+- Win% = Wins / (Wins + Losses) × 100
+
+**Example:**
+
+| Matches Played | Wins | Losses | Win% |
+|----------------|------|--------|------|
+| 50 | 35 | 15 | **70.00%** |
+| 40 | 32 | 8 | **80.00%** |
+| 30 | 15 | 15 | **50.00%** |
+
+### 🎯 Complete Ranking Order
+
+**Ranking Hierarchy:**
+
+1. **Qualified players first** (≥ minimum game days)
+2. **Win Percentage** (descending)
+3. **Total Wins** (tiebreaker - descending)
+4. **Global Elo** (final tiebreaker - descending)
+
+**Example Ranking Table:**
+
+| Rank | Player | Days | Matches | W-L | Win% | Status |
+|------|---------|------|---------|-----|------|--------|
+| 🥇 1 | Anna Schmidt | 10 | 40 | 32-8 | **80.00%** | Qualified |
+| 🥈 2 | Max Weber | 8 | 32 | 24-8 | **75.00%** | Qualified |
+| 🥉 3 | Lisa Müller | 12 | 50 | 35-15 | **70.00%** | Qualified |
+| 4 | Tom Fischer | 9 | 36 | 24-12 | **66.67%** | Qualified |
+| 5 | Ben Klein | 7 | 28 | 18-10 | **64.29%** | Qualified |
+| - | Sarah Lang | 5 | 20 | 16-4 | **80.00%** | ⚠️ Not qualified |
+
+**Note:** Sarah has excellent Win% but hasn't played enough game days to qualify!
+
+### 💡 What This Means for You
+
+#### **1. Winning Is Everything**
+```
+Focus: Win your matches
+Result: High Win% = High Rank
+```
+
+Simple as that!
+
+#### **2. Sample Size Doesn't Matter**
+```
+Player A: 5 days, 20 matches, 80% Win%
+Player B: 15 days, 60 matches, 60% Win%
+
+Player A ranks higher (better performance)
+```
+
+Win% removes the "attendance advantage"
+
+#### **3. Every Match Counts Equally**
+```
+Match 1 of the season = Match 50 of the season
+First match of the day = Last match of the day
+
+All wins count the same toward your Win%
+```
+
+### 📊 Performance Scenarios
+
+#### **Scenario 1: The Consistent Winner**
+
+**Performance:**
+- 10 game days attended
+- 40 matches played
+- 32 wins, 8 losses
+
+**Stats:**
+- Win%: **80.00%**
+- Rank: **Top 3**
+
+**Key:** Consistently winning most matches
+
+---
+
+#### **Scenario 2: The Average Player**
+
+**Performance:**
+- 12 game days attended
+- 50 matches played
+- 28 wins, 22 losses
+
+**Stats:**
+- Win%: **56.00%**
+- Rank: **Middle of pack**
+
+**Key:** Winning slightly more than losing
+
+---
+
+#### **Scenario 3: The Struggling Player**
+
+**Performance:**
+- 8 game days attended
+- 32 matches played
+- 10 wins, 22 losses
+
+**Stats:**
+- Win%: **31.25%**
+- Rank: **Lower rankings**
+
+**Key:** Need to improve win rate
+
+---
+
+### 🎯 Qualification & Minimum Requirements
 
 **Minimum Requirement:**
-- **7 game days** (configurable in league settings)
-- Anyone with less → not in ranking
+- **7 game days** (configurable per league)
+- Anyone with less → not ranked (but stats still tracked)
 
-**Ranking Order:**
-1. Qualified players (≥7 days), sorted by LPI
-2. Non-qualified players, sorted by LPI (without rank)
+**Why a Minimum?**
+```
+Without minimum:
+- Player comes 2x, gets lucky, 100% Win%
+- Never comes again
+- Would be "League Champion"
 
-**Example Table:**
+With minimum:
+- Must prove consistency over time
+- 7+ days = reliable sample size
+```
 
-| Rank | Player | Game Days | Total Points | LPI | Status |
-|------|---------|-----------|---------------|-----|--------|
-| 🥇 1 | Anna Schmidt | 10 | +95.5 | **+9.55** | Qualified |
-| 🥈 2 | Max Müller | 7 | +52.8 | **+7.54** | Qualified |
-| 🥉 3 | Lisa Weber | 12 | +84.0 | **+7.00** | Qualified |
-| 4 | Tom Fischer | 8 | +48.2 | **+6.03** | Qualified |
-| - | Ben Klein | 5 | +35.0 | +7.00 | ⚠️ Not qualified |
-| - | Sarah Lang | 4 | +28.5 | +7.13 | ⚠️ Not qualified |
-
-**Note:** Ben and Sarah have good LPIs, but not enough game days!
+---
 
 ### 💡 Strategy Tips for League Success
 
-1. **Consistency > Attendance**
-   - Better 7 days with +8 LPI than 15 days with +4 LPI
-   
-2. **Quality of Wins**
-   - Clear wins against good opponents yield the most
-   - Close wins against weak opponents can be negative
-   
-3. **Meet Minimum Days**
-   - Only from 7 days onwards are you in the ranking
-   - After that: Performance > Attendance
+#### **1. Focus on Winning**
+```
+Priority #1: Win your matches
+- Every win improves your Win%
+- Every loss hurts your Win%
+- It's that simple!
+```
 
-4. **Long-term Thinking**
-   - Your Global Elo rises/falls to your true level long-term
-   - League Performance is short-term (reset each season)
+#### **2. Quality Over Quantity**
+```
+Better: 7 days with 75% Win%
+Worse: 15 days with 55% Win%
+
+Reason: System rewards performance, not attendance
+```
+
+#### **3. Consistency Matters**
+```
+Steady performance > Hot streaks
+- 70% Win% over 10 days > 90% for 3 days, then 50% for 7 days
+- Aim for consistent wins
+```
+
+#### **4. Every Match Counts**
+```
+All matches are equal:
+- First or last match of the day
+- Against strong or weak opponents (within Elo range)
+- Early or late season
+
+Win% treats all equally
+```
 
 ---
 
-## 📋 Example Scenarios
+## 🎮 Real-World Examples
 
-### Scenario 1: "The Part-Time Pro"
+### Example 1: "The Elite Player"
 
 **Situation:**
-- Anna comes only 7x (minimum requirement)
-- Plays consistently very well
-- Global Elo: 1650 (strong)
+- Attends 10 game days
+- Dominates most matches
+- Few losses
 
-**Performance:**
-```
-7 game days × Avg +9 Elo/day = +63 total points
-LPI = +63 / 7 = +9.0
-```
+**Stats:**
+- Matches: 40
+- Record: 32-8
+- Win%: **80.00%**
+- **Rank:** 1-2
 
-**Result:** ✅ Rank 1-3 possible despite minimal attendance!
+**Why Top Ranked:**
+- Wins 80% of games
+- Simple and clear dominance
 
 ---
 
-### Scenario 2: "The Diligent Average"
+### Example 2: "The Grinder"
 
 **Situation:**
-- Ben comes 15x (very often there)
-- Plays average
-- Global Elo: 1500 (midfield)
+- Attends 15 game days (most in league)
+- Many games, but mixed results
 
-**Performance:**
-```
-15 game days × Avg +4 Elo/day = +60 total points
-LPI = +60 / 15 = +4.0
-```
+**Stats:**
+- Matches: 60
+- Record: 33-27
+- Win%: **55.00%**
+- **Rank:** 8-12
 
-**Result:** ⚠️ Despite more total points → only midfield (Rank 10-15)
+**Why Not Higher:**
+- Only wins 55% of games
+- Attendance doesn't compensate for Win%
 
 ---
 
-### Scenario 3: "The Rising Star"
+### Example 3: "The Part-Timer"
 
 **Situation:**
-- Lisa starts at 1450 Elo (weak)
-- Improves strongly over the season
-- Ends at 1580 Elo (good)
+- Only 6 game days attended
+- Plays well when present
 
-**Performance:**
-```
-First 5 days: Avg +10 Elo/day (rapid improvement)
-Next 7 days: Avg +5 Elo/day (stabilizes)
-12 game days, +85 total points
-LPI = +85 / 12 = +7.08
-```
+**Stats:**
+- Matches: 24
+- Record: 19-5
+- Win%: **79.17%**
+- **Rank:** None (not qualified)
 
-**Result:** ✅ Top 5 despite weak start!
+**Why No Rank:**
+- Below minimum 7 game days
+- Excellent Win% but need one more day
+
+**Solution:** Come one more day to qualify!
 
 ---
 
-### Scenario 4: "The Bad Luck Streak"
+### Example 4: "The Comeback Player"
 
 **Situation:**
-- Tom is actually strong (1620 Elo)
-- Has 3 game days with bad luck/bad partners
-- Loses -15 points in 3 days
+- First 3 days: struggled (6 wins, 6 losses)
+- Next 5 days: improved (18 wins, 2 losses)
 
-**Performance:**
-```
-Bad 3 days: -15 points
-Good 7 days: +60 points
-10 game days, +45 total points
-LPI = +45 / 10 = +4.5
-```
+**Stats:**
+- Total: 8 days, 32 matches
+- Record: 24-8
+- Win%: **75.00%**
+- **Rank:** 2-4
 
-**Result:** ⚠️ Bad luck streaks hurt the LPI, but recovers over time
-
-**Important:** System measures average → individual bad days don't weigh as heavily
-
----
-
-### Scenario 5: "The Sandbagger"
-
-**Situation:**
-- Someone tries to intentionally play poorly to get weaker opponents
-- Loses first 3 days intentionally (-30 Elo)
-- Then "wake up" and dominate
-
-**Why this doesn't work:**
-```
-3 bad days: -30 points (LPI: -10)
-7 good days: +70 points (LPI: +10)
-10 days total: +40 points
-LPI = +40 / 10 = +4.0 (only midfield!)
-```
-
-**Result:** ❌ Sandbagging massively hurts your LPI
-**Reason:** Every day counts equally → bad days can't be "made up"
+**Key Lesson:**
+- Overall Win% is what matters
+- Can recover from bad start
+- Consistency over time wins
 
 ---
 
 ## ❓ FAQ (Frequently Asked Questions)
 
-### **Q: Why did I lose points even though I won?**
+### **Q: Why did I lose Elo points even though I won?**
 
-**A:** You were the favorite and won too narrowly.
+**A:** Elo and League Ranking are separate!
 
-**Example:**
-- Your team: Avg 1600 Elo
-- Opponent: Avg 1500 Elo
-- Expected: 11:7 win
-- Actual: 11:9 win
-- **Result: -2 Elo** (worse performance than expected)
+- **Elo:** Measures expected vs actual performance
+- **League Ranking:** Based on Win% (did you win or not?)
 
-**Solution:** As the favorite, you must win clearly!
+**For league ranking:** Win = +1 to wins (helps Win%)
 
 ---
 
 ### **Q: I attend often, but I'm far back in the ranking. Why?**
 
-**A:** The system rates **performance per day**, not total attendance.
+**A:** The system rates **Win%**, not attendance.
 
 **Comparison:**
-- You: 15 days, +45 points → LPI: +3.0
-- Anna: 8 days, +64 points → LPI: +8.0
-- **Anna wins** (better performance)
+- You: 15 days, 60 matches, 55% Win% → Rank 10
+- Anna: 8 days, 32 matches, 75% Win% → Rank 2
+- **Anna wins** (better Win%)
 
 **This is fair:** Otherwise part-time players would have no chance.
+
+---
+
+### **Q: Two players have same Win%. Who ranks higher?**
+
+**A:** Very rare with large sample sizes, but tiebreakers exist:
+
+**Tiebreaker Order:**
+1. **Total Wins** (more wins = higher rank)
+2. **Global Elo** (higher Elo = higher rank)
+
+**Example:**
+- Player A: 70% Win%, 35 total wins → Rank 5
+- Player B: 70% Win%, 28 total wins → Rank 6
 
 ---
 
@@ -434,12 +531,12 @@ LPI = +40 / 10 = +4.0 (only midfield!)
 - Player A: 1720 Elo (Top)
 - Player B: 1280 Elo (Beginner)
 
-**Difference to A:** 220 > 150 → no pairing
+**Difference to A:** 220 > 150 → no pairing  
 **Difference to B:** 220 > 150 → no pairing
 
-**You play with:** 1350-1650 range (your league)
+**You play with:** 1350-1650 range (your level)
 
-**Advantages:** 
+**Advantages:**
 - Fair games
 - Top players don't frustrate beginners
 - You learn against similarly strong players
@@ -448,7 +545,7 @@ LPI = +40 / 10 = +4.0 (only midfield!)
 
 ### **Q: I had 3 matches today, others had 4. Unfair?**
 
-**A:** With an odd number of players, it's mathematically impossible to distribute equally.
+**A:** With odd numbers, perfect distribution is impossible.
 
 **Example:** 19 players, 16 matches
 - 16 matches × 4 players = 64 slots
@@ -456,52 +553,52 @@ LPI = +40 / 10 = +4.0 (only midfield!)
 
 **System Solution:**
 - Prioritizes players with fewer games
-- Prioritizes players with less league experience
-- In the end: 15 players with 3 matches, 4 players with 4 matches
+- In the end: 15 players with 3 matches, 4 with 4 matches
 
-**LPI balances it out:** Your average is calculated over days, not matches
-
----
-
-### **Q: Can I "farm" my Elo against weak players?**
-
-**A:** No, for two reasons:
-
-1. **Pairing System:** You only play against ±150 Elo (not against much weaker players)
-2. **Diminishing Returns:** Wins against weaker players yield hardly any points
-
-**Example:**
-- You (1600) vs Weaker (1500)
-- Win 11:5 → only +1.6 Elo
-- 10 such wins → +16 Elo total
-- **1 upset win against 1700 → +8 Elo**
-
-**Conclusion:** Games against stronger players are more worthwhile!
+**Fair:** Win% works regardless of match count per day
 
 ---
 
-### **Q: My partner was bad, I still lost points. Fair?**
+### **Q: Should I skip game days when I'm not feeling 100%?**
 
-**A:** This is a known problem in doubles Elo.
+**A:** Depends on your goals!
 
-**Why the system is still fair:**
-- Over many games it balances out
-- Sometimes you have the strong partner, sometimes the weak one
-- Diversity system ensures variation
-- **Long-term** your Elo shows your true strength
+**Analysis:**
+```
+Good day:  75% Win% contribution
+Bad day:   40% Win% contribution
 
-**Tip:** Focus on consistency over many days, not individual matches
+Impact: Bad days lower your overall Win%
+```
+
+**Strategy:**
+- **Competitive:** Skip if really off your game
+- **Casual:** Play anyway, it's about fun!
+- **Remember:** Need minimum 7 days to qualify
 
 ---
 
-### **Q: Why don't I see a rank even though I have points?**
+### **Q: Can I "cherry-pick" weak opponents?**
+
+**A:** No, pairing system prevents this.
+
+**Reasons:**
+1. **±150 Elo spread** - You only play similarly skilled players
+2. **Automatic matching** - You can't choose opponents
+3. **Diversity system** - You play different people
+
+**Conclusion:** Just focus on winning your matches!
+
+---
+
+### **Q: Why don't I see a rank even though I have good Win%?**
 
 **A:** You haven't reached the minimum of 7 game days.
 
 **Reason:** Prevents "Lucky Streaks"
-- Someone comes 2x, gets lucky, +20 points
+- Someone comes 2x, gets lucky, 100% Win%
 - Never comes again
-- Without minimum: "Winner" of the league
+- Without minimum: False "champion"
 
 **Solution:** Play at least 7 days, then you'll get your rank!
 
@@ -511,115 +608,77 @@ LPI = +40 / 10 = +4.0 (only midfield!)
 
 **A:** **Global Elo ≠ League Ranking**
 
-- **Global Elo:** Your all-time strength (across all games)
-- **League Ranking:** Your performance **in this season**
+- **Global Elo:** Your all-time strength (for pairings)
+- **League Ranking:** Your Win% **in this season**
 
 **Possible Reasons:**
-- You had bad days in this league
-- Others played better in this league
-- You didn't improve in this season
+- You're winning only 50% in this league
+- Others are winning 70-80% in this league
+- Elo measures skill, Win% measures results
 
-**Next Season:** Fresh start! League Performance is reset.
+**Next Season:** Fresh start! League Win% resets.
 
 ---
 
 ## 🔥 Edge Cases
 
-### Edge Case 1: "Only 4 Players on Game Day"
+### Edge Case 1: "Perfect Win Rate"
 
-**Situation:** Only 4 players show up.
-
-**System Behavior:**
-- 1 match is generated: [Player 1+4] vs [Player 2+3]
-- Power Pairing works normally
-- No diversity needed (only 1 match)
-
-**Result:** ✅ System works, but little variation
-
----
-
-### Edge Case 2: "Extreme Elo Distribution"
-
-**Situation:** 1 pro (1800), 18 beginners (1300-1400)
+**Situation:** Player has 100% Win% (very rare long-term).
 
 **System Behavior:**
-- Pro spread: 1650-1950 → only finds players in 1400 range
-- System **automatically expands** the spread
-- Pro plays with best available players (1400)
+- Automatically #1 in ranking
+- As long as qualified (≥7 days)
+- Very difficult to maintain over 20 game days
 
-**Result:**
-- Pro likely loses Elo (too weak partners/opponents)
-- Beginners gain Elo on upsets
-- **Over time:** System balances (pro falls, beginners rise)
-
-**Important:** This is temporary! After 5-10 days the Elo field stabilizes.
+**Important:** Even 95% Win% is excellent!
 
 ---
 
-### Edge Case 3: "Everyone Has Already Had Everyone as Partner"
+### Edge Case 2: "Below 50% But Ranked"
 
-**Situation:** Game day 15, small group, everyone has already partnered with everyone.
-
-**System Behavior:**
-- Diversity penalties are added
-- System still takes best Elo match
-- Partners with lowest penalty score are chosen
-
-**Example:**
-- Player A was partner 3x → Penalty: 3000
-- Player B was partner 1x → Penalty: 1000
-- **System chooses Player B** (lower penalty)
-
-**Result:** ✅ System prefers rare pairings, but doesn't force them
-
----
-
-### Edge Case 4: "Someone Only Plays on Days with Many Beginners"
-
-**Situation:** Player only comes when many weak players are there → tries for easy wins.
-
-**Why this doesn't work:**
-1. **Pairing System:** Even if many weak players are there, you play with similar Elos (±150)
-2. **Diminishing Returns:** Wins against weaker players yield hardly any points
-3. **LPI System:** Average over days → a few good days aren't enough
-
-**Result:** ❌ "Cherry-picking" game days brings no advantage
-
----
-
-### Edge Case 5: "Negative LPI but in Ranking"
-
-**Situation:** Player has -5.2 LPI but Rank 25.
+**Situation:** Player has 48% Win% but is still ranked.
 
 **Explanation:**
 - Player is qualified (≥7 days)
-- Other qualified players have even worse LPI
-- Player is "best of the worst"
+- Other qualified players have similar or worse Win%
+- Still competing, just in lower rankings
 
-**Important:** 
-- Negative LPI = On average worse than expected
-- **But:** Still better than not being qualified!
+**Important:** Below 50% = losing more than winning
 
 ---
 
-### Edge Case 6: "Two Players Have the Same LPI"
+### Edge Case 3: "Identical Win%"
 
-**Situation:** Anna and Ben both have +7.52 LPI.
+**Situation:** Two players both have exactly 70.00% Win%.
 
 **System Behavior:**
-- Sorting in PHP is stable (maintains original order on ties)
-- In practice: Minimal decimal differences (7.524 vs 7.518)
-
-**If truly identical:**
-- Both get the same rank
-- Next player skips a number
+- Next tiebreaker: **Total Wins**
+- If still tied: **Global Elo**
 
 **Example:**
 ```
-Rank 3: Anna (+7.52)
-Rank 3: Ben (+7.52)
-Rank 5: Lisa (+7.40) ← Rank 4 is skipped
+Anna: 70% Win%, 35 wins, 1550 Elo → Rank 5
+Ben:  70% Win%, 35 wins, 1530 Elo → Rank 6
+
+Anna has higher Elo → ranks higher
 ```
+
+---
+
+### Edge Case 4: "Rapid Improvement"
+
+**Situation:** Player starts poorly but improves dramatically.
+
+**Stats:**
+- First 4 days: 10 wins, 10 losses (50% Win%)
+- Next 4 days: 16 wins, 4 losses (80% Win%)
+- Total: 26 wins, 14 losses
+
+**Result:**
+- Overall Win%: 65.00%
+- **Fair:** All matches count equally
+- Final Win% reflects overall performance
 
 ---
 
@@ -627,30 +686,52 @@ Rank 5: Lisa (+7.40) ← Rank 4 is skipped
 
 ### What You Need to Know:
 
-1. **Elo is Honest**
-   - Close wins against weak players = point loss
-   - Upsets against strong players = big gain
-   - System "learns" your true level in ~20 games
+1. **Win Percentage Is King**
+   - Most important metric
+   - Higher Win% = Higher Rank
+   - Simple and transparent
 
-2. **LPI Rewards Performance, Not Attendance**
-   - Average per day counts
-   - 7 very good days > 15 mediocre days
-   - Consistency is king
+2. **Performance > Attendance**
+   - 7 great days > 15 mediocre days
+   - Win% neutralizes attendance advantage
+   - Quality of play determines rank
 
-3. **Pairing is Fair and Diversity-Oriented**
+3. **Every Match Counts Equally**
+   - First match = Last match
+   - All contribute to Win%
+   - No "throwaway" games
+
+4. **Pairing is Fair**
    - ±150 Elo spread → suitable opponents
    - New partners/opponents preferred
    - Power Pairing prevents unfair teams
 
-4. **No Exploits**
-   - Sandbagging hurts your LPI
-   - Cherry-picking doesn't work
-   - Long-term the best players win
+5. **No Exploits**
+   - Can't cherry-pick opponents (system chooses)
+   - Can't manipulate Win% (all matches count)
+   - Long-term best players win
 
-5. **Each Season is a Fresh Start**
-   - Global Elo remains (all-time rating)
-   - League Performance is reset
+6. **Each Season is Fresh**
+   - Global Elo remains (for skill matching)
+   - League Win% resets
    - New chance for everyone!
+
+---
+
+## 📊 Quick Reference
+
+```
+PRIMARY METRIC:
+Win% = (Wins / Total Matches) × 100
+
+RANKING ORDER:
+1. Qualified Status (≥7 game days)
+2. Win Percentage (descending)
+3. Total Wins (descending)
+4. Global Elo (descending)
+```
+
+**Simple. Clear. Fair.**
 
 ---
 

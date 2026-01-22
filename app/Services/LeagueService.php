@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Log;
  * Core service for managing league operations including:
  * - Gameday matchmaking (balanced team generation)
  * - Elo rating calculations
- * - League statistics and rankings (win percentage-based)
+ * - League statistics and rankings (simple win percentage)
  */
 class LeagueService
 {
@@ -361,9 +361,9 @@ class LeagueService
     }
     
     /**
-     * Update a player's league statistics.
+     * Update a player's league statistics (simple win percentage).
      * 
-     * Calculates and stores:
+     * Calculates and stores (LEAGUE-SPECIFIC):
      * - Gamedays played per league
      * - Total matches played per league
      * - Wins and losses per league
@@ -393,7 +393,7 @@ class LeagueService
                        in_array($playerId, (array)$match->get('team_b', []));
             });
 
-        // Process performance by league
+        // Process performance by league (LEAGUE-SPECIFIC)
         $performanceByLeague = [];
         
         foreach ($allMatches as $match) {
@@ -423,7 +423,10 @@ class LeagueService
             $scoreA = (int)$match->get('score_a');
             $scoreB = (int)$match->get('score_b');
             
-            $won = $isTeamA ? ($scoreA > $scoreB) : ($scoreB > $scoreA);
+            $playerScore = $isTeamA ? $scoreA : $scoreB;
+            $opponentScore = $isTeamA ? $scoreB : $scoreA;
+            
+            $won = $playerScore > $opponentScore;
             
             // Update stats
             if ($won) {
@@ -445,9 +448,13 @@ class LeagueService
         foreach ($gamedaysByLeague as $leagueId => $days) {
              if (!$leagueId || !Entry::find($leagueId)) continue;
              
-             $perf = $performanceByLeague[$leagueId] ?? ['match_count' => 0, 'wins' => 0, 'losses' => 0];
+             $perf = $performanceByLeague[$leagueId] ?? [
+                 'match_count' => 0, 
+                 'wins' => 0, 
+                 'losses' => 0
+             ];
              
-             // Calculate win percentage
+             // Calculate simple win percentage
              $totalMatches = $perf['wins'] + $perf['losses'];
              $winPercentage = $totalMatches > 0 ? ($perf['wins'] / $totalMatches) * 100 : 0;
              
@@ -470,13 +477,17 @@ class LeagueService
      * 
      * @param string $playerId
      * @param string $leagueId
-     * @return array ['played_game_days' => int, 'match_count' => int, 'win_percentage' => float]
+     * @return array League statistics
      */
     public function getPlayerLeagueStats($playerId, $leagueId)
     {
         $player = Entry::find($playerId);
         if (!$player) {
-            return ['played_game_days' => 0, 'match_count' => 0, 'win_percentage' => 0];
+            return [
+                'played_game_days' => 0, 
+                'match_count' => 0, 
+                'win_percentage' => 0
+            ];
         }
 
         $stats = collect($player->get('league_stats', []))->first(function($row) use ($leagueId) {
@@ -488,7 +499,7 @@ class LeagueService
         return [
             'played_game_days' => (int)($stats['played_gamedays'] ?? 0),
             'match_count' => (int)($stats['match_count'] ?? 0),
-            'win_percentage' => (float)($stats['win_percentage'] ?? 0),
+            'win_percentage' => (float)($stats['win_percentage'] ?? 0)
         ];
     }
 
@@ -548,7 +559,6 @@ class LeagueService
         
         // Get date from gameday (Statamic extracts from filename for date-ordered collections)
         $matchDate = $gameday && $gameday->date() ? $gameday->date()->toIso8601String() : now()->toIso8601String();
-
 
         
         // Update Team A players
@@ -619,7 +629,7 @@ class LeagueService
     }
 
     /**
-     * Recalculate league rankings based on win percentage.
+     * Recalculate league rankings based on simple win percentage.
      * 
      * Ranking Algorithm:
      * 1. Qualified players first (met minimum gameday requirement)
@@ -677,7 +687,7 @@ class LeagueService
                 return $b['win_percentage'] <=> $a['win_percentage'];
             }
             
-            // 3. Tiebreaker: League wins (descending)
+            // 3. Tiebreaker 1: League wins (descending)
             if ($a['league_wins'] != $b['league_wins']) {
                 return $b['league_wins'] <=> $a['league_wins'];
             }

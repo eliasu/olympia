@@ -116,15 +116,15 @@ tabs:
                     display: Losses
                     default: 0
                 -
+                  handle: win_percentage
+                  field:
+                    type: float
+                    display: 'Win %'
+                -
                   handle: rank
                   field:
                     type: integer
                     display: Rank
-                -
-                  handle: win_percentage
-                  field:
-                    type: float
-                    display: 'Win Percentage'
   matches:
     display: Matches
     sections:

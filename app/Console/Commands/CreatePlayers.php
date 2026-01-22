@@ -18,10 +18,10 @@ class CreatePlayers extends Command
     protected $description = 'Create players with skill ratings (all start at 1500 Elo by default)';
 
     const SKILL_GROUPS = [
-        'Beginner' => ['skill_rating' => 1200, 'variance' => 0],
-        'Intermediate' => ['skill_rating' => 1500, 'variance' => 0],
-        'Advanced' => ['skill_rating' => 1600, 'variance' => 0],
-        'Pro' => ['skill_rating' => 1750, 'variance' => 0],
+        'Beginner' => ['skill_rating' => 1200, 'variance' => 50],
+        'Intermediate' => ['skill_rating' => 1500, 'variance' => 50],
+        'Advanced' => ['skill_rating' => 1600, 'variance' => 50],
+        'Pro' => ['skill_rating' => 1800, 'variance' => 50],
     ];
 
     public function handle()

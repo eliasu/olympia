@@ -8,13 +8,20 @@ use Carbon\Carbon;
 
 class CreateGamedays extends Command
 {
-    protected $signature = 'create:gamedays {league} {--count=16 : Number of gamedays} {--c= : Shortcut for count} {--start-date=}';
+    protected $signature = 'create:gamedays {league} 
+        {--count=16 : Number of gamedays} 
+        {--c= : Shortcut for count} 
+        {--start-date= : Start date for gamedays}
+        {--courts=4 : Number of courts per gameday}
+        {--games=4 : Number of games per court}';
     protected $description = 'Create gamedays with smart player attendance (better players attend more often)';
 
     public function handle()
     {
         $leagueSlug = $this->argument('league');
         $count = (int) $this->option('count');
+        $courtsCount = (int) $this->option('courts');
+        $gamesPerCourt = (int) $this->option('games');
         $startDate = $this->option('start-date') 
             ? Carbon::parse($this->option('start-date'))
             : Carbon::now()->next(Carbon::MONDAY);
@@ -43,6 +50,7 @@ class CreateGamedays extends Command
         
         $this->info("Creating {$count} gamedays for league: {$league->get('title')}");
         $this->info("Starting from: {$startDate->format('d.m.Y')}");
+        $this->info("Courts: {$courtsCount}, Games per court: {$gamesPerCourt}");
         $this->info("Smart attendance: Better players (higher Elo) attend more often");
         
         $bar = $this->output->createProgressBar($count);
@@ -64,8 +72,8 @@ class CreateGamedays extends Command
                 ->date($date)  // Set date separately for dated entries
                 ->data([
                     'title' => $title,
-                    'courts_count' => 4,
-                    'games_per_court' => 4,
+                    'courts_count' => $courtsCount,
+                    'games_per_court' => $gamesPerCourt,
                     'generated_plan' => false,
                     'is_finished' => false,
                     'present_players' => $selectedPlayers
