@@ -8,18 +8,20 @@ use Statamic\Facades\Entry;
 class CreatePlayers extends Command
 {
     protected $signature = 'create:players 
-        {--beginners=0 : Number of beginner players (Elo ~1200)} 
-        {--intermediates=0 : Number of intermediate players (Elo ~1500)} 
-        {--advanced=0 : Number of advanced players (Elo ~1600)} 
-        {--pros=0 : Number of pro players (Elo ~1750)}';
+        {--beginners=0 : Number of beginner players (Skill ~1200)} 
+        {--intermediates=0 : Number of intermediate players (Skill ~1500)} 
+        {--advanced=0 : Number of advanced players (Skill ~1600)} 
+        {--pros=0 : Number of pro players (Skill ~1750)}
+        {--equal-start : All players start at 1500 Elo (default: true)}
+        {--use-skill-elo : Use skill-based starting Elo instead of 1500}';
 
-    protected $description = 'Create players with skill-based Elo ratings';
+    protected $description = 'Create players with skill ratings (all start at 1500 Elo by default)';
 
     const SKILL_GROUPS = [
-        'Beginner' => ['elo' => 1200, 'variance' => 0],
-        'Intermediate' => ['elo' => 1500, 'variance' => 0],
-        'Advanced' => ['elo' => 1600, 'variance' => 0],
-        'Pro' => ['elo' => 1750, 'variance' => 0],
+        'Beginner' => ['skill_rating' => 1200, 'variance' => 0],
+        'Intermediate' => ['skill_rating' => 1500, 'variance' => 0],
+        'Advanced' => ['skill_rating' => 1600, 'variance' => 0],
+        'Pro' => ['skill_rating' => 1750, 'variance' => 0],
     ];
 
     public function handle()
@@ -55,25 +57,33 @@ class CreatePlayers extends Command
     {
         $faker = \Faker\Factory::create();
         $createdCount = 0;
+        $useSkillElo = $this->option('use-skill-elo');
 
         foreach ($playerCounts as $skillLevel => $count) {
             if ($count <= 0) continue;
 
             $skillConfig = self::SKILL_GROUPS[$skillLevel];
-            $baseElo = $skillConfig['elo'];
+            $skillRating = $skillConfig['skill_rating'];
             $variance = $skillConfig['variance'];
 
             for ($i = 0; $i < $count; $i++) {
-                $elo = $baseElo + rand(-$variance, $variance);
                 $firstName = $faker->firstName();
                 $playerName = $firstName . ' ' . $skillLevel;
+                
+                // Determine starting Elo
+                // By default (equal-start), everyone starts at 1500
+                // With --use-skill-elo, use their skill rating as starting Elo
+                $startingElo = $useSkillElo 
+                    ? $skillRating + rand(-$variance, $variance)
+                    : 1500;
 
                 $player = Entry::make()
                     ->collection('players')
                     ->slug(\Illuminate\Support\Str::slug($firstName . '-' . $skillLevel . '-' . $i))
                     ->data([
                         'title' => $playerName,
-                        'global_elo' => (float)$elo,
+                        'global_elo' => (float)$startingElo,
+                        'skill_rating' => (float)$skillRating, // Hidden skill level for simulation
                         'total_games' => 0,
                         'wins' => 0,
                         'losses' => 0,

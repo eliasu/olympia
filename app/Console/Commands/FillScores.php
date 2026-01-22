@@ -85,15 +85,27 @@ class FillScores extends Command
                     continue;
                 }
                 
-                // 1. Calculate Team Elos
+                // 1. Calculate Team Skill Ratings (or Elos if skill_rating not available)
                 $teamAIds = (array) $match->get('team_a');
                 $teamBIds = (array) $match->get('team_b');
                 
-                $eloA = collect($teamAIds)->avg(fn($id) => (float) (Entry::find($id)?->get('global_elo') ?? 1500));
-                $eloB = collect($teamBIds)->avg(fn($id) => (float) (Entry::find($id)?->get('global_elo') ?? 1500));
+                // Use skill_rating for simulation if available, otherwise fall back to global_elo
+                $skillA = collect($teamAIds)->avg(function($id) {
+                    $player = Entry::find($id);
+                    if (!$player) return 1500;
+                    // Use skill_rating if available (for simulation), otherwise use global_elo
+                    return (float) ($player->get('skill_rating') ?? $player->get('global_elo') ?? 1500);
+                });
                 
-                // 2. Calculate Winning Probability for Team A
-                $probabilityA = 1 / (1 + pow(10, ($eloB - $eloA) / 400));
+                $skillB = collect($teamBIds)->avg(function($id) {
+                    $player = Entry::find($id);
+                    if (!$player) return 1500;
+                    // Use skill_rating if available (for simulation), otherwise use global_elo
+                    return (float) ($player->get('skill_rating') ?? $player->get('global_elo') ?? 1500);
+                });
+                
+                // 2. Calculate Winning Probability for Team A based on skill
+                $probabilityA = 1 / (1 + pow(10, ($skillB - $skillA) / 400));
                 
                 // 3. Determine Winner based on probability
                 $aWins = (rand(0, 1000) / 1000) <= $probabilityA;
