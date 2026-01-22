@@ -54,9 +54,10 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-100 dark:divide-gray-700/50">
-                            {{ league_players :league="id" sort="rank" }}
+                            {{ current_league_id = id }}
+                            {{ league_players :league="current_league_id" sort="rank" }}
                             {{ league_stats }}
-                            {{ if league:0 == ^id }}
+                            {{ if league.id == current_league_id }}
                             <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-700/30 transition-colors">
                                 <td class="px-2 sm:px-4 md:px-6 py-5 whitespace-nowrap">
                                     <span

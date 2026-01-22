@@ -356,8 +356,40 @@ class LeagueService
             $this->updatePlayerLeagueStats($playerId);
         }
 
-        // Recalculate league rankings
-        $this->recalculateLeagueRanks($leagueId);
+        // Recalculate rankings for ALL leagues where present players participate
+        $affectedLeagues = $this->getAllLeaguesForPlayers($presentPlayers);
+        foreach ($affectedLeagues as $affectedLeagueId) {
+            $this->recalculateLeagueRanks($affectedLeagueId);
+        }
+    }
+    
+    /**
+     * Get all unique league IDs where the given players have stats.
+     * 
+     * Used to determine which leagues need rank recalculation when
+     * a gameday is finalized.
+     * 
+     * @param array $playerIds Array of player IDs
+     * @return array Unique league IDs
+     */
+    protected function getAllLeaguesForPlayers($playerIds)
+    {
+        $leagueIds = collect();
+        
+        foreach ($playerIds as $playerId) {
+            $player = Entry::find($playerId);
+            if (!$player) continue;
+            
+            $leagueStats = $player->get('league_stats', []);
+            foreach ($leagueStats as $stat) {
+                $statLeague = $stat['league'] ?? [];
+                if (is_array($statLeague) && !empty($statLeague)) {
+                    $leagueIds->push(reset($statLeague));
+                }
+            }
+        }
+        
+        return $leagueIds->unique()->filter()->values()->all();
     }
     
     /**

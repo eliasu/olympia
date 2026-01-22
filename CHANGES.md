@@ -1,27 +1,18 @@
-# Average Point Differential System (Option B) - Changes Documentation
+# Simple Win Percentage System - Changes Documentation
 
 ## 📊 System Overview
 
-**System:** Win Percentage + Average Point Differential
+**System:** Simple Win Percentage Ranking
 
 ### Primary Metric: Win %
 - Standard win percentage: `Wins / (Wins + Losses) × 100`
+- That's it. Simple and transparent.
 
-### Tiebreaker: Average Point Differential
-- **Formula:** `Total Point Differential / Total Matches`
-- **How it works:**
-  - Every match contributes to point differential (wins AND losses)
-  - 21-15 Win → +6 differential
-  - 18-21 Loss → -3 differential
-  - Total differential divided by matches played
-  - **Result:** Average performance per match
-
-### Why This Is Fair
-1. ✅ **High wins rewarded**: 21-10 win → +11 differential
-2. ✅ **Close losses less punished**: 20-21 loss → -1 differential
-3. ✅ **Blowout losses heavily punished**: 10-21 loss → -11 differential
-4. ✅ **Sample size neutralized**: Uses average, not total (10 matches vs 50 matches is fair)
-5. ✅ **Every match matters**: Both wins and losses contribute
+### Why Simple Win%?
+1. ✅ **Easy to understand**: "I have 60% Win Rate"
+2. ✅ **Large sample size**: With 400+ games, Win% is highly reliable
+3. ✅ **Tiebreakers rarely needed**: Different match counts make equal Win% extremely unlikely
+4. ✅ **KISS Principle**: Keep It Simple, Stupid
 
 ---
 
@@ -29,63 +20,41 @@
 
 ### 1. **LeagueService.php**
 
-#### **Modified: `updatePlayerLeagueStats()` method** (Line ~400-530)
+#### **Simplified: `updatePlayerLeagueStats()` method**
 
-**Added tracking for:**
-- `total_point_differential` - Sum of all match differentials (LEAGUE-SPECIFIC)
-- `avg_point_differential` - Average differential per match
+**Tracks only:**
+- `match_count` - Total matches in league
+- `wins` - Total wins in league
+- `losses` - Total losses in league
+- `win_percentage` - Simple calculation
 
-**New calculation logic:**
+**Calculation:**
 ```php
-$performanceByLeague[$leagueId] = [
-    'match_count' => 0,
-    'wins' => 0,
-    'losses' => 0,
-    'total_point_differential' => 0      // NEW
-];
-
-// During match processing:
-$playerScore = $isTeamA ? $scoreA : $scoreB;
-$opponentScore = $isTeamA ? $scoreB : $scoreA;
-
-// Point differential (can be positive OR negative)
-$pointDifferential = $playerScore - $opponentScore;
-
-// Add to total (includes wins AND losses)
-$performanceByLeague[$leagueId]['total_point_differential'] += $pointDifferential;
+$totalMatches = $perf['wins'] + $perf['losses'];
+$winPercentage = $totalMatches > 0 ? ($perf['wins'] / $totalMatches) * 100 : 0;
 ```
 
-**Average calculation:**
-```php
-$avgPointDifferential = $perf['match_count'] > 0 
-    ? $perf['total_point_differential'] / $perf['match_count'] 
-    : 0;
-```
-
-**Updated Grid Data:**
+**Grid Data:**
 ```php
 $gridData[] = [
     'league' => [$leagueId],
     'played_gamedays' => $days->count(),
-    'match_count' => $perf['match_count'],              // LEAGUE-SPECIFIC
-    'league_wins' => $perf['wins'],                     // LEAGUE-SPECIFIC
-    'league_losses' => $perf['losses'],                 // LEAGUE-SPECIFIC
-    'total_point_differential' => $perf['total_point_differential'],  // NEW
-    'avg_point_differential' => round($avgPointDifferential, 2),      // NEW
+    'match_count' => $perf['match_count'],      // LEAGUE-SPECIFIC
+    'league_wins' => $perf['wins'],             // LEAGUE-SPECIFIC
+    'league_losses' => $perf['losses'],         // LEAGUE-SPECIFIC
     'win_percentage' => round($winPercentage, 2)
 ];
 ```
 
-#### **Modified: `recalculateLeagueRanks()` method** (Line ~680-760)
+#### **Simplified: `recalculateLeagueRanks()` method**
 
-**New Tiebreaker Hierarchy:**
+**Ranking Hierarchy:**
 1. Qualified players first (unchanged)
-2. **Win Percentage** (primary - unchanged)
-3. **Average Point Differential** (NEW tiebreaker #1)
-4. Total Wins (tiebreaker #2)
-5. Global Elo (final tiebreaker)
+2. **Win Percentage** (descending)
+3. **Total Wins** (tiebreaker #1)
+4. **Global Elo** (final tiebreaker)
 
-**New Sorting Logic:**
+**Sorting Logic:**
 ```php
 ->sort(function($a, $b) {
     // 1. Qualified players first
@@ -97,17 +66,12 @@ $gridData[] = [
         return $b['win_percentage'] <=> $a['win_percentage'];
     }
     
-    // 3. NEW: Tiebreaker 1 - Average point differential
-    if ($a['avg_point_differential'] != $b['avg_point_differential']) {
-        return $b['avg_point_differential'] <=> $a['avg_point_differential'];
-    }
-    
-    // 4. Tiebreaker 2: League wins
+    // 3. Tiebreaker: League wins
     if ($a['league_wins'] != $b['league_wins']) {
         return $b['league_wins'] <=> $a['league_wins'];
     }
     
-    // 5. Final tiebreaker: Global Elo
+    // 4. Final tiebreaker: Global Elo
     return $b['global_elo'] <=> $a['global_elo'];
 })
 ```
@@ -116,69 +80,47 @@ $gridData[] = [
 
 ### 2. **players.yaml Blueprint**
 
-**Added two new fields to `league_stats` grid:**
+**Simple fields in `league_stats` grid:**
 
 ```yaml
--
-  handle: total_point_differential
-  field:
-    type: integer
-    display: 'Total Point Diff'
-    default: 0
-    instructions: 'Sum of all point differentials (can be negative)'
--
-  handle: avg_point_differential
-  field:
-    type: float
-    display: 'Avg Point Diff'
-    default: 0
-    instructions: 'Average point differential per match'
+- league (reference)
+- played_gamedays
+- match_count
+- league_wins
+- league_losses
+- win_percentage
+- rank
 ```
 
-These fields are **read_only** and automatically populated by `LeagueService`.
+**No complex calculations, no additional metrics.**
 
 ---
 
 ### 3. **show.antlers.html Template**
 
-**No changes** - Frontend remains clean, showing only:
+**No changes** - Frontend shows:
 - Rank
 - Player Name + Elo
 - Win %
 - Record (W/L)
 - Qualification Status
 
-Point differential is used **internally** for ranking but not displayed to users.
+Clean and simple.
 
 ---
 
-## 📈 Data Structure Changes
+## 📈 Data Structure
 
 ### Player Blueprint - `league_stats` Field
 
-**OLD Structure:**
 ```yaml
 league_stats:
   - league: [league-id]
     played_gamedays: 12
-    match_count: 47
-    league_wins: 23
-    league_losses: 24
-    win_percentage: 48.94
-    rank: 14
-```
-
-**NEW Structure:**
-```yaml
-league_stats:
-  - league: [league-id]
-    played_gamedays: 12
-    match_count: 47              # LEAGUE-SPECIFIC (not total_games)
+    match_count: 47              # LEAGUE-SPECIFIC
     league_wins: 23              # LEAGUE-SPECIFIC
     league_losses: 24            # LEAGUE-SPECIFIC
-    total_point_differential: 35  # NEW (sum of all differentials)
-    avg_point_differential: 0.74  # NEW (total / matches)
-    win_percentage: 48.94
+    win_percentage: 48.94        # Simple: wins / (wins + losses) × 100
     rank: 14
 ```
 
@@ -186,79 +128,52 @@ league_stats:
 
 ## 🎯 Example Calculations
 
-### Scenario 1: Dominant Player
+### Player Stats
 
 **Match Results:**
-- Match 1: 21-10 Win → Differential: +11
-- Match 2: 21-8 Win → Differential: +13
-- Match 3: 21-15 Win → Differential: +6
-- Match 4: 21-12 Win → Differential: +9
-- Match 5: 21-7 Win → Differential: +14
+- Total Matches: 47
+- Wins: 23
+- Losses: 24
 
-**Totals:**
-- Wins: 5
-- Losses: 0
-- Total Differential: +53
-- **Win%: 100%**
-- **Avg Differential: +10.6** (very high!)
+**Calculation:**
+```
+Win% = (23 / 47) × 100 = 48.94%
+```
 
----
-
-### Scenario 2: Close Player
-
-**Match Results:**
-- Match 1: 21-19 Win → Differential: +2
-- Match 2: 19-21 Loss → Differential: -2
-- Match 3: 21-20 Win → Differential: +1
-- Match 4: 20-21 Loss → Differential: -1
-- Match 5: 21-18 Win → Differential: +3
-
-**Totals:**
-- Wins: 3
-- Losses: 2
-- Total Differential: +3
-- **Win%: 60%**
-- **Avg Differential: +0.6** (low, but positive)
-
----
-
-### Scenario 3: Struggling Player
-
-**Match Results:**
-- Match 1: 15-21 Loss → Differential: -6
-- Match 2: 10-21 Loss → Differential: -11
-- Match 3: 18-21 Loss → Differential: -3
-- Match 4: 21-19 Win → Differential: +2
-- Match 5: 12-21 Loss → Differential: -9
-
-**Totals:**
-- Wins: 1
-- Losses: 4
-- Total Differential: -27
-- **Win%: 20%**
-- **Avg Differential: -5.4** (negative!)
+That's it!
 
 ---
 
 ## 🔀 Ranking Examples
 
-### Example: Tiebreaker in Action
+### Example: Standard Ranking
 
-Two players with same Win%:
+| Rank | Player | Days | Matches | W-L | Win% |
+|------|---------|------|---------|-----|------|
+| 🥇 1 | Anna | 10 | 40 | 32-8 | **80.00%** |
+| 🥈 2 | Max | 8 | 32 | 24-8 | **75.00%** |
+| 🥉 3 | Lisa | 12 | 50 | 35-15 | **70.00%** |
+| 4 | Tom | 9 | 36 | 24-12 | **66.67%** |
+
+**Clear, simple, transparent.**
+
+---
+
+### Example: Tiebreaker
+
+Two players with same Win% (rare with 400+ games):
 
 **Player A:**
-- Win%: 60%
-- Avg Differential: +5.2
-- Wins: 12
+- Win%: 60.00%
+- Total Wins: 30
 - Elo: 1520
 
 **Player B:**
-- Win%: 60%
-- Avg Differential: +1.8
-- Wins: 15
+- Win%: 60.00%
+- Total Wins: 24
 - Elo: 1510
 
-**Result:** Player A ranks higher (better avg differential shows dominance)
+**Result:** Player A ranks higher (more total wins)
 
 ---
 
@@ -266,7 +181,7 @@ Two players with same Win%:
 
 ### League-Specific Tracking
 
-**IMPORTANT:** All calculations use **league-specific** data, not global:
+**IMPORTANT:** All calculations use **league-specific** data:
 
 ```php
 // ✅ CORRECT (league-specific)
@@ -280,42 +195,28 @@ $player->get('wins')         // Global wins
 $player->get('losses')       // Global losses
 ```
 
-### Why This Matters
-
-- Player may be in multiple leagues
-- Each league tracks its own performance
-- Global Elo is shared, but league stats are isolated
-- Rankings are per-league, not global
-
 ---
 
 ## 🚀 Migration Notes
 
-### Existing Data
+### From Previous System
 
-When you first deploy this change:
+If migrating from point differential system:
 
-1. **Existing players with `league_stats` will be missing point differential fields**
-   - Solution: Run `finalizeGameday()` on any active gameday to recalculate, OR
-   - Re-finalize old finished gamedays to backfill data
-
-2. **Rankings may shift slightly**
-   - Players with dominant wins will rank higher
-   - Players with close games will see more accurate positioning
-   - This is expected and correct
+1. **Old fields are ignored** (total_point_differential, avg_point_differential)
+2. **Run finalizeGameday()** on any active gameday to recalculate
+3. **Rankings update automatically** based on Win%
 
 ---
 
 ## ✅ Testing Checklist
 
 - [ ] Create new gameday and generate plan
-- [ ] Record match scores (test blowouts, close games, losses)
+- [ ] Record match scores
 - [ ] Finalize gameday
-- [ ] Verify `total_point_differential` and `avg_point_differential` are populated
-- [ ] Check that values can be negative (losses)
+- [ ] Verify `win_percentage` is calculated correctly
 - [ ] Verify league stats are separate from global stats
 - [ ] Check league ranking order
-- [ ] Verify tiebreakers work correctly (same Win%, check avg diff)
 - [ ] Test with players in multiple leagues (ensure isolation)
 
 ---
@@ -325,44 +226,46 @@ When you first deploy this change:
 ```
 Win% = (Wins / Total Matches) × 100
 
-Point Differential (per match) = Player Score - Opponent Score
-
-Total Point Differential = Sum of all match differentials
-
-Average Point Differential = Total Point Differential / Total Matches
-
 Ranking Order:
-1. Qualified Status
+1. Qualified Status (≥ minimum game days)
 2. Win% (descending)
-3. Avg Point Differential (descending) ← NEW
-4. Total Wins (descending)
-5. Global Elo (descending)
+3. Total Wins (descending)
+4. Global Elo (descending)
 ```
+
+**Simple. Transparent. Fair.**
 
 ---
 
-## 🎲 Why This System Is Better
+## 🎲 Why This System Works
 
-### vs. Game-Based Win%
-- **More granular**: 21-10 win ≠ 21-20 win
-- **Rewards dominance**: High wins matter
-- **Fair for losses**: Close loss less punished
+### At Scale (400+ games):
+- **Win% is highly reliable** - law of large numbers
+- **Tiebreakers rarely needed** - different match counts
+- **Easy to understand** - no complex formulas
+- **Transparent** - players know exactly where they stand
 
-### vs. Pure Point Differential
-- **Win% still primary**: Winning games is most important
-- **Differential as tiebreaker**: Used only when Win% is equal
-- **Balanced approach**: Not overly complex
-
-### vs. Other Systems
-- **Sample size neutral**: Average removes player count bias
-- **League-specific**: Fair comparison within league
-- **Transparent**: Easy to understand and explain
+### For Users:
+- ✅ "I have 60% Win Rate" - instantly understandable
+- ✅ "I need to win more" - clear action item
+- ✅ No confusion about differentials or averages
+- ✅ Focus on what matters: winning games
 
 ---
 
 ## 📦 Files Changed
 
-1. **LeagueService.php** - Core logic with point differential tracking
-2. **players.yaml** - Blueprint with new fields
-3. **show.antlers.html** - Template (unchanged, clean UI)
+1. **LeagueService.php** - Simplified ranking logic
+2. **players.yaml** - Removed point differential fields
+3. **show.antlers.html** - Unchanged (already simple)
 4. **CHANGES.md** - This documentation
+
+---
+
+## 💡 Philosophy
+
+**Occam's Razor:** The simplest solution is usually the best.
+
+With 20 gamedays and 400+ total games, Win% alone is sufficient to determine the best player. Additional complexity adds minimal value while making the system harder to understand.
+
+**Result:** A ranking system that's fair, transparent, and easy for everyone to understand.

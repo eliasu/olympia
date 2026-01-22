@@ -34,6 +34,12 @@ tabs:
               localizable: true
               validate: 'max:200'
           -
+            handle: active
+            field:
+              default: true
+              type: toggle
+              display: Active
+          -
             handle: min_game_days
             field:
               type: integer
