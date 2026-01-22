@@ -3,7 +3,7 @@ id: 40b37d94-b73c-45b0-b3cb-5a1d14b71bb4
 blueprint: page
 title: Faq
 updated_by: 1861c4a9-8873-459c-97ce-38d399b7ed46
-updated_at: 1769095598
+updated_at: 1769118488
 template: faq
 headline: 'How to BTV League'
 subheadline: 'Complete explanation of Elo ratings and league rankings.'
@@ -19,10 +19,12 @@ Our league system measures **your actual performance**, not just how often you s
 |---------|-------|------------|
 | **Global Elo** | All-time Strength | Permanent, across all leagues |
 | **League Ranking** | Season Rating | Per league, reset each season |
+| **Gameday Winner** | Daily Champion | Best performance on a single day |
 
 **Important:** 
 - **Global Elo** is used for pairings (team composition)
 - **Win Percentage** determines who wins the league
+- **Gameday Winner** is for daily bragging rights (doesn't affect season ranking)
 
 ---
 
@@ -252,7 +254,7 @@ Fair: Performance matters, not just attendance
 
 ### 🎯 Complete Ranking Order
 
-**Ranking Hierarchy:**
+**Season Ranking Hierarchy:**
 
 1. **Qualified players first** (≥ minimum game days)
 2. **Win Percentage** (descending)
@@ -300,185 +302,280 @@ First match of the day = Last match of the day
 All wins count the same toward your Win%
 ```
 
-### 📊 Performance Scenarios
+---
 
-#### **Scenario 1: The Consistent Winner**
+## 🏅 Gameday Winner System
 
-**Performance:**
+### What is the Gameday Winner?
+
+Every gameday has its own **daily champion** based on that day's performance only!
+
+**Purpose:**
+- Adds excitement to every single gameday
+- Recognition for great daily performance
+- Bragging rights for the day
+- **Does NOT affect season rankings** (separate system)
+
+### How is the Gameday Winner Determined?
+
+**Ranking Criteria (calculated when gameday is finalized):**
+
+1. **Win% of the Day** (primary)
+   ```
+   Gameday Win% = Wins Today / Matches Today × 100
+   ```
+
+2. **Elo Gain of the Day** (tiebreaker)
+   ```
+   Elo Gain = Ending Elo - Starting Elo
+   ```
+
+3. **Total Wins of the Day** (tiebreaker)
+
+4. **Global Elo** (final tiebreaker)
+
+### 📊 Example Gameday Ranking
+
+**Gameday: Sunday League - February 16, 2025**
+
+| Rank | Player | Matches | W-L | Win% | Elo Gain |
+|------|---------|---------|-----|------|----------|
+| 🥇 1 | Max Weber | 4 | 3-1 | **75.00%** | +8.5 |
+| 🥈 2 | Anna Schmidt | 4 | 3-1 | **75.00%** | +6.2 |
+| 🥉 3 | Lisa Müller | 3 | 2-1 | **66.67%** | +4.1 |
+| 4 | Tom Fischer | 4 | 2-2 | **50.00%** | +2.3 |
+| 5 | Ben Klein | 3 | 1-2 | **33.33%** | -1.5 |
+
+**Winner: Max Weber** 🏆
+- Same Win% as Anna (75%)
+- But higher Elo Gain (+8.5 vs +6.2)
+- Dominated his wins more
+
+### 🎯 Key Points About Gameday Winner
+
+**Important to understand:**
+
+1. **Separate from Season Ranking**
+   - Gameday Winner = Best performance TODAY
+   - Season Ranking = Best performance OVERALL
+   - Winning a gameday doesn't affect your season rank
+
+2. **Fair with Different Match Counts**
+   - Uses Win% (not total wins)
+   - 3 games, 100% Win = better than 4 games, 75% Win
+   - Everyone has equal chance
+
+3. **Calculated Automatically**
+   - System calculates when gameday is finalized
+   - Based on actual Elo changes from that day
+   - No manual input needed
+
+4. **Motivation & Recognition**
+   - Adds excitement to each gameday
+   - Even if you're not #1 in season, you can win a day
+   - Fresh competition every gameday
+
+### 💡 Strategy for Winning a Gameday
+
+**How to become Gameday Winner:**
+
+1. **Win Most of Your Matches**
+   - Primary metric is Win% of the day
+   - 3-1 record better than 2-2
+
+2. **Win Decisively**
+   - High wins = more Elo gain
+   - 21-10 better than 21-19
+   - Acts as tiebreaker
+
+3. **Play Consistently**
+   - All matches count toward daily Win%
+   - One bad loss won't ruin your day
+
+4. **Don't Worry About Others**
+   - Focus on your own performance
+   - Can't control how many games others play
+
+### 📈 Gameday Winner vs Season Champion
+
+**Example: Two Different Winners**
+
+**Max's Season:**
 - 10 game days attended
-- 40 matches played
-- 32 wins, 8 losses
+- 40 total matches: 32-8
+- **Season Win%: 80%** → Rank 1 🏆
 
-**Stats:**
-- Win%: **80.00%**
-- Rank: **Top 3**
-
-**Key:** Consistently winning most matches
-
----
-
-#### **Scenario 2: The Average Player**
-
-**Performance:**
+**Anna's Season:**
 - 12 game days attended
-- 50 matches played
-- 28 wins, 22 losses
+- 50 total matches: 35-15
+- **Season Win%: 70%** → Rank 3
 
-**Stats:**
-- Win%: **56.00%**
-- Rank: **Middle of pack**
+**But on February 16:**
+- Max: 4 games, 2-2, 50% Win → Rank 8 (bad day)
+- Anna: 4 games, 4-0, 100% Win → **Gameday Winner!** 🥇
 
-**Key:** Winning slightly more than losing
+**Both can celebrate:**
+- Max = Season Champion (overall best)
+- Anna = Gameday Winner (best that day)
+
+### 🎲 Real-World Scenarios
+
+#### **Scenario 1: "The Comeback"**
+
+**Player:** Ben
+- Season Ranking: #12 (struggling)
+- Gameday Performance: 4-0, +12 Elo
+- **Result:** Gameday Winner! 🏆
+
+**What it means:**
+- Still ranked #12 in season
+- But won the day
+- Proof he's improving
+- Motivation boost!
 
 ---
 
-#### **Scenario 3: The Struggling Player**
+#### **Scenario 2: "Bad Day at the Top"**
 
-**Performance:**
-- 8 game days attended
-- 32 matches played
-- 10 wins, 22 losses
+**Player:** Lisa (Season #2)
+- Usually dominant
+- Today: 1-3 record, -8 Elo
+- **Result:** Rank 15 for the day
 
-**Stats:**
-- Win%: **31.25%**
-- Rank: **Lower rankings**
+**What it means:**
+- Season rank unchanged (#2)
+- Just had an off day
+- Tomorrow is a fresh start
+- Still in great position overall
 
-**Key:** Need to improve win rate
+---
+
+#### **Scenario 3: "The Consistent Grinder"**
+
+**Player:** Tom
+- Gameday: 3-1, +6 Elo, 75% Win
+- Another player: 3-1, +8 Elo, 75% Win
+- **Result:** Rank 2 for the day (Elo tiebreaker)
+
+**What it means:**
+- Close competition!
+- Slightly less dominant wins
+- Still excellent performance
+- One of the top performers
 
 ---
 
 ### 🎯 Qualification & Minimum Requirements
 
-**Minimum Requirement:**
-- **7 game days** (configurable per league)
+**For Season Ranking:**
+- **Minimum:** 7 game days (configurable per league)
 - Anyone with less → not ranked (but stats still tracked)
 
-**Why a Minimum?**
-```
-Without minimum:
-- Player comes 2x, gets lucky, 100% Win%
-- Never comes again
-- Would be "League Champion"
+**For Gameday Winner:**
+- **No minimum!** Everyone who plays is eligible
+- Only need to play at least 1 match
+- Fair chance every single day
 
-With minimum:
-- Must prove consistency over time
-- 7+ days = reliable sample size
+**Why No Minimum for Gameday?**
+```
+Season ranking needs consistency (7+ days)
+Gameday winner is about TODAY only
+New players can win their first day!
 ```
 
 ---
 
-### 💡 Strategy Tips for League Success
+### 💡 Strategy Tips
 
-#### **1. Focus on Winning**
-```
-Priority #1: Win your matches
-- Every win improves your Win%
-- Every loss hurts your Win%
-- It's that simple!
-```
+#### **For Season Success:**
 
-#### **2. Quality Over Quantity**
-```
-Better: 7 days with 75% Win%
-Worse: 15 days with 55% Win%
+1. **Focus on Win%**
+   - Most important: win your matches
+   - Attendance matters but performance matters more
+   - 7 great days > 15 mediocre days
 
-Reason: System rewards performance, not attendance
-```
+2. **Consistency Over Time**
+   - Steady 70% Win% beats streaky performance
+   - Every match counts equally
+   - No "throwaway" games
 
-#### **3. Consistency Matters**
-```
-Steady performance > Hot streaks
-- 70% Win% over 10 days > 90% for 3 days, then 50% for 7 days
-- Aim for consistent wins
-```
+3. **Quality Over Quantity**
+   ```
+   Better: 8 days, 75% Win%
+   Worse: 15 days, 55% Win%
+   ```
 
-#### **4. Every Match Counts**
-```
-All matches are equal:
-- First or last match of the day
-- Against strong or weak opponents (within Elo range)
-- Early or late season
+#### **For Gameday Winner:**
 
-Win% treats all equally
-```
+1. **Play Your Best Today**
+   - Focus on THIS gameday only
+   - Yesterday doesn't matter
+   - Tomorrow doesn't matter
+
+2. **Win Decisively When Possible**
+   - High wins boost Elo gain
+   - Acts as tiebreaker
+   - Show dominance
+
+3. **Stay Consistent**
+   - Win most of your matches today
+   - Even 3-1 can win the day
+   - Don't need perfection
 
 ---
 
 ## 🎮 Real-World Examples
 
-### Example 1: "The Elite Player"
+### Example 1: "The Elite Performer"
 
-**Situation:**
+**Season Performance:**
 - Attends 10 game days
-- Dominates most matches
-- Few losses
-
-**Stats:**
-- Matches: 40
-- Record: 32-8
+- 40 matches: 32-8
 - Win%: **80.00%**
-- **Rank:** 1-2
+- **Season Rank:** 1 🥇
 
-**Why Top Ranked:**
-- Wins 80% of games
-- Simple and clear dominance
+**Typical Gameday:**
+- 4 matches: 3-1
+- Win%: 75%
+- Elo Gain: +8.2
+- **Gameday Rank:** 1-3 (usually wins)
 
----
-
-### Example 2: "The Grinder"
-
-**Situation:**
-- Attends 15 game days (most in league)
-- Many games, but mixed results
-
-**Stats:**
-- Matches: 60
-- Record: 33-27
-- Win%: **55.00%**
-- **Rank:** 8-12
-
-**Why Not Higher:**
-- Only wins 55% of games
-- Attendance doesn't compensate for Win%
+**Result:** Dominates both season and most gamedays
 
 ---
 
-### Example 3: "The Part-Timer"
+### Example 2: "The Improving Player"
 
-**Situation:**
-- Only 6 game days attended
-- Plays well when present
+**Season Performance:**
+- Attends 8 game days
+- 32 matches: 18-14
+- Win%: **56.25%**
+- **Season Rank:** 9
 
-**Stats:**
-- Matches: 24
-- Record: 19-5
-- Win%: **79.17%**
-- **Rank:** None (not qualified)
+**One Special Gameday:**
+- 4 matches: 4-0 (perfect!)
+- Win%: 100%
+- Elo Gain: +15.3
+- **Gameday Rank:** 1 🥇 (Winner!)
 
-**Why No Rank:**
-- Below minimum 7 game days
-- Excellent Win% but need one more day
-
-**Solution:** Come one more day to qualify!
+**Result:** Not season champion, but won a day!
 
 ---
 
-### Example 4: "The Comeback Player"
+### Example 3: "The Streaky Player"
 
-**Situation:**
-- First 3 days: struggled (6 wins, 6 losses)
-- Next 5 days: improved (18 wins, 2 losses)
+**Season Performance:**
+- Attends 12 game days
+- Some excellent, some poor
+- Win%: **58.33%**
+- **Season Rank:** 7
 
-**Stats:**
-- Total: 8 days, 32 matches
-- Record: 24-8
-- Win%: **75.00%**
-- **Rank:** 2-4
+**Gameday Variation:**
+- Good days: Gameday Winner (2x)
+- Bad days: Rank 12-15 (5x)
+- Average days: Rank 4-8 (5x)
 
-**Key Lesson:**
-- Overall Win% is what matters
-- Can recover from bad start
-- Consistency over time wins
+**Result:** Inconsistent but exciting to watch
 
 ---
 
@@ -490,12 +587,59 @@ Win% treats all equally
 
 - **Elo:** Measures expected vs actual performance
 - **League Ranking:** Based on Win% (did you win or not?)
+- **Gameday Winner:** Best performance today
 
 **For league ranking:** Win = +1 to wins (helps Win%)
 
 ---
 
-### **Q: I attend often, but I'm far back in the ranking. Why?**
+### **Q: I won the Gameday but I'm still ranked low in the season. Why?**
+
+**A:** Gameday Winner and Season Ranking are **completely separate**!
+
+**Gameday Winner:**
+- Best performance TODAY
+- Resets every gameday
+- Instant gratification
+
+**Season Ranking:**
+- Best performance over ENTIRE season
+- Cumulative over all gamedays
+- Requires consistency
+
+**Think of it like:**
+- Gameday = Winning a stage in Tour de France
+- Season = Winning the overall Tour de France
+
+You can win stages without winning the tour!
+
+---
+
+### **Q: Can I win a Gameday even if I play fewer matches than others?**
+
+**A:** Yes! That's why we use Win%.
+
+**Example:**
+- You: 3 matches, 3-0 = **100% Win** → Rank 1 🏆
+- Other player: 4 matches, 3-1 = **75% Win** → Rank 2
+
+Win% makes it fair regardless of match count.
+
+---
+
+### **Q: Two players have same Win% on gameday. Who wins?**
+
+**A:** **Elo Gain** is the tiebreaker.
+
+**Example:**
+- Player A: 75% Win, +8.5 Elo → Rank 1
+- Player B: 75% Win, +6.2 Elo → Rank 2
+
+Higher Elo gain = more dominant wins = better rank
+
+---
+
+### **Q: I attend often, but I'm far back in season ranking. Why?**
 
 **A:** The system rates **Win%**, not attendance.
 
@@ -508,17 +652,20 @@ Win% treats all equally
 
 ---
 
-### **Q: Two players have same Win%. Who ranks higher?**
+### **Q: Does winning Gameday help my season ranking?**
 
-**A:** Very rare with large sample sizes, but tiebreakers exist:
+**A:** Indirectly, yes!
 
-**Tiebreaker Order:**
-1. **Total Wins** (more wins = higher rank)
-2. **Global Elo** (higher Elo = higher rank)
+**Direct Impact:**
+- Gameday Winner doesn't add bonus points
+- Doesn't directly change season rank
 
-**Example:**
-- Player A: 70% Win%, 35 total wins → Rank 5
-- Player B: 70% Win%, 28 total wins → Rank 6
+**Indirect Impact:**
+- Winning gameday = you won most matches that day
+- Winning matches = improves your season Win%
+- Better Win% = better season rank
+
+**So:** Play well → win gameday → improve season rank naturally!
 
 ---
 
@@ -545,17 +692,16 @@ Win% treats all equally
 
 ### **Q: I had 3 matches today, others had 4. Unfair?**
 
-**A:** With odd numbers, perfect distribution is impossible.
+**A:** No! That's why we use Win%.
 
-**Example:** 19 players, 16 matches
-- 16 matches × 4 players = 64 slots
-- 64 slots / 19 players = 3.37 matches/person
+**For Season Ranking:**
+- Your season Win% = all your matches
+- 3 vs 4 games doesn't matter over time
 
-**System Solution:**
-- Prioritizes players with fewer games
-- In the end: 15 players with 3 matches, 4 with 4 matches
-
-**Fair:** Win% works regardless of match count per day
+**For Gameday Winner:**
+- We use Win% of the day
+- 3 games, 100% = better than 4 games, 75%
+- Completely fair!
 
 ---
 
@@ -563,122 +709,54 @@ Win% treats all equally
 
 **A:** Depends on your goals!
 
-**Analysis:**
+**For Season Ranking:**
 ```
-Good day:  75% Win% contribution
-Bad day:   40% Win% contribution
-
-Impact: Bad days lower your overall Win%
-```
-
-**Strategy:**
-- **Competitive:** Skip if really off your game
-- **Casual:** Play anyway, it's about fun!
-- **Remember:** Need minimum 7 days to qualify
-
----
-
-### **Q: Can I "cherry-pick" weak opponents?**
-
-**A:** No, pairing system prevents this.
-
-**Reasons:**
-1. **±150 Elo spread** - You only play similarly skilled players
-2. **Automatic matching** - You can't choose opponents
-3. **Diversity system** - You play different people
-
-**Conclusion:** Just focus on winning your matches!
-
----
-
-### **Q: Why don't I see a rank even though I have good Win%?**
-
-**A:** You haven't reached the minimum of 7 game days.
-
-**Reason:** Prevents "Lucky Streaks"
-- Someone comes 2x, gets lucky, 100% Win%
-- Never comes again
-- Without minimum: False "champion"
-
-**Solution:** Play at least 7 days, then you'll get your rank!
-
----
-
-### **Q: My Global Elo is 1600, but I'm only Rank 15. Why?**
-
-**A:** **Global Elo ≠ League Ranking**
-
-- **Global Elo:** Your all-time strength (for pairings)
-- **League Ranking:** Your Win% **in this season**
-
-**Possible Reasons:**
-- You're winning only 50% in this league
-- Others are winning 70-80% in this league
-- Elo measures skill, Win% measures results
-
-**Next Season:** Fresh start! League Win% resets.
-
----
-
-## 🔥 Edge Cases
-
-### Edge Case 1: "Perfect Win Rate"
-
-**Situation:** Player has 100% Win% (very rare long-term).
-
-**System Behavior:**
-- Automatically #1 in ranking
-- As long as qualified (≥7 days)
-- Very difficult to maintain over 20 game days
-
-**Important:** Even 95% Win% is excellent!
-
----
-
-### Edge Case 2: "Below 50% But Ranked"
-
-**Situation:** Player has 48% Win% but is still ranked.
-
-**Explanation:**
-- Player is qualified (≥7 days)
-- Other qualified players have similar or worse Win%
-- Still competing, just in lower rankings
-
-**Important:** Below 50% = losing more than winning
-
----
-
-### Edge Case 3: "Identical Win%"
-
-**Situation:** Two players both have exactly 70.00% Win%.
-
-**System Behavior:**
-- Next tiebreaker: **Total Wins**
-- If still tied: **Global Elo**
-
-**Example:**
-```
-Anna: 70% Win%, 35 wins, 1550 Elo → Rank 5
-Ben:  70% Win%, 35 wins, 1530 Elo → Rank 6
-
-Anna has higher Elo → ranks higher
+Bad day: Lowers your overall Win%
+Strategy: Skip if really off your game
+But: Need minimum 7 days to qualify
 ```
 
+**For Gameday Winner:**
+```
+Bad day: Just won't win that day
+Strategy: Play anyway, fresh start next time
+Benefit: More practice = improvement
+```
+
+**Our advice:** Play! It's about fun and improvement.
+
 ---
 
-### Edge Case 4: "Rapid Improvement"
+### **Q: Can I see my Gameday Winner history?**
 
-**Situation:** Player starts poorly but improves dramatically.
+**A:** Yes! Check each finished gameday.
 
-**Stats:**
-- First 4 days: 10 wins, 10 losses (50% Win%)
-- Next 4 days: 16 wins, 4 losses (80% Win%)
-- Total: 26 wins, 14 losses
+**Where to find:**
+- Go to past gamedays
+- Click on a finished gameday
+- See "Gameday Winner" section
+- Your rank is shown there
 
-**Result:**
-- Overall Win%: 65.00%
-- **Fair:** All matches count equally
-- Final Win% reflects overall performance
+**Track your progress:**
+- How many gamedays won?
+- Average gameday rank?
+- Improvement over time?
+
+---
+
+### **Q: What's more important: Gameday Winner or Season Rank?**
+
+**A:** **Season Rank** is the main championship.
+
+**Priority:**
+1. **Season Ranking** = Overall Champion
+2. **Gameday Winner** = Daily Achievement
+
+**Think of it like:**
+- Season = Winning the League
+- Gameday = Winning Match of the Week
+
+Both are great, but season title is the ultimate goal!
 
 ---
 
@@ -686,40 +764,48 @@ Anna has higher Elo → ranks higher
 
 ### What You Need to Know:
 
-1. **Win Percentage Is King**
-   - Most important metric
-   - Higher Win% = Higher Rank
+1. **Win Percentage Is King (Season)**
+   - Most important metric for season ranking
+   - Higher Win% = Higher Season Rank
    - Simple and transparent
 
-2. **Performance > Attendance**
-   - 7 great days > 15 mediocre days
-   - Win% neutralizes attendance advantage
-   - Quality of play determines rank
+2. **Gameday Winner Is Daily Fun**
+   - Best performance each gameday
+   - Separate from season ranking
+   - Fresh competition every time
+   - Everyone has a chance
 
-3. **Every Match Counts Equally**
-   - First match = Last match
-   - All contribute to Win%
+3. **Performance > Attendance**
+   - Season: 7 great days > 15 mediocre days
+   - Gameday: Win% today matters
+   - Quality of play determines success
+
+4. **Every Match Counts**
+   - All matches contribute to season Win%
+   - All matches contribute to gameday Win%
    - No "throwaway" games
 
-4. **Pairing is Fair**
+5. **Pairing is Fair**
    - ±150 Elo spread → suitable opponents
    - New partners/opponents preferred
    - Power Pairing prevents unfair teams
 
-5. **No Exploits**
-   - Can't cherry-pick opponents (system chooses)
-   - Can't manipulate Win% (all matches count)
-   - Long-term best players win
+6. **Two Ways to Win**
+   - Season Champion = Best overall (Win%)
+   - Gameday Winner = Best single day
+   - Both are achievements to celebrate!
 
-6. **Each Season is Fresh**
+7. **Each Season is Fresh**
    - Global Elo remains (for skill matching)
-   - League Win% resets
+   - Season Win% resets
+   - Gameday Winners start fresh each day
    - New chance for everyone!
 
 ---
 
 ## 📊 Quick Reference
 
+### Season Ranking:
 ```
 PRIMARY METRIC:
 Win% = (Wins / Total Matches) × 100
@@ -731,7 +817,19 @@ RANKING ORDER:
 4. Global Elo (descending)
 ```
 
-**Simple. Clear. Fair.**
+### Gameday Winner:
+```
+PRIMARY METRIC:
+Gameday Win% = Wins Today / Matches Today × 100
+
+RANKING ORDER:
+1. Win% of the Day (descending)
+2. Elo Gain of the Day (descending)
+3. Total Wins of the Day (descending)
+4. Global Elo (descending)
+```
+
+**Simple. Clear. Fair. Fun!**
 
 ---
 
@@ -740,3 +838,5 @@ RANKING ORDER:
 For any questions or suggestions about the league system, talk to your league admin!
 
 **Good luck in the season! 🏆**
+
+**And remember: Every gameday is a new chance to be the daily champion! 🏅**
