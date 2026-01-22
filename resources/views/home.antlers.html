@@ -11,7 +11,6 @@
         
         <!-- MAIN CONTENT: Active Gamedays (Col 1-8) -->
         <div class="lg:col-span-8 space-y-12">
-            
             <!-- Active Gamedays (Only shown if Gamedays exist) -->
             {{ collection:gamedays generated_plan:is="true" is_finished:is="false" sort="date:asc" limit="4" as="results" }}
                 {{ if results }}

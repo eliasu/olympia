@@ -2,11 +2,11 @@
 id: 9378cd1d-33a5-4719-a7c7-7ebbdc8b98e9
 blueprint: players
 title: 'Dejuan Advanced'
-global_elo: 1530.53
+global_elo: 1518.98
 skill_rating: 1600.0
-total_games: 129
+total_games: 130
 wins: 67
-losses: 62
+losses: 63
 player_status: active
 avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Dejuan+Advanced'
 matches:
@@ -139,6 +139,16 @@ matches:
   - 6c35882b-4537-4d6b-b508-f7ac21638196
   - a2836263-ccb6-452c-ade7-2673fd76fc57
   - 4743a916-eafb-4298-a97b-bf799560cb3b
+  - f1fc9c81-839c-45df-86f4-33858df61dbe
+  - 3d74566e-a897-4ce3-848d-a6ea9e7fba06
+  - c89a1c96-d8df-403c-83e3-fcafb2bbc883
+  - 7ca275ff-7c25-4efc-b2a6-c76084bc04d6
+  - 99296f0b-defd-4c98-90ae-13c7dd6b9fd3
+  - d93cb6f7-1438-4859-9075-948edfed1bde
+  - 0de1f437-243c-40bc-b634-4a95bbfdc668
+  - 0e3a1c82-c97d-4859-9b46-fe54b2c28f82
+  - 70035566-97f0-4ef4-9142-86b14b79ea5e
+  - 28a3f462-84e2-46c5-bb57-340306fc5599
 elo_history:
   -
     date: '2026-01-28T00:00:00+00:00'
@@ -785,15 +795,20 @@ elo_history:
     elo: 1530.53
     match: 4743a916-eafb-4298-a97b-bf799560cb3b
     league: e4cc34c4-9365-4e3e-8bb4-0199c6894cda
+  -
+    date: '2026-01-22T22:54:18+00:00'
+    elo: 1518.98
+    match: 0e3a1c82-c97d-4859-9b46-fe54b2c28f82
+    league: null
 league_stats:
   -
     league:
       - b08ea78f-3169-4571-b7c5-8ae0d49df9e7
-    played_gamedays: 16
-    match_count: 87
+    played_gamedays: 19
+    match_count: 88
     league_wins: 44
-    league_losses: 43
-    win_percentage: 50.57
+    league_losses: 44
+    win_percentage: 50.0
     rank: 11
   -
     league:

@@ -84,7 +84,22 @@ return [
         'class' => null,
 
         'rules' => [
-            //
+            'collections' => [
+                'gamedays' => [
+                    'urls' => ['/'],
+                    'entries' => ['league', 'present_players', 'matches'],
+                ],
+                'matches' => [
+                    'entries' => ['gameday', 'team_a', 'team_b'],
+                ],
+                'players' => [
+                    'urls' => ['/', '/global-ranking'],
+                ],
+                'leagues' => [
+                    'urls' => ['/'],
+                    'entries' => ['gamedays'],
+                ],
+            ],
         ],
 
     ],

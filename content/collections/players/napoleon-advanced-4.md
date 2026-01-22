@@ -2,11 +2,11 @@
 id: b61600cb-3673-4992-9a98-84011a500d51
 blueprint: players
 title: 'Napoleon Advanced'
-global_elo: 1551.32
+global_elo: 1539.77
 skill_rating: 1600.0
-total_games: 156
+total_games: 157
 wins: 80
-losses: 76
+losses: 77
 player_status: active
 avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Napoleon+Advanced'
 matches:
@@ -166,6 +166,18 @@ matches:
   - 10d87cde-a40c-42e7-9450-18147f1a976f
   - 9196d1ca-8203-4443-b53c-0f7c39c0d37e
   - 1ce85a5a-ff36-465c-b37a-b12dcf3ca8f6
+  - c3d5e9b2-e719-4953-8e45-c17155a0e720
+  - 3fd1ae2e-482c-4d82-9373-5b621e3e32e6
+  - 99296f0b-defd-4c98-90ae-13c7dd6b9fd3
+  - 0de1f437-243c-40bc-b634-4a95bbfdc668
+  - f0a4dacf-840a-41ad-ab3f-cc50163d5b27
+  - 0e3a1c82-c97d-4859-9b46-fe54b2c28f82
+  - 28a3f462-84e2-46c5-bb57-340306fc5599
+  - e52ec4bf-e4bf-481b-9bc9-5bf92a3d8955
+  - ee8fb497-e8a1-42ad-8d79-6986cc01e5b4
+  - 201ff118-eb5a-41f4-b849-8e2807b7ae04
+  - 5af8b7ee-e917-44d7-863e-d185b3d210d2
+  - 893d32c8-a93d-4e26-ba0a-e4b4329ddef2
 elo_history:
   -
     date: '2026-01-28T00:00:00+00:00'
@@ -947,16 +959,21 @@ elo_history:
     elo: 1551.32
     match: 1ce85a5a-ff36-465c-b37a-b12dcf3ca8f6
     league: e4cc34c4-9365-4e3e-8bb4-0199c6894cda
+  -
+    date: '2026-01-22T22:54:18+00:00'
+    elo: 1539.77
+    match: 0e3a1c82-c97d-4859-9b46-fe54b2c28f82
+    league: null
 league_stats:
   -
     league:
       - b08ea78f-3169-4571-b7c5-8ae0d49df9e7
-    played_gamedays: 20
-    match_count: 103
+    played_gamedays: 24
+    match_count: 104
     league_wins: 56
-    league_losses: 47
-    win_percentage: 54.37
-    rank: 6
+    league_losses: 48
+    win_percentage: 53.85
+    rank: 7
   -
     league:
       - e4cc34c4-9365-4e3e-8bb4-0199c6894cda

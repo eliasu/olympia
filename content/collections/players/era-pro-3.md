@@ -2,11 +2,11 @@
 id: 1a4b1314-1e9b-44d6-8c77-31b7e61d74a5
 blueprint: players
 title: 'Era Pro'
-global_elo: 1705.39
+global_elo: 1694.21
 skill_rating: 1800.0
-total_games: 133
+total_games: 134
 wins: 76
-losses: 57
+losses: 58
 player_status: active
 avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Era+Pro'
 matches:
@@ -143,6 +143,16 @@ matches:
   - 69cf7109-5357-4a73-a40f-fd4c76c20746
   - 3f14b793-334b-463f-9aec-7b9db1263b70
   - d2fb83c9-7533-4628-8fc8-caf73b906b0f
+  - 49562949-ec63-4125-8689-49b803c11223
+  - 6053060a-0ae2-4c43-9178-bbfefa4a100f
+  - 31aa0f2c-e1ac-4216-a08c-8af14efdf8c8
+  - c3a2eaff-4af7-4374-b134-25b9850b9940
+  - 135067ed-3c15-4451-b708-0320fe8f056f
+  - 2585db39-624a-4eda-b34c-a4c423066482
+  - b856e533-b230-476f-9ed3-3a5f656ef3c4
+  - f9531bd9-ea3f-489f-90b5-2d4bcbcd16f3
+  - 7050455a-eb8e-4aca-8ee6-8933d5626347
+  - 91ee16fe-c25e-425e-bead-725f816e34c6
 elo_history:
   -
     date: '2026-01-28T00:00:00+00:00'
@@ -809,16 +819,21 @@ elo_history:
     elo: 1705.39
     match: d2fb83c9-7533-4628-8fc8-caf73b906b0f
     league: e4cc34c4-9365-4e3e-8bb4-0199c6894cda
+  -
+    date: '2026-01-22T00:00:00+00:00'
+    elo: 1694.21
+    match: 31aa0f2c-e1ac-4216-a08c-8af14efdf8c8
+    league: b
 league_stats:
   -
     league:
       - b08ea78f-3169-4571-b7c5-8ae0d49df9e7
-    played_gamedays: 17
-    match_count: 88
+    played_gamedays: 20
+    match_count: 89
     league_wins: 48
-    league_losses: 40
-    win_percentage: 54.55
-    rank: 5
+    league_losses: 41
+    win_percentage: 53.93
+    rank: 6
   -
     league:
       - e4cc34c4-9365-4e3e-8bb4-0199c6894cda

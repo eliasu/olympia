@@ -2,11 +2,11 @@
 id: 81275915-c6e1-472d-a025-4f091fb3a982
 blueprint: players
 title: 'Koby Intermediate'
-global_elo: 1416.79
+global_elo: 1420.16
 skill_rating: 1500.0
-total_games: 131
-wins: 64
-losses: 67
+total_games: 133
+wins: 65
+losses: 68
 player_status: active
 avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Koby+Intermediate'
 matches:
@@ -141,6 +141,27 @@ matches:
   - 709a7089-eb0e-4207-8cdd-852803b2db9f
   - 9196d1ca-8203-4443-b53c-0f7c39c0d37e
   - 1ce85a5a-ff36-465c-b37a-b12dcf3ca8f6
+  - a4d90ea9-5990-4bb4-949e-7ad6002b1a95
+  - bd455478-7dab-4d7c-8019-10ab634579e8
+  - a7d35f12-d11a-4340-8006-982ef4f929a5
+  - aa6096f3-966e-4714-b9e7-c9b991311c5d
+  - 618cb0d2-0e48-4f75-9f5c-008f5146591a
+  - c89a1c96-d8df-403c-83e3-fcafb2bbc883
+  - 97632b75-9750-4b85-be8d-2b705bc62ad5
+  - 5b2c9e73-528a-470c-9735-94c89d8c5a85
+  - eae27e70-d27e-47d8-bd50-14e3ee200fc2
+  - d93cb6f7-1438-4859-9075-948edfed1bde
+  - d8ab45f0-c47b-435a-b78c-18277f7dddf8
+  - 4575e02b-6d89-436d-be83-72d8039a7656
+  - f10e0ffc-c9da-4073-93b9-2ddd8ee80c96
+  - 70035566-97f0-4ef4-9142-86b14b79ea5e
+  - e6ef4e06-74f4-40a7-9fac-dc193ece9c84
+  - 8678dca6-92ea-4165-b837-13d21094fd18
+  - c77c490e-11ef-4caa-b052-8c4ded19b773
+  - f5776988-4c8e-4550-92e7-e705d0f1d13b
+  - 4422f366-276f-4623-9eae-14db3dab3385
+  - 2d2e8d9f-b3c1-49ab-95a7-56e6fc398caa
+  - 520161fb-49f5-421c-819e-79612cdd5d52
 elo_history:
   -
     date: '2026-01-28T00:00:00+00:00'
@@ -797,16 +818,26 @@ elo_history:
     elo: 1416.79
     match: 1ce85a5a-ff36-465c-b37a-b12dcf3ca8f6
     league: e4cc34c4-9365-4e3e-8bb4-0199c6894cda
+  -
+    date: '2026-06-18T00:00:00+00:00'
+    elo: 1408.43
+    match: 8678dca6-92ea-4165-b837-13d21094fd18
+    league: b
+  -
+    date: '2026-06-18T00:00:00+00:00'
+    elo: 1420.16
+    match: c77c490e-11ef-4caa-b052-8c4ded19b773
+    league: b
 league_stats:
   -
     league:
       - b08ea78f-3169-4571-b7c5-8ae0d49df9e7
-    played_gamedays: 16
-    match_count: 89
-    league_wins: 40
-    league_losses: 49
-    win_percentage: 44.94
-    rank: 19
+    played_gamedays: 21
+    match_count: 91
+    league_wins: 41
+    league_losses: 50
+    win_percentage: 45.05
+    rank: 18
   -
     league:
       - e4cc34c4-9365-4e3e-8bb4-0199c6894cda

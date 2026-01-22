@@ -168,6 +168,18 @@ matches:
   - aa0ff809-d7db-468b-b104-85861b3109af
   - 6d19cec4-8adf-458c-abd2-3a78dc842d13
   - e0437bb3-60fc-4bbb-8ec0-b630badcde82
+  - a4d90ea9-5990-4bb4-949e-7ad6002b1a95
+  - bd455478-7dab-4d7c-8019-10ab634579e8
+  - a7d35f12-d11a-4340-8006-982ef4f929a5
+  - aa6096f3-966e-4714-b9e7-c9b991311c5d
+  - 5b2c9e73-528a-470c-9735-94c89d8c5a85
+  - d93cb6f7-1438-4859-9075-948edfed1bde
+  - 990ebc0b-ec0b-431d-8ba0-86ac2cf5ec9b
+  - d8ab45f0-c47b-435a-b78c-18277f7dddf8
+  - 4575e02b-6d89-436d-be83-72d8039a7656
+  - 70035566-97f0-4ef4-9142-86b14b79ea5e
+  - 93598a75-51bc-4dff-9d25-7cef45964df2
+  - e6ef4e06-74f4-40a7-9fac-dc193ece9c84
 elo_history:
   -
     date: '2026-01-28T00:00:00+00:00'
@@ -963,12 +975,12 @@ league_stats:
   -
     league:
       - b08ea78f-3169-4571-b7c5-8ae0d49df9e7
-    played_gamedays: 20
+    played_gamedays: 23
     match_count: 109
     league_wins: 49
     league_losses: 60
     win_percentage: 44.95
-    rank: 18
+    rank: 19
   -
     league:
       - e4cc34c4-9365-4e3e-8bb4-0199c6894cda

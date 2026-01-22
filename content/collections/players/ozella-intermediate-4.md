@@ -2,11 +2,11 @@
 id: 7861a3c5-4c73-4f86-9548-b5303240f10e
 blueprint: players
 title: 'Ozella Intermediate'
-global_elo: 1408.01
+global_elo: 1387.92
 skill_rating: 1500.0
-total_games: 144
+total_games: 146
 wins: 74
-losses: 70
+losses: 72
 player_status: active
 avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Ozella+Intermediate'
 matches:
@@ -154,6 +154,16 @@ matches:
   - caef1883-983e-4f6b-9fea-31ba00c02c40
   - 35ee332d-6cca-41cd-8771-cf54d5ae27c1
   - 7eb469ec-7a61-4622-8adc-6e59e1e8af57
+  - a4d90ea9-5990-4bb4-949e-7ad6002b1a95
+  - bd455478-7dab-4d7c-8019-10ab634579e8
+  - a7d35f12-d11a-4340-8006-982ef4f929a5
+  - aa6096f3-966e-4714-b9e7-c9b991311c5d
+  - 8678dca6-92ea-4165-b837-13d21094fd18
+  - c77c490e-11ef-4caa-b052-8c4ded19b773
+  - f5776988-4c8e-4550-92e7-e705d0f1d13b
+  - 4422f366-276f-4623-9eae-14db3dab3385
+  - 2d2e8d9f-b3c1-49ab-95a7-56e6fc398caa
+  - 520161fb-49f5-421c-819e-79612cdd5d52
 elo_history:
   -
     date: '2026-01-28T00:00:00+00:00'
@@ -875,15 +885,25 @@ elo_history:
     elo: 1408.01
     match: 7eb469ec-7a61-4622-8adc-6e59e1e8af57
     league: e4cc34c4-9365-4e3e-8bb4-0199c6894cda
+  -
+    date: '2026-06-18T00:00:00+00:00'
+    elo: 1399.65
+    match: 8678dca6-92ea-4165-b837-13d21094fd18
+    league: b
+  -
+    date: '2026-06-18T00:00:00+00:00'
+    elo: 1387.92
+    match: c77c490e-11ef-4caa-b052-8c4ded19b773
+    league: b
 league_stats:
   -
     league:
       - b08ea78f-3169-4571-b7c5-8ae0d49df9e7
-    played_gamedays: 21
-    match_count: 117
+    played_gamedays: 23
+    match_count: 119
     league_wins: 56
-    league_losses: 61
-    win_percentage: 47.86
+    league_losses: 63
+    win_percentage: 47.06
     rank: 16
   -
     league:

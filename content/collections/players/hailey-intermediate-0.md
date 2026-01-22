@@ -2,10 +2,10 @@
 id: 5a2a82db-3432-4d1f-ab86-87ca01e3e08c
 blueprint: players
 title: 'Hailey Intermediate'
-global_elo: 1485.31
+global_elo: 1496.86
 skill_rating: 1500.0
-total_games: 147
-wins: 68
+total_games: 148
+wins: 69
 losses: 79
 player_status: active
 avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Hailey+Intermediate'
@@ -157,6 +157,22 @@ matches:
   - 6c35882b-4537-4d6b-b508-f7ac21638196
   - a2836263-ccb6-452c-ade7-2673fd76fc57
   - 4743a916-eafb-4298-a97b-bf799560cb3b
+  - c3d5e9b2-e719-4953-8e45-c17155a0e720
+  - c5d76d3b-f515-455f-ad26-e370ee657250
+  - f1fc9c81-839c-45df-86f4-33858df61dbe
+  - eddfcb58-b6e7-4be1-9cd1-c605b4d3423c
+  - 28961992-40e1-4073-966d-8a141959177a
+  - 97632b75-9750-4b85-be8d-2b705bc62ad5
+  - 99296f0b-defd-4c98-90ae-13c7dd6b9fd3
+  - 990ebc0b-ec0b-431d-8ba0-86ac2cf5ec9b
+  - 0de1f437-243c-40bc-b634-4a95bbfdc668
+  - 0e3a1c82-c97d-4859-9b46-fe54b2c28f82
+  - 28a3f462-84e2-46c5-bb57-340306fc5599
+  - e52ec4bf-e4bf-481b-9bc9-5bf92a3d8955
+  - ee8fb497-e8a1-42ad-8d79-6986cc01e5b4
+  - 4422f366-276f-4623-9eae-14db3dab3385
+  - 893d32c8-a93d-4e26-ba0a-e4b4329ddef2
+  - 63b67bea-1064-4118-9b29-f7a156d9f818
 elo_history:
   -
     date: '2026-01-28T00:00:00+00:00'
@@ -893,15 +909,20 @@ elo_history:
     elo: 1485.31
     match: 4743a916-eafb-4298-a97b-bf799560cb3b
     league: e4cc34c4-9365-4e3e-8bb4-0199c6894cda
+  -
+    date: '2026-01-22T22:54:18+00:00'
+    elo: 1496.86
+    match: 0e3a1c82-c97d-4859-9b46-fe54b2c28f82
+    league: null
 league_stats:
   -
     league:
       - b08ea78f-3169-4571-b7c5-8ae0d49df9e7
-    played_gamedays: 18
-    match_count: 98
-    league_wins: 43
+    played_gamedays: 23
+    match_count: 99
+    league_wins: 44
     league_losses: 55
-    win_percentage: 43.88
+    win_percentage: 44.44
     rank: 20
   -
     league:

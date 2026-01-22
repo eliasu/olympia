@@ -101,6 +101,12 @@ matches:
   - aa0ff809-d7db-468b-b104-85861b3109af
   - 6d19cec4-8adf-458c-abd2-3a78dc842d13
   - e0437bb3-60fc-4bbb-8ec0-b630badcde82
+  - 270b1342-4f98-4178-8789-255956492e2c
+  - bd455478-7dab-4d7c-8019-10ab634579e8
+  - 4e3ff401-3c6b-4248-b42d-3ee9a800a792
+  - 618cb0d2-0e48-4f75-9f5c-008f5146591a
+  - 28961992-40e1-4073-966d-8a141959177a
+  - 7ca275ff-7c25-4efc-b2a6-c76084bc04d6
 elo_history:
   -
     date: '2026-01-28T00:00:00+00:00'
@@ -561,7 +567,7 @@ league_stats:
   -
     league:
       - b08ea78f-3169-4571-b7c5-8ae0d49df9e7
-    played_gamedays: 12
+    played_gamedays: 14
     match_count: 63
     league_wins: 26
     league_losses: 37

@@ -2,11 +2,11 @@
 id: b926e2dc-b364-49df-9aaa-98221ec8a71e
 blueprint: players
 title: 'Donna Intermediate'
-global_elo: 1406.03
+global_elo: 1402.66
 skill_rating: 1500.0
-total_games: 122
-wins: 59
-losses: 63
+total_games: 124
+wins: 60
+losses: 64
 player_status: active
 avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Donna+Intermediate'
 matches:
@@ -132,6 +132,24 @@ matches:
   - 10d87cde-a40c-42e7-9450-18147f1a976f
   - 709a7089-eb0e-4207-8cdd-852803b2db9f
   - 4743a916-eafb-4298-a97b-bf799560cb3b
+  - 270b1342-4f98-4178-8789-255956492e2c
+  - a4d90ea9-5990-4bb4-949e-7ad6002b1a95
+  - 4e3ff401-3c6b-4248-b42d-3ee9a800a792
+  - 618cb0d2-0e48-4f75-9f5c-008f5146591a
+  - a07d2ead-79f8-4362-9083-9f0300c604d5
+  - 5b2c9e73-528a-470c-9735-94c89d8c5a85
+  - eae27e70-d27e-47d8-bd50-14e3ee200fc2
+  - d93cb6f7-1438-4859-9075-948edfed1bde
+  - f0a4dacf-840a-41ad-ab3f-cc50163d5b27
+  - 4575e02b-6d89-436d-be83-72d8039a7656
+  - f10e0ffc-c9da-4073-93b9-2ddd8ee80c96
+  - 93598a75-51bc-4dff-9d25-7cef45964df2
+  - 8678dca6-92ea-4165-b837-13d21094fd18
+  - c77c490e-11ef-4caa-b052-8c4ded19b773
+  - f5776988-4c8e-4550-92e7-e705d0f1d13b
+  - 4422f366-276f-4623-9eae-14db3dab3385
+  - 2d2e8d9f-b3c1-49ab-95a7-56e6fc398caa
+  - 520161fb-49f5-421c-819e-79612cdd5d52
 elo_history:
   -
     date: '2026-01-28T00:00:00+00:00'
@@ -743,16 +761,26 @@ elo_history:
     elo: 1406.03
     match: 4743a916-eafb-4298-a97b-bf799560cb3b
     league: e4cc34c4-9365-4e3e-8bb4-0199c6894cda
+  -
+    date: '2026-06-18T00:00:00+00:00'
+    elo: 1414.39
+    match: 8678dca6-92ea-4165-b837-13d21094fd18
+    league: b
+  -
+    date: '2026-06-18T00:00:00+00:00'
+    elo: 1402.66
+    match: c77c490e-11ef-4caa-b052-8c4ded19b773
+    league: b
 league_stats:
   -
     league:
       - b08ea78f-3169-4571-b7c5-8ae0d49df9e7
-    played_gamedays: 17
-    match_count: 90
-    league_wins: 44
-    league_losses: 46
-    win_percentage: 48.89
-    rank: 13
+    played_gamedays: 22
+    match_count: 92
+    league_wins: 45
+    league_losses: 47
+    win_percentage: 48.91
+    rank: 14
   -
     league:
       - e4cc34c4-9365-4e3e-8bb4-0199c6894cda
