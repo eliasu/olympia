@@ -54,7 +54,7 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-100 dark:divide-gray-700/50">
-                            {{ league_players :league="id" | sort("league_stats.rank") }}
+                            {{ league_players :league="id" sort="rank" }}
                             {{ league_stats }}
                             {{ if league:0 == ^id }}
                             <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-700/30 transition-colors">
@@ -85,14 +85,10 @@
                                 </td>
                                 <td
                                     class="hidden md:table-cell px-2 sm:px-4 md:px-6 py-5 whitespace-nowrap text-center">
-                                    {{ if win_percentage }}
                                     <span
                                         class="text-sm font-black {{ if win_percentage >= 60 }}text-emerald-500{{ elseif win_percentage >= 40 }}text-gray-500{{ else }}text-rose-500{{ /if }}">
-                                        {{ win_percentage }}%
+                                        {{ win_percentage ?? "– " }}%
                                     </span>
-                                    {{ else }}
-                                    <span class="text-sm font-black text-gray-400">-</span>
-                                    {{ /if }}
                                 </td>
                                 <td
                                     class="hidden md:table-cell px-2 sm:px-4 md:px-6 py-5 whitespace-nowrap text-center text-xs font-bold">

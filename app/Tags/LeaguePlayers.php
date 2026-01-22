@@ -10,13 +10,14 @@ class LeaguePlayers extends Tags
     /**
      * Get all players who participated in at least one gameday of this league.
      * 
-     * Usage: {{ league_players :league="id" }}
+     * Usage: {{ league_players :league="id" sort="rank" }}
      * 
      * @return array
      */
     public function index()
     {
         $leagueId = $this->params->get('league');
+        $sort = $this->params->get('sort');
         
         if (!$leagueId) {
             return [];
@@ -47,6 +48,42 @@ class LeaguePlayers extends Tags
             ->filter()
             ->values();
         
-        return $players;
+        // Apply sorting if requested
+        if ($sort === 'rank') {
+            $players = $players->sort(function($a, $b) use ($leagueId) {
+                $rankA = $this->getLeagueRank($a, $leagueId);
+                $rankB = $this->getLeagueRank($b, $leagueId);
+                
+                // Players without rank go to the end
+                if ($rankA === null && $rankB === null) return 0;
+                if ($rankA === null) return 1;
+                if ($rankB === null) return -1;
+                
+                return $rankA <=> $rankB;
+            })->values();
+        }
+        
+        return $players->all();
+    }
+    
+    /**
+     * Get the rank for a player in a specific league
+     * 
+     * @param \Statamic\Entries\Entry $player
+     * @param string $leagueId
+     * @return int|null
+     */
+    protected function getLeagueRank($player, $leagueId)
+    {
+        $leagueStats = $player->get('league_stats', []);
+        
+        foreach ($leagueStats as $stat) {
+            $statLeague = $stat['league'] ?? [];
+            if (is_array($statLeague) && in_array($leagueId, $statLeague)) {
+                return $stat['rank'] ?? null;
+            }
+        }
+        
+        return null;
     }
 }
