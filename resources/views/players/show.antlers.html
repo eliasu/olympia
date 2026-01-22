@@ -129,15 +129,13 @@
         <div class="lg:col-span-2">
             <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Match History</h2>
 
-            {{ player_matches :player="id" sort="desc" limit="24" }}
-
-            <div class="space-y-4">
-                
+            <div class="flex flex-col -space-y-px">
+                {{ player_matches :player="id" sort="desc" limit="24" }}
                 <div
-                    class="relative group bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-4 hover:shadow-md transition-all">
+                    class="relative group bg-white dark:bg-gray-800 {{ if first }}rounded-t-xl{{ /if }} {{ if last }}rounded-b-xl{{ /if }} shadow-sm border border-gray-100 dark:border-gray-700 p-4 hover:bg-blue-50/40 dark:hover:bg-blue-900/10 hover:shadow-lg transition-all hover:z-10">
                     
                     <!-- Main Match Link (Stretched) -->
-                    <a href="{{ url }}" class="absolute inset-0 z-0 rounded-xl"></a>
+                    <a href="{{ url }}" class="absolute inset-0 z-0 {{ if first }}rounded-t-xl{{ /if }} {{ if last }}rounded-b-xl{{ /if }}"></a>
 
                     <div class="relative z-10 grid grid-cols-1 sm:grid-cols-12 items-center gap-4 pointer-events-none">
 
@@ -244,8 +242,8 @@
                         </div>
                     </div>
                 </div>
+                {{ /player_matches }}
             </div>
-            {{ /player_matches }}
         </div>
     </div>
 </div>
