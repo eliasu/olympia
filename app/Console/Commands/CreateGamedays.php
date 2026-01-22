@@ -53,15 +53,25 @@ class CreateGamedays extends Command
         $this->info("Courts: {$courtsCount}, Games per court: {$gamesPerCourt}");
         $this->info("Smart attendance: Better players (higher Elo) attend more often");
         
+        // Check for existing gamedays to continue numbering
+        $existingGamedaysCount = Entry::query()
+            ->where('collection', 'gamedays')
+            ->where('league', $league->id())
+            ->count();
+            
+        $this->info("Found {$existingGamedaysCount} existing gamedays. Continuing from Gameday " . ($existingGamedaysCount + 1));
+        
         $bar = $this->output->createProgressBar($count);
         $bar->start();
         
         for ($i = 0; $i < $count; $i++) {
+            // Offset the index by existing gamedays count
+            $currentIndex = $existingGamedaysCount + $i;
             $date = $startDate->copy()->addWeeks($i);
-            $title = "Gameday " . ($i + 1);
+            $title = "Gameday " . ($currentIndex + 1);
             
-            // For dated entries: slug is just the suffix, date is set separately
-            $slug = 'gameday';
+            // Generate slug from title (behaves like automatic generation)
+            $slug = \Illuminate\Support\Str::slug($title);
             
             // Smart attendance: Select players based on Elo
             $selectedPlayers = $this->selectPlayersWithSmartAttendance($allPlayers);

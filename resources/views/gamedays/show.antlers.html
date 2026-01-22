@@ -1,92 +1,4 @@
 <script>
-    window.gamedayData = {
-        matches: {{ matches | select('id', 'score_a', 'score_b', 'team_a', 'team_b', 'url', 'elo_delta') | json }},
-    players: { { present_players | select('id', 'title', 'avatar_url', 'url') | json } }
-};
-
-    function gamedayRanking(data) {
-        return {
-            matches: data.matches || [],
-            players: data.players || [],
-            get sortedPlayers() {
-                let stats = {};
-
-                const getID = (obj) => {
-                    if (!obj) return null;
-                    if (typeof obj === 'string') return obj;
-                    return obj.id || obj.uuid || null;
-                };
-
-                // Initialize stats
-                this.players.forEach(p => {
-                    const id = getID(p);
-                    if (!id) return;
-                    stats[id] = {
-                        id,
-                        title: p.title || 'Unknown',
-                        avatar_url: p.avatar_url,
-                        url: p.url,
-                        wins: 0,
-                        losses: 0,
-                        elo_delta: 0  // Track Elo performance
-                    };
-                });
-
-                // Calculate stats from matches
-                this.matches.forEach(m => {
-                    const scoreA = parseInt(m.score_a);
-                    const scoreB = parseInt(m.score_b);
-                    const eloDelta = parseFloat(m.elo_delta) || 0;
-
-                    if (isNaN(scoreA) || isNaN(scoreB) || eloDelta === 0) return;
-
-                    const teamAWon = scoreA > scoreB;
-
-                    // Team A
-                    (m.team_a || []).forEach(p => {
-                        const id = getID(p);
-                        if (!id) return;
-                        if (!stats[id]) {
-                            stats[id] = { id, title: p.title || 'Unknown', avatar_url: p.avatar_url, url: p.url, wins: 0, losses: 0, elo_delta: 0 };
-                        }
-
-                        // Team A: Use delta as-is (delta is signed: positive = Team A gain)
-                        stats[id].elo_delta += eloDelta;
-
-                        // Track wins/losses
-                        if (teamAWon) {
-                            stats[id].wins++;
-                        } else {
-                            stats[id].losses++;
-                        }
-                    });
-
-                    // Team B
-                    (m.team_b || []).forEach(p => {
-                        const id = getID(p);
-                        if (!id) return;
-                        if (!stats[id]) {
-                            stats[id] = { id, title: p.title || 'Unknown', avatar_url: p.avatar_url, url: p.url, wins: 0, losses: 0, elo_delta: 0 };
-                        }
-
-                        // Team B: Invert delta (delta is signed: positive = Team A gain, so Team B loses)
-                        stats[id].elo_delta -= eloDelta;
-
-                        // Track wins/losses
-                        if (!teamAWon) {
-                            stats[id].wins++;
-                        } else {
-                            stats[id].losses++;
-                        }
-                    });
-                });
-
-                return Object.values(stats)
-                    .filter(p => (p.wins + p.losses) > 0)
-                    .sort((a, b) => b.elo_delta - a.elo_delta);  // Sort by Elo performance
-            }
-        }
-    }
     async function saveScore(matchId, scoreA, scoreB) {
         if (scoreA === '' || scoreB === '') return;
         try {
@@ -110,7 +22,7 @@
     }
 </script>
 
-<div x-data="gamedayRanking(window.gamedayData)" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
     <!-- Top Header (Breadcrumb & Title) -->
     <div class="mb-8 border-b border-gray-200 dark:border-gray-700 pb-8">
@@ -129,49 +41,47 @@
                     {{ if is_finished }}
                     <span
                         class="inline-flex items-center px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 font-bold border border-gray-200 dark:border-gray-700">
-                        Gameday finalized
+                        🏁 Gameday finalized
                     </span>
                     {{ elseif generated_plan }}
                     <span
                         class="inline-flex items-center px-3 py-1 rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 font-bold">
-                        Plan generated
+                        ✅ Plan generated
                     </span>
                     {{ else }}
                     <span
                         class="inline-flex items-center px-3 py-1 rounded-full bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 font-bold">
-                        Draft
+                        ⏳ Planning needed
                     </span>
                     {{ /if }}
+                </div>
+            </div>
 
-                    <span
-                        class="inline-flex items-center px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-300 font-bold border border-indigo-200 dark:border-indigo-800/50">
-                        {{ present_players | count }} Players
-                    </span>
+            <!-- Stats Summary -->
+            <div class="flex gap-6 text-sm">
+                <div class="text-center">
+                    <div class="text-2xl font-black text-indigo-600 dark:text-indigo-400">{{ present_players | count }}</div>
+                    <div class="text-[10px] font-black uppercase tracking-widest text-gray-400">Players</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-black text-indigo-600 dark:text-indigo-400">{{ matches | count }}</div>
+                    <div class="text-[10px] font-black uppercase tracking-widest text-gray-400">Matches</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-        <!-- MAIN CONTENT: Matches -->
-        <div class="{{ is_finished ? 'lg:col-span-8' : 'lg:col-span-12' }} space-y-8">
-            <h2 class="text-2xl font-black text-gray-900 dark:text-white tracking-tight flex items-center gap-3">
-                <span class="p-2 bg-indigo-100 dark:bg-indigo-900/50 rounded-xl text-indigo-600 dark:text-indigo-400">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                            d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                    </svg>
-                </span>
-                Matches
-                <span class="text-sm font-bold text-gray-400">({{ matches | count }})</span>
-            </h2>
+    <!-- Main Content Grid -->
+    <div class="grid grid-cols-1 {{ if is_finished && gameday_rankings }}lg:grid-cols-12{{ /if }} gap-8">
 
-            <div class="space-y-4">
+        <!-- LEFT: Matches List -->
+        <div class="{{ if is_finished && gameday_rankings }}lg:col-span-8{{ else }}lg:col-span-12{{ /if }}">
+            <div class="space-y-6">
                 {{ matches }}
                 <div
-                    class="group relative bg-white dark:bg-gray-800 shadow-sm rounded-2xl border border-gray-200 dark:border-gray-700 p-6 transition-all hover:shadow-md">
+                    class="bg-white dark:bg-gray-800 rounded-[2.5rem] shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-3xl transition-shadow">
+                    <div class="p-6 sm:p-8 flex flex-col md:flex-row items-center gap-6 md:gap-8">
 
-                    <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
                         <!-- Team A -->
                         <div class="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
                             <div class="font-black text-[10px] uppercase tracking-widest text-gray-400 mb-3">Team A
@@ -266,11 +176,11 @@
             {{ /if }}
         </div>
 
-        <!-- SIDEBAR: Gameday Ranking (Only if finished) -->
-        {{ if is_finished }}
+        <!-- SIDEBAR: Gameday Winner (Only if finished and rankings exist) -->
+        {{ if is_finished && gameday_rankings }}
         <div class="lg:col-span-4 space-y-8">
             <section
-                class="bg-white dark:bg-gray-800 rounded-[2.5rem] shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden sticky top-8">
+                class="bg-white dark:bg-gray-800 rounded-[2.5rem] shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden">
                 <div class="p-8">
                     <h2
                         class="text-xl font-black text-gray-900 dark:text-white tracking-tight flex items-center gap-3 mb-6">
@@ -281,36 +191,50 @@
                                     d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                             </svg>
                         </span>
-                        Gameday Leaderboard
+                        🏆 Gameday Winner
                     </h2>
 
-                    <div class="space-y-4">
-                        <template x-for="(player, index) in sortedPlayers" :key="player.id">
-                            <a :href="player.url"
-                                class="flex items-center justify-between p-3 rounded-2xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all group">
-                                <div class="flex items-center gap-3 text-left">
-                                    <span class="w-5 text-sm font-black"
-                                        :class="index < 3 ? 'text-amber-500' : 'text-gray-300 dark:text-gray-600'"
-                                        x-text="index + 1 + '.'"></span>
-                                    <div
-                                        class="h-9 w-9 flex-shrink-0 rounded-xl overflow-hidden shadow-sm bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-xs font-black text-indigo-600 dark:text-indigo-400">
-                                        <template x-if="player.avatar_url">
-                                            <img :src="player.avatar_url" class="h-full w-full object-cover">
-                                        </template>
-                                        <template x-if="!player.avatar_url">
-                                            <span
-                                                x-text="player.title ? player.title.split(' ').map(n => n[0]).join('') : '?'"></span>
-                                        </template>
-                                    </div>
-                                    <div class="flex flex-col min-w-0">
-                                        <span class="text-sm font-bold text-gray-900 dark:text-white truncate"
-                                            x-text="player.title"></span>
-                                        <span class="text-[9px] font-black uppercase tracking-widest text-gray-400"
-                                            x-text="player.wins + 'W - ' + player.losses + 'L'"></span>
+                    <div class="space-y-3">
+                        {{ gameday_rankings }}
+                        {{ gameday_wins = wins }}
+                        {{ gameday_losses = losses }}
+                        {{ player }}
+                        <a href="{{ url }}"
+                            class="flex items-center justify-between p-4 rounded-2xl {{ if rank == 1 }}bg-gradient-to-r from-amber-50 to-yellow-50 dark:from-amber-900/20 dark:to-yellow-900/20 {{ else }}hover:bg-gray-50 dark:hover:bg-gray-700/50{{ /if }} transition-all group">
+                            <div class="flex items-center gap-4 text-left flex-1 min-w-0">
+                                <!-- Rank -->
+                                <span class="w-6 text-base font-black flex-shrink-0 {{ if rank == 1 }}text-amber-500{{ elseif rank == 2 }}text-gray-400{{ elseif rank == 3 }}text-orange-400{{ else }}text-gray-300 dark:text-gray-600{{ /if }}">
+                                    {{ if rank == 1 }}🥇{{ elseif rank == 2 }}🥈{{ elseif rank == 3 }}🥉{{ else }}{{ rank }}.{{ /if }}
+                                </span>
+                                
+                                <!-- Avatar -->
+                                <div
+                                    class="h-11 w-11 flex-shrink-0 rounded-xl overflow-hidden shadow-md bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-xs font-black text-indigo-600 dark:text-indigo-400">
+                                    {{ if avatar_url }}
+                                    <img src="{{ avatar_url }}" class="h-full w-full object-cover">
+                                    {{ else }}
+                                    <span>{{ title | truncate:2:'' | upper }}</span>
+                                    {{ /if }}
+                                </div>
+                                
+                                <!-- Player Info -->
+                                <div class="flex flex-col min-w-0 flex-1">
+                                    <span class="text-sm font-bold text-gray-900 dark:text-white truncate">{{ title }}</span>
+                                    <div class="flex items-center gap-2 text-[10px] font-black uppercase tracking-wider text-gray-400">
+                                        <span>{{ gameday_wins }}W-{{ gameday_losses }}L</span>
+                                        <span class="text-gray-300 dark:text-gray-600">•</span>
+                                        <span>{{ win_percentage }}%</span>
                                     </div>
                                 </div>
-                            </a>
-                        </template>
+                                
+                                <!-- Elo Gain Badge -->
+                                <div class="flex-shrink-0 px-2 py-1 rounded-lg {{ if elo_gain >= 0 }}bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400{{ else }}bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400{{ /if }}">
+                                    <span class="text-xs font-black">{{ if elo_gain >= 0 }}+{{ /if }}{{ elo_gain }}</span>
+                                </div>
+                            </div>
+                        </a>
+                        {{ /player }}
+                        {{ /gameday_rankings }}
                     </div>
                 </div>
             </section>

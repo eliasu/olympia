@@ -9,7 +9,7 @@ preferences:
       columns:
         - title
         - slug
-        - players
+        - active
     gamedays:
       columns:
         - title
@@ -19,6 +19,7 @@ preferences:
         - generated_plan
         - courts_count
         - games_per_court
+        - slug
       after_save: continue_editing
     matches:
       columns:

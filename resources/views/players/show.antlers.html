@@ -129,9 +129,10 @@
         <div class="lg:col-span-2">
             <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Match History</h2>
 
-            {{ matches sort="gameday:date:desc" paginate="20" }}
+            {{ player_matches :player="id" sort="desc" limit="24" }}
+
             <div class="space-y-4">
-                {{ results }}
+                
                 <div
                     class="relative group bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-4 hover:shadow-md transition-all">
                     
@@ -243,16 +244,8 @@
                         </div>
                     </div>
                 </div>
-                {{ /results }}
-
-                {{ if no_results }}
-                <div
-                    class="p-8 text-center text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-dashed border-gray-200 dark:border-gray-700">
-                    No matches found.
-                </div>
-                {{ /if }}
             </div>
-            {{ /matches }}
+            {{ /player_matches }}
         </div>
     </div>
 </div>

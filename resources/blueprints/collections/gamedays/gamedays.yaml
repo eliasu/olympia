@@ -30,6 +30,81 @@ tabs:
               collections:
                 - matches
               display: Matches
+  results:
+    display: Results
+    sections:
+      -
+        display: 'Gameday Rankings'
+        fields:
+          -
+            handle: gameday_rankings
+            field:
+              type: grid
+              display: 'Daily Leaderboard'
+              instructions: 'Calculated automatically when gameday is finalized - shows who won the day!'
+              visibility: read_only
+              reorderable: false
+              add_row: false
+              delete_row: false
+              fields:
+                -
+                  handle: rank
+                  field:
+                    type: integer
+                    display: Rank
+                    width: 10
+                -
+                  handle: player
+                  field:
+                    type: entries
+                    collections:
+                      - players
+                    max_items: 1
+                    display: Player
+                    width: 25
+                -
+                  handle: matches_played
+                  field:
+                    type: integer
+                    display: Matches
+                    width: 10
+                -
+                  handle: wins
+                  field:
+                    type: integer
+                    display: W
+                    width: 8
+                -
+                  handle: losses
+                  field:
+                    type: integer
+                    display: L
+                    width: 8
+                -
+                  handle: win_percentage
+                  field:
+                    type: float
+                    display: 'Win %'
+                    width: 12
+                -
+                  handle: elo_start
+                  field:
+                    type: float
+                    display: 'Elo Start'
+                    width: 12
+                -
+                  handle: elo_end
+                  field:
+                    type: float
+                    display: 'Elo End'
+                    width: 12
+                -
+                  handle: elo_gain
+                  field:
+                    type: float
+                    display: 'Elo Gain'
+                    instructions: 'Can be negative'
+                    width: 12
   sidebar:
     display: Sidebar
     sections:

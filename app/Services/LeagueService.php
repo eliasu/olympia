@@ -346,6 +346,12 @@ class LeagueService
             $this->processMatchElo($match, $kFactor);
         }
         
+        // NEW: Calculate gameday rankings BEFORE marking as finished
+        $gamedayRankings = $this->calculateGamedayRankings($gamedayId, $matches);
+        
+        // Store rankings in gameday
+        $gameday->set('gameday_rankings', $gamedayRankings);
+        
         // Mark gameday as finished
         $gameday->set('is_finished', true);
         $gameday->save();
@@ -361,6 +367,125 @@ class LeagueService
         foreach ($affectedLeagues as $affectedLeagueId) {
             $this->recalculateLeagueRanks($affectedLeagueId);
         }
+    }
+    
+    /**
+     * Calculate gameday rankings for all players who participated.
+     * 
+     * Ranks players based on:
+     * 1. Win% of the day (primary)
+     * 2. Elo Gain of the day (tiebreaker)
+     * 3. Total Wins of the day (tiebreaker)
+     * 4. Global Elo (final tiebreaker)
+     * 
+     * @param string $gamedayId
+     * @param \Illuminate\Support\Collection $matches Played matches from this gameday
+     * @return array Ranking data for each player
+     */
+    protected function calculateGamedayRankings($gamedayId, $matches)
+    {
+        $gameday = Entry::find($gamedayId);
+        $presentPlayerIds = $gameday->get('present_players', []);
+        
+        $rankings = [];
+        
+        foreach ($presentPlayerIds as $playerId) {
+            $player = Entry::find($playerId);
+            if (!$player) continue;
+            
+            // Find all matches this player participated in
+            $playerMatches = $matches->filter(function($match) use ($playerId) {
+                $teamA = (array)$match->get('team_a', []);
+                $teamB = (array)$match->get('team_b', []);
+                return in_array($playerId, $teamA) || in_array($playerId, $teamB);
+            });
+            
+            // Skip players who didn't play any matches
+            if ($playerMatches->count() === 0) {
+                continue;
+            }
+            
+            // Get starting Elo from first match
+            $firstMatch = $playerMatches->first();
+            $isTeamA = in_array($playerId, (array)$firstMatch->get('team_a', []));
+            $elosBefore = $isTeamA 
+                ? $firstMatch->get('team_a_elo_before') 
+                : $firstMatch->get('team_b_elo_before');
+            
+            $teamIds = $isTeamA 
+                ? (array)$firstMatch->get('team_a') 
+                : (array)$firstMatch->get('team_b');
+            $playerIndex = array_search($playerId, $teamIds);
+            $eloStart = $elosBefore[$playerIndex] ?? 1500;
+            
+            // Get ending Elo (current player Elo after all updates)
+            $eloEnd = (float)$player->get('global_elo', 1500);
+            $eloGain = round($eloEnd - $eloStart, 2);
+            
+            // Count wins/losses today
+            $winsToday = 0;
+            $lossesToday = 0;
+            
+            foreach ($playerMatches as $match) {
+                $isTeamA = in_array($playerId, (array)$match->get('team_a', []));
+                $scoreA = (int)$match->get('score_a');
+                $scoreB = (int)$match->get('score_b');
+                
+                $playerWon = $isTeamA ? ($scoreA > $scoreB) : ($scoreB > $scoreA);
+                
+                if ($playerWon) {
+                    $winsToday++;
+                } else {
+                    $lossesToday++;
+                }
+            }
+            
+            $matchesPlayed = $winsToday + $lossesToday;
+            $winPercentage = $matchesPlayed > 0 ? ($winsToday / $matchesPlayed) * 100 : 0;
+            
+            $rankings[] = [
+                'player_id' => $playerId,
+                'player' => [$playerId],  // Array format for Statamic entries field
+                'matches_played' => $matchesPlayed,
+                'wins' => $winsToday,
+                'losses' => $lossesToday,
+                'win_percentage' => round($winPercentage, 2),
+                'elo_start' => round($eloStart, 2),
+                'elo_end' => round($eloEnd, 2),
+                'elo_gain' => $eloGain,
+                'global_elo' => $eloEnd  // For tiebreaker sorting
+            ];
+        }
+        
+        // Sort by ranking criteria
+        usort($rankings, function($a, $b) {
+            // 1. Win% (descending)
+            if ($a['win_percentage'] != $b['win_percentage']) {
+                return $b['win_percentage'] <=> $a['win_percentage'];
+            }
+            
+            // 2. Elo Gain (descending)
+            if ($a['elo_gain'] != $b['elo_gain']) {
+                return $b['elo_gain'] <=> $a['elo_gain'];
+            }
+            
+            // 3. Total Wins (descending)
+            if ($a['wins'] != $b['wins']) {
+                return $b['wins'] <=> $a['wins'];
+            }
+            
+            // 4. Global Elo (descending)
+            return $b['global_elo'] <=> $a['global_elo'];
+        });
+        
+        // Assign ranks and remove helper fields
+        foreach ($rankings as $index => &$ranking) {
+            $ranking['rank'] = $index + 1;
+            unset($ranking['player_id']);  // Remove helper field
+            unset($ranking['global_elo']);  // Remove helper field
+        }
+        
+        return $rankings;
     }
     
     /**
