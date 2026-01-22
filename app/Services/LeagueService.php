@@ -536,7 +536,11 @@ class LeagueService
         $gamedayId = $match->get('gameday')[0] ?? null;
         $gameday = $gamedayId ? Entry::find($gamedayId) : null;
         $leagueId = $gameday ? ($gameday->get('league')[0] ?? null) : null;
-        $matchDate = $match->get('date') ?? now();
+        
+        // Get date from gameday (Statamic extracts from filename for date-ordered collections)
+        $matchDate = $gameday && $gameday->date() ? $gameday->date()->toIso8601String() : now()->toIso8601String();
+
+
         
         // Update Team A players
         foreach ($teamAPlayers as $player) {

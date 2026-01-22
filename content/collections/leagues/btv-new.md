@@ -60,12 +60,20 @@ players:
   - 70727ae8-762e-48da-b2be-21bcd55c98b0
   - ff8850c9-740b-4493-a3fc-6e86b1f6de80
 gamedays:
-  - ae999eaf-a0b3-4d0c-85c5-f2a00a10a83d
-  - 3da926be-0585-4ff1-931e-5cd4595d59d5
-  - 1bca404b-d747-4ad8-b193-d7c3e5381983
-  - e3886645-117e-4165-baaa-47d6abaaca43
-  - 1094edce-e5c5-42d7-ad0e-e49b542e4a2f
-  - 1fee5ceb-13b6-42cb-bc90-5754a76c0a25
-  - 7dbc6afb-dec6-42f3-b23b-bb2483e45494
-  - f98f7d12-ed7a-4903-af08-3cac20470e3a
+  - fcc8ed60-4851-4836-9b6e-dea45abe96ea
+  - ef0b2407-5f6c-4787-aeac-2a0a2e13adba
+  - a330228c-2fa7-4ffb-aab3-f7e2d3eeebf8
+  - 55993a71-3abd-4500-ba19-acb63bf47852
+  - 4efc0fe9-0daf-4253-8d9d-14bcb7997306
+  - d75567fa-ea74-4f22-affa-cefb74f7333c
+  - 0c7b3577-7452-4379-a51d-01d8231fc8b3
+  - 33a4452c-9a3b-468a-873b-c071065e340b
+  - b47cbba4-b7fb-4a76-96f5-ce6ea06570ca
+  - 79220c7c-1af1-4065-b9d5-9582e9d73980
+  - b003aa69-320c-4a6a-b846-9043dbadb880
+  - 6ec240cd-3e40-4f48-96c3-97deb5ff2ac4
+  - c79098d4-9899-4f94-a805-2f274c4fd153
+  - 78473919-cf99-47bc-be6c-f2c6994eecad
+  - 63a3bc05-f815-427b-add9-020255c1bdae
+  - b3758f7b-0e3e-4cda-a870-e66886997a2c
 ---

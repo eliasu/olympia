@@ -65,11 +65,12 @@ class CreatePlayers extends Command
 
             for ($i = 0; $i < $count; $i++) {
                 $elo = $baseElo + rand(-$variance, $variance);
-                $playerName = $faker->firstName() . ' ' . $skillLevel;
+                $firstName = $faker->firstName();
+                $playerName = $firstName . ' ' . $skillLevel;
 
                 $player = Entry::make()
                     ->collection('players')
-                    ->slug(\Illuminate\Support\Str::slug($faker->firstName() . '-' . $skillLevel . '-' . $i))
+                    ->slug(\Illuminate\Support\Str::slug($firstName . '-' . $skillLevel . '-' . $i))
                     ->data([
                         'title' => $playerName,
                         'global_elo' => (float)$elo,
