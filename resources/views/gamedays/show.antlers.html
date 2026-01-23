@@ -75,13 +75,13 @@
     <div class="grid grid-cols-1 {{ if is_finished && gameday_rankings }}lg:grid-cols-12{{ /if }} gap-8">
 
         <!-- LEFT: Matches List -->
-        <div class="{{ if is_finished && gameday_rankings }}lg:col-span-8{{ else }}lg:col-span-12{{ /if }}">
+        <div class="{{ if is_finished && gameday_rankings }}lg:col-span-8 order-2 lg:order-1{{ else }}lg:col-span-12{{ /if }}">
             <div class="space-y-6">
                 {{ nocache }}
                 {{ matches }}
                 <div
-                    class="bg-white dark:bg-gray-800 rounded-[2.5rem] shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-3xl transition-shadow">
-                    <div class="p-6 sm:p-8 flex flex-col md:flex-row items-center gap-6 md:gap-8">
+                    class="bg-white dark:bg-gray-800 rounded-2xl sm:rounded-[2.5rem] shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-3xl transition-shadow">
+                    <div class="p-4 sm:p-8 flex flex-col md:flex-row items-center gap-6 md:gap-8">
 
                         <!-- Team A -->
                         <div class="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
@@ -102,7 +102,7 @@
                             <div class="mt-2">
                                 {{ team_a }}
                                 <a href="{{ url }}"
-                                    class="text-xs font-bold text-gray-900 dark:text-white hover:text-indigo-500 transition-colors inline-block mr-1">
+                                    class="text-xs font-bold text-gray-900 dark:text-white hover:text-indigo-500 transition-colors inline-block mr-1 truncate max-w-[80px]">
                                     {{ title }}{{ if !last }}, {{ /if }}
                                 </a>
                                 {{ /team_a }}
@@ -152,7 +152,7 @@
                             <div class="mt-2">
                                 {{ team_b }}
                                 <a href="{{ url }}"
-                                    class="text-xs font-bold text-gray-900 dark:text-white hover:text-indigo-500 transition-colors inline-block mr-1">
+                                    class="text-xs font-bold text-gray-900 dark:text-white hover:text-indigo-500 transition-colors inline-block mr-1 truncate max-w-[80px]">
                                     {{ title }}{{ if !last }}, {{ /if }}
                                 </a>
                                 {{ /team_b }}
@@ -166,7 +166,7 @@
 
             {{ if !matches }}
             <div
-                class="p-20 text-center text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-800/30 rounded-[2.5rem] border-2 border-dashed border-gray-200 dark:border-gray-700">
+                class="p-20 text-center text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-800/30 rounded-2xl sm:rounded-[2.5rem] border-2 border-dashed border-gray-200 dark:border-gray-700">
                 <svg class="w-12 h-12 mx-auto text-gray-300 dark:text-gray-600 mb-4" fill="none" stroke="currentColor"
                     viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -180,10 +180,10 @@
 
         <!-- SIDEBAR: Gameday Winner (Only if finished and rankings exist) -->
         {{ if is_finished && gameday_rankings }}
-        <div class="lg:col-span-4 space-y-8">
+        <div class="lg:col-span-4 space-y-8 order-1 lg:order-2">
             <section
-                class="bg-white dark:bg-gray-800 rounded-[2.5rem] shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden">
-                <div class="p-8">
+                class="bg-white dark:bg-gray-800 rounded-2xl sm:rounded-[2.5rem] shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden">
+                <div class="p-4 sm:p-8">
                     <h2
                         class="text-xl font-black text-gray-900 dark:text-white tracking-tight flex items-center gap-3 mb-6">
                         <span
@@ -203,7 +203,7 @@
                         {{ player }}
                         <a href="{{ url }}"
                             class="flex items-center justify-between p-4 rounded-2xl {{ if rank == 1 }}bg-gradient-to-r from-amber-50 to-yellow-50 dark:from-amber-900/20 dark:to-yellow-900/20 {{ else }}hover:bg-gray-50 dark:hover:bg-gray-700/50{{ /if }} transition-all group">
-                            <div class="flex items-center gap-4 text-left flex-1 min-w-0">
+                            <div class="flex items-center gap-2 text-left flex-1 min-w-0">
                                 <!-- Rank -->
                                 <span class="w-6 text-base font-black flex-shrink-0 {{ if rank == 1 }}text-amber-500{{ elseif rank == 2 }}text-gray-400{{ elseif rank == 3 }}text-orange-400{{ else }}text-gray-300 dark:text-gray-600{{ /if }}">
                                     {{ if rank == 1 }}🥇{{ elseif rank == 2 }}🥈{{ elseif rank == 3 }}🥉{{ else }}{{ rank }}.{{ /if }}
@@ -222,7 +222,7 @@
                                 <!-- Player Info -->
                                 <div class="flex flex-col min-w-0 flex-1">
                                     <span class="text-sm font-bold text-gray-900 dark:text-white truncate">{{ title }}</span>
-                                    <div class="flex items-center gap-2 text-[10px] font-black uppercase tracking-wider text-gray-400">
+                                    <div class="flex items-center gap-1 text-[10px] font-black uppercase tracking-wider text-gray-400 whitespace-nowrap">
                                         <span>{{ gameday_wins }}W-{{ gameday_losses }}L</span>
                                         <span class="text-gray-300 dark:text-gray-600">•</span>
                                         <span>{{ win_percentage }}%</span>

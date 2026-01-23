@@ -2,11 +2,11 @@
 id: 2ff4aabc-7955-4e32-8197-7fceb407fc24
 blueprint: players
 title: 'Emmett Intermediate'
-global_elo: 1426.37
+global_elo: 1425.94
 skill_rating: 1500.0
-total_games: 158
-wins: 72
-losses: 86
+total_games: 160
+wins: 73
+losses: 87
 player_status: active
 avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Emmett+Intermediate'
 matches:
@@ -185,6 +185,11 @@ matches:
   - 23e74d36-734c-4b74-b25e-9b666b1afa92
   - f5d2181b-fc29-4fb7-8e92-13312e567d4a
   - 56873957-cbcb-4b48-8037-ac54aeb112d2
+  - cbc635da-e2e4-4702-9315-024325c75a1a
+  - fa9ad583-7209-4d27-8481-7087bb3d010d
+  - fd802e96-cb45-41cb-8fdd-e58db0ed30cf
+  - 4f886500-4858-41ff-bde2-5d6cd17a2e36
+  - b19a6438-e69e-4775-9968-f24245a35950
 elo_history:
   -
     date: '2026-01-28T00:00:00+00:00'
@@ -976,11 +981,21 @@ elo_history:
     elo: 1426.37
     match: e0437bb3-60fc-4bbb-8ec0-b630badcde82
     league: e4cc34c4-9365-4e3e-8bb4-0199c6894cda
+  -
+    date: '2026-08-20T00:00:00+00:00'
+    elo: 1418.95
+    match: cbc635da-e2e4-4702-9315-024325c75a1a
+    league: e
+  -
+    date: '2026-08-20T00:00:00+00:00'
+    elo: 1425.94
+    match: fa9ad583-7209-4d27-8481-7087bb3d010d
+    league: e
 league_stats:
   -
     league:
       - b08ea78f-3169-4571-b7c5-8ae0d49df9e7
-    played_gamedays: 23
+    played_gamedays: 24
     match_count: 109
     league_wins: 49
     league_losses: 60
@@ -989,10 +1004,10 @@ league_stats:
   -
     league:
       - e4cc34c4-9365-4e3e-8bb4-0199c6894cda
-    played_gamedays: 8
-    match_count: 49
-    league_wins: 23
-    league_losses: 26
-    win_percentage: 46.94
+    played_gamedays: 9
+    match_count: 51
+    league_wins: 24
+    league_losses: 27
+    win_percentage: 47.06
     rank: 13
 ---

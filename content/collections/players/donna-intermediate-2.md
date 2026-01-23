@@ -780,7 +780,7 @@ league_stats:
   -
     league:
       - b08ea78f-3169-4571-b7c5-8ae0d49df9e7
-    played_gamedays: 22
+    played_gamedays: 23
     match_count: 92
     league_wins: 45
     league_losses: 47

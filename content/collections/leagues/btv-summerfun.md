@@ -20,4 +20,6 @@ gamedays:
   - 75efe5c4-640d-4c66-859a-2a62c2a3ffe3
   - c30045f9-b7d6-4a65-827a-af8905a94565
   - 9a81af2b-0205-477d-b94b-6bb0e7efd6fd
+  - 38c62d58-7ec4-4fea-b5ad-8967a7cefcb6
+  - 5aab0e17-ffb7-45e0-b28d-969b846f1279
 ---

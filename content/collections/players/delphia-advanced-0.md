@@ -2,11 +2,11 @@
 id: c5905b32-daf3-46d1-8002-4507bbfd6363
 blueprint: players
 title: 'Delphia Advanced'
-global_elo: 1461.18
+global_elo: 1454.19
 skill_rating: 1600.0
-total_games: 149
+total_games: 150
 wins: 73
-losses: 76
+losses: 77
 player_status: active
 avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Delphia+Advanced'
 matches:
@@ -172,6 +172,13 @@ matches:
   - 201ff118-eb5a-41f4-b849-8e2807b7ae04
   - 5af8b7ee-e917-44d7-863e-d185b3d210d2
   - 893d32c8-a93d-4e26-ba0a-e4b4329ddef2
+  - fa9ad583-7209-4d27-8481-7087bb3d010d
+  - fd802e96-cb45-41cb-8fdd-e58db0ed30cf
+  - 739ac773-29bb-4bcf-ad88-a84fd180b6d5
+  - d1298d61-5b72-472a-9179-58bfd102c08a
+  - b7b90699-491c-4d9d-9a92-2d91c3252a53
+  - 0962b7bb-d98f-4e8c-9f69-90984ab6beda
+  - 09d71e0f-5847-44d4-8b61-8c5b03bdfce7
 elo_history:
   -
     date: '2026-01-28T00:00:00+00:00'
@@ -918,6 +925,11 @@ elo_history:
     elo: 1461.18
     match: 8678dca6-92ea-4165-b837-13d21094fd18
     league: b
+  -
+    date: '2026-08-20T00:00:00+00:00'
+    elo: 1454.19
+    match: fa9ad583-7209-4d27-8481-7087bb3d010d
+    league: e
 league_stats:
   -
     league:
@@ -931,10 +943,10 @@ league_stats:
   -
     league:
       - e4cc34c4-9365-4e3e-8bb4-0199c6894cda
-    played_gamedays: 8
-    match_count: 43
+    played_gamedays: 9
+    match_count: 44
     league_wins: 15
-    league_losses: 28
-    win_percentage: 34.88
-    rank: 20
+    league_losses: 29
+    win_percentage: 34.09
+    rank: 22
 ---

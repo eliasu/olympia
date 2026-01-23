@@ -170,6 +170,9 @@ matches:
   - 5af8b7ee-e917-44d7-863e-d185b3d210d2
   - 893d32c8-a93d-4e26-ba0a-e4b4329ddef2
   - 63b67bea-1064-4118-9b29-f7a156d9f818
+  - 1b466986-812a-4a17-943d-d3727479266a
+  - bd65f0e5-8c98-44c1-a3fa-fed472ea3d1d
+  - dababcee-5248-4466-aab1-00d9b18e84ca
 elo_history:
   -
     date: '2026-01-28T00:00:00+00:00'
@@ -964,5 +967,5 @@ league_stats:
     league_wins: 24
     league_losses: 24
     win_percentage: 50.0
-    rank: 11
+    rank: 12
 ---

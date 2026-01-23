@@ -2,10 +2,10 @@
 id: 12d44658-09c9-450d-992e-c5ff980c9e33
 blueprint: players
 title: 'Theresa Advanced'
-global_elo: 1467.34
+global_elo: 1474.33
 skill_rating: 1600.0
-total_games: 143
-wins: 71
+total_games: 144
+wins: 72
 losses: 72
 player_status: active
 avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Theresa+Advanced'
@@ -161,6 +161,12 @@ matches:
   - d8b0ffa7-17ba-4807-bb12-5c0bf5e24a6c
   - 92393850-2067-4d3b-8837-f6125f976c15
   - 56873957-cbcb-4b48-8037-ac54aeb112d2
+  - fa9ad583-7209-4d27-8481-7087bb3d010d
+  - 739ac773-29bb-4bcf-ad88-a84fd180b6d5
+  - d1298d61-5b72-472a-9179-58bfd102c08a
+  - b7b90699-491c-4d9d-9a92-2d91c3252a53
+  - 1b466986-812a-4a17-943d-d3727479266a
+  - bd65f0e5-8c98-44c1-a3fa-fed472ea3d1d
 elo_history:
   -
     date: '2026-01-28T00:00:00+00:00'
@@ -877,23 +883,28 @@ elo_history:
     elo: 1467.34
     match: 1ce85a5a-ff36-465c-b37a-b12dcf3ca8f6
     league: e4cc34c4-9365-4e3e-8bb4-0199c6894cda
+  -
+    date: '2026-08-20T00:00:00+00:00'
+    elo: 1474.33
+    match: fa9ad583-7209-4d27-8481-7087bb3d010d
+    league: e
 league_stats:
   -
     league:
       - b08ea78f-3169-4571-b7c5-8ae0d49df9e7
-    played_gamedays: 19
+    played_gamedays: 20
     match_count: 100
     league_wins: 53
     league_losses: 47
     win_percentage: 53.0
-    rank: 10
+    rank: 9
   -
     league:
       - e4cc34c4-9365-4e3e-8bb4-0199c6894cda
-    played_gamedays: 8
-    match_count: 43
-    league_wins: 18
+    played_gamedays: 9
+    match_count: 44
+    league_wins: 19
     league_losses: 25
-    win_percentage: 41.86
-    rank: 17
+    win_percentage: 43.18
+    rank: 18
 ---

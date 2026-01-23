@@ -2,11 +2,11 @@
 id: 0506ce7a-7f02-4f23-adf8-eed6f5e71402
 blueprint: players
 title: 'Shemar Advanced'
-global_elo: 1460.69
+global_elo: 1461.12
 skill_rating: 1600.0
-total_games: 144
-wins: 71
-losses: 73
+total_games: 146
+wins: 72
+losses: 74
 player_status: active
 avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Shemar+Advanced'
 matches:
@@ -160,6 +160,13 @@ matches:
   - 28961992-40e1-4073-966d-8a141959177a
   - 3d74566e-a897-4ce3-848d-a6ea9e7fba06
   - 97632b75-9750-4b85-be8d-2b705bc62ad5
+  - cbc635da-e2e4-4702-9315-024325c75a1a
+  - fa9ad583-7209-4d27-8481-7087bb3d010d
+  - fd802e96-cb45-41cb-8fdd-e58db0ed30cf
+  - d1298d61-5b72-472a-9179-58bfd102c08a
+  - b7b90699-491c-4d9d-9a92-2d91c3252a53
+  - 1b466986-812a-4a17-943d-d3727479266a
+  - bd65f0e5-8c98-44c1-a3fa-fed472ea3d1d
 elo_history:
   -
     date: '2026-01-28T00:00:00+00:00'
@@ -881,6 +888,16 @@ elo_history:
     elo: 1460.69
     match: 1ce85a5a-ff36-465c-b37a-b12dcf3ca8f6
     league: e4cc34c4-9365-4e3e-8bb4-0199c6894cda
+  -
+    date: '2026-08-20T00:00:00+00:00'
+    elo: 1468.11
+    match: cbc635da-e2e4-4702-9315-024325c75a1a
+    league: e
+  -
+    date: '2026-08-20T00:00:00+00:00'
+    elo: 1461.12
+    match: fa9ad583-7209-4d27-8481-7087bb3d010d
+    league: e
 league_stats:
   -
     league:
@@ -894,10 +911,10 @@ league_stats:
   -
     league:
       - e4cc34c4-9365-4e3e-8bb4-0199c6894cda
-    played_gamedays: 8
-    match_count: 43
-    league_wins: 17
-    league_losses: 26
-    win_percentage: 39.53
-    rank: 18
+    played_gamedays: 9
+    match_count: 45
+    league_wins: 18
+    league_losses: 27
+    win_percentage: 40.0
+    rank: 20
 ---

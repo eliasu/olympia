@@ -174,6 +174,9 @@ matches:
   - f9531bd9-ea3f-489f-90b5-2d4bcbcd16f3
   - 7050455a-eb8e-4aca-8ee6-8933d5626347
   - 91ee16fe-c25e-425e-bead-725f816e34c6
+  - ccf941f8-010c-453d-9ef8-9a7a9631f342
+  - 2cef5518-6c23-4325-a2c9-72b6179fb750
+  - 9e487d9e-5520-4bbd-ab81-54346b7c9e68
 elo_history:
   -
     date: '2026-01-28T00:00:00+00:00'
@@ -948,5 +951,5 @@ league_stats:
     league_wins: 28
     league_losses: 24
     win_percentage: 53.85
-    rank: 7
+    rank: 8
 ---

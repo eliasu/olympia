@@ -2,11 +2,11 @@
 id: 361a3387-9799-4af6-a664-90f7f315d964
 blueprint: players
 title: 'Lonie Pro'
-global_elo: 1665.04
+global_elo: 1635.46
 skill_rating: 1800.0
-total_games: 151
+total_games: 153
 wins: 86
-losses: 65
+losses: 67
 player_status: active
 avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Lonie+Pro'
 matches:
@@ -179,6 +179,13 @@ matches:
   - d8b0ffa7-17ba-4807-bb12-5c0bf5e24a6c
   - 814e85c2-dc8d-4b5a-a423-24c890e3fd74
   - f5bf0da9-2a76-44c4-95d5-5565b1960ff4
+  - 53f7c4a7-df66-4458-abb4-72e00487ee64
+  - b929e5b2-69e8-4759-bd92-7866057d6060
+  - 6942d1fa-d0ab-493a-81d7-4b2092de8650
+  - 0575a319-7ee4-4f3c-b91f-003a40ffa1bf
+  - 2e555a2b-9b3b-416f-96ea-c261c7fd9f4e
+  - 2f8cdb68-da9e-4db1-b41e-e4e3191bebfb
+  - 9e487d9e-5520-4bbd-ab81-54346b7c9e68
 elo_history:
   -
     date: '2026-01-28T00:00:00+00:00'
@@ -935,23 +942,33 @@ elo_history:
     elo: 1665.04
     match: cb052a0c-4343-4745-b1f7-4be5b9f05436
     league: e4cc34c4-9365-4e3e-8bb4-0199c6894cda
+  -
+    date: '2026-09-16T00:00:00+00:00'
+    elo: 1652.58
+    match: 70289c5a-32d1-469b-9cbb-148f6bcacc3a
+    league: b
+  -
+    date: '2026-08-20T00:00:00+00:00'
+    elo: 1635.46
+    match: 6942d1fa-d0ab-493a-81d7-4b2092de8650
+    league: e
 league_stats:
   -
     league:
       - b08ea78f-3169-4571-b7c5-8ae0d49df9e7
-    played_gamedays: 24
-    match_count: 102
+    played_gamedays: 25
+    match_count: 103
     league_wins: 63
-    league_losses: 39
-    win_percentage: 61.76
+    league_losses: 40
+    win_percentage: 61.17
     rank: 1
   -
     league:
       - e4cc34c4-9365-4e3e-8bb4-0199c6894cda
-    played_gamedays: 10
-    match_count: 49
+    played_gamedays: 11
+    match_count: 50
     league_wins: 23
-    league_losses: 26
-    win_percentage: 46.94
-    rank: 12
+    league_losses: 27
+    win_percentage: 46.0
+    rank: 17
 ---

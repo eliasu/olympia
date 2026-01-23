@@ -2,11 +2,11 @@
 id: 81275915-c6e1-472d-a025-4f091fb3a982
 blueprint: players
 title: 'Koby Intermediate'
-global_elo: 1420.16
+global_elo: 1415.66
 skill_rating: 1500.0
-total_games: 133
-wins: 65
-losses: 68
+total_games: 135
+wins: 66
+losses: 69
 player_status: active
 avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Koby+Intermediate'
 matches:
@@ -166,6 +166,10 @@ matches:
   - 97518bf5-1c85-487f-b64f-b7aeb76c9fb7
   - d8b0ffa7-17ba-4807-bb12-5c0bf5e24a6c
   - 814e85c2-dc8d-4b5a-a423-24c890e3fd74
+  - cbc635da-e2e4-4702-9315-024325c75a1a
+  - ed15b195-2734-45cb-ba49-e77a07e13112
+  - 67dccde7-351c-489f-8404-a556dcc3a2fe
+  - 4f886500-4858-41ff-bde2-5d6cd17a2e36
 elo_history:
   -
     date: '2026-01-28T00:00:00+00:00'
@@ -832,11 +836,21 @@ elo_history:
     elo: 1420.16
     match: c77c490e-11ef-4caa-b052-8c4ded19b773
     league: b
+  -
+    date: '2026-08-20T00:00:00+00:00'
+    elo: 1412.74
+    match: cbc635da-e2e4-4702-9315-024325c75a1a
+    league: e
+  -
+    date: '2026-08-20T00:00:00+00:00'
+    elo: 1415.66
+    match: ed15b195-2734-45cb-ba49-e77a07e13112
+    league: e
 league_stats:
   -
     league:
       - b08ea78f-3169-4571-b7c5-8ae0d49df9e7
-    played_gamedays: 21
+    played_gamedays: 22
     match_count: 91
     league_wins: 41
     league_losses: 50
@@ -845,10 +859,10 @@ league_stats:
   -
     league:
       - e4cc34c4-9365-4e3e-8bb4-0199c6894cda
-    played_gamedays: 8
-    match_count: 42
-    league_wins: 24
-    league_losses: 18
-    win_percentage: 57.14
-    rank: 4
+    played_gamedays: 9
+    match_count: 44
+    league_wins: 25
+    league_losses: 19
+    win_percentage: 56.82
+    rank: 5
 ---

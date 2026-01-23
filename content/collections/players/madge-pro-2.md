@@ -2,11 +2,11 @@
 id: 38fc9a2d-6462-430d-b907-b95c74370fbb
 blueprint: players
 title: 'Madge Pro'
-global_elo: 1676.96
+global_elo: 1681.62
 skill_rating: 1800.0
-total_games: 154
-wins: 84
-losses: 70
+total_games: 156
+wins: 85
+losses: 71
 player_status: active
 avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Madge+Pro'
 matches:
@@ -182,6 +182,12 @@ matches:
   - 797da93b-3812-46f0-991a-27a0bb51bb60
   - 92393850-2067-4d3b-8837-f6125f976c15
   - f5bf0da9-2a76-44c4-95d5-5565b1960ff4
+  - 53f7c4a7-df66-4458-abb4-72e00487ee64
+  - b929e5b2-69e8-4759-bd92-7866057d6060
+  - 6942d1fa-d0ab-493a-81d7-4b2092de8650
+  - ccf941f8-010c-453d-9ef8-9a7a9631f342
+  - 09d71e0f-5847-44d4-8b61-8c5b03bdfce7
+  - 2cef5518-6c23-4325-a2c9-72b6179fb750
 elo_history:
   -
     date: '2026-01-28T00:00:00+00:00'
@@ -953,23 +959,33 @@ elo_history:
     elo: 1676.96
     match: 31aa0f2c-e1ac-4216-a08c-8af14efdf8c8
     league: b
+  -
+    date: '2026-09-16T00:00:00+00:00'
+    elo: 1664.5
+    match: 70289c5a-32d1-469b-9cbb-148f6bcacc3a
+    league: b
+  -
+    date: '2026-08-20T00:00:00+00:00'
+    elo: 1681.62
+    match: 6942d1fa-d0ab-493a-81d7-4b2092de8650
+    league: e
 league_stats:
   -
     league:
       - b08ea78f-3169-4571-b7c5-8ae0d49df9e7
-    played_gamedays: 24
-    match_count: 107
+    played_gamedays: 25
+    match_count: 108
     league_wins: 57
-    league_losses: 50
-    win_percentage: 53.27
-    rank: 9
+    league_losses: 51
+    win_percentage: 52.78
+    rank: 10
   -
     league:
       - e4cc34c4-9365-4e3e-8bb4-0199c6894cda
-    played_gamedays: 9
-    match_count: 47
-    league_wins: 27
+    played_gamedays: 10
+    match_count: 48
+    league_wins: 28
     league_losses: 20
-    win_percentage: 57.45
+    win_percentage: 58.33
     rank: 3
 ---

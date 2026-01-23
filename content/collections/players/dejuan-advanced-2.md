@@ -818,5 +818,5 @@ league_stats:
     league_wins: 23
     league_losses: 19
     win_percentage: 54.76
-    rank: 6
+    rank: 7
 ---

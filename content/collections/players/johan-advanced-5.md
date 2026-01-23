@@ -2,11 +2,11 @@
 id: 012d6df7-57cb-4392-9321-67350d957f29
 blueprint: players
 title: 'Johan Advanced'
-global_elo: 1587.74
+global_elo: 1583.08
 skill_rating: 1600.0
-total_games: 143
-wins: 71
-losses: 72
+total_games: 145
+wins: 72
+losses: 73
 player_status: active
 avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Johan+Advanced'
 matches:
@@ -167,6 +167,14 @@ matches:
   - 797da93b-3812-46f0-991a-27a0bb51bb60
   - f5bf0da9-2a76-44c4-95d5-5565b1960ff4
   - 56873957-cbcb-4b48-8037-ac54aeb112d2
+  - 53f7c4a7-df66-4458-abb4-72e00487ee64
+  - 739ac773-29bb-4bcf-ad88-a84fd180b6d5
+  - b929e5b2-69e8-4759-bd92-7866057d6060
+  - 6942d1fa-d0ab-493a-81d7-4b2092de8650
+  - 0575a319-7ee4-4f3c-b91f-003a40ffa1bf
+  - 2e555a2b-9b3b-416f-96ea-c261c7fd9f4e
+  - 2f8cdb68-da9e-4db1-b41e-e4e3191bebfb
+  - 9e487d9e-5520-4bbd-ab81-54346b7c9e68
 elo_history:
   -
     date: '2026-01-28T00:00:00+00:00'
@@ -883,23 +891,33 @@ elo_history:
     elo: 1587.74
     match: 0e3a1c82-c97d-4859-9b46-fe54b2c28f82
     league: null
+  -
+    date: '2026-09-16T00:00:00+00:00'
+    elo: 1600.2
+    match: 70289c5a-32d1-469b-9cbb-148f6bcacc3a
+    league: b
+  -
+    date: '2026-08-20T00:00:00+00:00'
+    elo: 1583.08
+    match: 6942d1fa-d0ab-493a-81d7-4b2092de8650
+    league: e
 league_stats:
   -
     league:
       - b08ea78f-3169-4571-b7c5-8ae0d49df9e7
-    played_gamedays: 20
-    match_count: 94
-    league_wins: 46
+    played_gamedays: 21
+    match_count: 95
+    league_wins: 47
     league_losses: 48
-    win_percentage: 48.94
+    win_percentage: 49.47
     rank: 13
   -
     league:
       - e4cc34c4-9365-4e3e-8bb4-0199c6894cda
-    played_gamedays: 9
-    match_count: 49
+    played_gamedays: 10
+    match_count: 50
     league_wins: 25
-    league_losses: 24
-    win_percentage: 51.02
-    rank: 9
+    league_losses: 25
+    win_percentage: 50.0
+    rank: 11
 ---

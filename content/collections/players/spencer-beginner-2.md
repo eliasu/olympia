@@ -2,11 +2,11 @@
 id: cfa71386-6551-488f-8413-d5dfc7fb6398
 blueprint: players
 title: 'Spencer Beginner'
-global_elo: 1303.8
+global_elo: 1300.88
 skill_rating: 1200.0
-total_games: 126
+total_games: 127
 wins: 55
-losses: 71
+losses: 72
 player_status: active
 avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Spencer+Beginner'
 matches:
@@ -153,6 +153,13 @@ matches:
   - 23e74d36-734c-4b74-b25e-9b666b1afa92
   - d8b0ffa7-17ba-4807-bb12-5c0bf5e24a6c
   - f5d2181b-fc29-4fb7-8e92-13312e567d4a
+  - ed15b195-2734-45cb-ba49-e77a07e13112
+  - 67dccde7-351c-489f-8404-a556dcc3a2fe
+  - 4f886500-4858-41ff-bde2-5d6cd17a2e36
+  - b19a6438-e69e-4775-9968-f24245a35950
+  - 0962b7bb-d98f-4e8c-9f69-90984ab6beda
+  - dababcee-5248-4466-aab1-00d9b18e84ca
+  - 09d71e0f-5847-44d4-8b61-8c5b03bdfce7
 elo_history:
   -
     date: '2026-01-28T00:00:00+00:00'
@@ -784,11 +791,16 @@ elo_history:
     elo: 1303.8
     match: c77c490e-11ef-4caa-b052-8c4ded19b773
     league: b
+  -
+    date: '2026-08-20T00:00:00+00:00'
+    elo: 1300.88
+    match: ed15b195-2734-45cb-ba49-e77a07e13112
+    league: e
 league_stats:
   -
     league:
       - b08ea78f-3169-4571-b7c5-8ae0d49df9e7
-    played_gamedays: 23
+    played_gamedays: 24
     match_count: 95
     league_wins: 44
     league_losses: 51
@@ -797,10 +809,10 @@ league_stats:
   -
     league:
       - e4cc34c4-9365-4e3e-8bb4-0199c6894cda
-    played_gamedays: 6
-    match_count: 31
+    played_gamedays: 7
+    match_count: 32
     league_wins: 11
-    league_losses: 20
-    win_percentage: 35.48
-    rank: 19
+    league_losses: 21
+    win_percentage: 34.38
+    rank: 21
 ---

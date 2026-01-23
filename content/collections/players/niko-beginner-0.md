@@ -2,10 +2,10 @@
 id: 2b2d0342-98e2-4c16-8375-600c173a35f3
 blueprint: players
 title: 'Niko Beginner'
-global_elo: 1228.99
+global_elo: 1231.91
 skill_rating: 1200.0
-total_games: 91
-wins: 37
+total_games: 92
+wins: 38
 losses: 54
 player_status: active
 avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Niko+Beginner'
@@ -107,6 +107,14 @@ matches:
   - 618cb0d2-0e48-4f75-9f5c-008f5146591a
   - 28961992-40e1-4073-966d-8a141959177a
   - 7ca275ff-7c25-4efc-b2a6-c76084bc04d6
+  - ed15b195-2734-45cb-ba49-e77a07e13112
+  - fd802e96-cb45-41cb-8fdd-e58db0ed30cf
+  - 67dccde7-351c-489f-8404-a556dcc3a2fe
+  - 4f886500-4858-41ff-bde2-5d6cd17a2e36
+  - b19a6438-e69e-4775-9968-f24245a35950
+  - 0962b7bb-d98f-4e8c-9f69-90984ab6beda
+  - bd65f0e5-8c98-44c1-a3fa-fed472ea3d1d
+  - 2cef5518-6c23-4325-a2c9-72b6179fb750
 elo_history:
   -
     date: '2026-01-28T00:00:00+00:00'
@@ -563,6 +571,11 @@ elo_history:
     elo: 1228.99
     match: e0437bb3-60fc-4bbb-8ec0-b630badcde82
     league: e4cc34c4-9365-4e3e-8bb4-0199c6894cda
+  -
+    date: '2026-08-20T00:00:00+00:00'
+    elo: 1231.91
+    match: ed15b195-2734-45cb-ba49-e77a07e13112
+    league: e
 league_stats:
   -
     league:
@@ -576,10 +589,10 @@ league_stats:
   -
     league:
       - e4cc34c4-9365-4e3e-8bb4-0199c6894cda
-    played_gamedays: 5
-    match_count: 28
-    league_wins: 11
+    played_gamedays: 6
+    match_count: 29
+    league_wins: 12
     league_losses: 17
-    win_percentage: 39.29
-    rank: null
+    win_percentage: 41.38
+    rank: 19
 ---

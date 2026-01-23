@@ -8,7 +8,7 @@ point_limit: 11
 win_by_two: true
 k_factor: 32
 updated_by: 1861c4a9-8873-459c-97ce-38d399b7ed46
-updated_at: 1769120085
+updated_at: 1769201656
 gamedays:
   - c073bfc9-eaa0-43f2-b4a1-04febf497a54
   - 33606fbc-4716-4b94-a60a-2e2ac879ad04

@@ -7,14 +7,14 @@
 
     <!-- Stats Overview -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-        <div class="bg-white dark:bg-gray-800 p-8 rounded-[2rem] shadow-xl border border-gray-100 dark:border-gray-700">
+        <div class="bg-white dark:bg-gray-800 p-4 sm:p-8 rounded-2xl sm:rounded-[2rem] shadow-xl border border-gray-100 dark:border-gray-700">
             <div class="text-xs font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Total Count</div>
             <div class="text-4xl font-black text-indigo-600 dark:text-indigo-400 tracking-tighter">
                 {{ collection:count in="players" }}
             </div>
             <div class="text-sm font-bold text-gray-500 dark:text-gray-500 mt-1">Active Players</div>
         </div>
-        <div class="bg-white dark:bg-gray-800 p-8 rounded-[2rem] shadow-xl border border-gray-100 dark:border-gray-700">
+        <div class="bg-white dark:bg-gray-800 p-4 sm:p-8 rounded-2xl sm:rounded-[2rem] shadow-xl border border-gray-100 dark:border-gray-700">
             <div class="text-xs font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Best Player</div>
             <div class="text-4xl font-black text-emerald-500 tracking-tighter">
                 {{ collection:players sort="global_elo:desc" limit="1" as="best" }}
@@ -25,27 +25,27 @@
         </div>
     </div>
 
-    <div class="bg-white dark:bg-gray-800 shadow-2xl rounded-[3rem] overflow-hidden border border-gray-100 dark:border-gray-700">
+    <div class="bg-white dark:bg-gray-800 shadow-2xl rounded-2xl sm:rounded-[3rem] overflow-hidden border border-gray-100 dark:border-gray-700">
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                 <thead class="bg-gray-50/50 dark:bg-gray-900/50">
                     <tr>
-                        <th scope="col" class="px-2 sm:px-4 md:px-8 py-6 text-left text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Rank</th>
-                        <th scope="col" class="px-2 sm:px-4 md:px-8 py-6 text-left text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Player</th>
-                        <th scope="col" class="px-2 sm:px-4 md:px-8 py-6 text-center text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Global Elo</th>
-                        <th scope="col" class="hidden md:table-cell px-2 sm:px-4 md:px-8 py-6 text-center text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Win / Loss</th>
-                        <th scope="col" class="hidden sm:table-cell px-2 sm:px-4 md:px-8 py-6 text-center text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Total Games</th>
+                        <th scope="col" class="pl-4 pr-1 sm:px-4 md:px-8 py-4 sm:py-6 text-left text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Rank</th>
+                        <th scope="col" class="pl-1 pr-4 sm:px-4 md:px-8 py-4 sm:py-6 text-left text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Player</th>
+                        <th scope="col" class="px-1 sm:px-4 md:px-8 py-4 sm:py-6 text-center text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest truncate"><span class="inline">Global </span>Elo</th>
+                        <th scope="col" class="table-cell px-2 sm:px-4 md:px-8 py-4 sm:py-6 text-center text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest whitespace-nowrap">Win / Loss</th>
+                        <th scope="col" class="table-cell px-2 sm:px-4 md:px-8 py-4 sm:py-6 text-center text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest whitespace-nowrap truncate">Total Games</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100 dark:divide-gray-700/50">
                     {{ collection:players sort="global_elo:desc" }}
                         <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-700/30 transition-all duration-200">
-                            <td class="px-2 sm:px-4 md:px-8 py-6 whitespace-nowrap">
+                            <td class="pl-4 pr-1 sm:px-4 md:px-8 py-4 sm:py-6 whitespace-nowrap">
                                 <span class="text-lg md:text-xl font-black {{ if index < 3 }}text-indigo-600 dark:text-indigo-400{{ else }}text-gray-300 dark:text-gray-600{{ /if }} tracking-tighter">
                                     {{ index | add(1) }}.
                                 </span>
                             </td>
-                            <td class="px-2 sm:px-4 md:px-8 py-6 whitespace-nowrap">
+                            <td class="pl-1 pr-4 sm:px-4 md:px-8 py-4 sm:py-6 whitespace-nowrap">
                                 <a href="{{ url }}" class="flex items-center group">
                                     <div class="h-10 w-10 md:h-12 md:w-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-black shadow-lg transform group-hover:scale-110 transition-all duration-200 overflow-hidden">
                                         {{ if avatar_url }}
@@ -56,25 +56,25 @@
                                             {{ title | substr(0,1) }}
                                         {{ /if }}
                                     </div>
-                                    <div class="ml-4">
-                                        <div class="text-base font-black text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{{ title }}</div>
+                                    <div class="ml-4 min-w-0">
+                                        <div class="text-sm font-black text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate">{{ title }}</div>
                                         <div class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Active Player</div>
                                     </div>
                                 </a>
                             </td>
-                            <td class="px-2 sm:px-4 md:px-8 py-6 whitespace-nowrap text-center">
-                                <div class="inline-flex items-center px-4 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 text-base md:text-lg font-black border border-indigo-100 dark:border-indigo-800">
+                            <td class="px-1 sm:px-4 md:px-8 py-4 sm:py-6 whitespace-nowrap text-center">
+                                <div class="inline-flex items-center px-2 sm:px-4 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 text-base md:text-lg font-black border border-indigo-100 dark:border-indigo-800">
                                     {{ global_elo | round }}
                                 </div>
                             </td>
-                            <td class="hidden md:table-cell px-2 sm:px-4 md:px-8 py-6 whitespace-nowrap text-center">
+                            <td class="table-cell px-2 sm:px-4 md:px-8 py-4 sm:py-6 whitespace-nowrap text-center">
                                 <div class="flex items-center justify-center gap-2 font-black text-sm">
                                     <span class="text-emerald-500">{{ wins ?? 0 }}W</span>
                                     <span class="text-gray-200 dark:text-gray-700">/</span>
                                     <span class="text-rose-500">{{ losses ?? 0 }}L</span>
                                 </div>
                             </td>
-                            <td class="hidden sm:table-cell px-2 sm:px-4 md:px-8 py-6 whitespace-nowrap text-center text-sm font-bold text-gray-500 dark:text-gray-400">
+                            <td class="table-cell px-2 sm:px-4 md:px-8 py-4 sm:py-6 whitespace-nowrap text-center text-sm font-bold text-gray-500 dark:text-gray-400">
                                 {{ total_games ?? 0 }}
                             </td>
                         </tr>
