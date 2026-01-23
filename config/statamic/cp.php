@@ -55,13 +55,6 @@ return [
     'widgets' => [
         [ 
             'type' => 'collection',
-            'collection' => 'players',
-            'limit' => 15,
-            'sort' => 'global_elo:desc',
-            'fields' => ['name', 'global_elo'],
-        ], 
-        [ 
-            'type' => 'collection',
             'collection' => 'gamedays',
             'limit' => 15,
             'fields' => ['name', 'date', 'is_finished', 'generated_plan'],

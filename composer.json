@@ -17,6 +17,7 @@
         "laravel/tinker": "^2.10.1",
         "statamic/cms": "^5.0",
         "stillat/relationships": "^2.2",
+        "thoughtco/statamic-cache-tracker": "^1.1",
         "webographen/statamic-admin-log": "^1.1"
     },
     "require-dev": {
