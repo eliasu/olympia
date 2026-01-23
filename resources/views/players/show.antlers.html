@@ -3,7 +3,8 @@
     <!-- Profile Hero -->
     <div class="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-xl overflow-hidden mb-8">
         <div class="h-32 bg-gradient-to-r from-blue-500 to-indigo-600"></div>
-        <div class="px-4 pb-4 sm:px-8 sm:pb-8 flex flex-col md:flex-row items-center md:items-end -mt-16 md:-mt-10 relative">
+        <div
+            class="px-4 pb-4 sm:px-8 sm:pb-8 flex flex-col md:flex-row items-center md:items-end -mt-16 md:-mt-10 relative">
 
             <div
                 class="h-24 w-24 md:h-32 md:w-32 rounded-full ring-8 ring-white dark:ring-gray-800 bg-indigo-600 flex items-center justify-center text-white text-3xl md:text-5xl font-black shadow-2xl overflow-hidden mb-6 md:mb-0">
@@ -41,31 +42,37 @@
         <!-- Left Column: Stats -->
         <div class="space-y-8">
             <!-- Summary Card -->
-            <div
-                class="bg-white dark:bg-gray-800 rounded-lg sm:rounded-xl shadow cursor-default p-4 sm:p-6 border border-gray-100 dark:border-gray-700"
-                data-elo-history='{{ elo_history | json }}'
-                x-data="eloChartData($el)">
+            <div class="bg-white dark:bg-gray-800 rounded-lg sm:rounded-xl shadow cursor-default p-4 sm:p-6 border border-gray-100 dark:border-gray-700"
+                data-elo-history='{{ elo_history | json }}' x-data="eloChartData($el)">
                 <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Statistics</h3>
-                
+
                 <!-- Elo Chart -->
-                <div class="mb-4 p-4 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800 rounded-lg relative overflow-hidden">
+                <div
+                    class="mb-4 p-4 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800 rounded-lg relative overflow-hidden">
                     <div class="text-xs font-bold text-gray-500 dark:text-gray-400 mb-2">
                         Elo Development
                         <!-- <span class="ml-2 text-[10px] opacity-50" x-text="'(' + (history ? history.length : 0) + ' data points)'" x-cloak></span> -->
                     </div>
                     <svg viewBox="0 0 280 60" class="w-full h-16" preserveAspectRatio="none">
-                        <line x1="0" y1="0" x2="280" y2="0" stroke="currentColor" stroke-width="0.5" class="text-gray-300 dark:text-gray-600" opacity="0.3"/>
-                        <line x1="0" y1="30" x2="280" y2="30" stroke="currentColor" stroke-width="0.5" class="text-gray-300 dark:text-gray-600" opacity="0.3"/>
-                        <line x1="0" y1="60" x2="280" y2="60" stroke="currentColor" stroke-width="0.5" class="text-gray-300 dark:text-gray-600" opacity="0.3"/>
-                        <path :d="getPath()" fill="none" stroke="currentColor" stroke-width="2" class="text-blue-600 dark:text-blue-400" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path :d="getPath() + ' L 280,60 L 0,60 Z'" fill="currentColor" class="text-blue-600 dark:text-blue-400" opacity="0.1"/>
+                        <line x1="0" y1="0" x2="280" y2="0" stroke="currentColor" stroke-width="0.5"
+                            class="text-gray-300 dark:text-gray-600" opacity="0.3" />
+                        <line x1="0" y1="30" x2="280" y2="30" stroke="currentColor" stroke-width="0.5"
+                            class="text-gray-300 dark:text-gray-600" opacity="0.3" />
+                        <line x1="0" y1="60" x2="280" y2="60" stroke="currentColor" stroke-width="0.5"
+                            class="text-gray-300 dark:text-gray-600" opacity="0.3" />
+                        <path :d="getPath()" fill="none" stroke="currentColor" stroke-width="2"
+                            class="text-blue-600 dark:text-blue-400" stroke-linecap="round" stroke-linejoin="round" />
+                        <path :d="getPath() + ' L 280,60 L 0,60 Z'" fill="currentColor"
+                            class="text-blue-600 dark:text-blue-400" opacity="0.1" />
                     </svg>
                     <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
-                        <span x-text="history.length > 0 ? new Date(history[0].date).toLocaleDateString('de-DE', {month: 'short', year: '2-digit'}) : ''"></span>
-                        <span x-text="history.length > 0 ? new Date(history[history.length-1].date).toLocaleDateString('de-DE', {month: 'short', year: '2-digit'}) : ''"></span>
+                        <span
+                            x-text="history.length > 0 ? new Date(history[0].date).toLocaleDateString('de-DE', {month: 'short', year: '2-digit'}) : ''"></span>
+                        <span
+                            x-text="history.length > 0 ? new Date(history[history.length-1].date).toLocaleDateString('de-DE', {month: 'short', year: '2-digit'}) : ''"></span>
                     </div>
                 </div>
-                
+
                 <div class="space-y-3">
                     <div class="flex items-center justify-between py-1 border-b border-gray-50 dark:border-gray-900/50">
                         <span class="text-gray-600 dark:text-gray-400">Points (Elo)</span>
@@ -130,21 +137,24 @@
             <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Match History</h2>
 
             <div class="flex flex-col -space-y-px">
-                {{ player_matches :player="id" sort="desc" limit="24" }}
+                {{ player_matches :player="id" sort="desc" limit="12" }}
                 <div
                     class="relative group bg-white dark:bg-gray-800 {{ if first }}rounded-t-lg sm:rounded-t-xl{{ /if }} {{ if last }}rounded-b-lg sm:rounded-b-xl{{ /if }} shadow-sm border border-gray-100 dark:border-gray-700 p-3 sm:p-4 hover:bg-blue-50/40 dark:hover:bg-blue-900/10 hover:shadow-lg transition-all hover:z-10">
-                    
+
                     <!-- Main Match Link (Stretched) -->
-                    <a href="{{ url }}" class="absolute inset-0 z-0 {{ if first }}rounded-t-lg sm:rounded-t-xl{{ /if }} {{ if last }}rounded-b-lg sm:rounded-b-xl{{ /if }}"></a>
+                    <a href="{{ url }}"
+                        class="absolute inset-0 z-0 {{ if first }}rounded-t-lg sm:rounded-t-xl{{ /if }} {{ if last }}rounded-b-lg sm:rounded-b-xl{{ /if }}"></a>
 
                     <div class="relative z-10 grid grid-cols-1 sm:grid-cols-12 items-center gap-4 pointer-events-none">
 
                         <!-- Context (Span 3 for more title space) -->
                         <div class="sm:col-span-3 text-center sm:text-left min-w-0 pointer-events-auto">
-                            <a href="{{ gameday:url }}" class="block text-xs text-gray-500 dark:text-gray-400 font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors truncate">
+                            <a href="{{ gameday:url }}"
+                                class="block text-xs text-gray-500 dark:text-gray-400 font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors truncate">
                                 {{ gameday:date format="d.m.Y" }} &bull; {{ gameday:title }}
                             </a>
-                            <a href="{{ gameday:league:url }}" class="block text-sm font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors truncate">
+                            <a href="{{ gameday:league:url }}"
+                                class="block text-sm font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors truncate">
                                 {{ gameday:league:title }}
                             </a>
                         </div>
@@ -230,9 +240,10 @@
                                     {{ /if }}
                                     {{ player_delta = 0 - elo_delta }}
                                     {{ /if }}
-                                    
+
                                     {{ if elo_delta }}
-                                    <span class="inline-flex items-center ml-2 px-2 py-0.5 rounded-full text-xs font-bold font-mono {{ player_delta >= 0 ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300' : 'bg-rose-100 text-rose-700 dark:bg-rose-900 dark:text-rose-300' }}">
+                                    <span
+                                        class="inline-flex items-center ml-2 px-2 py-0.5 rounded-full text-xs font-bold font-mono {{ player_delta >= 0 ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300' : 'bg-rose-100 text-rose-700 dark:bg-rose-900 dark:text-rose-300' }}">
                                         {{ player_delta >= 0 ? '+' : '' }}{{ player_delta | round(1) }}
                                     </span>
                                     {{ /if }}
@@ -249,47 +260,47 @@
 </div>
 
 <script>
-function eloChartData(el) {
-    const historyJson = el.getAttribute('data-elo-history');
-    const history = historyJson ? JSON.parse(historyJson) : [];
-    return {
-        history: history || [],
-        getChartData() {
-            if (!this.history || this.history.length === 0) return [];
-            const maxPoints = 20;
-            let data = this.history.map(function(h) { return { date: h.date, elo: parseFloat(h.elo) }; });
-            if (data.length > maxPoints) {
-                const step = data.length / maxPoints;
-                const sampled = [];
-                for (let i = 0; i < maxPoints; i++) {
-                    sampled.push(data[Math.floor(i * step)]);
+    function eloChartData(el) {
+        const historyJson = el.getAttribute('data-elo-history');
+        const history = historyJson ? JSON.parse(historyJson) : [];
+        return {
+            history: history || [],
+            getChartData() {
+                if (!this.history || this.history.length === 0) return [];
+                const maxPoints = 20;
+                let data = this.history.map(function (h) { return { date: h.date, elo: parseFloat(h.elo) }; });
+                if (data.length > maxPoints) {
+                    const step = data.length / maxPoints;
+                    const sampled = [];
+                    for (let i = 0; i < maxPoints; i++) {
+                        sampled.push(data[Math.floor(i * step)]);
+                    }
+                    data = sampled;
                 }
-                data = sampled;
+                return data;
+            },
+            getYRange() {
+                const data = this.getChartData();
+                if (data.length === 0) return { min: 1400, max: 1600 };
+                const elos = data.map(function (d) { return d.elo; });
+                const min = Math.min(...elos);
+                const max = Math.max(...elos);
+                const padding = (max - min) * 0.1 || 50;
+                return { min: Math.floor(min - padding), max: Math.ceil(max + padding) };
+            },
+            getPath() {
+                const data = this.getChartData();
+                if (data.length === 0) return '';
+                const width = 280;
+                const height = 60;
+                const range = this.getYRange();
+                const points = data.map(function (d, i) {
+                    const x = (i / (data.length - 1)) * width;
+                    const y = height - ((d.elo - range.min) / (range.max - range.min)) * height;
+                    return x + ',' + y;
+                });
+                return 'M ' + points.join(' L ');
             }
-            return data;
-        },
-        getYRange() {
-            const data = this.getChartData();
-            if (data.length === 0) return { min: 1400, max: 1600 };
-            const elos = data.map(function(d) { return d.elo; });
-            const min = Math.min(...elos);
-            const max = Math.max(...elos);
-            const padding = (max - min) * 0.1 || 50;
-            return { min: Math.floor(min - padding), max: Math.ceil(max + padding) };
-        },
-        getPath() {
-            const data = this.getChartData();
-            if (data.length === 0) return '';
-            const width = 280;
-            const height = 60;
-            const range = this.getYRange();
-            const points = data.map(function(d, i) {
-                const x = (i / (data.length - 1)) * width;
-                const y = height - ((d.elo - range.min) / (range.max - range.min)) * height;
-                return x + ',' + y;
-            });
-            return 'M ' + points.join(' L ');
-        }
-    };
-}
+        };
+    }
 </script>
