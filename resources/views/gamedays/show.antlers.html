@@ -27,7 +27,8 @@
     <!-- Top Header (Breadcrumb & Title) -->
     <div class="mb-8 border-b border-gray-200 dark:border-gray-700 pb-8">
         <div class="mb-4">
-            <a href="{{ league:url }}" class="inline-flex items-center px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-300 text-xs font-bold border border-indigo-200 dark:border-indigo-800/50 hover:bg-indigo-200 dark:hover:bg-indigo-800 transition-colors">
+            <a href="{{ league:url }}"
+                class="inline-flex items-center px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-300 text-xs font-bold border border-indigo-200 dark:border-indigo-800/50 hover:bg-indigo-200 dark:hover:bg-indigo-800 transition-colors">
                 &larr; {{ league:title }}
             </a>
         </div>
@@ -60,7 +61,8 @@
             <!-- Stats Summary -->
             <div class="flex gap-6 text-sm">
                 <div class="text-center">
-                    <div class="text-2xl font-black text-indigo-600 dark:text-indigo-400">{{ present_players | count }}</div>
+                    <div class="text-2xl font-black text-indigo-600 dark:text-indigo-400">{{ present_players | count }}
+                    </div>
                     <div class="text-[10px] font-black uppercase tracking-widest text-gray-400">Players</div>
                 </div>
                 <div class="text-center">
@@ -75,12 +77,13 @@
     <div class="grid grid-cols-1 {{ if is_finished && gameday_rankings }}lg:grid-cols-12{{ /if }} gap-8">
 
         <!-- LEFT: Matches List -->
-        <div class="{{ if is_finished && gameday_rankings }}lg:col-span-8 order-2 lg:order-1{{ else }}lg:col-span-12{{ /if }}">
+        <div
+            class="{{ if is_finished && gameday_rankings }}lg:col-span-8 order-2 lg:order-1{{ else }}lg:col-span-12{{ /if }}">
             <div class="space-y-6">
                 {{ nocache }}
                 {{ matches }}
                 <div
-                    class="bg-white dark:bg-gray-800 rounded-2xl sm:rounded-[2.5rem] shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-3xl transition-shadow">
+                    class=" bg-white dark:bg-gray-800 rounded-2xl sm:rounded-[2.5rem] shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-3xl transition-shadow">
                     <div class="p-4 sm:p-8 flex flex-col md:flex-row items-center gap-6 md:gap-8">
 
                         <!-- Team A -->
@@ -102,7 +105,7 @@
                             <div class="mt-2">
                                 {{ team_a }}
                                 <a href="{{ url }}"
-                                    class="text-xs font-bold text-gray-900 dark:text-white hover:text-indigo-500 transition-colors inline-block mr-1 truncate max-w-[80px]">
+                                    class="text-xs font-bold text-gray-900 dark:text-white hover:text-indigo-500 transition-colors inline-block mr-1">
                                     {{ title }}{{ if !last }}, {{ /if }}
                                 </a>
                                 {{ /team_a }}
@@ -152,7 +155,7 @@
                             <div class="mt-2">
                                 {{ team_b }}
                                 <a href="{{ url }}"
-                                    class="text-xs font-bold text-gray-900 dark:text-white hover:text-indigo-500 transition-colors inline-block mr-1 truncate max-w-[80px]">
+                                    class="text-xs font-bold text-gray-900 dark:text-white hover:text-indigo-500 transition-colors inline-block mr-1">
                                     {{ title }}{{ if !last }}, {{ /if }}
                                 </a>
                                 {{ /team_b }}
@@ -205,10 +208,12 @@
                             class="flex items-center justify-between p-4 rounded-2xl {{ if rank == 1 }}bg-gradient-to-r from-amber-50 to-yellow-50 dark:from-amber-900/20 dark:to-yellow-900/20 {{ else }}hover:bg-gray-50 dark:hover:bg-gray-700/50{{ /if }} transition-all group">
                             <div class="flex items-center gap-2 text-left flex-1 min-w-0">
                                 <!-- Rank -->
-                                <span class="w-6 text-base font-black flex-shrink-0 {{ if rank == 1 }}text-amber-500{{ elseif rank == 2 }}text-gray-400{{ elseif rank == 3 }}text-orange-400{{ else }}text-gray-300 dark:text-gray-600{{ /if }}">
-                                    {{ if rank == 1 }}🥇{{ elseif rank == 2 }}🥈{{ elseif rank == 3 }}🥉{{ else }}{{ rank }}.{{ /if }}
+                                <span
+                                    class="w-6 text-base font-black flex-shrink-0 {{ if rank == 1 }}text-amber-500{{ elseif rank == 2 }}text-gray-400{{ elseif rank == 3 }}text-orange-400{{ else }}text-gray-300 dark:text-gray-600{{ /if }}">
+                                    {{ if rank == 1 }}🥇{{ elseif rank == 2 }}🥈{{ elseif rank == 3 }}🥉{{ else }}{{
+                                    rank }}.{{ /if }}
                                 </span>
-                                
+
                                 <!-- Avatar -->
                                 <div
                                     class="h-11 w-11 flex-shrink-0 rounded-xl overflow-hidden shadow-md bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-xs font-black text-indigo-600 dark:text-indigo-400">
@@ -218,20 +223,24 @@
                                     <span>{{ title | truncate:2:'' | upper }}</span>
                                     {{ /if }}
                                 </div>
-                                
+
                                 <!-- Player Info -->
                                 <div class="flex flex-col min-w-0 flex-1">
-                                    <span class="text-sm font-bold text-gray-900 dark:text-white truncate">{{ title }}</span>
-                                    <div class="flex items-center gap-1 text-[10px] font-black uppercase tracking-wider text-gray-400 whitespace-nowrap">
+                                    <span class="text-sm font-bold text-gray-900 dark:text-white truncate">{{ title
+                                        }}</span>
+                                    <div
+                                        class="flex items-center gap-1 text-[10px] font-black uppercase tracking-wider text-gray-400 whitespace-nowrap">
                                         <span>{{ gameday_wins }}W-{{ gameday_losses }}L</span>
                                         <span class="text-gray-300 dark:text-gray-600">•</span>
                                         <span>{{ win_percentage }}%</span>
                                     </div>
                                 </div>
-                                
+
                                 <!-- Elo Gain Badge -->
-                                <div class="flex-shrink-0 px-2 py-1 rounded-lg {{ if elo_gain >= 0 }}bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400{{ else }}bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400{{ /if }}">
-                                    <span class="text-xs font-black">{{ if elo_gain >= 0 }}+{{ /if }}{{ elo_gain }}</span>
+                                <div
+                                    class="flex-shrink-0 px-2 py-1 rounded-lg {{ if elo_gain >= 0 }}bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400{{ else }}bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400{{ /if }}">
+                                    <span class="text-xs font-black">{{ if elo_gain >= 0 }}+{{ /if }}{{ elo_gain
+                                        }}</span>
                                 </div>
                             </div>
                         </a>
