@@ -1,0 +1,142 @@
+<div class="max-w-2xl mx-auto px-4 sm:px-6 py-12">
+    {{ if ! logged_in }}
+        {{ redirect to="/login" }}
+    {{ /if }}
+
+    <div class="mb-8">
+        <h1 class="text-3xl font-black text-gray-900 dark:text-white tracking-tighter">Edit Profile</h1>
+        <p class="text-sm font-bold text-gray-500 mt-2">Update your personal information and profile picture.</p>
+    </div>
+
+    <div class="bg-white dark:bg-gray-800 p-6 sm:p-10 rounded-[2rem] shadow-xl border border-gray-100 dark:border-gray-700">
+        {{ user:profile_form redirect="/edit-profile" }}
+            {{ if success }}
+                <div class="bg-green-50 dark:bg-green-900/30 border-l-4 border-green-500 p-4 mb-8 rounded-r-xl">
+                    <div class="flex items-center gap-3">
+                        <svg class="h-5 w-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        </svg>
+                        <p class="text-sm font-bold text-green-700 dark:text-green-400 m-0">Profile updated successfully!</p>
+                    </div>
+                </div>
+            {{ /if }}
+
+            {{ if errors }}
+                <div class="bg-red-50 dark:bg-red-900/30 border-l-4 border-red-500 p-4 mb-8 rounded-r-xl">
+                    <div class="flex items-center gap-3 mb-2">
+                        <svg class="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                        </svg>
+                        <p class="text-sm font-black text-red-700 dark:text-red-400 m-0">Please fix the following errors:</p>
+                    </div>
+                    <ul class="text-sm font-bold text-red-600 dark:text-red-400 ml-8 list-disc">
+                        {{ errors }}
+                            {{ if type_of:value != 'array' }}
+                                <li>{{ value }}</li>
+                            {{ /if }}
+                        {{ /errors }}
+                    </ul>
+                </div>
+            {{ /if }}
+
+            <div class="space-y-6">
+                <!-- Avatar specific handling — uploaded separately via AJAX since user:profile_form does not support file uploads -->
+                <div class="flex items-center gap-6 pb-6 border-b border-gray-100 dark:border-gray-700">
+                    <div id="avatar-preview" class="h-24 w-24 rounded-2xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-3xl font-black text-indigo-600 dark:text-indigo-400 overflow-hidden shadow-inner flex-shrink-0">
+                        {{ if current_user:avatar }}
+                            <img src="{{ current_user:avatar }}" class="h-full w-full object-cover">
+                        {{ else }}
+                            {{ current_user:name | substr(0,1) }}
+                        {{ /if }}
+                    </div>
+                    <div>
+                        <label class="block text-xs font-black uppercase tracking-widest text-gray-500 mb-2">Avatar (Optional)</label>
+                        <input type="file" id="avatar-file-input" accept="image/*" class="hidden">
+                        <button type="button" onclick="document.getElementById('avatar-file-input').click()"
+                            class="px-4 py-2 rounded-xl border-2 border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 text-sm font-bold text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-all">
+                            Choose Image
+                        </button>
+                        <p id="avatar-status" class="text-[10px] font-bold text-gray-400 mt-2">Upload a profile picture (max 1MB).</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+                    <div>
+                        <label for="name" class="block text-xs font-black uppercase tracking-widest text-gray-500 mb-2">Display Name</label>
+                        <input type="text" name="name" id="name" value="{{ old:name ?? current_user:name }}" required
+                            class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-white font-bold focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all outline-none">
+                    </div>
+
+                    <div>
+                        <label for="email" class="block text-xs font-black uppercase tracking-widest text-gray-500 mb-2">Email Address</label>
+                        <input type="email" name="email" id="email" value="{{ old:email ?? current_user:email }}" required
+                            class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-white font-bold focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all outline-none">
+                    </div>
+                </div>
+
+                <div class="pt-6 border-t border-gray-100 dark:border-gray-700">
+                    <h3 class="text-sm font-black text-gray-900 dark:text-white mb-4 tracking-wide">Change Password</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label for="password" class="block text-xs font-black uppercase tracking-widest text-gray-500 mb-2">New Password (Optional)</label>
+                            <input type="password" name="password" id="password"
+                                class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-white font-bold focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all outline-none">
+                        </div>
+                        <div>
+                            <label for="password_confirmation" class="block text-xs font-black uppercase tracking-widest text-gray-500 mb-2">Confirm Password</label>
+                            <input type="password" name="password_confirmation" id="password_confirmation"
+                                class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-white font-bold focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all outline-none">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- We must include the hidden current password field as Statamic requires it to change password/email -->
+                <div class="pt-6 border-t border-gray-100 dark:border-gray-700">
+                    <div class="bg-amber-50 dark:bg-amber-900/10 p-4 rounded-xl border border-amber-100 dark:border-amber-900/50">
+                        <label for="current_password" class="block text-xs font-black uppercase tracking-widest text-amber-700 dark:text-amber-500 mb-2">Current Password</label>
+                        <p class="text-[10px] font-bold text-amber-600 dark:text-amber-400 mb-3">Required to save your changes securely.</p>
+                        <input type="password" name="current_password" id="current_password" required
+                            class="w-full px-4 py-3 rounded-xl border-2 border-amber-200 dark:border-amber-800 focus:border-amber-500 focus:ring-4 focus:ring-amber-500/20 bg-white dark:bg-gray-800 text-gray-900 dark:text-white font-bold transition-all outline-none">
+                    </div>
+                </div>
+
+                <div class="pt-6 flex justify-end gap-4">
+                    <a href="/players/{{ current_user:slug }}" class="px-6 py-3 rounded-xl font-black uppercase tracking-widest text-gray-500 hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all">
+                        Cancel
+                    </a>
+                    <button type="submit" 
+                        class="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-black uppercase tracking-widest transition-all transform hover:-translate-y-1 hover:shadow-lg hover:shadow-indigo-500/30 active:translate-y-0 active:shadow-md">
+                        Save Changes
+                    </button>
+                </div>
+            </div>
+        {{ /user:profile_form }}
+
+        <script>
+        document.getElementById('avatar-file-input').addEventListener('change', function () {
+            const file = this.files[0];
+            if (!file) return;
+
+            const status = document.getElementById('avatar-status');
+            status.textContent = 'Uploading…';
+
+            const formData = new FormData();
+            formData.append('avatar', file);
+            formData.append('_token', '{{ csrf_token }}');
+
+            fetch('/upload-avatar', { method: 'POST', body: formData })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        status.textContent = '\u2713 Avatar updated!';
+                        const preview = document.getElementById('avatar-preview');
+                        preview.innerHTML = `<img src="${data.url}" class="h-full w-full object-cover">`;
+                    } else {
+                        status.textContent = 'Error: ' + (data.message || 'Upload failed.');
+                    }
+                })
+                .catch(() => { status.textContent = 'Upload failed. Please try again.Picture must be under 1MB and in a valid format (JPG, PNG, GIF).'; });
+        });
+        </script>
+    </div>
+</div>

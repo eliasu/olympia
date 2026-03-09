@@ -53,11 +53,12 @@ return [
     */
 
     'widgets' => [
-        [ 
+        [
             'type' => 'collection',
             'collection' => 'gamedays',
             'limit' => 15,
             'fields' => ['name', 'date', 'is_finished', 'generated_plan'],
+            'sort' => 'is_finished:asc',
         ]
     ],
 

@@ -4,6 +4,7 @@ namespace App\Tags;
 
 use Statamic\Tags\Tags;
 use Statamic\Facades\Entry;
+use Statamic\Facades\User;
 
 class LeaguePlayers extends Tags
 {
@@ -23,7 +24,7 @@ class LeaguePlayers extends Tags
         
         // Fetch player entries
         $players = collect($uniquePlayerIds)
-            ->map(fn($id) => Entry::find($id))
+            ->map(fn($id) => User::find($id))
             ->filter()
             ->values();
         

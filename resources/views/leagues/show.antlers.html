@@ -62,6 +62,7 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-100 dark:divide-gray-700/50">
+                            {{ current_league_min_games = min_game_days }}
                             {{ current_league_id = id }}
                             {{ league_players :league="current_league_id" sort="rank" }}
                             {{ league_stats }}
@@ -74,19 +75,19 @@
                                     </span>
                                 </td>
                                 <td class="px-2 sm:px-4 md:px-6 py-3 sm:py-5 whitespace-nowrap">
-                                    <a href="{{ url }}" class="flex items-center group">
+                                    <a href="/players/{{ slug }}" class="flex items-center group">
                                         <div
                                             class="h-8 w-8 md:h-10 md:w-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-black shadow-lg transform group-hover:scale-110 transition-all duration-200 overflow-hidden">
-                                            {{ if avatar_url }}
-                                            <img src="{{ avatar_url }}" class="h-full w-full object-cover">
+                                            {{ if avatar }}
+                                            <img src="{{ avatar }}" class="h-full w-full object-cover">
                                             {{ else }}
-                                            <span>{{ title | substr(0,1) }}</span>
+                                            <span class="text-xs font-bold">{{ name | substr:0:1 | upper }}</span>
                                             {{ /if }}
                                         </div>
                                         <div class="ml-4 min-w-0">
                                             <div
-                                                class="text-sm font-bold text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate">
-                                                {{ title }}</div>
+                                                class="text-sm font-bold text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                                                {{ name }}</div>
                                             <div class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
                                                 Elo: {{ global_elo }}</div>
                                         </div>
@@ -107,12 +108,12 @@
                                 </td>
                                 <td
                                     class="table-cell px-2 sm:px-4 md:px-6 py-3 sm:py-5 whitespace-nowrap text-center">
-                                    {{ if played_gamedays >= ^min_game_days }}
+                                    {{ if played_gamedays >= current_league_min_games }}
                                     <div class="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)] mx-auto"
                                         title="Qualified"></div>
                                     {{ else }}
                                     <span class="text-[10px] font-black text-gray-300 dark:text-gray-600">{{
-                                        played_gamedays }}/{{ ^min_game_days }}</span>
+                                        played_gamedays }}/{{ current_league_min_games }}</span>
                                     {{ /if }}
                                 </td>
                             </tr>
@@ -125,20 +126,21 @@
             </div>
         </div>
         
-        {{ gamedays is_finished:is="false" generated_plan:is="true"  }}
-        {{ count }}
         <!-- Right Column: Schedule (Gamedays) -->
-        <div class="space-y-6">
-            <h2 class="text-2xl font-black text-gray-900 dark:text-white tracking-tight flex items-center gap-3">
-                <span class="p-2 bg-emerald-100 dark:bg-emerald-900 rounded-lg text-emerald-600 dark:text-emerald-400">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                </span>
-                Active Gamedays
-            </h2>
+        {{ gamedays is_finished:is="false" generated_plan:is="true" as="active_gamedays" }}
+            {{ if active_gamedays }}
+            <div class="space-y-6">
+                <h2 class="text-2xl font-black text-gray-900 dark:text-white tracking-tight flex items-center gap-3">
+                    <span class="p-2 bg-emerald-100 dark:bg-emerald-900 rounded-lg text-emerald-600 dark:text-emerald-400">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </span>
+                    Active Gamedays
+                </h2>
 
-            <div class="space-y-4">
+                <div class="space-y-4">
+                    {{ active_gamedays }}
                 
                 <a href="{{ url }}"
                     class="group block p-4 sm:p-6 bg-white dark:bg-gray-800 rounded-2xl sm:rounded-[2rem] shadow-xl border-2 {{ if generated_plan && !is_finished }}border-emerald-500 bg-emerald-50/30 dark:bg-emerald-900/10 ring-8 ring-emerald-500/5{{ else }}border-gray-50 dark:border-gray-700/50 hover:border-indigo-200 dark:hover:border-indigo-800 bg-gray-50/50 dark:bg-gray-900/20{{ /if }} transition-all hover:scale-[1.02]">
@@ -175,7 +177,7 @@
                                     {{ present_players limit="4" }}
                                     <div
                                         class="h-6 w-6 rounded-full border-2 border-white dark:border-gray-800 bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-[8px] font-black text-gray-500">
-                                        {{ title | substr(0,1) }}
+                                        {{ name | substr(0,1) }}
                                     </div>
                                     {{ /present_players }}
                                     {{ if present_players | count > 4 }}
@@ -193,9 +195,10 @@
                     </div>
                 </a>
                 
+                    {{ /active_gamedays }}
+                </div>
             </div>
-        </div>
-
+            {{ /if }}
         {{ /gamedays }}
 
         <!-- Past Gamedays -->
@@ -212,67 +215,69 @@
             </h2>
 
             <div class="space-y-4">
-                {{ gamedays sort="is_finished:asc|date:desc" is_finished:is="true" generated_plan:is="true" }}
-                <a href="{{ url }}"
-                    class="group block p-4 sm:p-6 bg-white dark:bg-gray-800 rounded-2xl sm:rounded-[2rem] shadow-xl border-2 {{ if generated_plan && !is_finished }}border-emerald-500 bg-emerald-50/30 dark:bg-emerald-900/10 ring-8 ring-emerald-500/5{{ else }}border-gray-50 dark:border-gray-700/50 hover:border-indigo-200 dark:hover:border-indigo-800 bg-gray-50/50 dark:bg-gray-900/20{{ /if }} transition-all hover:scale-[1.02]">
-                    <div class="flex items-start gap-4">
-                        <!-- Date Badge -->
-                        <div
-                            class="flex-shrink-0 flex flex-col items-center justify-center w-14 h-14 rounded-2xl {{ if generated_plan && !is_finished }}bg-emerald-500 text-white shadow-lg shadow-emerald-500/30{{ else }}bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400{{ /if }} border border-black/5">
-                            <span class="text-[10px] font-black uppercase tracking-tighter leading-none mb-1">{{ date format="M" }}</span>
-                            <span class="text-xl font-black leading-none">{{ date format="d" }}</span>
-                        </div>
-
-                        <div class="flex-1 min-w-0">
-                            <div class="flex justify-between items-start mb-1 gap-2">
-                                <h3
-                                    class="text-base font-black text-gray-900 dark:text-white leading-tight truncate group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                                    {{ title }}</h3>
-                                {{ if is_finished }}
-                                <div
-                                    class="flex-shrink-0 px-2 py-0.5 rounded-md bg-gray-200 dark:bg-gray-600 text-gray-500 dark:text-gray-300 text-[9px] font-black uppercase tracking-widest">
-                                    Done</div>
-                                {{ elseif generated_plan }}
-                                <div
-                                    class="flex-shrink-0 px-2 py-0.5 rounded-md bg-emerald-500 text-white text-[9px] font-black uppercase tracking-widest animate-pulse shadow-sm">
-                                    Live</div>
-                                {{ else }}
-                                <div
-                                    class="flex-shrink-0 px-2 py-0.5 rounded-md bg-yellow-500 text-white text-[9px] font-black uppercase tracking-widest shadow-sm">
-                                    Draft</div>
-                                {{ /if }}
-                            </div>
-
-                            <div class="flex items-center justify-between mt-3">
-                                <div class="flex -space-x-1.5">
-                                    {{ present_players limit="4" }}
+                {{ gamedays sort="is_finished:asc|date:desc" is_finished:is="true" generated_plan:is="true" as="past_gamedays" }}
+                    {{ if past_gamedays }}
+                        {{ past_gamedays }}
+                            <a href="{{ url }}"
+                                class="group block p-4 sm:p-6 bg-white dark:bg-gray-800 rounded-2xl sm:rounded-[2rem] shadow-xl border-2 {{ if generated_plan && !is_finished }}border-emerald-500 bg-emerald-50/30 dark:bg-emerald-900/10 ring-8 ring-emerald-500/5{{ else }}border-gray-50 dark:border-gray-700/50 hover:border-indigo-200 dark:hover:border-indigo-800 bg-gray-50/50 dark:bg-gray-900/20{{ /if }} transition-all hover:scale-[1.02]">
+                                <div class="flex items-start gap-4">
+                                    <!-- Date Badge -->
                                     <div
-                                        class="h-6 w-6 rounded-full border-2 border-white dark:border-gray-800 bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-[8px] font-black text-gray-500">
-                                        {{ title | substr(0,1) }}
+                                        class="flex-shrink-0 flex flex-col items-center justify-center w-14 h-14 rounded-2xl {{ if generated_plan && !is_finished }}bg-emerald-500 text-white shadow-lg shadow-emerald-500/30{{ else }}bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400{{ /if }} border border-black/5">
+                                        <span class="text-[10px] font-black uppercase tracking-tighter leading-none mb-1">{{ date format="M" }}</span>
+                                        <span class="text-xl font-black leading-none">{{ date format="d" }}</span>
                                     </div>
-                                    {{ /present_players }}
-                                    {{ if present_players | count > 4 }}
-                                    <div
-                                        class="h-6 w-6 rounded-full border-2 border-white dark:border-gray-800 bg-indigo-50 dark:bg-indigo-900/50 flex items-center justify-center text-[7px] font-black text-indigo-600">
-                                        +{{ present_players|count|subtract(4) }}
+
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex justify-between items-start mb-1 gap-2">
+                                            <h3
+                                                class="text-base font-black text-gray-900 dark:text-white leading-tight truncate group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                                                {{ title }}</h3>
+                                            {{ if is_finished }}
+                                            <div
+                                                class="flex-shrink-0 px-2 py-0.5 rounded-md bg-gray-200 dark:bg-gray-600 text-gray-500 dark:text-gray-300 text-[9px] font-black uppercase tracking-widest">
+                                                Done</div>
+                                            {{ elseif generated_plan }}
+                                            <div
+                                                class="flex-shrink-0 px-2 py-0.5 rounded-md bg-emerald-500 text-white text-[9px] font-black uppercase tracking-widest animate-pulse shadow-sm">
+                                                Live</div>
+                                            {{ else }}
+                                            <div
+                                                class="flex-shrink-0 px-2 py-0.5 rounded-md bg-yellow-500 text-white text-[9px] font-black uppercase tracking-widest shadow-sm">
+                                                Draft</div>
+                                            {{ /if }}
+                                        </div>
+
+                                        <div class="flex items-center justify-between mt-3">
+                                            <div class="flex -space-x-1.5">
+                                                {{ present_players limit="4" }}
+                                                <div
+                                                    class="h-6 w-6 rounded-full border-2 border-white dark:border-gray-800 bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-[8px] font-black text-gray-500">
+                                                    {{ name | substr(0,1) }}
+                                                </div>
+                                                {{ /present_players }}
+                                                {{ if present_players | count > 4 }}
+                                                <div
+                                                    class="h-6 w-6 rounded-full border-2 border-white dark:border-gray-800 bg-indigo-50 dark:bg-indigo-900/50 flex items-center justify-center text-[7px] font-black text-indigo-600">
+                                                    +{{ present_players|count|subtract(4) }}
+                                                </div>
+                                                {{ /if }}
+                                            </div>
+                                            <span
+                                                class="text-[10px] font-black text-indigo-500 uppercase tracking-widest group-hover:translate-x-1 transition-transform">Info
+                                                &rarr;</span>
+                                        </div>
                                     </div>
-                                    {{ /if }}
                                 </div>
-                                <span
-                                    class="text-[10px] font-black text-indigo-500 uppercase tracking-widest group-hover:translate-x-1 transition-transform">Info
-                                    &rarr;</span>
-                            </div>
+                            </a>
+                        {{ /past_gamedays }}
+                    {{ else }}
+                        <div
+                            class="py-12 text-center bg-gray-50 dark:bg-gray-900/50 rounded-2xl sm:rounded-[2rem] border-2 border-dashed border-gray-100 dark:border-gray-800">
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">No scheduled gamedays</p>
                         </div>
-                    </div>
-                </a>
+                    {{ /if }}
                 {{ /gamedays }}
-
-                {{ if !gamedays }}
-                <div
-                    class="py-12 text-center bg-gray-50 dark:bg-gray-900/50 rounded-2xl sm:rounded-[2rem] border-2 border-dashed border-gray-100 dark:border-gray-800">
-                    <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">No scheduled gamedays</p>
-                </div>
-                {{ /if }}
             </div>
         </div>
     </div>

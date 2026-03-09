@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Statamic\Facades\Entry;
+use Statamic\Facades\User;
 use Statamic\Facades\Collection;
 use Illuminate\Support\Collection as LaravelCollection;
 use Illuminate\Support\Facades\Log;
@@ -60,7 +61,7 @@ class LeagueService
         // Get present players
         $presentPlayerIds = $gameday->get('present_players', []);
         $players = collect($presentPlayerIds)->map(function ($id) {
-            return Entry::find($id);
+            return User::find($id);
         })->filter();
 
         if ($players->count() < 4) {
@@ -390,7 +391,7 @@ class LeagueService
         $rankings = [];
         
         foreach ($presentPlayerIds as $playerId) {
-            $player = Entry::find($playerId);
+            $player = User::find($playerId);
             if (!$player) continue;
             
             // Find all matches this player participated in
@@ -502,7 +503,7 @@ class LeagueService
         $leagueIds = collect();
         
         foreach ($playerIds as $playerId) {
-            $player = Entry::find($playerId);
+            $player = User::find($playerId);
             if (!$player) continue;
             
             $leagueStats = $player->get('league_stats', []);
@@ -530,7 +531,7 @@ class LeagueService
      */
     public function updatePlayerLeagueStats($playerId)
     {
-        $player = Entry::find($playerId);
+        $player = User::find($playerId);
         if (!$player) return;
 
         // Find all finished gamedays where player was present
@@ -638,7 +639,7 @@ class LeagueService
      */
     public function getPlayerLeagueStats($playerId, $leagueId)
     {
-        $player = Entry::find($playerId);
+        $player = User::find($playerId);
         if (!$player) {
             return [
                 'played_game_days' => 0, 
@@ -678,8 +679,8 @@ class LeagueService
         $teamAIds = $match->get('team_a');
         $teamBIds = $match->get('team_b');
         
-        $teamAPlayers = collect($teamAIds)->map(fn($id) => Entry::find($id))->filter();
-        $teamBPlayers = collect($teamBIds)->map(fn($id) => Entry::find($id))->filter();
+        $teamAPlayers = collect($teamAIds)->map(fn($id) => User::find($id))->filter();
+        $teamBPlayers = collect($teamBIds)->map(fn($id) => User::find($id))->filter();
         
         if ($teamAPlayers->count() < 2 || $teamBPlayers->count() < 2) {
             Log::warning("Match {$match->id()} has incomplete teams");
@@ -804,7 +805,7 @@ class LeagueService
         if (!$league) return;
         
         $minGameDays = (int)$league->get('min_game_days', 0);
-        $players = Entry::query()->where('collection', 'players')->get();
+        $players = User::all();
         
         // Build ranking data for all players
         $rankingData = $players->map(function($player) use ($leagueId, $minGameDays) {
@@ -856,7 +857,7 @@ class LeagueService
 
         // Assign ranks to players
         foreach ($rankingData as $index => $item) {
-            $player = Entry::find($item['id']);
+            $player = User::find($item['id']);
             $stats = $player->get('league_stats', []);
             
             foreach ($stats as &$row) {

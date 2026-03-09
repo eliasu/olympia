@@ -1,0 +1,141 @@
+name: 'Raoul Advanced'
+slug: raoul-advanced-8
+global_elo: 1470.41
+skill_rating: 1600.0
+total_games: 14
+wins: 6
+losses: 8
+player_status: active
+roles:
+  - player
+groups:
+  - players
+matches:
+  - f011e184-e0d3-4915-9756-9dc3f71b4030
+  - d94a095e-29e4-488b-8add-281cb6f88b1b
+  - 3a7d6d7b-90c7-4b81-ad7b-a058fac36a75
+  - b477986f-b1b1-4bdd-8a99-d339273a5628
+  - f2aba957-e29f-45a9-a586-22e5479aa3ea
+  - 04ae185b-8b75-48e6-b853-9782b4ae3132
+  - 80c32da3-5e93-46e1-ad49-e14e1ad24bb7
+  - cbed9a72-545f-4e63-bb0a-fcfee15fb61b
+  - 93b2da3b-c553-46df-9895-1e6eb032a3d1
+  - d079ed18-29b0-478e-9b6f-ab77b1d4059f
+  - 5dddc3b9-922c-4ecb-83d2-f7846d1cdcd3
+  - dc0b4bbd-1239-4505-a596-998e83d413f3
+  - ddc86558-45dc-4da7-9945-c66ace59dff2
+  - 0d8c1959-ecb9-438c-93d2-becf7c142782
+  - 585a0f75-e1ab-46ce-82f0-2f224d8f5571
+  - b6733041-e7da-46c3-83e8-f0e893c2e64c
+  - edf16b79-fc71-444c-9daa-cc6924cbf1ab
+  - f0291565-5909-44b0-928f-6e6d7c594a68
+  - 46006f64-aa7f-4141-8a42-58dae1f070cf
+  - 7f8d3505-b404-404a-bb1b-d45c356975d8
+  - b4f37657-3893-4563-8478-0bd9edcd2347
+  - a3348bff-f7d2-49a5-821b-9c8254349589
+  - 3109b699-ebb3-4c67-8e99-05966159439e
+  - 4d0c9452-3423-4a2d-ae6d-e15c84c7af46
+  - 13946d87-3649-4fb6-9f2a-8b4fd02ac53a
+  - 20459f57-f089-46a4-a976-d286be1a8fd3
+  - 98191c5c-9ea7-41a1-b1c1-7b0798e6d018
+  - fa94aafd-1b19-404f-af8f-b16630821b75
+  - c815d64a-0029-4301-9327-7907870a6ae1
+  - e58328ac-c9cb-4f61-bb61-61f2130d5cd5
+  - 12240d0b-96af-490a-af73-881155c21691
+  - ad02a7da-e9e0-422f-a1a6-9122c1d0bdc3
+  - 5f781df7-0eda-45a1-9845-de4f0879e744
+  - 9e7c8a2d-6f74-4443-997b-2171b67bbb0b
+  - cd630347-48e1-4683-bdb7-a3da444834f5
+  - 86de5ada-07cc-4d2e-a144-6b55cd7ad32a
+  - 0545ab02-76ab-40bc-9656-9c0bcb7a736a
+  - b03b6fac-2b9d-483f-b0e2-8c54cc57a4b1
+  - dbe6a2c7-4657-4fc5-94d9-a270921ad129
+  - 139c4c5e-354c-43e4-ab69-a76ba1dba257
+  - d08c915f-cf7f-4a72-9027-ae6395fc4d1d
+  - 347440a2-25e1-47c0-93a9-18db1a5c112c
+  - 156f3fd6-9575-4883-94a0-7bd057686fd3
+  - 37c3ec16-5c20-45ae-8ffd-3353d228aae1
+  - dd12f2b9-ae6b-4df8-81a2-e9883027a1eb
+elo_history:
+  -
+    date: '2026-03-16T00:00:00+00:00'
+    elo: 1490.86
+    match: f011e184-e0d3-4915-9756-9dc3f71b4030
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-03-16T00:00:00+00:00'
+    elo: 1480.06
+    match: d94a095e-29e4-488b-8add-281cb6f88b1b
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-03-16T00:00:00+00:00'
+    elo: 1483.07
+    match: 3a7d6d7b-90c7-4b81-ad7b-a058fac36a75
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-06T00:00:00+00:00'
+    elo: 1467.37
+    match: ddc86558-45dc-4da7-9945-c66ace59dff2
+    league: '9'
+  -
+    date: '2026-04-06T00:00:00+00:00'
+    elo: 1453.55
+    match: 0d8c1959-ecb9-438c-93d2-becf7c142782
+    league: '9'
+  -
+    date: '2026-04-06T00:00:00+00:00'
+    elo: 1447.1
+    match: 585a0f75-e1ab-46ce-82f0-2f224d8f5571
+    league: '9'
+  -
+    date: '2026-04-06T00:00:00+00:00'
+    elo: 1438.03
+    match: b6733041-e7da-46c3-83e8-f0e893c2e64c
+    league: '9'
+  -
+    date: '2026-05-18T00:00:00+00:00'
+    elo: 1421.96
+    match: dbe6a2c7-4657-4fc5-94d9-a270921ad129
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-18T00:00:00+00:00'
+    elo: 1437.84
+    match: 139c4c5e-354c-43e4-ab69-a76ba1dba257
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-18T00:00:00+00:00'
+    elo: 1444.0
+    match: d08c915f-cf7f-4a72-9027-ae6395fc4d1d
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-18T00:00:00+00:00'
+    elo: 1452.43
+    match: 347440a2-25e1-47c0-93a9-18db1a5c112c
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-03-16T00:00:00+00:00'
+    elo: 1465.76
+    match: 156f3fd6-9575-4883-94a0-7bd057686fd3
+    league: '9'
+  -
+    date: '2026-03-16T00:00:00+00:00'
+    elo: 1478.83
+    match: 37c3ec16-5c20-45ae-8ffd-3353d228aae1
+    league: '9'
+  -
+    date: '2026-03-16T00:00:00+00:00'
+    elo: 1470.41
+    match: dd12f2b9-ae6b-4df8-81a2-e9883027a1eb
+    league: '9'
+league_stats:
+  -
+    league:
+      - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+    played_gamedays: 7
+    match_count: 25
+    league_wins: 17
+    league_losses: 8
+    win_percentage: 68.0
+    rank: 2
+id: fb327c66-caf9-4291-96c8-446b5f9d4d62
+password_hash: $2y$12$Zx0GXkJQC/ptQumo4crNSOHm7OhBJ2ypjQxugrcAbC.U3zPz7BbbG

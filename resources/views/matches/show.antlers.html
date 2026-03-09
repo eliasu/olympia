@@ -46,16 +46,14 @@
                     <!-- Avatars -->
                     <div class="flex justify-center -space-x-4 mb-4">
                         {{ team_a }}
-                        <a href="{{ url }}"
+                        <a href="/players/{{ slug }}"
                             class="block relative z-10 hover:z-20 transform hover:scale-105 transition-all group">
                             <div
                                 class="h-16 w-16 md:h-20 md:w-20 rounded-full ring-4 ring-white dark:ring-gray-800 bg-gradient-to-tr from-blue-400 to-blue-600 flex items-center justify-center text-white text-xl font-black shadow-lg overflow-hidden">
-                                {{ if avatar_url }}
-                                <img src="{{ avatar_url }}" class="h-full w-full object-cover">
-                                {{ elseif avatar }}
+                                {{ if avatar }}
                                 <img src="{{ avatar }}" class="h-full w-full object-cover">
                                 {{ else }}
-                                {{ title | truncate:2:'' | upper }}
+                                {{ name | substr:0:1 | upper }}
                                 {{ /if }}
                             </div>
                         </a>
@@ -65,9 +63,9 @@
                     <!-- Names -->
                     <div class="space-y-1">
                         {{ team_a }}
-                        <a href="{{ url }}"
+                        <a href="/players/{{ slug }}"
                             class="block text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">{{
-                            title }}</a>
+                            name }}</a>
                         {{ /team_a }}
                     </div>
                 </div>
@@ -94,16 +92,14 @@
                     <!-- Avatars -->
                     <div class="flex justify-center -space-x-4 mb-4">
                         {{ team_b }}
-                        <a href="{{ url }}"
+                        <a href="/players/{{ slug }}"
                             class="block relative z-10 hover:z-20 transform hover:scale-105 transition-all group">
                             <div
                                 class="h-16 w-16 md:h-20 md:w-20 rounded-full ring-4 ring-white dark:ring-gray-800 bg-gradient-to-tr from-red-400 to-red-600 flex items-center justify-center text-white text-xl font-black shadow-lg overflow-hidden">
-                                {{ if avatar_url }}
-                                <img src="{{ avatar_url }}" class="h-full w-full object-cover">
-                                {{ elseif avatar }}
+                                {{ if avatar }}
                                 <img src="{{ avatar }}" class="h-full w-full object-cover">
                                 {{ else }}
-                                {{ title | truncate:2:'' | upper }}
+                                {{ name | substr:0:1 | upper }}
                                 {{ /if }}
                             </div>
                         </a>
@@ -113,9 +109,9 @@
                     <!-- Names -->
                     <div class="space-y-1">
                         {{ team_b }}
-                        <a href="{{ url }}"
+                        <a href="/players/{{ slug }}"
                             class="block text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400 transition-colors">{{
-                            title }}</a>
+                            name }}</a>
                         {{ /team_b }}
                     </div>
                 </div>
@@ -157,7 +153,7 @@
                     {{ is_gain = (old_elo != 'N/A' && new_elo != 'N/A') ? (new_elo > old_elo) : false }}
                     <div
                         class="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-2xl border {{ is_gain ? 'border-emerald-100 dark:border-emerald-900/30' : 'border-rose-100 dark:border-rose-900/30' }} shadow-sm transition-all {{ is_gain ? 'hover:bg-emerald-50/50 dark:hover:bg-emerald-900/10' : 'hover:bg-rose-50/50 dark:hover:bg-rose-900/10' }}">
-                        <a href="{{ url }}" class="text-sm font-bold text-gray-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors truncate">{{ title }}</a>
+                        <a href="/players/{{ slug }}" class="text-sm font-bold text-gray-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">{{ name }}</a>
                         <div class="flex items-center gap-3 font-mono text-xs">
                             <span class="text-gray-400">{{ old_elo == 'N/A' ? old_elo : (old_elo | round(1)) }}</span>
                             {{ if is_gain }}
@@ -203,7 +199,7 @@
                     {{ is_gain = (old_elo != 'N/A' && new_elo != 'N/A') ? (new_elo > old_elo) : false }}
                     <div
                         class="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-2xl border {{ is_gain ? 'border-emerald-100 dark:border-emerald-900/30' : 'border-rose-100 dark:border-rose-900/30' }} shadow-sm transition-all {{ is_gain ? 'hover:bg-emerald-50/50 dark:hover:bg-emerald-900/10' : 'hover:bg-rose-50/50 dark:hover:bg-rose-900/10' }}">
-                        <a href="{{ url }}" class="text-sm font-bold text-gray-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors truncate">{{ title }}</a>
+                        <a href="/players/{{ slug }}" class="text-sm font-bold text-gray-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">{{ name }}</a>
                         <div class="flex items-center gap-3 font-mono text-xs">
                             <span class="text-gray-400">{{ old_elo == 'N/A' ? old_elo : (old_elo | round(1)) }}</span>
                             {{ if is_gain }}

@@ -33,9 +33,7 @@ tabs:
           -
             handle: team_a
             field:
-              type: entries
-              collections:
-                - players
+              type: users
               max_items: 2
               display: 'Team A'
               width: 50
@@ -43,9 +41,7 @@ tabs:
           -
             handle: team_b
             field:
-              type: entries
-              collections:
-                - players
+              type: users
               max_items: 2
               display: 'Team B'
               width: 50

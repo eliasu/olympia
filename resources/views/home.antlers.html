@@ -10,6 +10,8 @@
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
         
         <!-- MAIN CONTENT: Active Gamedays (Col 1-8) -->
+        {{ has_active_gamedays = ({collection:count from="gamedays" generated_plan:is="true" is_finished:is="false"} > 0) }}
+        {{ if has_active_gamedays }}
         <div class="lg:col-span-8 space-y-12">
             <!-- Active Gamedays (Only shown if Gamedays exist) -->
             {{ collection:gamedays generated_plan:is="true" is_finished:is="false" sort="date:asc" limit="4" as="results" }}
@@ -43,10 +45,10 @@
                                             <div class="flex -space-x-1.5">
                                                 {{ present_players limit="4" }}
                                                     <div class="h-6 w-6 rounded-full border-2 border-white dark:border-gray-800 bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-[8px] font-black text-gray-500 overflow-hidden">
-                                                        {{ if avatar_url }}
-                                                            <img src="{{ avatar_url }}" class="h-full w-full object-cover">
+                                                        {{ if avatar }}
+                                                            <img src="{{ avatar }}" class="h-full w-full object-cover">
                                                         {{ else }}
-                                                            {{ title | truncate:2:'' | upper }}
+                                                            {{ name | truncate:2:'' | upper }}
                                                         {{ /if }}
                                                     </div>
                                                 {{ /present_players }}
@@ -66,10 +68,11 @@
                 </section>
                 {{ /if }}
             {{ /collection:gamedays }}
-        </div>
+            </div>
+            {{ /if }}
 
-        <!-- SIDEBAR: Widgets (Col 9-12) -->
-        <div class="lg:col-span-4 lg:row-span-2 space-y-10">
+            <!-- SIDEBAR: Widgets (Col 9-12) -->
+            <div class="lg:col-span-4 lg:col-start-9 lg:row-span-2 space-y-10">
             
             <!-- Liga Liste Widget (Now permanently here at the top) -->
             <section class="bg-white dark:bg-gray-800 rounded-2xl sm:rounded-[2.5rem] shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden">
@@ -113,22 +116,22 @@
                     </h2>
                     
                     <div class="space-y-4">
-                        {{ collection:players sort="global_elo:desc" limit="10" }}
-                            <a href="{{ url }}" class="flex items-center justify-between p-3 rounded-2xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all group">
+                        {{ users sort="global_elo:desc" limit="10" }}
+                            <a href="/players/{{ slug }}" class="flex items-center justify-between p-3 rounded-2xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all group">
                                 <div class="flex items-center gap-3">
                                     <span class="w-5 text-sm font-black {{ if index < 3 }}text-amber-500{{ else }}text-gray-300 dark:text-gray-600{{ /if }}">{{ index | add(1) }}.</span>
                                     <div class="h-9 w-9 rounded-xl overflow-hidden shadow-sm bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-xs font-black text-indigo-600 dark:text-indigo-400">
-                                        {{ if avatar_url }}
-                                            <img src="{{ avatar_url }}" class="h-full w-full object-cover">
+                                        {{ if avatar }}
+                                            <img src="{{ avatar }}" class="h-full w-full object-cover">
                                         {{ else }}
-                                            {{ title | substr(0,1) }}
+                                            {{ name | substr(0,1) }}
                                         {{ /if }}
                                     </div>
-                                    <span class="text-sm font-bold text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{{ title }}</span>
+                                    <span class="text-sm font-bold text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{{ name }}</span>
                                 </div>
                                 <span class="text-sm font-black text-gray-900 dark:text-white">{{ global_elo | round }}</span>
                             </a>
-                        {{ /collection:players }}
+                        {{ /users }}
                     </div>
                 </div>
                 <a href="/global-ranking" class="block w-full p-4 bg-gray-50 dark:bg-gray-900/50 text-center text-xs font-black uppercase tracking-widest text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 transition-colors border-t border-gray-100 dark:border-gray-700">
@@ -138,7 +141,7 @@
         </div>
 
         <!-- MAIN CONTENT: Past Gamedays (Col 1-8) -->
-        <div class="lg:col-span-8 space-y-12">
+        <div class="lg:col-span-8 lg:col-start-1 {{ if has_active_gamedays }}lg:row-start-2{{ else }}lg:row-start-1{{ /if }} space-y-12">
             <!-- Past Gamedays -->
             <section>
                 <div class="flex items-center justify-between mb-8">
@@ -168,10 +171,10 @@
                                         <div class="flex -space-x-1.5">
                                              {{ present_players limit="4" }}
                                                 <div class="h-6 w-6 rounded-full border-2 border-white dark:border-gray-800 bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-[8px] font-black text-gray-500 overflow-hidden">
-                                                    {{ if avatar_url }}
-                                                        <img src="{{ avatar_url }}" class="h-full w-full object-cover">
+                                                    {{ if avatar }}
+                                                        <img src="{{ avatar }}" class="h-full w-full object-cover">
                                                     {{ else }}
-                                                        {{ title | truncate:2:'' | upper }}
+                                                        {{ name | truncate:2:'' | upper }}
                                                     {{ /if }}
                                                 </div>
                                              {{ /present_players }}

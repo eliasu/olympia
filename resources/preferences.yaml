@@ -1,0 +1,63 @@
+collections:
+    leagues:
+      after_save: continue_editing
+      columns:
+        - title
+        - slug
+        - active
+        - min_game_days
+    gamedays:
+      columns:
+        - title
+        - date
+        - league
+        - is_finished
+        - generated_plan
+        - courts_count
+        - games_per_court
+        - slug
+      after_save: continue_editing
+      filters:
+        active:
+          display: Active
+          filters:
+            fields:
+              is_finished:
+                value: 'false'
+              'null': null
+              generated_plan:
+                value: 'true'
+        not_started:
+          display: 'Not Started'
+          filters:
+            fields:
+              is_finished:
+                value: 'false'
+              'null': null
+              generated_plan:
+                value: 'false'
+    matches:
+      columns:
+        - title
+        - team_a
+        - score_a
+        - team_b
+        - score_b
+        - is_played
+        - gameday
+        - elo_delta
+      per_page: 500
+      after_save: continue_editing
+    players:
+      columns:
+        - title
+        - avatar
+        - global_elo
+        - total_games
+users:
+  columns:
+    - email
+    - name
+    - roles
+    - groups
+    - last_login

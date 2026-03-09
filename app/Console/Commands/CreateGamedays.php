@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Statamic\Facades\Entry;
+use Statamic\Facades\User;
 use Carbon\Carbon;
 
 class CreateGamedays extends Command
@@ -38,8 +39,7 @@ class CreateGamedays extends Command
         }
         
         // Get all active players
-        $allPlayers = Entry::query()
-            ->where('collection', 'players')
+        $allPlayers = User::query()
             ->where('player_status', 'active')
             ->get();
             

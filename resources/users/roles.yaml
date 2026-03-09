@@ -1,4 +1,74 @@
-# admin:
-#   title: Administrator
-#   permissions:
-#     - super
+league_manager:
+  title: 'League Manager'
+  permissions:
+    - 'access cp'
+    - 'view leagues entries'
+    - 'edit leagues entries'
+    - 'create leagues entries'
+    - 'delete leagues entries'
+    - 'publish leagues entries'
+    - 'reorder leagues entries'
+    - 'edit other authors leagues entries'
+    - 'publish other authors leagues entries'
+    - 'delete other authors leagues entries'
+    - 'view matches entries'
+    - 'edit matches entries'
+    - 'create matches entries'
+    - 'delete matches entries'
+    - 'publish matches entries'
+    - 'reorder matches entries'
+    - 'edit other authors matches entries'
+    - 'publish other authors matches entries'
+    - 'delete other authors matches entries'
+    - 'view gamedays entries'
+    - 'edit gamedays entries'
+    - 'create gamedays entries'
+    - 'delete gamedays entries'
+    - 'publish gamedays entries'
+    - 'reorder gamedays entries'
+    - 'edit other authors gamedays entries'
+    - 'publish other authors gamedays entries'
+    - 'delete other authors gamedays entries'
+    - 'view assets assets'
+    - 'upload assets assets'
+    - 'edit assets assets'
+    - 'move assets assets'
+    - 'rename assets assets'
+    - 'delete assets assets'
+    - 'view users'
+    - 'edit users'
+    - 'create users'
+    - 'delete users'
+    - 'change passwords'
+  preferences:
+    nav:
+      top_level:
+        'content::collections::leagues':
+          action: '@move'
+          icon: pro-ribbon
+        'content::collections::gamedays':
+          action: '@move'
+          icon: calendar
+        'users::users':
+          action: '@move'
+          icon: user
+      content:
+        action: '@hide'
+        items:
+          'content::collections': '@hide'
+          'content::navigation': '@hide'
+          'content::taxonomies': '@hide'
+          'content::assets': '@hide'
+          'content::globals': '@hide'
+      fields: '@hide'
+      tools: '@hide'
+      settings: '@hide'
+      users: '@hide'
+    favorites: {  }
+player:
+  title: Player
+  permissions:
+    - 'view assets assets'
+    - 'upload assets assets'
+    - 'edit assets assets'
+    - 'view users'

@@ -17,9 +17,7 @@ tabs:
           -
             handle: present_players
             field:
-              type: entries
-              collections:
-                - players
+              type: users
               display: 'Present Players'
               mode: select
           -
@@ -56,9 +54,7 @@ tabs:
                 -
                   handle: player
                   field:
-                    type: entries
-                    collections:
-                      - players
+                    type: users
                     max_items: 1
                     display: Player
                     width: 25

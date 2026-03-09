@@ -10,16 +10,18 @@
         <div class="bg-white dark:bg-gray-800 p-4 sm:p-8 rounded-2xl sm:rounded-[2rem] shadow-xl border border-gray-100 dark:border-gray-700">
             <div class="text-xs font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Total Count</div>
             <div class="text-4xl font-black text-indigo-600 dark:text-indigo-400 tracking-tighter">
-                {{ collection:count in="players" }}
+                {{ users }}
+                    {{ if last }}{{ count }}{{ /if }}
+                {{ /users }}
             </div>
             <div class="text-sm font-bold text-gray-500 dark:text-gray-500 mt-1">Active Players</div>
         </div>
         <div class="bg-white dark:bg-gray-800 p-4 sm:p-8 rounded-2xl sm:rounded-[2rem] shadow-xl border border-gray-100 dark:border-gray-700">
             <div class="text-xs font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Best Player</div>
             <div class="text-4xl font-black text-emerald-500 tracking-tighter">
-                {{ collection:players sort="global_elo:desc" limit="1" as="best" }}
-                    {{ best }}{{ global_elo | round }}{{ /best }}
-                {{ /collection:players }}
+                {{ users sort="global_elo:desc" limit="1" }}
+                    {{ global_elo | round }}
+                {{ /users }}
             </div>
             <div class="text-sm font-bold text-gray-500 dark:text-gray-500 mt-1">Highest Rating</div>
         </div>
@@ -38,7 +40,7 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100 dark:divide-gray-700/50">
-                    {{ collection:players sort="global_elo:desc" }}
+                    {{ users sort="global_elo:desc" }}
                         <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-700/30 transition-all duration-200">
                             <td class="pl-4 pr-1 sm:px-4 md:px-8 py-4 sm:py-6 whitespace-nowrap">
                                 <span class="text-lg md:text-xl font-black {{ if index < 3 }}text-indigo-600 dark:text-indigo-400{{ else }}text-gray-300 dark:text-gray-600{{ /if }} tracking-tighter">
@@ -46,18 +48,16 @@
                                 </span>
                             </td>
                             <td class="pl-1 pr-4 sm:px-4 md:px-8 py-4 sm:py-6 whitespace-nowrap">
-                                <a href="{{ url }}" class="flex items-center group">
+                                <a href="/players/{{ slug }}" class="flex items-center group">
                                     <div class="h-10 w-10 md:h-12 md:w-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-black shadow-lg transform group-hover:scale-110 transition-all duration-200 overflow-hidden">
-                                        {{ if avatar_url }}
-                                            <img src="{{ avatar_url }}" class="h-full w-full object-cover">
-                                        {{ elseif avatar }}
+                                        {{ if avatar }}
                                             <img src="{{ avatar }}" class="h-full w-full object-cover">
                                         {{ else }}
-                                            {{ title | substr(0,1) }}
+                                            {{ name | substr(0,1) }}
                                         {{ /if }}
                                     </div>
                                     <div class="ml-4 min-w-0">
-                                        <div class="text-sm font-black text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate">{{ title }}</div>
+                                        <div class="text-sm font-black text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{{ name }}</div>
                                         <div class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Active Player</div>
                                     </div>
                                 </a>
@@ -78,7 +78,7 @@
                                 {{ total_games ?? 0 }}
                             </td>
                         </tr>
-                    {{ /collection:players }}
+                    {{ /users }}
                 </tbody>
             </table>
         </div>

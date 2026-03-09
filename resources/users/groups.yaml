@@ -1,4 +1,8 @@
-# admin:
-#   title: Administrators
-#   roles:
-#     - admin
+league_managers:
+  title: 'League Managers'
+  roles:
+    - league_manager
+players:
+  title: Players
+  roles:
+    - player

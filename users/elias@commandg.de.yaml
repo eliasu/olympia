@@ -1,7 +1,176 @@
 name: Elias
 super: true
+matches:
+  - ddc86558-45dc-4da7-9945-c66ace59dff2
+  - 7c5efd1a-e75e-4735-a1bf-47e81e36db65
+  - 0bdb9e39-80c8-45fe-becd-927204c427d1
+  - 6d580020-9e90-4622-b901-5a8750fa1ae7
+  - 2f1af98b-6d6e-4cbd-a617-c390cafdb0c4
+  - cc68a3b3-26db-4400-b6d0-13d2e7889a86
+  - 44800562-8cd9-4f71-bdd9-3b02199aed2f
+  - 71e502e7-6d9c-4219-acf2-030289d8965e
+  - 30f7afeb-2bc0-47f3-82fb-2e8b90512ada
+  - 4d2b12d4-e126-467d-af1c-5a4eeb992c20
+  - a303f2d7-c3b0-4f9e-8457-a41ee56b2337
+  - b2de4265-7f2c-4eb2-824f-306ee43b924b
+  - 92f5aff6-43ba-4031-9e85-6b6cfeee5496
+  - e59ab1c9-9a22-4952-a383-f341957383bc
+  - 4dd67b06-6925-4dd1-8092-803716ab1cf2
+  - 9daa53b1-2136-46e8-9b80-0db045e5fef6
+  - 860f9e64-c726-403e-98d3-7ef6dfde42ca
+  - db76366d-b673-46ed-8e5f-a6a0944f0f97
+  - a36533a3-de93-489a-a86a-581ed328552c
+  - 8da68237-e697-4b73-94a2-44808ab6e025
+  - 8acc8715-b7aa-4529-8e92-409b3dc7f22d
+  - 30723dda-8391-4c5c-98dc-b21e72cb7558
+  - e2ba8fde-06b1-46c9-b071-153bc187e209
+  - 21345c80-ff07-4e99-b862-c1fc66d8da85
+  - b03b6fac-2b9d-483f-b0e2-8c54cc57a4b1
+  - dee6df68-ef37-4daf-90ac-f345d3136604
+  - faf1ff9a-0338-4c76-9a1a-51cf02419f74
+  - 1b53390b-188d-4e8e-8b62-b06e81c5daf4
+  - 9e861b3f-4cb2-43c4-95aa-933f53c4b515
+  - 65bb8832-efee-4e42-b04d-e8775ad2a77c
+  - c93237ed-9b2f-43d7-9438-b814da799ef5
+  - bd34f44e-22e3-4877-b15f-0f5c16a4dacd
+  - b0fe4be6-6d9a-4c08-8c90-083a98174397
+  - 18a1284f-c61a-4f4f-ba9b-ad40fe083ca8
+  - 370d78d5-324f-43c2-b3c3-f2ebaa859e9d
+  - c9bb437f-58d1-4ae3-94bd-08f9ada249f1
+  - 3908a5dd-3d67-4769-b4af-361ba0041499
+  - 39d87e1c-7971-4ee5-a458-367508590b8a
+  - 96426e47-7808-47cd-937c-d8cf185bb047
+  - bbd3ce9b-4c33-47ba-8599-f98ea04b587b
+  - 2ddd97be-f497-47ad-8561-80472e9a24ad
+  - d42ce9ab-d943-42a5-94cf-98b6d320b9eb
+global_elo: 1547.77
+total_games: 18
+wins: 10
+elo_history:
+  -
+    id: pJB45Rj2
+    date: '2026-04-06 00:00'
+    elo: 1515.7
+    match: ddc86558-45dc-4da7-9945-c66ace59dff2
+    league: '9'
+  -
+    id: 77Y2VWSH
+    date: '2026-04-06 00:00'
+    elo: 1531.67
+    match: 7c5efd1a-e75e-4735-a1bf-47e81e36db65
+    league: '9'
+  -
+    id: BopRZhTI
+    date: '2026-04-06 00:00'
+    elo: 1547.33
+    match: 0bdb9e39-80c8-45fe-becd-927204c427d1
+    league: '9'
+  -
+    id: bFRlTHGp
+    date: '2026-04-06 00:00'
+    elo: 1559.98
+    match: 6d580020-9e90-4622-b901-5a8750fa1ae7
+    league: '9'
+  -
+    id: 28vftoyu
+    date: '2026-04-06 00:00'
+    elo: 1574.19
+    match: 2f1af98b-6d6e-4cbd-a617-c390cafdb0c4
+    league: '9'
+  -
+    id: G1J8DMbe
+    date: '2026-05-18 00:00'
+    elo: 1566.95
+    match: 9e861b3f-4cb2-43c4-95aa-933f53c4b515
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    id: 9K4bFnS3
+    date: '2026-05-18 00:00'
+    elo: 1580.2
+    match: 65bb8832-efee-4e42-b04d-e8775ad2a77c
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    id: hReHfzZu
+    date: '2026-05-18 00:00'
+    elo: 1562.76
+    match: c93237ed-9b2f-43d7-9438-b814da799ef5
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    id: HCrKORd6
+    date: '2026-03-16 00:00'
+    elo: 1553.78
+    match: bd34f44e-22e3-4877-b15f-0f5c16a4dacd
+    league: '9'
+  -
+    id: lnhI9RtE
+    date: '2026-03-16 00:00'
+    elo: 1549.73
+    match: b0fe4be6-6d9a-4c08-8c90-083a98174397
+    league: '9'
+  -
+    id: kt6mMkxt
+    date: '2026-03-16 00:00'
+    elo: 1557.05
+    match: 18a1284f-c61a-4f4f-ba9b-ad40fe083ca8
+    league: '9'
+  -
+    id: ocWS9tvl
+    date: '2026-07-02 00:00'
+    elo: 1541.4
+    match: c9bb437f-58d1-4ae3-94bd-08f9ada249f1
+    league: '9'
+  -
+    id: 7ek5LFcT
+    date: '2026-07-02 00:00'
+    elo: 1532.69
+    match: 3908a5dd-3d67-4769-b4af-361ba0041499
+    league: '9'
+  -
+    id: nexi0D3S
+    date: '2026-07-02 00:00'
+    elo: 1522.92
+    match: 39d87e1c-7971-4ee5-a458-367508590b8a
+    league: '9'
+  -
+    id: X9bdmMCO
+    date: '2026-07-02 00:00'
+    elo: 1536.81
+    match: 96426e47-7808-47cd-937c-d8cf185bb047
+    league: '9'
+  -
+    id: L2lJGHjk
+    date: '2026-07-02 00:00'
+    elo: 1550.74
+    match: bbd3ce9b-4c33-47ba-8599-f98ea04b587b
+    league: '9'
+  -
+    id: XC0jZNtk
+    date: '2026-07-02 00:00'
+    elo: 1535.42
+    match: 2ddd97be-f497-47ad-8561-80472e9a24ad
+    league: '9'
+  -
+    id: nxW0Rw78
+    date: '2026-07-02 00:00'
+    elo: 1547.77
+    match: d42ce9ab-d943-42a5-94cf-98b6d320b9eb
+    league: '9'
+league_stats:
+  -
+    id: gHzktyxo
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+    played_gamedays: 10
+    match_count: 35
+    league_wins: 16
+    league_losses: 19
+    win_percentage: 45.71
+    rank: 14
+player_status: active
+losses: 8
+slug: elias
+avatar: profile-pictures/rU2KVKId9w05RuTxCEeFvZA30aOXJnxSoYSukL7c.png
 id: 1861c4a9-8873-459c-97ce-38d399b7ed46
-password_hash: $2y$12$0kvINzpze/W1aLFkAr.pYejGhbWx4vnJurVN3DeyV8D3iXKcKBx4K
+password_hash: $2y$12$Xk0DDvvfU8IIbn/muIQMie/I1tzbEQ.1hs916yfZGFxYvUkJzHNS2
 preferences:
   collections:
     leagues:
@@ -22,6 +191,25 @@ preferences:
         - games_per_court
         - slug
       after_save: continue_editing
+      filters:
+        active:
+          display: Active
+          filters:
+            fields:
+              is_finished:
+                value: 'false'
+              'null': null
+              generated_plan:
+                value: 'true'
+        not_started:
+          display: 'Not Started'
+          filters:
+            fields:
+              is_finished:
+                value: 'false'
+              'null': null
+              generated_plan:
+                value: 'false'
     matches:
       columns:
         - title
@@ -32,7 +220,7 @@ preferences:
         - is_played
         - gameday
         - elo_delta
-      per_page: 10
+      per_page: 500
       after_save: continue_editing
     players:
       columns:
@@ -42,3 +230,11 @@ preferences:
         - total_games
     pages:
       after_save: continue_editing
+  users:
+    columns:
+      - email
+      - name
+      - roles
+      - groups
+      - slug
+      - last_login

@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Statamic\Facades\Entry;
+use Statamic\Facades\User;
 
 class CreatePlayers extends Command
 {
@@ -77,20 +77,25 @@ class CreatePlayers extends Command
                     ? $skillRating + rand(-$variance, $variance)
                     : 1500;
 
-                $player = Entry::make()
-                    ->collection('players')
-                    ->slug(\Illuminate\Support\Str::slug($firstName . '-' . $skillLevel . '-' . $i))
+                $userSlug = \Illuminate\Support\Str::slug($firstName . '-' . $skillLevel . '-' . $i);
+                $email = str_replace('-', '.', $userSlug) . '@olympia-player.local';
+
+                $player = User::make()
+                    ->email($email)
+                    ->password('password') // Set a default password for simulation
                     ->data([
-                        'title' => $playerName,
+                        'name' => $playerName,
+                        'slug' => $userSlug,
                         'global_elo' => (float)$startingElo,
                         'skill_rating' => (float)$skillRating, // Hidden skill level for simulation
                         'total_games' => 0,
                         'wins' => 0,
                         'losses' => 0,
                         'player_status' => 'active',
-                        'avatar_url' => "https://api.dicebear.com/7.x/avataaars/svg?seed=" . urlencode($playerName)
                     ]);
 
+                $player->assignRole('player');
+                $player->addToGroup('players');
                 $player->save();
                 $createdCount++;
             }

@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Statamic\Facades\Entry;
+use Statamic\Facades\User;
 
 class FillScores extends Command
 {
@@ -91,14 +92,14 @@ class FillScores extends Command
                 
                 // Use skill_rating for simulation if available, otherwise fall back to global_elo
                 $skillA = collect($teamAIds)->avg(function($id) {
-                    $player = Entry::find($id);
+                    $player = User::find($id);
                     if (!$player) return 1500;
                     // Use skill_rating if available (for simulation), otherwise use global_elo
                     return (float) ($player->get('skill_rating') ?? $player->get('global_elo') ?? 1500);
                 });
                 
                 $skillB = collect($teamBIds)->avg(function($id) {
-                    $player = Entry::find($id);
+                    $player = User::find($id);
                     if (!$player) return 1500;
                     // Use skill_rating if available (for simulation), otherwise use global_elo
                     return (float) ($player->get('skill_rating') ?? $player->get('global_elo') ?? 1500);

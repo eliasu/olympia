@@ -22,14 +22,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // League <-> gamedays (One-to-Many)
-        Relate::manyToOne('leagues.gamedays', 'gamedays.league')->withEvents(true);
+        Relate::manyToOne('leagues.gamedays', 'gamedays.league')->withEvents(false);
 
         // Gameday <-> Matches (One-to-Many)
-        Relate::manyToOne('gamedays.matches', 'matches.gameday')->withEvents(true);
+        Relate::manyToOne('gamedays.matches', 'matches.gameday')->withEvents(false);
 
-        // Players <-> Matches (Many-to-Many)
-        // Since Match has team_a and team_b, we relate both to players.matches
-        Relate::manyToMany('matches.team_a', 'players.matches')->withEvents(true);
-        Relate::manyToMany('matches.team_b', 'players.matches')->withEvents(true);
+        // Users (Players) <-> Matches (Many-to-Many)
+        // Since Match has team_a and team_b, we relate both to user:matches
+        Relate::manyToMany('matches.team_a', 'user:matches')->withEvents(false);
+        Relate::manyToMany('matches.team_b', 'user:matches')->withEvents(false);
     }
 }

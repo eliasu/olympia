@@ -1,0 +1,169 @@
+name: 'Kira Intermediate'
+slug: kira-intermediate-3
+global_elo: 1516.87
+skill_rating: 1500.0
+total_games: 15
+wins: 8
+losses: 7
+player_status: active
+roles:
+  - player
+groups:
+  - players
+matches:
+  - cadc696a-1585-496b-a108-61d2e44bb5cd
+  - c2f8b27a-0756-4fc2-8024-8f2bc37fe949
+  - d94a095e-29e4-488b-8add-281cb6f88b1b
+  - a27277b5-98ec-4ed4-9eb7-61119d430caa
+  - 435a96b4-7d84-498f-b934-f504baac57c5
+  - 777f7552-376d-4993-9e9f-d8d79cc08587
+  - d9bc7adf-3339-48dc-8582-159c5b5be618
+  - 0058c940-9b7e-4a58-a643-88be9356c6d2
+  - ec268ad8-45ac-4ba6-9a03-b53103b77215
+  - 9321bc6a-b0b7-4ed5-8250-73ae05df69cc
+  - f6476411-af89-4cae-bacc-2c52c0290371
+  - b477986f-b1b1-4bdd-8a99-d339273a5628
+  - 6c58da65-7276-4183-83c6-d7431b2b95fa
+  - 04ae185b-8b75-48e6-b853-9782b4ae3132
+  - 80c32da3-5e93-46e1-ad49-e14e1ad24bb7
+  - 3fa845eb-29a6-4e77-9bf7-8c785ad2f067
+  - 72f19d0a-86c0-4a2a-859a-ec13e86fc84e
+  - 4a4fd8fd-f598-40b5-a199-0ffcc4a3978b
+  - dc0b4bbd-1239-4505-a596-998e83d413f3
+  - 62e4034e-44fa-468e-8c64-a3af3be73642
+  - 950d209b-0332-4d4f-aa72-fa78256095b6
+  - 0cda539d-ba4d-4e27-97ee-742732b95679
+  - e6b5d62d-2445-4cc3-8fd0-d02b46709d78
+  - 996c5748-22b8-4310-9f4d-fc23380d0ea6
+  - 7c5efd1a-e75e-4735-a1bf-47e81e36db65
+  - 0bdb9e39-80c8-45fe-becd-927204c427d1
+  - 6d580020-9e90-4622-b901-5a8750fa1ae7
+  - 7e02d84b-75c4-4dad-abcf-b4e4cdeaf9ba
+  - ba76ba28-28c7-4e55-8ab5-ef077ca0fdba
+  - f0291565-5909-44b0-928f-6e6d7c594a68
+  - 05a0a33e-2d86-4cdc-99fb-8d10237746b1
+  - fda9da08-d397-4cfc-9b91-9d8f360b9640
+  - 8b79b679-1da8-4458-abe4-cad214a148cc
+  - 178ea563-deec-4b93-a9a7-075db710b322
+  - 3109b699-ebb3-4c67-8e99-05966159439e
+  - 8e1614f0-a733-4ff0-a2fe-94dcb49ae495
+  - fc919d29-c8fd-4bd6-83f8-fbb791b74c56
+  - 7583514f-9c8c-4125-b3f4-f7102e2f5585
+  - 2d00f285-cf2c-416b-a7b5-de5f5133b618
+  - ec90b2eb-ff14-4342-9f62-328fb39bbabe
+  - 7f3ddd84-263a-4cbe-bba0-1068e22b5272
+  - 92f5aff6-43ba-4031-9e85-6b6cfeee5496
+  - 70f93a5b-1758-4d6a-86a0-f0dbefc66493
+  - 05fd9a7b-305a-41de-a28a-09de41d81130
+  - 46459a8c-4eba-4ea4-a611-db3ab2fb4870
+  - 237476cb-dc13-4870-ad17-63400f6c685f
+  - dc050063-5e79-4862-b2b0-c2d30010a59c
+  - a36533a3-de93-489a-a86a-581ed328552c
+  - 08be6e8a-8b0a-4d34-8b3a-d514d40d54bb
+  - a10999e6-6aed-436e-bfe6-be6408e07be5
+  - 30723dda-8391-4c5c-98dc-b21e72cb7558
+  - 76c4c512-f3be-48d9-a1f1-f8ad395b4580
+  - ad02a7da-e9e0-422f-a1a6-9122c1d0bdc3
+  - f674b0ec-c7be-46c3-8964-a8cae6c1ae4d
+  - f69d9025-56d5-40f4-a9c0-fd98d77ecca3
+  - 4159b189-d7fb-48ac-b841-43fe93bff719
+  - aef1429a-2d77-404c-860c-f296fcaee0cb
+  - cab5cc53-8a59-4815-b23a-d1d7f8326509
+  - 0545ab02-76ab-40bc-9656-9c0bcb7a736a
+  - b13d7bb7-f136-49e5-ae5c-2c99337495ca
+  - 37bac3cc-1782-469f-ac00-17d1109c1e76
+  - dbe6a2c7-4657-4fc5-94d9-a270921ad129
+  - 2c09a039-1866-4c45-bfb7-228903c5ec76
+  - 347440a2-25e1-47c0-93a9-18db1a5c112c
+  - f2992d37-78fe-4aff-b1af-5f711b1fd5d8
+  - 42d1b14d-c89f-46f3-af8b-503ce510af08
+  - 5a94a3f1-7d88-49e5-ad37-7f6d63a3707f
+  - 34d630e6-d0bc-4f27-81aa-aeb2868acb5c
+elo_history:
+  -
+    date: '2026-04-06T00:00:00+00:00'
+    elo: 1516.42
+    match: 0058c940-9b7e-4a58-a643-88be9356c6d2
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-06T00:00:00+00:00'
+    elo: 1511.53
+    match: ec268ad8-45ac-4ba6-9a03-b53103b77215
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-06T00:00:00+00:00'
+    elo: 1498.4
+    match: 9321bc6a-b0b7-4ed5-8250-73ae05df69cc
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-06T00:00:00+00:00'
+    elo: 1486.31
+    match: f6476411-af89-4cae-bacc-2c52c0290371
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-06T00:00:00+00:00'
+    elo: 1503.14
+    match: 996c5748-22b8-4310-9f4d-fc23380d0ea6
+    league: '9'
+  -
+    date: '2026-04-06T00:00:00+00:00'
+    elo: 1487.17
+    match: 7c5efd1a-e75e-4735-a1bf-47e81e36db65
+    league: '9'
+  -
+    date: '2026-04-06T00:00:00+00:00'
+    elo: 1471.51
+    match: 0bdb9e39-80c8-45fe-becd-927204c427d1
+    league: '9'
+  -
+    date: '2026-04-06T00:00:00+00:00'
+    elo: 1484.16
+    match: 6d580020-9e90-4622-b901-5a8750fa1ae7
+    league: '9'
+  -
+    date: '2026-05-18T00:00:00+00:00'
+    elo: 1468.09
+    match: dbe6a2c7-4657-4fc5-94d9-a270921ad129
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-18T00:00:00+00:00'
+    elo: 1480.25
+    match: 2c09a039-1866-4c45-bfb7-228903c5ec76
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-18T00:00:00+00:00'
+    elo: 1471.82
+    match: 347440a2-25e1-47c0-93a9-18db1a5c112c
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-18T00:00:00+00:00'
+    elo: 1484.29
+    match: f2992d37-78fe-4aff-b1af-5f711b1fd5d8
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-03-16T00:00:00+00:00'
+    elo: 1498.32
+    match: 42d1b14d-c89f-46f3-af8b-503ce510af08
+    league: '9'
+  -
+    date: '2026-03-16T00:00:00+00:00'
+    elo: 1508.89
+    match: 5a94a3f1-7d88-49e5-ad37-7f6d63a3707f
+    league: '9'
+  -
+    date: '2026-03-16T00:00:00+00:00'
+    elo: 1516.87
+    match: 34d630e6-d0bc-4f27-81aa-aeb2868acb5c
+    league: '9'
+league_stats:
+  -
+    league:
+      - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+    played_gamedays: 10
+    match_count: 37
+    league_wins: 17
+    league_losses: 20
+    win_percentage: 45.95
+    rank: 13
+id: 4c3d1117-0fd8-43c1-a42d-e2e922ab10cf
+password_hash: $2y$12$D7DlF/qbrn1GDJZUOvG6i.FGQAsAyqWNPRjVChoMGMAP2fp5WXB2i
