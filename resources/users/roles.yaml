@@ -39,7 +39,8 @@ league_manager:
     - 'edit users'
     - 'create users'
     - 'delete users'
-    - 'change passwords'
+    - 'assign user groups'
+    - 'assign roles'
   preferences:
     nav:
       top_level:
@@ -71,4 +72,3 @@ player:
     - 'view assets assets'
     - 'upload assets assets'
     - 'edit assets assets'
-    - 'view users'

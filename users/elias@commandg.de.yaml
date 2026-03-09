@@ -43,6 +43,9 @@ matches:
   - bbd3ce9b-4c33-47ba-8599-f98ea04b587b
   - 2ddd97be-f497-47ad-8561-80472e9a24ad
   - d42ce9ab-d943-42a5-94cf-98b6d320b9eb
+  - d5f17dcb-099f-4fb1-b8b8-689096f532d7
+  - 463ba768-0535-4206-a77c-5aff9355f1fc
+  - b3d0f139-a10f-4c80-ac17-eb58f6414b75
 global_elo: 1547.77
 total_games: 18
 wins: 10
@@ -168,7 +171,7 @@ league_stats:
 player_status: active
 losses: 8
 slug: elias
-avatar: profile-pictures/rU2KVKId9w05RuTxCEeFvZA30aOXJnxSoYSukL7c.png
+avatar: profile-pictures/SU4us0Wru5ENipbCXsVdqVNxwHgznbDaz3EaIIEv.png
 id: 1861c4a9-8873-459c-97ce-38d399b7ed46
 password_hash: $2y$12$Xk0DDvvfU8IIbn/muIQMie/I1tzbEQ.1hs916yfZGFxYvUkJzHNS2
 preferences:

@@ -207,8 +207,7 @@ tabs:
             handle: slug
             field:
               type: slug
+              from: name
               display: Slug
-              instructions: |-
-                Used for profile URL (/players/{slug}). 
-                Is created automatically.
+              instructions: 'Used for profile URL (/players/{slug}).'
               validate: 'max:200'
