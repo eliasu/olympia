@@ -19,7 +19,7 @@
         <div class="bg-white dark:bg-gray-800 p-4 sm:p-8 rounded-2xl sm:rounded-[2rem] shadow-xl border border-gray-100 dark:border-gray-700">
             <div class="text-xs font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Best Player</div>
             <div class="text-4xl font-black text-emerald-500 tracking-tighter">
-                {{ users sort="global_elo:desc" limit="1" }}
+                {{ users total_games:gt="0" sort="global_elo:desc" limit="1" }}
                     {{ global_elo | round }}
                 {{ /users }}
             </div>
@@ -40,7 +40,7 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100 dark:divide-gray-700/50">
-                    {{ users sort="global_elo:desc" }}
+                    {{ users total_games:gt="0" sort="global_elo:desc" }}
                         <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-700/30 transition-all duration-200">
                             <td class="pl-4 pr-1 sm:px-4 md:px-8 py-4 sm:py-6 whitespace-nowrap">
                                 <span class="text-lg md:text-xl font-black {{ if index < 3 }}text-indigo-600 dark:text-indigo-400{{ else }}text-gray-300 dark:text-gray-600{{ /if }} tracking-tighter">
