@@ -171,7 +171,7 @@ league_stats:
 player_status: active
 losses: 8
 slug: elias
-avatar: profile-pictures/SU4us0Wru5ENipbCXsVdqVNxwHgznbDaz3EaIIEv.png
+avatar: profile-pictures/nmaYpyQA6rUGww2up0dxKaoswLNJN54P0kRLkgTE.png
 id: 1861c4a9-8873-459c-97ce-38d399b7ed46
 password_hash: $2y$12$Xk0DDvvfU8IIbn/muIQMie/I1tzbEQ.1hs916yfZGFxYvUkJzHNS2
 preferences:
@@ -213,6 +213,7 @@ preferences:
               'null': null
               generated_plan:
                 value: 'false'
+      view: list
     matches:
       columns:
         - title

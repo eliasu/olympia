@@ -27,7 +27,13 @@ return [
 
         'default' => [
             'driver' => 'local',
-            'searchables' => 'all',
+            'searchables' => [
+                'collection:gamedays',
+                'collection:leagues',
+                'collection:matches',
+                'collection:pages',
+                'users',
+            ],
             'fields' => ['title'],
         ],
 
