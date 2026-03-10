@@ -4,5 +4,6 @@ roles:
 groups:
   - players
 slug: atest
-id: aca7ebcc-8d1f-4941-a07b-31c5ba558e14
-password_hash: $2y$12$iU1pZuxXyBMSUe9NbQwogOcbdzqZKGC0JXCifF69sVPZFUe7Nm5WO
+avatar: profile-pictures/eVUZAdzGbSsdLXh4G3MpBHFdUNIHyfwUvdTyJOvc.jpg
+id: bea295ad-6932-4313-845a-54ae2b2d778c
+password_hash: $2y$12$7iNvuoGrhiRJUSDitbg6NeRF8jVmsMknubUIIo3oAi19INnuVPnZa

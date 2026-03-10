@@ -153,3 +153,9 @@ league_stats:
 avatar: profile-pictures/HhxIs8zjim3JumieCmS3K0t5qFRIM8UyTf3kn9OR.jpg
 id: 02733a87-2457-4ccf-9484-c53f90afaa2f
 password_hash: $2y$12$sAbxqKetgITVsUj7XIAO4ecxVO7utzmP.8P8Mxd1vvrLEEsW6ajaa
+preferences:
+  collections:
+    leagues:
+      view: list
+    gamedays:
+      view: list

@@ -50,9 +50,7 @@ league_manager:
         'content::collections::gamedays':
           action: '@move'
           icon: calendar
-        'users::users':
-          action: '@move'
-          icon: user
+        'users::users': '@move'
       content:
         action: '@hide'
         items:
