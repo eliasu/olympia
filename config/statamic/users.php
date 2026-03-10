@@ -58,7 +58,7 @@ return [
     */
 
     'new_user_roles' => [
-        //
+        'player',
     ],
 
     /*
@@ -72,7 +72,7 @@ return [
     */
 
     'new_user_groups' => [
-        //
+        'players',
     ],
 
     /*
@@ -85,7 +85,7 @@ return [
     |
     */
 
-    'registration_form_honeypot_field' => null,
+    'registration_form_honeypot_field' => 'hp_field_name',
 
     /*
     |--------------------------------------------------------------------------

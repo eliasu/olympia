@@ -38,7 +38,13 @@ return [
     */
 
     'stores' => [
-        //
+        'users' => [
+            'class' => \Statamic\Stache\Stores\UsersStore::class,
+            'directory' => base_path('users'),
+            'indexes' => [
+                'slug',
+            ],
+        ],
     ],
 
     /*

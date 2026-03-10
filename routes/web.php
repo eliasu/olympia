@@ -11,6 +11,7 @@ Route::post('/league/finish-gameday', [\App\Http\Controllers\LeagueController::c
 
 // User & Auth Routes
 Route::statamic('/login', 'login', ['title' => 'Log In']);
+Route::statamic('/register', 'register', ['title' => 'Register'])->middleware('guest');
 Route::statamic('/edit-profile', 'edit-profile', ['title' => 'Edit Profile'])->middleware('auth');
 Route::post('/upload-avatar', [\App\Http\Controllers\AvatarUploadController::class, 'upload'])->middleware('auth');
 

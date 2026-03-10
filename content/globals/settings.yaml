@@ -5,3 +5,4 @@ data:
   secondary_color: '#9333ea'
   success_color: '#10b981'
   danger_color: '#ef4444'
+  registration_enabled: true

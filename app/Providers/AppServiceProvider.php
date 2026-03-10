@@ -21,6 +21,25 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        \Statamic\Statamic::booted(function () {
+            // Generate User Slug on Save
+            \Illuminate\Support\Facades\Event::listen(\Statamic\Events\UserSaving::class, function ($event) {
+                \Illuminate\Support\Facades\Log::info('UserSaving event listener triggered for: ' . $event->user->email);
+                $user = $event->user;
+                if (empty($user->get('slug')) || $user->isDirty('name')) {
+                    $newSlug = \Illuminate\Support\Str::slug($user->name);
+                    \Illuminate\Support\Facades\Log::info('Generating new slug: ' . $newSlug);
+                    $user->set('slug', $newSlug);
+                }
+            });
+
+            // Force Stache refresh on User Saved
+            \Illuminate\Support\Facades\Event::listen(\Statamic\Events\UserSaved::class, function ($event) {
+                \Illuminate\Support\Facades\Log::info('UserSaved event listener triggered - refreshing stache');
+                \Statamic\Facades\Stache::refresh();
+            });
+        });
+
         // League <-> gamedays (One-to-Many)
         Relate::manyToOne('leagues.gamedays', 'gamedays.league')->withEvents(false);
 

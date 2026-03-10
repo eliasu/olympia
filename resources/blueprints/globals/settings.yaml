@@ -39,3 +39,15 @@ tabs:
               type: color
               display: Danger Color
               default: '#ef4444'
+          -
+            handle: registration_section
+            field:
+              type: section
+              display: Registration
+          -
+            handle: registration_enabled
+            field:
+              type: toggle
+              display: 'Enable Public Registration'
+              default: true
+              instructions: 'When disabled, the registration page will be inaccessible.'

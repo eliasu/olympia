@@ -1,0 +1,8 @@
+name: atest
+roles:
+  - player
+groups:
+  - players
+slug: atest
+id: aca7ebcc-8d1f-4941-a07b-31c5ba558e14
+password_hash: $2y$12$iU1pZuxXyBMSUe9NbQwogOcbdzqZKGC0JXCifF69sVPZFUe7Nm5WO
