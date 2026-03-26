@@ -11,7 +11,7 @@ class AvatarUploadController extends Controller
     public function upload(Request $request)
     {
         $request->validate([
-            'avatar' => 'required|image|max:1024',
+            'avatar' => 'required|image|max:5120',
         ]);
 
         $user = User::current();
@@ -23,7 +23,7 @@ class AvatarUploadController extends Controller
 
         // Save the relative path — this matches how Statamic's Assets fieldtype
         // writes values to the user YAML (e.g. avatar: profile-pictures/photo.jpg)
-        $user->data()->put('avatar', $path);
+        $user->set('avatar', $path);
         $user->save();
 
         // Build the public URL for the live JS preview

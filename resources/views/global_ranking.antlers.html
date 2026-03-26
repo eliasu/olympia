@@ -40,7 +40,7 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100 dark:divide-gray-700/50">
-                    {{ users total_games:gt="0" sort="global_elo:desc" }}
+                    {{ users sort="global_elo:desc" }}
                         <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-700/30 transition-all duration-200">
                             <td class="pl-4 pr-1 sm:px-4 md:px-8 py-4 sm:py-6 whitespace-nowrap">
                                 <span class="text-lg md:text-xl font-black {{ if index < 3 }}text-indigo-600 dark:text-indigo-400{{ else }}text-gray-300 dark:text-gray-600{{ /if }} tracking-tighter">
@@ -51,7 +51,7 @@
                                 <a href="/players/{{ slug }}" class="flex items-center group">
                                     <div class="h-10 w-10 md:h-12 md:w-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-black shadow-lg transform group-hover:scale-110 transition-all duration-200 overflow-hidden">
                                         {{ if avatar }}
-                                            <img src="{{ avatar }}" class="h-full w-full object-cover">
+                                            <img src="{{ glide:avatar width='100' height='100' fit='crop' }}" class="h-full w-full object-cover">
                                         {{ else }}
                                             {{ name | substr(0,1) }}
                                         {{ /if }}

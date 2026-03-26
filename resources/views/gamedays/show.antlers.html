@@ -113,7 +113,7 @@
                                             <a href="/players/{{ slug }}" title="{{ name }}"
                                                 class="h-10 w-10 rounded-full border-2 border-white dark:border-gray-800 bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-500 overflow-hidden shadow-sm hover:scale-110 transition-transform z-10 {{ if id == current_user:id }}ring-2 ring-indigo-500 ring-offset-2 dark:ring-offset-gray-800{{ /if }}">
                                                 {{ if avatar }}
-                                                <img src="{{ avatar }}" class="h-full w-full object-cover">
+                                                <img src="{{ glide:avatar width='100' height='100' fit='crop' }}" class="h-full w-full object-cover">
                                                 {{ else }}
                                                 <span class="text-xs font-bold">{{ name | substr:0:1 | upper }}</span>
                                                 {{ /if }}
@@ -154,7 +154,7 @@
                                             <a href="/players/{{ slug }}" title="{{ name }}"
                                                 class="h-10 w-10 rounded-full border-2 border-white dark:border-gray-800 bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-500 overflow-hidden shadow-sm hover:scale-110 transition-transform z-10 {{ if id == current_user:id }}ring-2 ring-indigo-500 ring-offset-2 dark:ring-offset-gray-800{{ /if }}">
                                                 {{ if avatar }}
-                                                <img src="{{ avatar }}" class="h-full w-full object-cover">
+                                                <img src="{{ glide:avatar width='100' height='100' fit='crop' }}" class="h-full w-full object-cover">
                                                 {{ else }}
                                                 <span class="text-xs font-bold">{{ name | substr:0:1 | upper }}</span>
                                                 {{ /if }}
@@ -202,7 +202,7 @@
                                 <a href="/players/{{ slug }}" title="{{ name }}"
                                     class="h-10 w-10 rounded-full border-2 border-white dark:border-gray-800 bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-500 overflow-hidden shadow-sm hover:scale-110 transition-transform z-10">
                                     {{ if avatar }}
-                                    <img src="{{ avatar }}" class="h-full w-full object-cover">
+                                    <img src="{{ glide:avatar width='100' height='100' fit='crop' }}" class="h-full w-full object-cover">
                                     {{ else }}
                                     <span class="text-xs font-bold">{{ name | substr:0:1 | upper }}</span>
                                     {{ /if }}
@@ -252,7 +252,7 @@
                                 <a href="/players/{{ slug }}" title="{{ name }}"
                                     class="h-10 w-10 rounded-full border-2 border-white dark:border-gray-800 bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-500 overflow-hidden shadow-sm hover:scale-110 transition-transform z-10">
                                     {{ if avatar }}
-                                    <img src="{{ avatar }}" class="h-full w-full object-cover">
+                                    <img src="{{ glide:avatar width='100' height='100' fit='crop' }}" class="h-full w-full object-cover">
                                     {{ else }}
                                     <span class="text-xs font-bold">{{ name | substr:0:1 | upper }}</span>
                                     {{ /if }}
@@ -323,7 +323,7 @@
                                 <div
                                     class="h-11 w-11 flex-shrink-0 rounded-xl overflow-hidden shadow-md bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-xs font-black text-indigo-600 dark:text-indigo-400">
                                     {{ if avatar }}
-                                    <img src="{{ avatar }}" class="h-full w-full object-cover">
+                                    <img src="{{ glide:avatar width='100' height='100' fit='crop' }}" class="h-full w-full object-cover">
                                     {{ else }}
                                     <span>{{ name | substr:0:1 | upper }}</span>
                                     {{ /if }}

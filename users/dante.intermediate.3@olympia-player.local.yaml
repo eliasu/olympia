@@ -1,0 +1,14 @@
+name: 'Dante Intermediate'
+slug: dante-intermediate
+global_elo: 1500.0
+skill_rating: 1500.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: d4aaac70-8b71-4a3e-bb1a-5c0dc82c797b
+password_hash: $2y$12$8L8fgz0Z97Sb/CDy5YaaeepR06VX8WhEU47FTvEPxlIewYv91DAQq

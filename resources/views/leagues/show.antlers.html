@@ -79,7 +79,7 @@
                                         <div
                                             class="h-8 w-8 md:h-10 md:w-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-black shadow-lg transform group-hover:scale-110 transition-all duration-200 overflow-hidden">
                                             {{ if avatar }}
-                                            <img src="{{ avatar }}" class="h-full w-full object-cover">
+                                            <img src="{{ glide:avatar width='100' height='100' fit='crop' }}" class="h-full w-full object-cover">
                                             {{ else }}
                                             <span class="text-xs font-bold">{{ name | substr:0:1 | upper }}</span>
                                             {{ /if }}

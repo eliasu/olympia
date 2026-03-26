@@ -1,0 +1,14 @@
+name: 'Lola Advanced'
+slug: lola-advanced
+global_elo: 1500.0
+skill_rating: 1600.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: a39c1f70-56c3-48e7-988f-9925d1fb1e8c
+password_hash: $2y$12$U63IWPJ.p3ExW9cRFO.Deu9Q6Yv.ZByIH1gG5g7jCPVZ587TlrAza

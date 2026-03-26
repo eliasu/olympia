@@ -1,0 +1,14 @@
+name: 'Vito Beginner'
+slug: vito-beginner
+global_elo: 1500.0
+skill_rating: 1200.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: f8089931-2923-4c86-93e7-e5b73f67a743
+password_hash: $2y$12$AzyRqdg.GZnf9kD5AMrvbOas8OCmWutc.Jloty3ofkPq6mIQUvgNK

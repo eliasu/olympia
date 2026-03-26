@@ -1,0 +1,14 @@
+name: 'Mekhi Intermediate'
+slug: mekhi-intermediate
+global_elo: 1500.0
+skill_rating: 1500.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: a7ebf439-7cfe-45f3-b797-564176b6c2a6
+password_hash: $2y$12$m5XEou0.bMHDYQeSSt7lLe0wqK9F8Z.dQPWDdcekB5IjYp5sNyFpe

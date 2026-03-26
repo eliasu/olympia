@@ -1,0 +1,14 @@
+name: 'Vernie Advanced'
+slug: vernie-advanced
+global_elo: 1500.0
+skill_rating: 1600.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: 8a3e83f9-d306-4fe8-aed2-f4edae54130d
+password_hash: $2y$12$ELKXpKbJWZULhzK8XJ6d5epwHMelf0lhOCeAT2M.2e1U49bq4H7B2

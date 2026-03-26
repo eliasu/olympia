@@ -1,0 +1,14 @@
+name: 'Silas Beginner'
+slug: silas-beginner
+global_elo: 1500.0
+skill_rating: 1200.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: b2a92ec8-7017-4e6e-b98f-d4fb8e4fb9ae
+password_hash: $2y$12$8XqlyjTbsW17ADNp4F4.v.GtMbEPo.Mbg/MEZPG6lL6wXgwuCanmy

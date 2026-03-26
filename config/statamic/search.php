@@ -32,7 +32,6 @@ return [
                 'collection:leagues',
                 'collection:matches',
                 'collection:pages',
-                'users',
             ],
             'fields' => ['title'],
         ],

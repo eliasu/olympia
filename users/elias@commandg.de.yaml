@@ -113,24 +113,27 @@ elo_history:
     match: d42ce9ab-d943-42a5-94cf-98b6d320b9eb
     league: '9'
   -
-    date: '2026-03-16T00:00:00+00:00'
+    id: 1ORhI594
+    date: '2026-03-16 00:00'
     elo: 1547.97
     match: 463ba768-0535-4206-a77c-5aff9355f1fc
     league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
   -
-    date: '2026-03-16T00:00:00+00:00'
+    id: 0p6wUbtU
+    date: '2026-03-16 00:00'
     elo: 1559.3
     match: b3d0f139-a10f-4c80-ac17-eb58f6414b75
     league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
   -
-    date: '2026-03-16T00:00:00+00:00'
+    id: Yci40knZ
+    date: '2026-03-16 00:00'
     elo: 1558.81
     match: d5f17dcb-099f-4fb1-b8b8-689096f532d7
     league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
 league_stats:
   -
-    league:
-      - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+    id: uNUlg9rd
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
     played_gamedays: 11
     match_count: 38
     league_wins: 18
@@ -140,7 +143,7 @@ league_stats:
 player_status: active
 losses: 9
 slug: elias
-avatar: profile-pictures/bVZ63LyikKsezN3n6WsmicRKs1qPCa2kVEEgbNl9.png
+avatar: profile-pictures/OqMnz7IlufXVagA016MWL08NRQOJq1rqEAtsRbJM.jpg
 id: 1861c4a9-8873-459c-97ce-38d399b7ed46
 password_hash: $2y$12$Xk0DDvvfU8IIbn/muIQMie/I1tzbEQ.1hs916yfZGFxYvUkJzHNS2
 preferences:
@@ -206,6 +209,7 @@ preferences:
         - total_games
     pages:
       after_save: continue_editing
+      view: tree
   users:
     columns:
       - email

@@ -1,0 +1,14 @@
+name: 'Reynold Advanced'
+slug: reynold-advanced
+global_elo: 1500.0
+skill_rating: 1600.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: 9bf017c9-2ee9-4bc6-bbfc-469378ac01ba
+password_hash: $2y$12$T05afmHypGpq9BXgurJ06eMgI7yoZzUAZLEd/z10fit9JeFopZxOi

@@ -1,0 +1,16 @@
+name: 'Kelsi Advanced'
+slug: kelsi-advanced
+global_elo: 1500.0
+skill_rating: 1600.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+avatar: profile-pictures/pexels-mmooeeeee-4970379.jpg
+super: false
+id: 3b85913c-3fc5-4d20-8b79-e524953174f3
+password_hash: $2y$12$Hg9ZhBQ0fGho5pw781O2c.qu4ibVfGl94GwyAUudoqNakd6NL0HFC

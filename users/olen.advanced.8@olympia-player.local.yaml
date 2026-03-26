@@ -1,0 +1,14 @@
+name: 'Olen Advanced'
+slug: olen-advanced
+global_elo: 1500.0
+skill_rating: 1600.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: 890b9c83-c33d-4156-bab4-4a345c866bdc
+password_hash: $2y$12$fBgeT7cXp4B1OTdVjZZh3OWg5NeLX6LzGsM1UtLtf3/Ng5DilP4Ea

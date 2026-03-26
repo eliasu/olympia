@@ -1,0 +1,14 @@
+name: 'Dario Advanced'
+slug: dario-advanced
+global_elo: 1500.0
+skill_rating: 1600.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: 2a539954-ad2a-467a-8bdf-4cdcce36ae06
+password_hash: $2y$12$73jlJllQSapXvBZ0EBWUve5Kq0xB5ZtVv2y4GaI8PSk0fh4vqDDOy

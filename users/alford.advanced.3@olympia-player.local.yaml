@@ -1,0 +1,14 @@
+name: 'Alford Advanced'
+slug: alford-advanced
+global_elo: 1500.0
+skill_rating: 1600.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: cc55adc0-19da-4e3b-95ff-5c1477eeffc7
+password_hash: $2y$12$js2RfLXznGgSgwTfnxOZtOkk3tcOAOdNOh6jGtC1/5M77P0jXLBLS
