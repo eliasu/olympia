@@ -11,6 +11,9 @@
         
         <!-- MAIN CONTENT: Active Gamedays (Col 1-8) -->
         {{ has_active_gamedays = ({collection:count from="gamedays" generated_plan:is="true" is_finished:is="false"} > 0) }}
+        {{ has_past_gamedays = ({collection:count from="gamedays" is_finished:is="true"} > 0) }}
+        {{ has_active_leagues = ({collection:count from="leagues" active:is="true"} > 0) }}
+        
         {{ if has_active_gamedays }}
         <div class="lg:col-span-8 space-y-12">
             <!-- Active Gamedays (Only shown if Gamedays exist) -->
@@ -72,8 +75,9 @@
             {{ /if }}
 
             <!-- SIDEBAR: Widgets (Col 9-12) -->
-            <div class="lg:col-span-4 lg:col-start-9 lg:row-span-2 space-y-10">
+            <div class="{{ if has_active_gamedays || has_past_gamedays }}lg:col-span-4 lg:col-start-9{{ else }}lg:col-span-8 lg:col-start-3{{ /if }} lg:row-span-2 space-y-10">
             
+            {{ if has_active_leagues }}
             <!-- Liga Liste Widget (Now permanently here at the top) -->
             <section class="bg-white dark:bg-gray-800 rounded-2xl sm:rounded-[2.5rem] shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden">
                 <div class="p-4 sm:p-8">
@@ -104,6 +108,7 @@
                     </div>
                 </div>
             </section>
+            {{ /if }}
 
             <!-- Top 10 Ranking Widget -->
             <section class="bg-white dark:bg-gray-800 rounded-2xl sm:rounded-[2.5rem] shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden">
@@ -140,6 +145,7 @@
             </section>
         </div>
 
+        {{ if has_past_gamedays }}
         <!-- MAIN CONTENT: Past Gamedays (Col 1-8) -->
         <div class="lg:col-span-8 lg:col-start-1 {{ if has_active_gamedays }}lg:row-start-2{{ else }}lg:row-start-1{{ /if }} space-y-12">
             <!-- Past Gamedays -->
@@ -193,5 +199,6 @@
                 </div>
             </section>
         </div>
+        {{ /if }}
     </div>
 </div>
