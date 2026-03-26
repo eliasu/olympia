@@ -1,0 +1,14 @@
+name: 'Juliet Intermediate'
+slug: juliet-intermediate
+global_elo: 1500.0
+skill_rating: 1500.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: 2894bb91-b4b3-4aa7-91e2-b64daf117dba
+password_hash: $2y$12$nx25MrBh.RbgR6ymm4q0oerXW3LJ4hIwFJsiANjjQpYU8SL4fdkVC

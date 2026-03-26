@@ -1,0 +1,14 @@
+name: 'Randi Advanced'
+slug: randi-advanced
+global_elo: 1500.0
+skill_rating: 1600.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: 0d7e4cd2-3e63-4a6e-8035-bd621b5dcee3
+password_hash: $2y$12$UEvrkZrHARo1H7f70O6xbu3qqm1rGZYXQjzIfGFz6lMVY8ouwwoXi

@@ -1,9 +1,0 @@
-name: atest
-roles:
-  - player
-groups:
-  - players
-slug: atest
-avatar: profile-pictures/eVUZAdzGbSsdLXh4G3MpBHFdUNIHyfwUvdTyJOvc.jpg
-id: bea295ad-6932-4313-845a-54ae2b2d778c
-password_hash: $2y$12$7iNvuoGrhiRJUSDitbg6NeRF8jVmsMknubUIIo3oAi19INnuVPnZa

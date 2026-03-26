@@ -1,0 +1,14 @@
+name: 'Piper Intermediate'
+slug: piper-intermediate
+global_elo: 1500.0
+skill_rating: 1500.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: 343aeb2d-dd1f-4290-94ee-43aa139afa7c
+password_hash: $2y$12$dE31wIxyG4mPGOxygceOFu77IVrPXo5tqfDBrsgft8DCLb6KbEDOq

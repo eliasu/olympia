@@ -1,0 +1,14 @@
+name: 'Ashlynn Intermediate'
+slug: ashlynn-intermediate
+global_elo: 1500.0
+skill_rating: 1500.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: 5f0d0be5-6cf2-4396-ade3-8083dee72f67
+password_hash: $2y$12$Obb5tTpWXpW/CrmDUZIeA.OC08NoY1ZQst/b2fC2/ILYsZpOtDYa.

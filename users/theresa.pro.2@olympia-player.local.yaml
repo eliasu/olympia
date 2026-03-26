@@ -1,0 +1,14 @@
+name: 'Theresa Pro'
+slug: theresa-pro
+global_elo: 1500.0
+skill_rating: 1800.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: 096f21dd-2fb9-44a7-bf22-72eadba0efb7
+password_hash: $2y$12$MBnGzxISAPXbJKb5L0RmCeFXRwhwYpBrwvMLBcvlo.1Fqv6M/Ozw6

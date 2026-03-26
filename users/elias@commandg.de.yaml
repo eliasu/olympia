@@ -1,54 +1,8 @@
 name: Elias
 super: true
-matches:
-  - ddc86558-45dc-4da7-9945-c66ace59dff2
-  - 7c5efd1a-e75e-4735-a1bf-47e81e36db65
-  - 0bdb9e39-80c8-45fe-becd-927204c427d1
-  - 6d580020-9e90-4622-b901-5a8750fa1ae7
-  - 2f1af98b-6d6e-4cbd-a617-c390cafdb0c4
-  - cc68a3b3-26db-4400-b6d0-13d2e7889a86
-  - 44800562-8cd9-4f71-bdd9-3b02199aed2f
-  - 71e502e7-6d9c-4219-acf2-030289d8965e
-  - 30f7afeb-2bc0-47f3-82fb-2e8b90512ada
-  - 4d2b12d4-e126-467d-af1c-5a4eeb992c20
-  - a303f2d7-c3b0-4f9e-8457-a41ee56b2337
-  - b2de4265-7f2c-4eb2-824f-306ee43b924b
-  - 92f5aff6-43ba-4031-9e85-6b6cfeee5496
-  - e59ab1c9-9a22-4952-a383-f341957383bc
-  - 4dd67b06-6925-4dd1-8092-803716ab1cf2
-  - 9daa53b1-2136-46e8-9b80-0db045e5fef6
-  - 860f9e64-c726-403e-98d3-7ef6dfde42ca
-  - db76366d-b673-46ed-8e5f-a6a0944f0f97
-  - a36533a3-de93-489a-a86a-581ed328552c
-  - 8da68237-e697-4b73-94a2-44808ab6e025
-  - 8acc8715-b7aa-4529-8e92-409b3dc7f22d
-  - 30723dda-8391-4c5c-98dc-b21e72cb7558
-  - e2ba8fde-06b1-46c9-b071-153bc187e209
-  - 21345c80-ff07-4e99-b862-c1fc66d8da85
-  - b03b6fac-2b9d-483f-b0e2-8c54cc57a4b1
-  - dee6df68-ef37-4daf-90ac-f345d3136604
-  - faf1ff9a-0338-4c76-9a1a-51cf02419f74
-  - 1b53390b-188d-4e8e-8b62-b06e81c5daf4
-  - 9e861b3f-4cb2-43c4-95aa-933f53c4b515
-  - 65bb8832-efee-4e42-b04d-e8775ad2a77c
-  - c93237ed-9b2f-43d7-9438-b814da799ef5
-  - bd34f44e-22e3-4877-b15f-0f5c16a4dacd
-  - b0fe4be6-6d9a-4c08-8c90-083a98174397
-  - 18a1284f-c61a-4f4f-ba9b-ad40fe083ca8
-  - 370d78d5-324f-43c2-b3c3-f2ebaa859e9d
-  - c9bb437f-58d1-4ae3-94bd-08f9ada249f1
-  - 3908a5dd-3d67-4769-b4af-361ba0041499
-  - 39d87e1c-7971-4ee5-a458-367508590b8a
-  - 96426e47-7808-47cd-937c-d8cf185bb047
-  - bbd3ce9b-4c33-47ba-8599-f98ea04b587b
-  - 2ddd97be-f497-47ad-8561-80472e9a24ad
-  - d42ce9ab-d943-42a5-94cf-98b6d320b9eb
-  - d5f17dcb-099f-4fb1-b8b8-689096f532d7
-  - 463ba768-0535-4206-a77c-5aff9355f1fc
-  - b3d0f139-a10f-4c80-ac17-eb58f6414b75
-global_elo: 1547.77
-total_games: 18
-wins: 10
+global_elo: 1558.81
+total_games: 21
+wins: 12
 elo_history:
   -
     id: pJB45Rj2
@@ -158,20 +112,35 @@ elo_history:
     elo: 1547.77
     match: d42ce9ab-d943-42a5-94cf-98b6d320b9eb
     league: '9'
+  -
+    date: '2026-03-16T00:00:00+00:00'
+    elo: 1547.97
+    match: 463ba768-0535-4206-a77c-5aff9355f1fc
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-03-16T00:00:00+00:00'
+    elo: 1559.3
+    match: b3d0f139-a10f-4c80-ac17-eb58f6414b75
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-03-16T00:00:00+00:00'
+    elo: 1558.81
+    match: d5f17dcb-099f-4fb1-b8b8-689096f532d7
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
 league_stats:
   -
-    id: gHzktyxo
-    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
-    played_gamedays: 10
-    match_count: 35
-    league_wins: 16
-    league_losses: 19
-    win_percentage: 45.71
-    rank: 14
+    league:
+      - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+    played_gamedays: 11
+    match_count: 38
+    league_wins: 18
+    league_losses: 20
+    win_percentage: 47.37
+    rank: 13
 player_status: active
-losses: 8
+losses: 9
 slug: elias
-avatar: profile-pictures/nmaYpyQA6rUGww2up0dxKaoswLNJN54P0kRLkgTE.png
+avatar: profile-pictures/bVZ63LyikKsezN3n6WsmicRKs1qPCa2kVEEgbNl9.png
 id: 1861c4a9-8873-459c-97ce-38d399b7ed46
 password_hash: $2y$12$Xk0DDvvfU8IIbn/muIQMie/I1tzbEQ.1hs916yfZGFxYvUkJzHNS2
 preferences:
@@ -183,6 +152,7 @@ preferences:
         - slug
         - active
         - min_game_days
+      view: list
     gamedays:
       columns:
         - title
@@ -214,6 +184,7 @@ preferences:
               generated_plan:
                 value: 'false'
       view: list
+      per_page: 100
     matches:
       columns:
         - title
@@ -226,6 +197,7 @@ preferences:
         - elo_delta
       per_page: 500
       after_save: continue_editing
+      view: list
     players:
       columns:
         - title
