@@ -15,7 +15,7 @@
         "doefom/statamic-table-of-contents": "^2.0",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
-        "statamic/cms": "^6.0",
+        "statamic/cms": "6.7.3",
         "stillat/relationships": "^2.2",
         "thoughtco/statamic-cache-tracker": "^2.1"
     },
