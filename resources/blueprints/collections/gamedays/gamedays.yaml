@@ -19,7 +19,6 @@ tabs:
             field:
               type: users
               display: 'Present Players'
-              mode: select
           -
             handle: matches
             field:
@@ -112,6 +111,7 @@ tabs:
               type: slug
               localizable: true
               validate: 'max:200'
+              from: 'title'
           -
             handle: date
             field:

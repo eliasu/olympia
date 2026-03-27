@@ -38,6 +38,33 @@ class AppServiceProvider extends ServiceProvider
                 \Illuminate\Support\Facades\Log::info('UserSaved event listener triggered - refreshing stache');
                 \Statamic\Facades\Stache::refresh();
             });
+
+            // Generate Gameday Slug on Creation
+            \Illuminate\Support\Facades\Event::listen(\Statamic\Events\EntryCreating::class, function ($event) {
+                $entry = $event->entry;
+                
+                if ($entry->collectionHandle() === 'gamedays') {
+                    $title = $entry->get('title');
+                    
+                    // We only generate this upon creation to ensure diverse slugs while avoiding 
+                    // changing slugs on future updates.
+                    $date = $entry->date();
+                    $dateString = '';
+                    
+                    if ($date) {
+                        try {
+                            $dateString = $date->format('Y-m-d');
+                        } catch (\Exception $e) {
+                            $dateString = '';
+                        }
+                    }
+
+                    if ($title && $dateString) {
+                        $newSlug = \Illuminate\Support\Str::slug($title . '-' . $dateString);
+                        $entry->slug($newSlug);
+                    }
+                }
+            });
         });
 
         // League <-> gamedays (One-to-Many)

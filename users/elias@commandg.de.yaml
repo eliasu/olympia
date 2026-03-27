@@ -1,8 +1,8 @@
 name: Elias
 super: true
-global_elo: 1558.81
-total_games: 21
-wins: 12
+global_elo: 1586.39
+total_games: 33
+wins: 20
 elo_history:
   -
     id: pJB45Rj2
@@ -130,18 +130,78 @@ elo_history:
     elo: 1558.81
     match: d5f17dcb-099f-4fb1-b8b8-689096f532d7
     league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-03-30T00:00:00+00:00'
+    elo: 1568.54
+    match: 81ab9668-f6b5-4115-8396-f1e1dd55d6ff
+    league: '9'
+  -
+    date: '2026-04-20T00:00:00+00:00'
+    elo: 1571.67
+    match: 25399f63-834f-49c6-a1de-9f893b6c5c29
+    league: '9'
+  -
+    date: '2026-04-20T00:00:00+00:00'
+    elo: 1557.11
+    match: 96959cdb-c350-4002-93c3-d95aa876b0d8
+    league: '9'
+  -
+    date: '2026-04-20T00:00:00+00:00'
+    elo: 1566.15
+    match: 01aae206-20ed-4452-81a8-c625f22e4570
+    league: '9'
+  -
+    date: '2026-03-19T00:00:00+00:00'
+    elo: 1551.44
+    match: 08ea1409-fb61-4840-a34d-510f194b0046
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-02T00:00:00+00:00'
+    elo: 1565.98
+    match: a4223ceb-2c5d-4a3d-9971-92d058792d82
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-02T00:00:00+00:00'
+    elo: 1551.46
+    match: 48c9e31a-ad5a-4d2e-adf1-a2408e6e9fee
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-02T00:00:00+00:00'
+    elo: 1564.03
+    match: 225786ab-7824-4f10-af61-13d401dcb0f6
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-02T00:00:00+00:00'
+    elo: 1553.11
+    match: f1390e3e-6bcb-4f65-9cae-24652d350aa4
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-02T00:00:00+00:00'
+    elo: 1563.32
+    match: 3431f52d-15fc-4708-9328-50334a057381
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-02T00:00:00+00:00'
+    elo: 1578.86
+    match: cfef3734-7673-4ee0-8eb9-f5eb6e981efb
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-02T00:00:00+00:00'
+    elo: 1586.39
+    match: 3b416883-7573-4251-a027-bd7cb58d5c86
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
 league_stats:
   -
-    id: uNUlg9rd
-    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
-    played_gamedays: 11
-    match_count: 38
-    league_wins: 18
-    league_losses: 20
-    win_percentage: 47.37
-    rank: 13
+    league:
+      - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+    played_gamedays: 5
+    match_count: 25
+    league_wins: 17
+    league_losses: 8
+    win_percentage: 68.0
+    rank: 2
 player_status: active
-losses: 9
+losses: 13
 slug: elias
 avatar: profile-pictures/OqMnz7IlufXVagA016MWL08NRQOJq1rqEAtsRbJM.jpg
 id: 1861c4a9-8873-459c-97ce-38d399b7ed46
