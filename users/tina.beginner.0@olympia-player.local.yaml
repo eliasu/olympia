@@ -1,0 +1,14 @@
+name: 'Tina Beginner'
+slug: tina-beginner
+global_elo: 1500
+skill_rating: 1200.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: 902b45fa-2ab2-47e5-a314-b1ebbad3206c
+password_hash: $2y$12$eoOHFG3UyjfMBp2DhIy/LejxxnL5sjheagFVSQwDF9qFbFw06SUtC

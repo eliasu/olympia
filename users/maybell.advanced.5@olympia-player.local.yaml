@@ -1,0 +1,14 @@
+name: 'Maybell Advanced'
+slug: maybell-advanced
+global_elo: 1500
+skill_rating: 1600.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: bb90cee2-c148-44a8-ad61-c768a1ccb7ef
+password_hash: $2y$12$stwjpzCl5Hf2Cy9i1zvyweTAyah.StdTU5kU5XzWt1Ek.6jc3Ur16

@@ -1,0 +1,14 @@
+name: 'Stephan Intermediate'
+slug: stephan-intermediate
+global_elo: 1500
+skill_rating: 1500.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: b8ef1331-0c80-4233-9f33-bfae1e20a5f5
+password_hash: $2y$12$H9lyvpIHeOGO0PkHuRmWBO4mJZv8e/ISqwtT1bJmH.mNJHe92nJt6

@@ -1,0 +1,14 @@
+name: 'Dashawn Pro'
+slug: dashawn-pro
+global_elo: 1500
+skill_rating: 1800.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: f5a12fc3-f97a-47fc-9664-1d8612c27ae6
+password_hash: $2y$12$DBkvLMP9Ygtvt3y76.5p1uj7LICAFrrcUOfOtrkKOhfWvCmV6SpR6

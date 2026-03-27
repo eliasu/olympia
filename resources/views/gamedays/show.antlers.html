@@ -1,6 +1,13 @@
 <script>
     async function saveScore(matchId, scoreA, scoreB) {
         if (scoreA === '' || scoreB === '') return;
+        
+        // Synchronize all input fields for this match across the UI
+        const inputsA = document.querySelectorAll(`.score-a-${matchId}`);
+        const inputsB = document.querySelectorAll(`.score-b-${matchId}`);
+        inputsA.forEach(input => { if (input.value !== scoreA) input.value = scoreA; });
+        inputsB.forEach(input => { if (input.value !== scoreB) input.value = scoreB; });
+
         try {
             const res = await fetch('/league/update-score', {
                 method: 'POST',
@@ -76,6 +83,7 @@
 
         <!-- LEFT: Matches List -->
         <div class="{{ if is_finished && gameday_rankings }}lg:col-span-8 order-2 lg:order-1{{ else }}lg:col-span-12{{ /if }}">
+
             <!-- MY GAMES SECTION -->
             {{ if logged_in && !is_finished && generated_plan }}
                 {{ my_matches = 0 }}
@@ -97,80 +105,110 @@
                             <span class="ml-2 px-2.5 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 text-xs font-black">{{ my_matches }}</span>
                         </h2>
                         
-                        <div class="space-y-6">
+                        <div class="space-y-8">
                             {{ nocache }}
-                            {{ matches }}
-                            {{ if (team_a | pluck:id | contains(current_user:id)) || (team_b | pluck:id | contains(current_user:id)) }}
-                            <div class="bg-white dark:bg-gray-800 rounded-2xl sm:rounded-[2rem] shadow-xl border-2 border-indigo-500 bg-indigo-50/10 dark:bg-indigo-900/10 ring-8 ring-indigo-500/5 p-4 sm:p-6 transition-all hover:scale-[1.01]">
-                                <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-                                    <!-- Team A -->
-                                    <div class="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
-                                        <div class="font-black text-[10px] uppercase tracking-widest {{ if team_a | pluck:id | contains(current_user:id) }}text-indigo-600 dark:text-indigo-400{{ else }}text-gray-400{{ /if }} mb-3">Team A
-                                            {{ if team_a | pluck:id | contains(current_user:id) }}<span class="ml-1">(Your Team)</span>{{ /if }}
-                                        </div>
-                                        <div class="flex -space-x-2">
-                                            {{ team_a }}
-                                            <a href="/players/{{ slug }}" title="{{ name }}"
-                                                class="h-10 w-10 rounded-full border-2 border-white dark:border-gray-800 bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-500 overflow-hidden shadow-sm hover:scale-110 transition-transform z-10 {{ if id == current_user:id }}ring-2 ring-indigo-500 ring-offset-2 dark:ring-offset-gray-800{{ /if }}">
-                                                {{ if avatar }}
-                                                <img src="{{ glide:avatar width='100' height='100' fit='crop' }}" class="h-full w-full object-cover">
-                                                {{ else }}
-                                                <span class="text-xs font-bold">{{ name | substr:0:1 | upper }}</span>
-                                                {{ /if }}
-                                            </a>
-                                            {{ /team_a }}
-                                        </div>
-                                        <div class="mt-2 text-xs font-bold text-gray-900 dark:text-white">
-                                            {{ team_a }}
-                                                <span class="{{ if id == current_user:id }}text-indigo-600 dark:text-indigo-400{{ /if }}">{{ name }}</span>{{ if !last }}, {{ /if }}
-                                            {{ /team_a }}
-                                        </div>
-                                    </div>
+                            {{ loop from="1" to="{courts_count}" }}
+                                {{ current_court = value }}
+                                {{ has_court_match = false }}
+                                {{ matches }}
+                                    {{ court_no = court ?? ((index % courts_count) + 1) }}
+                                    {{ if court_no == current_court && ((team_a | pluck:id | contains(current_user:id)) || (team_b | pluck:id | contains(current_user:id))) }}
+                                        {{ has_court_match = true }}
+                                    {{ /if }}
+                                {{ /matches }}
 
-                                    <!-- Score Input -->
-                                    <div class="flex flex-col items-center gap-3">
-                                        <div class="flex items-center gap-4 bg-gray-50 dark:bg-gray-900/30 p-4 rounded-2xl border border-gray-100 dark:border-gray-700">
-                                            <input type="number" value="{{ score_a }}"
-                                                onchange="saveScore('{{ id }}', this.value, document.getElementById('score_b_my_{{ id }}').value)"
-                                                {{ if is_finished }}disabled{{ /if }}
-                                                class="w-16 text-center text-2xl font-black rounded-xl border-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-50 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                                                placeholder="-">
-                                            <span class="text-gray-300 dark:text-gray-600 font-bold text-xl">:</span>
-                                            <input type="number" id="score_b_my_{{ id }}" value="{{ score_b }}"
-                                                onchange="saveScore('{{ id }}', document.querySelector('input[onchange*=\'{{ id }}\']').value, this.value)"
-                                                {{ if is_finished }}disabled{{ /if }}
-                                                class="w-16 text-center text-2xl font-black rounded-xl border-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-50 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                                                placeholder="-">
-                                        </div>
+                                {{ if has_court_match }}
+                                <div class="space-y-4">
+                                    <div class="flex items-center gap-2 px-2">
+                                        <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+                                        <span class="text-[10px] font-black uppercase tracking-widest text-gray-500 dark:text-gray-400">Court {{ current_court }}</span>
                                     </div>
+                                    <div class="space-y-4">
+                                        {{ matches }}
+                                        {{ court_no = court ?? ((index % courts_count) + 1) }}
+                                        {{ game_no = game_number ?? (((index / courts_count) | floor) + 1) }}
+                                        
+                                        {{ if court_no == current_court && ((team_a | pluck:id | contains(current_user:id)) || (team_b | pluck:id | contains(current_user:id))) }}
+                                        <div class="bg-white dark:bg-gray-800 rounded-2xl sm:rounded-[2rem] shadow-xl border-2 border-indigo-500 bg-indigo-50/10 dark:bg-indigo-900/10 ring-8 ring-indigo-500/5 p-4 sm:p-6 transition-all hover:scale-[1.01]">
+                                            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                                                <!-- Team A -->
+                                                <div class="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
+                                                    <div class="font-black text-[10px] uppercase tracking-widest {{ if team_a | pluck:id | contains(current_user:id) }}text-indigo-600 dark:text-indigo-400{{ else }}text-gray-400{{ /if }} mb-3">Team A
+                                                        {{ if team_a | pluck:id | contains(current_user:id) }}<span class="ml-1">(Your Team)</span>{{ /if }}
+                                                    </div>
+                                                    <div class="flex -space-x-2">
+                                                        {{ team_a }}
+                                                        <a href="/players/{{ slug }}" title="{{ name }}"
+                                                            class="h-10 w-10 rounded-full border-2 border-white dark:border-gray-800 bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-500 overflow-hidden shadow-sm hover:scale-110 transition-transform z-10 {{ if id == current_user:id }}ring-2 ring-indigo-500 ring-offset-2 dark:ring-offset-gray-800{{ /if }}">
+                                                            {{ if avatar }}
+                                                            <img src="{{ glide:avatar width='100' height='100' fit='crop' }}" class="h-full w-full object-cover">
+                                                            {{ else }}
+                                                            <span class="text-xs font-bold">{{ name | substr:0:1 | upper }}</span>
+                                                            {{ /if }}
+                                                        </a>
+                                                        {{ /team_a }}
+                                                    </div>
+                                                    <div class="mt-2 text-xs font-bold text-gray-900 dark:text-white">
+                                                        {{ team_a }}
+                                                            <span class="{{ if id == current_user:id }}text-indigo-600 dark:text-indigo-400{{ /if }}">{{ name }}</span>{{ if !last }}, {{ /if }}
+                                                        {{ /team_a }}
+                                                    </div>
+                                                </div>
 
-                                    <!-- Team B -->
-                                    <div class="flex-1 flex flex-col items-center md:items-end text-center md:text-right">
-                                        <div class="font-black text-[10px] uppercase tracking-widest {{ if team_b | pluck:id | contains(current_user:id) }}text-indigo-600 dark:text-indigo-400{{ else }}text-gray-400{{ /if }} mb-3">Team B
-                                            {{ if team_b | pluck:id | contains(current_user:id) }}<span class="ml-1">(Your Team)</span>{{ /if }}
+                                                <!-- Score Input -->
+                                                <div class="flex flex-col items-center gap-3">
+                                                    <div class="flex items-center gap-2 mb-1">
+                                                        <span class="px-2 py-0.5 rounded bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 text-[10px] font-black uppercase tracking-widest">Court {{ court_no }}</span>
+                                                        <span class="text-[10px] font-black uppercase tracking-widest text-gray-400">Game {{ game_no }}</span>
+                                                    </div>
+                                                    <div class="flex items-center gap-4 bg-gray-50 dark:bg-gray-900/30 p-4 rounded-2xl border border-gray-100 dark:border-gray-700">
+                                                        <input type="number" value="{{ score_a }}"
+                                                            onchange="saveScore('{{ id }}', this.value, document.getElementById('score_b_my_{{ id }}').value)"
+                                                            {{ if is_finished }}disabled{{ /if }}
+                                                            inputmode="numeric" pattern="[0-9]*"
+                                                            class="score-a-{{ id }} w-16 text-center text-2xl font-black rounded-xl border-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-50 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                                            placeholder="-">
+                                                        <span class="text-gray-300 dark:text-gray-600 font-bold text-xl">:</span>
+                                                        <input type="number" id="score_b_my_{{ id }}" value="{{ score_b }}"
+                                                            onchange="saveScore('{{ id }}', document.querySelector(`.score-a-{{ id }}`).value, this.value)"
+                                                            {{ if is_finished }}disabled{{ /if }}
+                                                            inputmode="numeric" pattern="[0-9]*"
+                                                            class="score-b-{{ id }} w-16 text-center text-2xl font-black rounded-xl border-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-50 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                                            placeholder="-">
+                                                    </div>
+                                                </div>
+
+                                                <!-- Team B -->
+                                                <div class="flex-1 flex flex-col items-center md:items-end text-center md:text-right">
+                                                    <div class="font-black text-[10px] uppercase tracking-widest {{ if team_b | pluck:id | contains(current_user:id) }}text-indigo-600 dark:text-indigo-400{{ else }}text-gray-400{{ /if }} mb-3">Team B
+                                                        {{ if team_b | pluck:id | contains(current_user:id) }}<span class="ml-1">(Your Team)</span>{{ /if }}
+                                                    </div>
+                                                    <div class="flex -space-x-2 flex-row-reverse space-x-reverse">
+                                                        {{ team_b }}
+                                                        <a href="/players/{{ slug }}" title="{{ name }}"
+                                                            class="h-10 w-10 rounded-full border-2 border-white dark:border-gray-800 bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-500 overflow-hidden shadow-sm hover:scale-110 transition-transform z-10 {{ if id == current_user:id }}ring-2 ring-indigo-500 ring-offset-2 dark:ring-offset-gray-800{{ /if }}">
+                                                            {{ if avatar }}
+                                                            <img src="{{ glide:avatar width='100' height='100' fit='crop' }}" class="h-full w-full object-cover">
+                                                            {{ else }}
+                                                            <span class="text-xs font-bold">{{ name | substr:0:1 | upper }}</span>
+                                                            {{ /if }}
+                                                        </a>
+                                                        {{ /team_b }}
+                                                    </div>
+                                                    <div class="mt-2 text-xs font-bold text-gray-900 dark:text-white">
+                                                        {{ team_b }}
+                                                            <span class="{{ if id == current_user:id }}text-indigo-600 dark:text-indigo-400{{ /if }}">{{ name }}</span>{{ if !last }}, {{ /if }}
+                                                        {{ /team_b }}
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="flex -space-x-2 flex-row-reverse space-x-reverse">
-                                            {{ team_b }}
-                                            <a href="/players/{{ slug }}" title="{{ name }}"
-                                                class="h-10 w-10 rounded-full border-2 border-white dark:border-gray-800 bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-500 overflow-hidden shadow-sm hover:scale-110 transition-transform z-10 {{ if id == current_user:id }}ring-2 ring-indigo-500 ring-offset-2 dark:ring-offset-gray-800{{ /if }}">
-                                                {{ if avatar }}
-                                                <img src="{{ glide:avatar width='100' height='100' fit='crop' }}" class="h-full w-full object-cover">
-                                                {{ else }}
-                                                <span class="text-xs font-bold">{{ name | substr:0:1 | upper }}</span>
-                                                {{ /if }}
-                                            </a>
-                                            {{ /team_b }}
-                                        </div>
-                                        <div class="mt-2 text-xs font-bold text-gray-900 dark:text-white">
-                                            {{ team_b }}
-                                                <span class="{{ if id == current_user:id }}text-indigo-600 dark:text-indigo-400{{ /if }}">{{ name }}</span>{{ if !last }}, {{ /if }}
-                                            {{ /team_b }}
-                                        </div>
+                                        {{ /if }}
+                                        {{ /matches }}
                                     </div>
                                 </div>
-                            </div>
-                            {{ /if }}
-                            {{ /matches }}
+                                {{ /if }}
+                            {{ /loop }}
                             {{ /nocache }}
                         </div>
                     </div>
@@ -187,91 +225,119 @@
                     </span>
                     All Matches
                 </h2>
+                
                 {{ nocache }}
-                {{ matches }}
-                <div
-                    class="bg-white dark:bg-gray-800 rounded-2xl sm:rounded-[2.5rem] shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-3xl transition-shadow">
-                    <div class="p-4 sm:p-8 flex flex-col md:flex-row items-center gap-6 md:gap-8">
-
-                        <!-- Team A -->
-                        <div class="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
-                            <div class="font-black text-[10px] uppercase tracking-widest text-gray-400 mb-3">Team A
+                <div class="space-y-24">
+                    {{ loop from="1" to="{courts_count}" }}
+                    {{ current_court = value }}
+                    <div class="space-y-12">
+                        <h3 class="text-lg font-black text-gray-900 dark:text-white uppercase tracking-widest flex items-center gap-2 border-b border-gray-200 dark:border-gray-700 pb-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-gray-400 dark:bg-gray-600 shadow-[0_0_10px_rgba(156,163,175,0.5)]"></span>
+                            Court {{ current_court }}
+                        </h3>
+                        
+                        <div class="grid gap-6">
+                            {{ matches }}
+                            {{ court_no = court ?? ((index % courts_count) + 1) }}
+                            {{ game_no = game_number ?? (((index / courts_count) | floor) + 1) }}
+                            
+                            {{ if court_no == current_court }}
+                            {{ is_user_match = logged_in && ((team_a | pluck:id | contains(current_user:id)) || (team_b | pluck:id | contains(current_user:id))) }}
+                            <div class="bg-white dark:bg-gray-800 rounded-2xl sm:rounded-[2.5rem] shadow-xl border {{ if is_user_match }}border-indigo-500 bg-indigo-50/10 dark:bg-indigo-900/10 ring-4 ring-indigo-500/5{{ else }}border-gray-100 dark:border-gray-700{{ /if }} overflow-hidden hover:shadow-2xl transition-all">
+                                <div class="p-4 sm:p-8 flex flex-col md:flex-row items-center gap-6 md:gap-8">
+            
+                                    <!-- Team A -->
+                                    <div class="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
+                                        <div class="font-black text-[10px] uppercase tracking-widest {{ if is_user_match && (team_a | pluck:id | contains(current_user:id)) }}text-indigo-600 dark:text-indigo-400{{ else }}text-gray-400{{ /if }} mb-3">Team A
+                                            {{ if is_user_match && (team_a | pluck:id | contains(current_user:id)) }}<span class="ml-1 opacity-70">(Your Team)</span>{{ /if }}
+                                        </div>
+                                        <div class="flex -space-x-2">
+                                            {{ team_a }}
+                                            <a href="/players/{{ slug }}" title="{{ name }}"
+                                                class="h-10 w-10 rounded-full border-2 border-white dark:border-gray-800 bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-500 overflow-hidden shadow-sm hover:scale-110 transition-transform z-10">
+                                                {{ if avatar }}
+                                                <img src="{{ glide:avatar width='100' height='100' fit='crop' }}" class="h-full w-full object-cover">
+                                                {{ else }}
+                                                <span class="text-xs font-bold">{{ name | substr:0:1 | upper }}</span>
+                                                {{ /if }}
+                                            </a>
+                                            {{ /team_a }}
+                                        </div>
+                                        <div class="mt-2 text-xs font-bold">
+                                            {{ team_a }}
+                                            <a href="/players/{{ slug }}"
+                                                class="{{ if id == current_user:id }}text-indigo-600 dark:text-indigo-400{{ else }}text-gray-900 dark:text-white{{ /if }} hover:text-indigo-500 transition-colors inline-block mr-1">
+                                                {{ name }}{{ if !last }}, {{ /if }}
+                                            </a>
+                                            {{ /team_a }}
+                                        </div>
+                                    </div>
+            
+                                    <!-- Score Input & Details Link -->
+                                    <div class="flex flex-col items-center gap-3">
+                                        <div class="flex items-center gap-2 mb-1">
+                                            <span class="px-2 py-0.5 rounded {{ if is_user_match }}bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400{{ else }}bg-gray-200/50 dark:bg-gray-700/50 text-gray-600 dark:text-gray-400{{ /if }} text-[10px] font-black uppercase tracking-widest">Court {{ court_no }}</span>
+                                            <span class="text-[10px] font-black uppercase tracking-widest text-gray-400">Game {{ game_no }}</span>
+                                        </div>
+                                        <div
+                                            class="flex items-center gap-4 bg-gray-50 dark:bg-gray-900/30 p-4 rounded-2xl border border-gray-100 dark:border-gray-700">
+                                            <input type="number" value="{{ score_a }}"
+                                                onchange="saveScore('{{ id }}', this.value, document.getElementById('score_b_{{ id }}').value)"
+                                                {{ if is_finished }}disabled{{ /if }}
+                                                inputmode="numeric" pattern="[0-9]*"
+                                                class="score-a-{{ id }} w-16 text-center text-2xl font-black rounded-xl border-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-50 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                                placeholder="-">
+                                            <span class="text-gray-300 dark:text-gray-600 font-bold text-xl">:</span>
+                                            <input type="number" id="score_b_{{ id }}" value="{{ score_b }}"
+                                                onchange="saveScore('{{ id }}', document.querySelector(`.score-a-{{ id }}`).value, this.value)"
+                                                {{ if is_finished }}disabled{{ /if }}
+                                                inputmode="numeric" pattern="[0-9]*"
+                                                class="score-b-{{ id }} w-16 text-center text-2xl font-black rounded-xl border-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-50 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                                placeholder="-">
+                                        </div>
+                                        {{ if is_finished }}
+                                        <a href="{{ url }}"
+                                            class="text-[10px] font-black uppercase tracking-widest text-indigo-500 hover:text-indigo-600 transition-colors">
+                                            Match Details &rarr;
+                                        </a>
+                                        {{ /if }}
+                                    </div>
+            
+                                    <!-- Team B -->
+                                    <div class="flex-1 flex flex-col items-center md:items-end text-center md:text-right">
+                                        <div class="font-black text-[10px] uppercase tracking-widest {{ if is_user_match && (team_b | pluck:id | contains(current_user:id)) }}text-indigo-600 dark:text-indigo-400{{ else }}text-gray-400{{ /if }} mb-3">Team B
+                                            {{ if is_user_match && (team_b | pluck:id | contains(current_user:id)) }}<span class="mr-1 opacity-70">(Your Team)</span>{{ /if }}
+                                        </div>
+                                        <div class="flex -space-x-2 flex-row-reverse space-x-reverse">
+                                            {{ team_b }}
+                                            <a href="/players/{{ slug }}" title="{{ name }}"
+                                                class="h-10 w-10 rounded-full border-2 border-white dark:border-gray-800 bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-500 overflow-hidden shadow-sm hover:scale-110 transition-transform z-10">
+                                                {{ if avatar }}
+                                                <img src="{{ glide:avatar width='100' height='100' fit='crop' }}" class="h-full w-full object-cover">
+                                                {{ else }}
+                                                <span class="text-xs font-bold">{{ name | substr:0:1 | upper }}</span>
+                                                {{ /if }}
+                                            </a>
+                                            {{ /team_b }}
+                                        </div>
+                                        <div class="mt-2 text-xs font-bold">
+                                            {{ team_b }}
+                                            <a href="/players/{{ slug }}"
+                                                class="{{ if id == current_user:id }}text-indigo-600 dark:text-indigo-400{{ else }}text-gray-900 dark:text-white{{ /if }} hover:text-indigo-500 transition-colors inline-block mr-1">
+                                                {{ name }}{{ if !last }}, {{ /if }}
+                                            </a>
+                                            {{ /team_b }}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="flex -space-x-2">
-                                {{ team_a }}
-                                <a href="/players/{{ slug }}" title="{{ name }}"
-                                    class="h-10 w-10 rounded-full border-2 border-white dark:border-gray-800 bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-500 overflow-hidden shadow-sm hover:scale-110 transition-transform z-10">
-                                    {{ if avatar }}
-                                    <img src="{{ glide:avatar width='100' height='100' fit='crop' }}" class="h-full w-full object-cover">
-                                    {{ else }}
-                                    <span class="text-xs font-bold">{{ name | substr:0:1 | upper }}</span>
-                                    {{ /if }}
-                                </a>
-                                {{ /team_a }}
-                            </div>
-                            <div class="mt-2">
-                                {{ team_a }}
-                                <a href="/players/{{ slug }}"
-                                    class="text-xs font-bold text-gray-900 dark:text-white hover:text-indigo-500 transition-colors inline-block mr-1">
-                                    {{ name }}{{ if !last }}, {{ /if }}
-                                </a>
-                                {{ /team_a }}
-                            </div>
-                        </div>
-
-                        <!-- Score Input & Details Link -->
-                        <div class="flex flex-col items-center gap-3">
-                            <div
-                                class="flex items-center gap-4 bg-gray-50 dark:bg-gray-900/30 p-4 rounded-2xl border border-gray-100 dark:border-gray-700">
-                                <input type="number" value="{{ score_a }}"
-                                    onchange="saveScore('{{ id }}', this.value, document.getElementById('score_b_{{ id }}').value)"
-                                    {{ if is_finished }}disabled{{ /if }}
-                                    class="w-16 text-center text-2xl font-black rounded-xl border-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-50 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                                    placeholder="-">
-                                <span class="text-gray-300 dark:text-gray-600 font-bold text-xl">:</span>
-                                <input type="number" id="score_b_{{ id }}" value="{{ score_b }}"
-                                    onchange="saveScore('{{ id }}', document.querySelector('input[onchange*=\'{{ id }}\']').value, this.value)"
-                                    {{ if is_finished }}disabled{{ /if }}
-                                    class="w-16 text-center text-2xl font-black rounded-xl border-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-50 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                                    placeholder="-">
-                            </div>
-                            {{ if is_finished }}
-                            <a href="{{ url }}"
-                                class="text-[10px] font-black uppercase tracking-widest text-indigo-500 hover:text-indigo-600 transition-colors">
-                                Match Details &rarr;
-                            </a>
                             {{ /if }}
-                        </div>
-
-                        <!-- Team B -->
-                        <div class="flex-1 flex flex-col items-center md:items-end text-center md:text-right">
-                            <div class="font-black text-[10px] uppercase tracking-widest text-gray-400 mb-3">Team B
-                            </div>
-                            <div class="flex -space-x-2 flex-row-reverse space-x-reverse">
-                                {{ team_b }}
-                                <a href="/players/{{ slug }}" title="{{ name }}"
-                                    class="h-10 w-10 rounded-full border-2 border-white dark:border-gray-800 bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-500 overflow-hidden shadow-sm hover:scale-110 transition-transform z-10">
-                                    {{ if avatar }}
-                                    <img src="{{ glide:avatar width='100' height='100' fit='crop' }}" class="h-full w-full object-cover">
-                                    {{ else }}
-                                    <span class="text-xs font-bold">{{ name | substr:0:1 | upper }}</span>
-                                    {{ /if }}
-                                </a>
-                                {{ /team_b }}
-                            </div>
-                            <div class="mt-2">
-                                {{ team_b }}
-                                <a href="/players/{{ slug }}"
-                                    class="text-xs font-bold text-gray-900 dark:text-white hover:text-indigo-500 transition-colors inline-block mr-1">
-                                    {{ name }}{{ if !last }}, {{ /if }}
-                                </a>
-                                {{ /team_b }}
-                            </div>
+                            {{ /matches }}
                         </div>
                     </div>
+                    {{ /loop }}
                 </div>
-                {{ /matches }}
-                {{ nocache }}
+                {{ /nocache }}
             </div>
 
             {{ if !matches }}
