@@ -1,0 +1,14 @@
+name: 'Buck Advanced'
+slug: buck-advanced
+global_elo: 1500
+skill_rating: 1600.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: f70c39cf-c444-4f3b-855b-9c920e6863cd
+password_hash: $2y$12$ayHwML7gYUQU6a5dj7PQhu0BuKh2WDISxm3xdNislk.Begx/RDkci

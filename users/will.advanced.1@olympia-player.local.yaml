@@ -1,0 +1,14 @@
+name: 'Will Advanced'
+slug: will-advanced
+global_elo: 1500
+skill_rating: 1600.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: 313fa781-5b21-4449-a26f-5fc857ff9eb9
+password_hash: $2y$12$oJt5jH1zUt5ja/Q2O2SP/exA79O2znqwySLKgnKk8kdshXwajHIEG

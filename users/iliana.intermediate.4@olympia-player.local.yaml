@@ -1,0 +1,14 @@
+name: 'Iliana Intermediate'
+slug: iliana-intermediate
+global_elo: 1500
+skill_rating: 1500.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: 7b2d5b7e-4b71-45f2-977f-38104387f41a
+password_hash: $2y$12$4X0xpn3HSYVDbWDxqzEIVeq5dzJ19b3jAQwSQC6SKxW1lySLBWAnq

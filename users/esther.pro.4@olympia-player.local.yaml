@@ -1,0 +1,14 @@
+name: 'Esther Pro'
+slug: esther-pro
+global_elo: 1500
+skill_rating: 1800.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: 21b2e377-0067-44c5-982f-0b1756952629
+password_hash: $2y$12$aC28MXEXI0QpzTIry8qaneMtnu/f953kx8uxrR7jF6iX0OfLVKheO

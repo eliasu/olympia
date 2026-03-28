@@ -1,0 +1,14 @@
+name: 'Brent Beginner'
+slug: brent-beginner
+global_elo: 1500
+skill_rating: 1200.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: 84266875-5fd2-48af-a540-497eae763ab1
+password_hash: $2y$12$DcDK2UqHBdh7JEqKAMbrh.99r/6qtDQ4cEUUB1bBi5HSZmu2eplBe

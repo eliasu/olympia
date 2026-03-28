@@ -1,0 +1,14 @@
+name: 'Jaiden Pro'
+slug: jaiden-pro
+global_elo: 1500
+skill_rating: 1800.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: b4458c1c-ff43-4822-a1cb-2c37203aa712
+password_hash: $2y$12$jbpIn501wCHE7evuGrbuTu9R/T2ycQH840Rygsl9TGehhGud8DcFC

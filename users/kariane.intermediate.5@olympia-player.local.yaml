@@ -1,0 +1,14 @@
+name: 'Kariane Intermediate'
+slug: kariane-intermediate
+global_elo: 1500
+skill_rating: 1500.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: d93b92c1-c851-46b6-bdcb-a9b23d48e6f5
+password_hash: $2y$12$CAQf1gOIyaJg6akzY/vNCuktlyRJ71KKfPaWHeiZBYFjkeoFuPvMG

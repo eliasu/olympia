@@ -1,0 +1,14 @@
+name: 'Daren Pro'
+slug: daren-pro
+global_elo: 1500
+skill_rating: 1800.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: c1ca7a3f-60f8-4125-965c-a6e266e47fd8
+password_hash: $2y$12$Ig9TftiqReDkLWElEzl6xuy6wLjochHC/udpFXlvX/lRqnN3YAFFy
