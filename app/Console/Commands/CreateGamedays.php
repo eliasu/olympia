@@ -14,7 +14,8 @@ class CreateGamedays extends Command
         {--c= : Shortcut for count} 
         {--start-date= : Start date for gamedays}
         {--courts=4 : Number of courts per gameday}
-        {--games=4 : Number of games per court}';
+        {--games=4 : Number of games per court}
+        {--players= : Fixed number of players to attend each gameday}';
     protected $description = 'Create gamedays with smart player attendance (better players attend more often)';
 
     public function handle()
@@ -23,6 +24,7 @@ class CreateGamedays extends Command
         $count = (int) $this->option('count');
         $courtsCount = (int) $this->option('courts');
         $gamesPerCourt = (int) $this->option('games');
+        $fixedPlayers = $this->option('players') ? (int) $this->option('players') : null;
         $startDate = $this->option('start-date') 
             ? Carbon::parse($this->option('start-date'))
             : Carbon::now()->next(Carbon::MONDAY);
@@ -74,7 +76,7 @@ class CreateGamedays extends Command
             $slug = \Illuminate\Support\Str::slug($title);
             
             // Smart attendance: Select players based on Elo
-            $selectedPlayers = $this->selectPlayersWithSmartAttendance($allPlayers);
+            $selectedPlayers = $this->selectPlayersWithSmartAttendance($allPlayers, $fixedPlayers);
             
             $gameday = Entry::make()
                 ->collection('gamedays')
@@ -106,7 +108,7 @@ class CreateGamedays extends Command
      * Select players with smart attendance probability based on Elo.
      * Higher Elo = higher attendance probability.
      */
-    protected function selectPlayersWithSmartAttendance($allPlayers)
+    protected function selectPlayersWithSmartAttendance($allPlayers, $fixedPlayers = null)
     {
         $selected = [];
         
@@ -126,12 +128,32 @@ class CreateGamedays extends Command
             }
         }
         
-        // Ensure minimum 15 players
-        if (count($selected) < 15) {
-            $missing = 15 - count($selected);
-            $notSelected = $allPlayers->reject(fn($p) => in_array($p->id(), $selected));
-            $additional = $notSelected->random(min($missing, $notSelected->count()))->pluck('id')->all();
-            $selected = array_merge($selected, $additional);
+        if ($fixedPlayers !== null) {
+            // Force exact number of players
+            if (count($selected) > $fixedPlayers) {
+                $selected = collect($selected)->random($fixedPlayers)->values()->all();
+            } elseif (count($selected) < $fixedPlayers) {
+                $missing = $fixedPlayers - count($selected);
+                $notSelected = $allPlayers->reject(fn($p) => in_array($p->id(), $selected));
+                $availableMissing = min($missing, $notSelected->count());
+                
+                if ($availableMissing > 0) {
+                    $additional = $notSelected->random($availableMissing)->pluck('id')->all();
+                    $selected = array_merge($selected, $additional);
+                }
+            }
+        } else {
+            // Ensure minimum 15 players
+            if (count($selected) < 15) {
+                $missing = 15 - count($selected);
+                $notSelected = $allPlayers->reject(fn($p) => in_array($p->id(), $selected));
+                $availableMissing = min($missing, $notSelected->count());
+                
+                if ($availableMissing > 0) {
+                    $additional = $notSelected->random($availableMissing)->pluck('id')->all();
+                    $selected = array_merge($selected, $additional);
+                }
+            }
         }
         
         return $selected;
