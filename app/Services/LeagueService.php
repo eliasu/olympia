@@ -336,6 +336,14 @@ class LeagueService
         $league = Entry::find($leagueId);
         $kFactor = $league->get('k_factor', 32);
         
+        // Setup User Cache for in-memory modification
+        $usersCache = [];
+
+        // OPT: Pre-compute matchDate once for all matches in this gameday
+        $matchDate = $gameday->date()
+            ? $gameday->date()->toIso8601String()
+            : now()->toIso8601String();
+        
         // Process Elo for all played matches
         $matches = Entry::query()
             ->where('collection', 'matches')
@@ -343,12 +351,19 @@ class LeagueService
             ->where('is_played', true)
             ->get();
             
+        // OPT: Pass $leagueId and $matchDate into processMatchElo so it does not
+        //      re-fetch the gameday entry once per match (was: 24 redundant queries).
         foreach ($matches as $match) {
-            $this->processMatchElo($match, $kFactor);
+            $this->processMatchElo($match, $kFactor, $usersCache, $leagueId, $matchDate);
+        }
+        
+        // Batch save users after all Elo calculations for this gameday are done
+        foreach ($usersCache as $player) {
+            $player->save();
         }
         
         // NEW: Calculate gameday rankings BEFORE marking as finished
-        $gamedayRankings = $this->calculateGamedayRankings($gamedayId, $matches);
+        $gamedayRankings = $this->calculateGamedayRankings($gamedayId, $matches, $usersCache);
         
         // Store rankings in gameday
         $gameday->set('gameday_rankings', $gamedayRankings);
@@ -359,8 +374,20 @@ class LeagueService
         
         // Update league stats for all present players
         $presentPlayers = $gameday->get('present_players', []);
+        
+        // PRE-FETCH all gamedays and matches to prevent N+1 queries in the loop
+        $allGamedays = Entry::query()
+            ->where('collection', 'gamedays')
+            ->where('is_finished', true)
+            ->get();
+            
+        $allPlayedMatches = Entry::query()
+            ->where('collection', 'matches')
+            ->where('is_played', true)
+            ->get();
+            
         foreach ($presentPlayers as $playerId) {
-            $this->updatePlayerLeagueStats($playerId);
+            $this->updatePlayerLeagueStats($playerId, $allGamedays, $allPlayedMatches);
         }
 
         // Recalculate rankings for ALL leagues where present players participate
@@ -381,9 +408,10 @@ class LeagueService
      * 
      * @param string $gamedayId
      * @param \Illuminate\Support\Collection $matches Played matches from this gameday
+     * @param array $usersCache Already-loaded user objects keyed by ID
      * @return array Ranking data for each player
      */
-    protected function calculateGamedayRankings($gamedayId, $matches)
+    protected function calculateGamedayRankings($gamedayId, $matches, array $usersCache = [])
     {
         $gameday = Entry::find($gamedayId);
         $presentPlayerIds = $gameday->get('present_players', []);
@@ -391,7 +419,8 @@ class LeagueService
         $rankings = [];
         
         foreach ($presentPlayerIds as $playerId) {
-            $player = User::find($playerId);
+            // OPT: Reuse already-loaded user from $usersCache before falling back to User::find()
+            $player = $usersCache[$playerId] ?? User::find($playerId);
             if (!$player) continue;
             
             // Find all matches this player participated in
@@ -529,27 +558,40 @@ class LeagueService
      *
      * @param string $playerId
      */
-    public function updatePlayerLeagueStats($playerId)
+    public function updatePlayerLeagueStats($playerId, $allGamedays = null, $allPlayedMatches = null)
     {
         $player = User::find($playerId);
         if (!$player) return;
 
         // Find all finished gamedays where player was present
-        $gamedays = Entry::query()
-            ->where('collection', 'gamedays')
-            ->where('is_finished', true)
-            ->whereJsonContains('present_players', $playerId)
-            ->get();
+        if ($allGamedays === null) {
+            $allGamedays = Entry::query()
+                ->where('collection', 'gamedays')
+                ->where('is_finished', true)
+                ->get();
+        }
+
+        // OPT: Build a lookup map keyed by gameday ID once, so the inner foreach
+        //      over $allMatches can resolve gameday→league with a map lookup
+        //      instead of Entry::find() per match (was: up to 480 queries per call).
+        $gamedayMap = $allGamedays->keyBy(fn($d) => $d->id());
+
+        $gamedays = $allGamedays->filter(function($day) use ($playerId) {
+            $presentPlayers = (array)$day->get('present_players', []);
+            return in_array($playerId, $presentPlayers);
+        });
+
+        $matchesToFilter = $allPlayedMatches === null 
+            ? Entry::query()
+                ->where('collection', 'matches')
+                ->where('is_played', true)
+                ->get()
+            : $allPlayedMatches;
             
-        // Find all played matches for this player
-        $allMatches = Entry::query()
-            ->where('collection', 'matches')
-            ->where('is_played', true)
-            ->get()
-            ->filter(function($match) use ($playerId) {
-                return in_array($playerId, (array)$match->get('team_a', [])) || 
-                       in_array($playerId, (array)$match->get('team_b', []));
-            });
+        $allMatches = $matchesToFilter->filter(function($match) use ($playerId) {
+            return in_array($playerId, (array)$match->get('team_a', [])) || 
+                   in_array($playerId, (array)$match->get('team_b', []));
+        });
 
         // Process performance by league (LEAGUE-SPECIFIC)
         $performanceByLeague = [];
@@ -559,7 +601,8 @@ class LeagueService
             if (empty($gamedayIds)) continue;
             
             $gamedayId = reset($gamedayIds);
-            $gameday = Entry::find($gamedayId);
+            // OPT: Map lookup instead of Entry::find($gamedayId)
+            $gameday = $gamedayMap->get($gamedayId);
             if (!$gameday || !$gameday->get('is_finished')) continue;
             
             $leagueIds = (array)$gameday->get('league', []);
@@ -598,13 +641,22 @@ class LeagueService
 
         // Build grid data for each league
         $gridData = [];
+
+        // OPT: Build a set of valid league IDs from the already-loaded $allGamedays
+        //      to avoid Entry::find($leagueId) once per league in the loop below.
+        $validLeagueIds = $allGamedays->map(function($d) {
+            $ids = (array)$d->get('league', []);
+            return !empty($ids) ? reset($ids) : null;
+        })->filter()->unique()->flip()->all(); // flip() for O(1) isset() checks
+
         $gamedaysByLeague = $gamedays->groupBy(function($day) {
             $leagueIds = (array)$day->get('league', []);
             return !empty($leagueIds) ? reset($leagueIds) : null;
         });
 
         foreach ($gamedaysByLeague as $leagueId => $days) {
-             if (!$leagueId || !Entry::find($leagueId)) continue;
+             // OPT: isset() on pre-built map instead of Entry::find($leagueId)
+             if (!$leagueId || !isset($validLeagueIds[$leagueId])) continue;
              
              $perf = $performanceByLeague[$leagueId] ?? [
                  'match_count' => 0, 
@@ -673,14 +725,30 @@ class LeagueService
      *
      * @param \Statamic\Entries\Entry $match
      * @param int $kFactor Elo K-factor (typically 32)
+     * @param array $usersCache In-memory user cache (passed by reference)
+     * @param string|null $leagueId Pre-resolved league ID (avoids re-fetching gameday)
+     * @param string|null $matchDate Pre-resolved ISO date string (avoids re-fetching gameday)
      */
-    protected function processMatchElo($match, $kFactor)
+    protected function processMatchElo($match, $kFactor, &$usersCache = [], $leagueId = null, $matchDate = null)
     {
         $teamAIds = $match->get('team_a');
         $teamBIds = $match->get('team_b');
         
-        $teamAPlayers = collect($teamAIds)->map(fn($id) => User::find($id))->filter();
-        $teamBPlayers = collect($teamBIds)->map(fn($id) => User::find($id))->filter();
+        $teamAPlayers = collect($teamAIds)->map(function($id) use (&$usersCache) {
+            if (!isset($usersCache[$id])) {
+                $user = User::find($id);
+                if ($user) $usersCache[$id] = $user;
+            }
+            return $usersCache[$id] ?? null;
+        })->filter();
+        
+        $teamBPlayers = collect($teamBIds)->map(function($id) use (&$usersCache) {
+            if (!isset($usersCache[$id])) {
+                $user = User::find($id);
+                if ($user) $usersCache[$id] = $user;
+            }
+            return $usersCache[$id] ?? null;
+        })->filter();
         
         if ($teamAPlayers->count() < 2 || $teamBPlayers->count() < 2) {
             Log::warning("Match {$match->id()} has incomplete teams");
@@ -710,13 +778,21 @@ class LeagueService
         // Calculate Elo delta (TRUE ELO - no win protection)
         $delta = $kFactor * ($actualA - $expectedA);
         
-        // Get gameday and league info for history tracking
-        $gamedayId = $match->get('gameday')[0] ?? null;
-        $gameday = $gamedayId ? Entry::find($gamedayId) : null;
-        $leagueId = $gameday ? ($gameday->get('league')[0] ?? null) : null;
-        
-        // Get date from gameday (Statamic extracts from filename for date-ordered collections)
-        $matchDate = $gameday && $gameday->date() ? $gameday->date()->toIso8601String() : now()->toIso8601String();
+        // OPT: $leagueId and $matchDate are now passed in from finalizeGameday(),
+        //      eliminating one Entry::find(gamedayId) call per match (was: 24 queries).
+        //      Fall back to the original lookup only when called outside finalizeGameday().
+        if ($leagueId === null || $matchDate === null) {
+            $gamedayId = $match->get('gameday')[0] ?? null;
+            $gameday = $gamedayId ? Entry::find($gamedayId) : null;
+            if ($leagueId === null) {
+                $leagueId = $gameday ? ($gameday->get('league')[0] ?? null) : null;
+            }
+            if ($matchDate === null) {
+                $matchDate = $gameday && $gameday->date()
+                    ? $gameday->date()->toIso8601String()
+                    : now()->toIso8601String();
+            }
+        }
 
         
         // Update Team A players
@@ -743,7 +819,7 @@ class LeagueService
             ];
             $player->set('elo_history', $history);
             
-            $player->save();
+            // intentionally omitting $player->save() to allow batch saving
         }
         
         // Update Team B players
@@ -770,7 +846,7 @@ class LeagueService
             ];
             $player->set('elo_history', $history);
             
-            $player->save();
+            // intentionally omitting $player->save() to allow batch saving
         }
         
         // Capture Elo AFTER changes
@@ -805,10 +881,13 @@ class LeagueService
         if (!$league) return;
         
         $minGameDays = (int)$league->get('min_game_days', 0);
-        $players = User::all();
+
+        // OPT: Load all users once and key by ID so the save loop below can reuse
+        //      the same objects without a second User::find() call per player.
+        $allUsers = User::all()->keyBy(fn($u) => $u->id());
         
         // Build ranking data for all players
-        $rankingData = $players->map(function($player) use ($leagueId, $minGameDays) {
+        $rankingData = $allUsers->map(function($player) use ($leagueId, $minGameDays) {
             $stats = collect($player->get('league_stats', []))->first(function($row) use ($leagueId) {
                 $rowLeagues = (array)($row['league'] ?? []);
                 $rowLeagueId = reset($rowLeagues);
@@ -857,20 +936,30 @@ class LeagueService
 
         // Assign ranks to players
         foreach ($rankingData as $index => $item) {
-            $player = User::find($item['id']);
+            // OPT: Reuse already-loaded user from $allUsers instead of User::find()
+            $player = $allUsers->get($item['id']);
+            if (!$player) continue;
+
             $stats = $player->get('league_stats', []);
+            $statsChanged = false;
             
             foreach ($stats as &$row) {
                 $rowLeagues = (array)($row['league'] ?? []);
                 $rowLeagueId = reset($rowLeagues);
                 if ($rowLeagueId === $leagueId) {
                     // Assign rank number if qualified
-                    $row['rank'] = $item['is_qualified'] ? ($index + 1) : null;
+                    $newRank = $item['is_qualified'] ? ($index + 1) : null;
+                    if (($row['rank'] ?? null) !== $newRank) {
+                        $row['rank'] = $newRank;
+                        $statsChanged = true;
+                    }
                 }
             }
             
-            $player->set('league_stats', $stats);
-            $player->save();
+            if ($statsChanged) {
+                $player->set('league_stats', $stats);
+                $player->save();
+            }
         }
     }
 }
