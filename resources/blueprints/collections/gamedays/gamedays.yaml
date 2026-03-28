@@ -111,7 +111,6 @@ tabs:
               type: slug
               localizable: true
               validate: 'max:200'
-              from: 'title'
           -
             handle: date
             field:
@@ -121,6 +120,7 @@ tabs:
               display: Date
               validate:
                 - required
+              inline: true
           -
             handle: league
             field:
@@ -130,20 +130,8 @@ tabs:
               type: entries
               display: League
               mode: select
-          -
-            handle: generated_plan
-            field:
-              type: toggle
-              display: 'Plan Generated'
-              visibility: read_only
-              width: 50
-          -
-            handle: is_finished
-            field:
-              type: toggle
-              display: Finished
-              visibility: read_only
-              width: 50
+              validate:
+                - required
           -
             handle: courts_count
             field:
@@ -158,3 +146,17 @@ tabs:
               display: 'Games per Court'
               validate:
                 - required
+          -
+            handle: generated_plan
+            field:
+              type: toggle
+              display: 'Plan Generated'
+              visibility: read_only
+              width: 50
+          -
+            handle: is_finished
+            field:
+              type: toggle
+              display: Finished
+              visibility: read_only
+              width: 50
