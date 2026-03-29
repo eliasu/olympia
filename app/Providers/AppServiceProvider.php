@@ -24,20 +24,27 @@ class AppServiceProvider extends ServiceProvider
         \Statamic\Statamic::booted(function () {
             // Generate User Slug on Save
             \Illuminate\Support\Facades\Event::listen(\Statamic\Events\UserSaving::class, function ($event) {
-                \Illuminate\Support\Facades\Log::info('UserSaving event listener triggered for: ' . $event->user->email);
+                // OPT: Removed Log::info() — logging on every user save added unnecessary
+                //      disk I/O, firing 40–60 times per gameday finalization.
                 $user = $event->user;
                 if (empty($user->get('slug')) || $user->isDirty('name')) {
                     $newSlug = \Illuminate\Support\Str::slug($user->name);
-                    \Illuminate\Support\Facades\Log::info('Generating new slug: ' . $newSlug);
                     $user->set('slug', $newSlug);
                 }
             });
 
-            // Force Stache refresh on User Saved
-            \Illuminate\Support\Facades\Event::listen(\Statamic\Events\UserSaved::class, function ($event) {
-                \Illuminate\Support\Facades\Log::info('UserSaved event listener triggered - refreshing stache');
-                \Statamic\Facades\Stache::refresh();
-            });
+            // OPT: Removed the UserSaved → Stache::refresh() listener entirely.
+            //
+            // Stache::refresh() rebuilds Statamic's full file-based cache by scanning
+            // all entries, users, and taxonomies on disk. With the old listener in place,
+            // every $player->save() inside finalizeGameday() triggered a full Stache
+            // rebuild — potentially 40–60 times per finalization on a small server.
+            //
+            // Statamic's Stache updates itself incrementally on individual saves without
+            // needing a full refresh. A manual refresh is only needed after bulk out-of-
+            // band file changes (e.g. a git deploy or direct file edits). If you ever need
+            // it again, call Stache::refresh() once explicitly at the end of the operation
+            // rather than hooking it to every save event.
 
             // Generate Gameday Slug on Creation
             \Illuminate\Support\Facades\Event::listen(\Statamic\Events\EntryCreating::class, function ($event) {

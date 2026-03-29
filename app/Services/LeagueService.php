@@ -5,6 +5,7 @@ namespace App\Services;
 use Statamic\Facades\Entry;
 use Statamic\Facades\User;
 use Statamic\Facades\Collection;
+use Statamic\Facades\Stache;
 use Illuminate\Support\Collection as LaravelCollection;
 use Illuminate\Support\Facades\Log;
 
@@ -395,6 +396,14 @@ class LeagueService
         foreach ($affectedLeagues as $affectedLeagueId) {
             $this->recalculateLeagueRanks($affectedLeagueId);
         }
+
+        // OPT: Refresh Stache exactly once after all writes are complete.
+        // The UserSaved -> Stache::refresh() listener in AppServiceProvider has been
+        // removed because it triggered a full cache rebuild on every player save
+        // (40-60 times per finalization). Statamic updates its Stache incrementally
+        // on each individual save already; this single call ensures the CP reflects
+        // all changes immediately after the entire operation completes.
+        Stache::refresh();
     }
     
     /**
