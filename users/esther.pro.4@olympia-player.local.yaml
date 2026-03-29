@@ -1,10 +1,10 @@
 name: 'Esther Pro'
 slug: esther-pro
-global_elo: 1500
+global_elo: 1477.35
 skill_rating: 1800.0
-total_games: 0
-wins: 0
-losses: 0
+total_games: 6
+wins: 2
+losses: 4
 player_status: active
 roles:
   - player
@@ -17,5 +17,36 @@ matches:
   - a81bd1e0-765a-456b-9dab-bd79817bc55e
   - fe131c46-3c79-4d04-86eb-60817638922a
   - 59c618c6-eae4-408b-bc0b-f8de83839e0c
+elo_history:
+  -
+    date: '2026-03-28T23:00:00+00:00'
+    elo: 1486.67
+    match: f9432f66-075a-4406-852e-348ed4601aea
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-03-28T23:00:00+00:00'
+    elo: 1473.39
+    match: e00f3f0c-3393-464b-8287-64844fc8c95e
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-03-28T23:00:00+00:00'
+    elo: 1487.96
+    match: 2dbf793f-1c15-4f07-ac12-db525ab47410
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-03-28T23:00:00+00:00'
+    elo: 1501.66
+    match: a81bd1e0-765a-456b-9dab-bd79817bc55e
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-03-28T23:00:00+00:00'
+    elo: 1488.6
+    match: fe131c46-3c79-4d04-86eb-60817638922a
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-03-28T23:00:00+00:00'
+    elo: 1477.35
+    match: 59c618c6-eae4-408b-bc0b-f8de83839e0c
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
 id: 21b2e377-0067-44c5-982f-0b1756952629
 password_hash: $2y$12$aC28MXEXI0QpzTIry8qaneMtnu/f953kx8uxrR7jF6iX0OfLVKheO
