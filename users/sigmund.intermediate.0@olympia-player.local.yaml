@@ -1,6 +1,6 @@
 name: 'Sigmund Intermediate'
 slug: sigmund-intermediate
-global_elo: 1500.0
+global_elo: 1500
 skill_rating: 1500.0
 total_games: 0
 wins: 0
