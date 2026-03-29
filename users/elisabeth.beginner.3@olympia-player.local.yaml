@@ -1,0 +1,14 @@
+name: 'Elisabeth Beginner'
+slug: elisabeth-beginner
+global_elo: 1500.0
+skill_rating: 1200.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: 2e61110b-26ea-4ffa-a616-12f25c87a058
+password_hash: $2y$12$uU9cGzdLdUuChsCxNwDRfeKkqKPZwDM82oj.IHVZMAPq8tGtpUyOe
