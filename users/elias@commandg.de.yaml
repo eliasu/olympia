@@ -1,6 +1,6 @@
 name: Elias
 super: true
-global_elo: 1500.0
+global_elo: 1500
 total_games: 0
 wins: 0
 player_status: active
