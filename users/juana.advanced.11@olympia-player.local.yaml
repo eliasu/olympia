@@ -1,0 +1,14 @@
+name: 'Juana Advanced'
+slug: juana-advanced
+global_elo: 1500.0
+skill_rating: 1600.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: a8d84b7a-de61-4107-b0a5-d24b70552295
+password_hash: $2y$12$4c2j4t4B34ZJdSwohCFMlO9Csv4t9XjdjRLl4xh1gKI1jj0FDwFF.
