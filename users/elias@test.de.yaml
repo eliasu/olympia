@@ -1,0 +1,8 @@
+name: 'Elias Test'
+roles:
+  - player
+groups:
+  - players
+slug: elias-test
+id: 17415ede-3a4f-4cae-814f-a57b957be211
+password_hash: $2y$12$62wINdWW6uO/8dbYjXtEiObN39LaavzV2ELCZsDcvwCqKc3kcJ5l6
