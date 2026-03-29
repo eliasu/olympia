@@ -46,6 +46,8 @@ class ConsoleUtilityController extends CpController
             return back()->with('error', 'Invalid or unapproved command requested.');
         }
 
+        $params = [];
+
         // Process arguments
         foreach ($cmdConfig['args'] ?? [] as $arg => $config) {
             if ($request->has($arg)) {
