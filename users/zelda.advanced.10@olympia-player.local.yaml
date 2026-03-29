@@ -1,0 +1,14 @@
+name: 'Zelda Advanced'
+slug: zelda-advanced
+global_elo: 1500.0
+skill_rating: 1600.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: e2715d20-ab0a-4672-adf8-6d703123995a
+password_hash: $2y$12$MvnmaO3e.uVExkqCMO8Lu.rGIoz.MqcU8wwiF.EScr02DdNORG1mi
