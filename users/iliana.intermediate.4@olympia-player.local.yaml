@@ -11,7 +11,6 @@ roles:
 groups:
   - players
 matches:
-  - 2a30db94-97b2-4c59-8552-c6c32e46185e
   - cfe586d6-e135-4c69-943f-080ad3113e56
   - abfb28c6-03cb-4683-ab23-30c18bef5fba
 id: 7b2d5b7e-4b71-45f2-977f-38104387f41a
