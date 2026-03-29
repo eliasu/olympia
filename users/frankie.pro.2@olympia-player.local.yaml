@@ -1,0 +1,14 @@
+name: 'Frankie Pro'
+slug: frankie-pro
+global_elo: 1500.0
+skill_rating: 1800.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: a8c5f9f7-226f-4249-b30a-d9a8a3557cec
+password_hash: $2y$12$nc72eKFsMOU.I5fLM38.lOVDh/myfb4MkAgu3T6nWDVOF4xezojXK
