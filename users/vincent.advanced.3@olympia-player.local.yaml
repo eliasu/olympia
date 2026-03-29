@@ -1,6 +1,6 @@
 name: 'Vincent Advanced'
 slug: vincent-advanced
-global_elo: 1500.0
+global_elo: 1500
 skill_rating: 1600.0
 total_games: 0
 wins: 0
