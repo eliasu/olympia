@@ -10,5 +10,7 @@ roles:
   - player
 groups:
   - players
+matches:
+  - 67ef87cf-df4e-45ff-b5f3-2f453d8c9911
 id: 40fa036e-0890-401c-85c2-d8758d3023d7
 password_hash: $2y$12$/g0AzJM9cdDeVQwONot6Te1r6eP6rxBs82/mpLVaJMskJZVDOU/L.
