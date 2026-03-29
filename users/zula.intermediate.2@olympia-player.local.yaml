@@ -12,5 +12,6 @@ groups:
   - players
 matches:
   - 89b5ef0f-ff2b-4019-831d-25f4a5f308c1
+  - 64ba7e37-ff34-4d4c-b9f4-7e7070d643d3
 id: 0305c593-de5b-49af-a2a9-79bb02b7c32c
 password_hash: $2y$12$y4cV40UwLOnGke6NiVMRfuwinytiU3WsldyPOxRjcqr9.4Rzvxh5S
