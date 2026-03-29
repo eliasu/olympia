@@ -1,10 +1,10 @@
 name: 'Chris Beginner'
 slug: chris-beginner
-global_elo: 1500
+global_elo: 1499.87
 skill_rating: 1200.0
-total_games: 0
-wins: 0
-losses: 0
+total_games: 6
+wins: 3
+losses: 3
 player_status: active
 roles:
   - player
@@ -17,5 +17,36 @@ matches:
   - fe131c46-3c79-4d04-86eb-60817638922a
   - 39b28a09-eca3-409f-8abf-c8cb592fd37a
   - afcf8892-014e-4338-9d6b-e0bb383f023f
+elo_history:
+  -
+    date: '2026-03-28T23:00:00+00:00'
+    elo: 1487.49
+    match: 371fbc29-9774-4618-b3c2-bff12014a554
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-03-28T23:00:00+00:00'
+    elo: 1500.74
+    match: 4bff4215-b232-4714-8b6f-1f4bc41dc151
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-03-28T23:00:00+00:00'
+    elo: 1513.08
+    match: 39b28a09-eca3-409f-8abf-c8cb592fd37a
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-03-28T23:00:00+00:00'
+    elo: 1500.02
+    match: fe131c46-3c79-4d04-86eb-60817638922a
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-03-28T23:00:00+00:00'
+    elo: 1486.09
+    match: a015b16f-e497-4e72-a1ca-9d652eb0d215
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-03-28T23:00:00+00:00'
+    elo: 1499.87
+    match: afcf8892-014e-4338-9d6b-e0bb383f023f
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
 id: 9d98262c-aa75-4f0b-a602-358430e8ddd3
 password_hash: $2y$12$YbjieoZA0btp0sAwX1VtxeqQQUSwmik.giT1FDVjYnLjgGRc3w8U6
