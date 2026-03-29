@@ -1,12 +1,11 @@
 name: Elias
 super: true
-global_elo: 1500
+global_elo: 1500.0
 total_games: 0
 wins: 0
 player_status: active
 losses: 0
 slug: elias
-avatar: profile-pictures/wG69sSaoTlikPCzoeETjvI8lODum4VYyiHgoF0qJ.png
 id: 1861c4a9-8873-459c-97ce-38d399b7ed46
 password_hash: $2y$12$a.6/2heUxJiFeNXIu6/SKOEhjnLBcCW82X1QN9hMtvQmxEWsG1pZC
 preferences:
