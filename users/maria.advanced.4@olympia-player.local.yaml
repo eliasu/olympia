@@ -1,0 +1,14 @@
+name: 'Maria Advanced'
+slug: maria-advanced
+global_elo: 1500.0
+skill_rating: 1600.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: 2a29cced-f0ca-4653-a341-8ce4103f4173
+password_hash: $2y$12$0dIDKeIA4bQw4cDR3bY0d.oe.8fBXgM9UTe7LbbRBTE2nJlsej/BK
