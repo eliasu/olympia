@@ -67,6 +67,18 @@ class AppServiceProvider extends ServiceProvider
             });
         });
 
+        // Register Console Commands Utility
+        \Statamic\Facades\Utility::extend(function () {
+            \Statamic\Facades\Utility::register('console-commands')
+                ->title('Console Commands')
+                ->description('Run application maintenance and simulation commands.')
+                ->icon('terminal')
+                ->routes(function ($router) {
+                    $router->get('/', [\App\Http\Controllers\CP\ConsoleUtilityController::class, 'index'])->name('index');
+                    $router->post('/run', [\App\Http\Controllers\CP\ConsoleUtilityController::class, 'run'])->name('run');
+                });
+        });
+
         // League <-> gamedays (One-to-Many)
         Relate::manyToOne('leagues.gamedays', 'gamedays.league')->withEvents(false);
 
