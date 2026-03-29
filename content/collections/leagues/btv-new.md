@@ -13,5 +13,4 @@ gamedays:
   - 45c69339-faba-4811-bf75-5eabf8341c70
   - 50d3b046-3b9a-4001-9603-f557d639a851
   - 8b124ab8-3d69-47da-a02f-ed047c85dd8f
-  - 932ab4db-dff3-4683-b67b-f633f7e3b467
 ---
