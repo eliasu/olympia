@@ -17,7 +17,7 @@
         {{ if has_upcoming_gamedays }}
             <div class="lg:col-span-8 space-y-12">
             <!-- Gamedays (Only shown if Gamedays exist) -->
-            {{ collection:gamedays is_finished:is="false" sort="generated_plan:desc|date:asc" limit="4" as="results" }}
+            {{ collection:gamedays is_finished:is="false" sort="generated_plan:desc|date:asc" as="results" }}
                 {{ if results }}
                 <section>
                     <div class="flex items-center justify-between mb-8">
