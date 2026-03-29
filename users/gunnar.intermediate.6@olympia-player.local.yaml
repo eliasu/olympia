@@ -1,0 +1,14 @@
+name: 'Gunnar Intermediate'
+slug: gunnar-intermediate
+global_elo: 1500.0
+skill_rating: 1500.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: 6e97778d-8c74-4429-8a02-a40e362195db
+password_hash: $2y$12$m2j7re1LVRYnHLcGNZsYr.6m.u58YWQ1vkQ97wiWQOwMcsv0WRn9u
