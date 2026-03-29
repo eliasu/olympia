@@ -1,0 +1,14 @@
+name: 'Gilda Advanced'
+slug: gilda-advanced
+global_elo: 1500.0
+skill_rating: 1600.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: 211d90db-727f-4d65-98e1-4c7df2d913c5
+password_hash: $2y$12$MP29V.ldyXLP/6yq2wdCBuwvWYKWTpbsw/34gONrBjRG2p.FXvOS6
