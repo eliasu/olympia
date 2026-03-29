@@ -1,10 +1,10 @@
 name: 'Crawford Intermediate'
 slug: crawford-intermediate
-global_elo: 1500
+global_elo: 1464.45
 skill_rating: 1500.0
-total_games: 0
-wins: 0
-losses: 0
+total_games: 5
+wins: 1
+losses: 4
 player_status: active
 roles:
   - player
@@ -16,5 +16,31 @@ matches:
   - 4bff4215-b232-4714-8b6f-1f4bc41dc151
   - 5e8768e2-9474-4b19-a8ee-03a9b96139a4
   - 59c618c6-eae4-408b-bc0b-f8de83839e0c
+elo_history:
+  -
+    date: '2026-03-28T23:00:00+00:00'
+    elo: 1486.75
+    match: 4bff4215-b232-4714-8b6f-1f4bc41dc151
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-03-28T23:00:00+00:00'
+    elo: 1473.1
+    match: 3731588c-60d8-4636-aeab-a143e9f9807e
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-03-28T23:00:00+00:00'
+    elo: 1461.85
+    match: 59c618c6-eae4-408b-bc0b-f8de83839e0c
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-03-28T23:00:00+00:00'
+    elo: 1449.13
+    match: 2339741e-65ca-472c-a810-ff7f454b29cb
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-03-28T23:00:00+00:00'
+    elo: 1464.45
+    match: 5e8768e2-9474-4b19-a8ee-03a9b96139a4
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
 id: e3426311-9e8e-43b3-8491-d773b7c7a811
 password_hash: $2y$12$0HyHbjoSONDS7uxOs347ge3ZKvUMt5KU/T/Fg/tOFXyQ3Avmksfxu
