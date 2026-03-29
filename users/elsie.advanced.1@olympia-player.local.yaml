@@ -1,0 +1,14 @@
+name: 'Elsie Advanced'
+slug: elsie-advanced
+global_elo: 1500.0
+skill_rating: 1600.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: c003354c-212a-4777-8fba-d347a02c24c0
+password_hash: $2y$12$M7Fo9Q2T/BjCqehR.89o7u9nOUKNqtT9hCid0MzwzfmD2RxMc/KNK
