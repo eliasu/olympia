@@ -1,10 +1,10 @@
 name: 'Jaiden Pro'
 slug: jaiden-pro
-global_elo: 1500
+global_elo: 1549.56
 skill_rating: 1800.0
-total_games: 0
-wins: 0
-losses: 0
+total_games: 6
+wins: 5
+losses: 1
 player_status: active
 roles:
   - player
@@ -17,5 +17,36 @@ matches:
   - bc76caa8-f363-43bf-ab82-f37a43976ad8
   - 39b28a09-eca3-409f-8abf-c8cb592fd37a
   - afcf8892-014e-4338-9d6b-e0bb383f023f
+elo_history:
+  -
+    date: '2026-03-28T23:00:00+00:00'
+    elo: 1513.59
+    match: 565d312a-c106-4576-b907-3a9c9696cde3
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-03-28T23:00:00+00:00'
+    elo: 1526.1
+    match: 371fbc29-9774-4618-b3c2-bff12014a554
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-03-28T23:00:00+00:00'
+    elo: 1539.35
+    match: 4bff4215-b232-4714-8b6f-1f4bc41dc151
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-03-28T23:00:00+00:00'
+    elo: 1551.0
+    match: bc76caa8-f363-43bf-ab82-f37a43976ad8
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-03-28T23:00:00+00:00'
+    elo: 1563.34
+    match: 39b28a09-eca3-409f-8abf-c8cb592fd37a
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-03-28T23:00:00+00:00'
+    elo: 1549.56
+    match: afcf8892-014e-4338-9d6b-e0bb383f023f
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
 id: b4458c1c-ff43-4822-a1cb-2c37203aa712
 password_hash: $2y$12$jbpIn501wCHE7evuGrbuTu9R/T2ycQH840Rygsl9TGehhGud8DcFC
