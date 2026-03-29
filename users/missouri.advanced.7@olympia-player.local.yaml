@@ -1,0 +1,14 @@
+name: 'Missouri Advanced'
+slug: missouri-advanced
+global_elo: 1500.0
+skill_rating: 1600.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: 5d932a8a-1e31-4eef-b136-2a2f3efa6710
+password_hash: $2y$12$MDIje3wGokcA.nqMlYhxnOg3zD2UZuz51zR.F9u81n3Z1pfo6Nl.O
