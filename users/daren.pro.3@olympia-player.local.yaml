@@ -42,5 +42,14 @@ elo_history:
     elo: 1508.71
     match: 09a4c60f-a08f-4b0b-99f1-95623358d531
     league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+league_stats:
+  -
+    league:
+      - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+    played_gamedays: 1
+    match_count: 5
+    league_wins: 3
+    league_losses: 2
+    win_percentage: 60.0
 id: c1ca7a3f-60f8-4125-965c-a6e266e47fd8
 password_hash: $2y$12$Ig9TftiqReDkLWElEzl6xuy6wLjochHC/udpFXlvX/lRqnN3YAFFy
