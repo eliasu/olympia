@@ -1,0 +1,14 @@
+name: 'Annalise Advanced'
+slug: annalise-advanced
+global_elo: 1500.0
+skill_rating: 1600.0
+total_games: 0
+wins: 0
+losses: 0
+player_status: active
+roles:
+  - player
+groups:
+  - players
+id: e7318491-df1b-44f5-a605-548b16181fef
+password_hash: $2y$12$2aTkKdSHJAwUUV7WeNNv.O/w1XKKXnTslSIybS3nthoDmOj01RJRy
