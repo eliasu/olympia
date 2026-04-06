@@ -1,0 +1,9 @@
+name: 'Bee 🐝'
+roles:
+  - player
+groups:
+  - players
+slug: bee
+avatar: profile-pictures/X4d3AQ4l5JScGrQ8rlzM9cAQfvhANiv39gHgLP0e.jpg
+id: 6a6b8bde-12c7-478a-af73-a10738d6ae39
+password_hash: $2y$12$QrGXUIfkKt./PIb7vXZZM.Gl.LYQSVwZQOIR6/ryrMY0YYppsrJH2

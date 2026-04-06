@@ -1,0 +1,8 @@
+name: Kruno
+roles:
+  - player
+groups:
+  - players
+slug: kruno
+id: d2e3a42f-4ec0-4865-97d8-23914431c007
+password_hash: $2y$12$6MCwmzqlPbT24gRt7bHwF.hBLuCA6XM.17QhsCOCNjR/Vxinj6MgO
