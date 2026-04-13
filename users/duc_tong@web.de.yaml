@@ -4,5 +4,43 @@ roles:
 groups:
   - players
 slug: duong-duc-tong
+matches:
+  - c109c0e5-d534-42fd-a07e-10413cc89985
+  - 480c5ac3-d8c1-4f84-86b6-c027a70e13ab
+  - af206daf-6ce5-4144-ac01-5ea83fa24720
+  - 67881dcf-c64f-4acb-a11b-5121803b0fa4
+global_elo: 1474.78
+total_games: 4
+losses: 4
+elo_history:
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1484.0
+    match: c109c0e5-d534-42fd-a07e-10413cc89985
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1478.99
+    match: 480c5ac3-d8c1-4f84-86b6-c027a70e13ab
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1474.26
+    match: af206daf-6ce5-4144-ac01-5ea83fa24720
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1474.78
+    match: 67881dcf-c64f-4acb-a11b-5121803b0fa4
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+league_stats:
+  -
+    league:
+      - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+    played_gamedays: 1
+    match_count: 4
+    league_wins: 0
+    league_losses: 4
+    win_percentage: 0.0
 id: 640ca896-08b5-49a6-9fe8-8e435ce59609
 password_hash: $2y$12$mXANQNaYUuMF/erWuyESjO5l.nyS8xTMQ2ufKarNHJ9w9KAYTDjuW

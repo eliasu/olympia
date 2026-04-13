@@ -4,5 +4,45 @@ roles:
 groups:
   - players
 slug: karan
+matches:
+  - c109c0e5-d534-42fd-a07e-10413cc89985
+  - d8291a67-b7eb-4542-9bda-e4199e929afd
+  - 0f84745f-d627-4abd-b447-6b381b2f6855
+  - e3bbb631-b8b1-4e86-93bb-54495cb62960
+avatar: profile-pictures/anbjEQQGox6LoOGelfb95qFWLpr2wWMdgH0qhD3U.png
+global_elo: 1469.79
+total_games: 4
+losses: 3
+elo_history:
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1484.0
+    match: c109c0e5-d534-42fd-a07e-10413cc89985
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1473.5
+    match: d8291a67-b7eb-4542-9bda-e4199e929afd
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1474.8
+    match: 0f84745f-d627-4abd-b447-6b381b2f6855
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1469.79
+    match: e3bbb631-b8b1-4e86-93bb-54495cb62960
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+wins: 1
+league_stats:
+  -
+    league:
+      - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+    played_gamedays: 1
+    match_count: 4
+    league_wins: 1
+    league_losses: 3
+    win_percentage: 25.0
 id: 851d168b-7a9b-4231-9430-5ce4b4f99414
 password_hash: $2y$12$Ix2EQ375LdMSVFuPINTCFOaHxNwJYMpWXQaJT0szQrF0I0Tk0lS5e

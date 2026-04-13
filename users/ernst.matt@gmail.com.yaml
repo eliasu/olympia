@@ -5,5 +5,50 @@ groups:
   - players
 slug: matthias-ernst
 avatar: profile-pictures/Ax3I6U1UtqWFoaZycXgcbiUfDeNxQWWXW1mIrhxe.jpg
+matches:
+  - f47056e6-42fc-425c-b4c4-efbb8d05840c
+  - 435b5a10-a176-406b-9f7d-72f4238997f3
+  - 480c5ac3-d8c1-4f84-86b6-c027a70e13ab
+  - d869126a-6114-4a04-9c5f-c17055b28ad3
+  - 5efd1eef-3a0c-4625-8f99-654749693858
+global_elo: 1488.98
+total_games: 5
+losses: 4
+elo_history:
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1490.86
+    match: f47056e6-42fc-425c-b4c4-efbb8d05840c
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1487.51
+    match: 435b5a10-a176-406b-9f7d-72f4238997f3
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1492.52
+    match: 480c5ac3-d8c1-4f84-86b6-c027a70e13ab
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1490.24
+    match: d869126a-6114-4a04-9c5f-c17055b28ad3
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1488.98
+    match: 5efd1eef-3a0c-4625-8f99-654749693858
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+wins: 1
+league_stats:
+  -
+    league:
+      - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+    played_gamedays: 1
+    match_count: 5
+    league_wins: 1
+    league_losses: 4
+    win_percentage: 20.0
 id: 3b2364e4-34fa-489a-b8f7-3323224f0053
 password_hash: $2y$12$ipSg3mmrBdKlS8MSRj8An.LO72ISYfxi8zR2yWOhVy7aPR.4w.xbe

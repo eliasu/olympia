@@ -5,5 +5,44 @@ groups:
   - players
 slug: bee
 avatar: profile-pictures/X4d3AQ4l5JScGrQ8rlzM9cAQfvhANiv39gHgLP0e.jpg
+matches:
+  - 24e280b5-9b5b-4797-bced-72d3c50817c5
+  - 647f7344-6004-484b-9985-53b422f02e90
+  - 4e501879-275f-4a7b-b02a-c70c24141a80
+  - e3bbb631-b8b1-4e86-93bb-54495cb62960
+global_elo: 1485.09
+total_games: 4
+losses: 3
+elo_history:
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1494.0
+    match: 24e280b5-9b5b-4797-bced-72d3c50817c5
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1496.3
+    match: 647f7344-6004-484b-9985-53b422f02e90
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1490.1
+    match: 4e501879-275f-4a7b-b02a-c70c24141a80
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1485.09
+    match: e3bbb631-b8b1-4e86-93bb-54495cb62960
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+wins: 1
+league_stats:
+  -
+    league:
+      - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+    played_gamedays: 1
+    match_count: 4
+    league_wins: 1
+    league_losses: 3
+    win_percentage: 25.0
 id: 6a6b8bde-12c7-478a-af73-a10738d6ae39
 password_hash: $2y$12$QrGXUIfkKt./PIb7vXZZM.Gl.LYQSVwZQOIR6/ryrMY0YYppsrJH2

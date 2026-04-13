@@ -5,5 +5,44 @@ groups:
   - players
 slug: marco-massier
 avatar: profile-pictures/JCA4x8YjHsBc71WFWx61vDzmYzs3GhHz1pmOVyDt.jpg
+matches:
+  - da8cc6a8-a44e-4d16-b754-3b1b2d784791
+  - d8291a67-b7eb-4542-9bda-e4199e929afd
+  - af206daf-6ce5-4144-ac01-5ea83fa24720
+  - 2ea27f94-7a18-46f0-8291-7998c0cd8b2c
+global_elo: 1523.77
+total_games: 4
+wins: 3
+elo_history:
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1502.53
+    match: da8cc6a8-a44e-4d16-b754-3b1b2d784791
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1513.03
+    match: d8291a67-b7eb-4542-9bda-e4199e929afd
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1508.3
+    match: af206daf-6ce5-4144-ac01-5ea83fa24720
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1523.77
+    match: 2ea27f94-7a18-46f0-8291-7998c0cd8b2c
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+losses: 1
+league_stats:
+  -
+    league:
+      - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+    played_gamedays: 1
+    match_count: 4
+    league_wins: 3
+    league_losses: 1
+    win_percentage: 75.0
 id: 52af9c63-675b-4342-8886-6a27b5e50c92
 password_hash: $2y$12$sS9QYaDgtdNCwZYeaNc9v.q5S0RXAY.mQjnJfRWMXmswFWtU9ugry

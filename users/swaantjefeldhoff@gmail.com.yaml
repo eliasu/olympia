@@ -6,15 +6,43 @@ groups:
 slug: swaantje-feldhoff
 avatar: profile-pictures/mb3oAoulpgIllKjqEwtXaYbWAQMcI6EMpZTsGn6F.jpg
 matches:
-  - 2547a768-0fcd-4eb1-8e99-75a50c648f79
-  - 9a667f06-c7a7-4785-84be-4f30e27a1337
-  - cb315eb3-e1c6-42dc-b075-54d4766cd06c
-  - 816f9821-9ca8-4f24-9347-75e4f71f7600
-  - f10c0b54-e003-4d53-9be4-32adfa4b57e3
-  - 4e8634e6-0ff0-4e93-9b7e-9ce764058edf
-  - 01007f1f-233c-4cd3-9282-0de6bf99ca1c
-  - c872a133-fe95-46e6-b517-6d76a68e0657
-  - 525fc2ba-b2ba-43ce-a192-75274c4c0f73
-  - 7e81a87f-ecff-4eae-b693-b97f42cfe7e1
+  - 24e280b5-9b5b-4797-bced-72d3c50817c5
+  - 2b578334-4c9b-4397-b74e-985640055d19
+  - 0f84745f-d627-4abd-b447-6b381b2f6855
+  - 5efd1eef-3a0c-4625-8f99-654749693858
+global_elo: 1493.01
+total_games: 4
+wins: 2
+elo_history:
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1506.0
+    match: 24e280b5-9b5b-4797-bced-72d3c50817c5
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1493.05
+    match: 2b578334-4c9b-4397-b74e-985640055d19
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1491.75
+    match: 0f84745f-d627-4abd-b447-6b381b2f6855
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1493.01
+    match: 5efd1eef-3a0c-4625-8f99-654749693858
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+losses: 2
+league_stats:
+  -
+    league:
+      - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+    played_gamedays: 1
+    match_count: 4
+    league_wins: 2
+    league_losses: 2
+    win_percentage: 50.0
 id: 15312789-11be-4608-b548-8c1ac126eb64
 password_hash: $2y$12$YlPnc8vqoDaOmR.tQ5Cupe6ah00uSIxNGUP2tBolhTkp/uOu4X5/2

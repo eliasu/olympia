@@ -4,5 +4,43 @@ roles:
 groups:
   - players
 slug: nikola-denzin
+matches:
+  - 03171193-7a24-4c6b-beea-cc09b90b65cb
+  - cdf9af75-b5db-419c-88ab-f2913ea07632
+  - 66ebf6fa-3e61-4f9d-bb48-3e8727aea589
+  - d869126a-6114-4a04-9c5f-c17055b28ad3
+global_elo: 1516.04
+total_games: 4
+wins: 4
+elo_history:
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1502.53
+    match: 03171193-7a24-4c6b-beea-cc09b90b65cb
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1513.34
+    match: cdf9af75-b5db-419c-88ab-f2913ea07632
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1513.76
+    match: 66ebf6fa-3e61-4f9d-bb48-3e8727aea589
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1516.04
+    match: d869126a-6114-4a04-9c5f-c17055b28ad3
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+league_stats:
+  -
+    league:
+      - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+    played_gamedays: 1
+    match_count: 4
+    league_wins: 4
+    league_losses: 0
+    win_percentage: 100.0
 id: 83a166b0-ec70-4772-813a-7f9d9d0d8c2a
 password_hash: $2y$12$.i2vN3.bSpdLnCB9GWXSguliSwjAY5yU3gg.DInobcHj2dHyEYnsa

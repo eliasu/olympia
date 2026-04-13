@@ -6,12 +6,53 @@ groups:
   - league_managers
 slug: dietrich-jaeger
 avatar: profile-pictures/FwfGuQfgqDjfsCNZVcjp2bxID6GGUM62UMCmsH99.jpg
-global_elo: 1500.0
+global_elo: 1506.47
 player_status: active
-total_games: 0
-wins: 0
-losses: 0
+total_games: 5
+wins: 3
+losses: 2
 super: false
+matches:
+  - f47056e6-42fc-425c-b4c4-efbb8d05840c
+  - 822e3e9a-1d9c-464e-8c06-b20bb69874c8
+  - 66ebf6fa-3e61-4f9d-bb48-3e8727aea589
+  - 7c094976-fb71-44fb-bd31-0c296619b88b
+  - 05df4d98-e25e-465f-9179-9d1c70d3b835
+elo_history:
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1509.14
+    match: f47056e6-42fc-425c-b4c4-efbb8d05840c
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1516.22
+    match: 822e3e9a-1d9c-464e-8c06-b20bb69874c8
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1516.64
+    match: 66ebf6fa-3e61-4f9d-bb48-3e8727aea589
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1507.7
+    match: 7c094976-fb71-44fb-bd31-0c296619b88b
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1506.47
+    match: 05df4d98-e25e-465f-9179-9d1c70d3b835
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+league_stats:
+  -
+    league:
+      - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+    played_gamedays: 1
+    match_count: 5
+    league_wins: 3
+    league_losses: 2
+    win_percentage: 60.0
 id: 756d2847-4537-40b2-9a28-81c5ad112c08
 password_hash: $2y$12$zC45bCSQTu2YWLJ6vJMwxejUqLMy76DnLv7mZolsyfj5vGBZ7aBl2
 preferences:

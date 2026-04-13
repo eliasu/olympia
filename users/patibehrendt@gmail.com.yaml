@@ -5,5 +5,44 @@ groups:
   - players
 slug: patricia-behrendt
 avatar: profile-pictures/VCwXgmprPGcUpwwhrFqgLA3lflwABKl5CzGYMeeO.jpg
+matches:
+  - 24e280b5-9b5b-4797-bced-72d3c50817c5
+  - 647f7344-6004-484b-9985-53b422f02e90
+  - 4e501879-275f-4a7b-b02a-c70c24141a80
+  - e3bbb631-b8b1-4e86-93bb-54495cb62960
+global_elo: 1502.91
+total_games: 4
+losses: 2
+elo_history:
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1494.0
+    match: 24e280b5-9b5b-4797-bced-72d3c50817c5
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1491.7
+    match: 647f7344-6004-484b-9985-53b422f02e90
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1497.9
+    match: 4e501879-275f-4a7b-b02a-c70c24141a80
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1502.91
+    match: e3bbb631-b8b1-4e86-93bb-54495cb62960
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+wins: 2
+league_stats:
+  -
+    league:
+      - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+    played_gamedays: 1
+    match_count: 4
+    league_wins: 2
+    league_losses: 2
+    win_percentage: 50.0
 id: 755eda7d-5980-4981-b690-7095c2a9587a
 password_hash: $2y$12$jxE8k1eOv8dqS5j0pfYIYOXaD2CVTNCax4khOg1kjRsham2M0IM.y

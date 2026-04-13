@@ -6,16 +6,43 @@ groups:
 slug: devi-suriani
 avatar: profile-pictures/6GwiSM5SnTWzfZDScw0SW42WmGDK83Ef3ZVZ8R7Z.jpg
 matches:
-  - 3050c605-fa73-41e7-8877-1ef4df1ee3f2
-  - e8476075-20e1-4c5f-ab06-23f0c9a300d8
-  - cb315eb3-e1c6-42dc-b075-54d4766cd06c
-  - 3dc7b998-ec4d-4429-84d5-bfa0ab8f49f5
-  - 9f478d40-b221-43ac-adf1-1abc8183a70a
-  - fd894e2e-b3a3-4be7-b067-276af6e24bae
-  - 65b55885-f6f7-48f1-aae0-228f35ce9fdf
-  - dcb6def7-40bb-424d-9a50-1d7d751eeac0
-  - b3ef6b84-72ff-4d3c-b3a5-5ef0bc929fa2
-  - 525fc2ba-b2ba-43ce-a192-75274c4c0f73
-  - a7cc23ff-e573-4b73-bdda-8e28bdffd252
+  - da8cc6a8-a44e-4d16-b754-3b1b2d784791
+  - 822e3e9a-1d9c-464e-8c06-b20bb69874c8
+  - d286d775-6b3e-4a07-b39f-fe4f767482c6
+  - 2ea27f94-7a18-46f0-8291-7998c0cd8b2c
+global_elo: 1482.85
+total_games: 4
+wins: 2
+elo_history:
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1502.53
+    match: da8cc6a8-a44e-4d16-b754-3b1b2d784791
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1509.61
+    match: 822e3e9a-1d9c-464e-8c06-b20bb69874c8
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1498.32
+    match: d286d775-6b3e-4a07-b39f-fe4f767482c6
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1482.85
+    match: 2ea27f94-7a18-46f0-8291-7998c0cd8b2c
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+losses: 2
+league_stats:
+  -
+    league:
+      - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+    played_gamedays: 1
+    match_count: 4
+    league_wins: 2
+    league_losses: 2
+    win_percentage: 50.0
 id: 0480a6c7-9259-4411-a187-5d743259ee68
 password_hash: $2y$12$xiLF8V8l/D8wStMWVBLMsuWeTrHD4LTFRClH961rAcER5mGz.0mJ6

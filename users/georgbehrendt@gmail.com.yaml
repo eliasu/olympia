@@ -5,5 +5,44 @@ groups:
   - players
 slug: georg-behrendt
 avatar: profile-pictures/XOedLOGZOVBrpJO3cm3atR943at7O8WX480zYUGW.jpg
+matches:
+  - 24e280b5-9b5b-4797-bced-72d3c50817c5
+  - 647f7344-6004-484b-9985-53b422f02e90
+  - 4e501879-275f-4a7b-b02a-c70c24141a80
+  - e3bbb631-b8b1-4e86-93bb-54495cb62960
+global_elo: 1514.91
+total_games: 4
+wins: 3
+elo_history:
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1506.0
+    match: 24e280b5-9b5b-4797-bced-72d3c50817c5
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1503.7
+    match: 647f7344-6004-484b-9985-53b422f02e90
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1509.9
+    match: 4e501879-275f-4a7b-b02a-c70c24141a80
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1514.91
+    match: e3bbb631-b8b1-4e86-93bb-54495cb62960
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+losses: 1
+league_stats:
+  -
+    league:
+      - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+    played_gamedays: 1
+    match_count: 4
+    league_wins: 3
+    league_losses: 1
+    win_percentage: 75.0
 id: 94295672-257d-4878-9c0d-70e801faed0f
 password_hash: $2y$12$ySycpav55I1YeYolMx9TM.HRry7zbmKuU3L9azS4wdRDsDsXlS3ie

@@ -1,47 +1,47 @@
-name: 'Phan Trí Khôi'
+name: 'Carola Stargardt'
 roles:
   - player
 groups:
   - players
-slug: phan-tri-khoi
+slug: carola-stargardt
 matches:
   - 435b5a10-a176-406b-9f7d-72f4238997f3
-  - 2b578334-4c9b-4397-b74e-985640055d19
-  - 0f84745f-d627-4abd-b447-6b381b2f6855
-  - 05df4d98-e25e-465f-9179-9d1c70d3b835
-global_elo: 1483.63
+  - 480c5ac3-d8c1-4f84-86b6-c027a70e13ab
+  - 7c094976-fb71-44fb-bd31-0c296619b88b
+  - 5efd1eef-3a0c-4625-8f99-654749693858
+global_elo: 1516.04
 total_games: 4
-losses: 3
+wins: 3
 elo_history:
   -
     date: '2026-04-12T22:00:00+00:00'
-    elo: 1496.65
+    elo: 1503.35
     match: 435b5a10-a176-406b-9f7d-72f4238997f3
     league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
   -
     date: '2026-04-12T22:00:00+00:00'
-    elo: 1483.7
-    match: 2b578334-4c9b-4397-b74e-985640055d19
+    elo: 1508.36
+    match: 480c5ac3-d8c1-4f84-86b6-c027a70e13ab
     league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
   -
     date: '2026-04-12T22:00:00+00:00'
-    elo: 1482.4
-    match: 0f84745f-d627-4abd-b447-6b381b2f6855
+    elo: 1517.3
+    match: 7c094976-fb71-44fb-bd31-0c296619b88b
     league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
   -
     date: '2026-04-12T22:00:00+00:00'
-    elo: 1483.63
-    match: 05df4d98-e25e-465f-9179-9d1c70d3b835
+    elo: 1516.04
+    match: 5efd1eef-3a0c-4625-8f99-654749693858
     league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
-wins: 1
+losses: 1
 league_stats:
   -
     league:
       - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
     played_gamedays: 1
     match_count: 4
-    league_wins: 1
-    league_losses: 3
-    win_percentage: 25.0
-id: 7b5d0233-b4ae-41ff-b362-0a21e91cee56
-password_hash: $2y$12$XHcf7qMqJ84AEuon0gvl/usf/hRY/oTllbkB1F1QA32gVQvWE340i
+    league_wins: 3
+    league_losses: 1
+    win_percentage: 75.0
+id: ab2689c7-d103-4635-9048-3d73dc76baf7
+password_hash: $2y$12$NohBrTdFVaLUIIu2btKOo.axECIK5tQAfMxhT/ImpLzdif0tlptfO

@@ -6,15 +6,49 @@ groups:
 slug: vanessa-rachel-zimmermann
 avatar: profile-pictures/xRV02mjBnUEcpjPS8TqMn8sUTEWdmC7ae27huEPd.jpg
 matches:
-  - 9a667f06-c7a7-4785-84be-4f30e27a1337
-  - efb31346-bd6e-487b-a6b8-df24d1cfeea0
-  - b8715b12-5118-40a8-84e2-b73a26be8612
-  - 9f478d40-b221-43ac-adf1-1abc8183a70a
-  - f10c0b54-e003-4d53-9be4-32adfa4b57e3
-  - 4e8634e6-0ff0-4e93-9b7e-9ce764058edf
-  - 01007f1f-233c-4cd3-9282-0de6bf99ca1c
-  - dcb6def7-40bb-424d-9a50-1d7d751eeac0
-  - 7e81a87f-ecff-4eae-b693-b97f42cfe7e1
-  - a7cc23ff-e573-4b73-bdda-8e28bdffd252
+  - 03171193-7a24-4c6b-beea-cc09b90b65cb
+  - cdf9af75-b5db-419c-88ab-f2913ea07632
+  - 66ebf6fa-3e61-4f9d-bb48-3e8727aea589
+  - 7c094976-fb71-44fb-bd31-0c296619b88b
+  - 05df4d98-e25e-465f-9179-9d1c70d3b835
+global_elo: 1496.41
+total_games: 5
+losses: 3
+elo_history:
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1497.47
+    match: 03171193-7a24-4c6b-beea-cc09b90b65cb
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1486.66
+    match: cdf9af75-b5db-419c-88ab-f2913ea07632
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1486.24
+    match: 66ebf6fa-3e61-4f9d-bb48-3e8727aea589
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1495.18
+    match: 7c094976-fb71-44fb-bd31-0c296619b88b
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1496.41
+    match: 05df4d98-e25e-465f-9179-9d1c70d3b835
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+wins: 2
+league_stats:
+  -
+    league:
+      - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+    played_gamedays: 1
+    match_count: 5
+    league_wins: 2
+    league_losses: 3
+    win_percentage: 40.0
 id: d6234408-3edc-445b-9298-bc2d38453216
 password_hash: $2y$12$nd3DQy5DTK7c7vl.vy1Jw.w5KjrhZLkSPqxLLxEeH0Mp4.nU5c4a6

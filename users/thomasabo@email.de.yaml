@@ -5,5 +5,44 @@ groups:
   - players
 slug: thomas-marx
 avatar: profile-pictures/8kECzLagWLsUOYr5WMf1fjos9osCE3GvzR1SXYwv.jpg
+matches:
+  - da8cc6a8-a44e-4d16-b754-3b1b2d784791
+  - 822e3e9a-1d9c-464e-8c06-b20bb69874c8
+  - d286d775-6b3e-4a07-b39f-fe4f767482c6
+  - 2ea27f94-7a18-46f0-8291-7998c0cd8b2c
+global_elo: 1486.21
+total_games: 4
+losses: 3
+elo_history:
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1497.47
+    match: da8cc6a8-a44e-4d16-b754-3b1b2d784791
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1490.39
+    match: 822e3e9a-1d9c-464e-8c06-b20bb69874c8
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1501.68
+    match: d286d775-6b3e-4a07-b39f-fe4f767482c6
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1486.21
+    match: 2ea27f94-7a18-46f0-8291-7998c0cd8b2c
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+wins: 1
+league_stats:
+  -
+    league:
+      - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+    played_gamedays: 1
+    match_count: 4
+    league_wins: 1
+    league_losses: 3
+    win_percentage: 25.0
 id: 41567fab-47ee-4495-b326-323c49163262
 password_hash: $2y$12$pfupPgMwMZsMBF0O3grH4Og2rM5ZoaWxdox4DkDNjct7t0J6x4rPy

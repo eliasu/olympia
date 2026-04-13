@@ -1,14 +1,49 @@
 name: Elias
 super: true
-global_elo: 1500.0
-total_games: 0
-wins: 0
+global_elo: 1502.29
+total_games: 4
+wins: 1
 player_status: active
-losses: 0
+losses: 3
 slug: elias
 avatar: profile-pictures/9MMaSQD5BbO98sArUjPXqWipHOQUJ6vMyprLN6PM.jpg
 groups:
   - league_managers
+matches:
+  - da8cc6a8-a44e-4d16-b754-3b1b2d784791
+  - d8291a67-b7eb-4542-9bda-e4199e929afd
+  - 4e501879-275f-4a7b-b02a-c70c24141a80
+  - 67881dcf-c64f-4acb-a11b-5121803b0fa4
+elo_history:
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1497.47
+    match: da8cc6a8-a44e-4d16-b754-3b1b2d784791
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1507.97
+    match: d8291a67-b7eb-4542-9bda-e4199e929afd
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1501.77
+    match: 4e501879-275f-4a7b-b02a-c70c24141a80
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1502.29
+    match: 67881dcf-c64f-4acb-a11b-5121803b0fa4
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+league_stats:
+  -
+    league:
+      - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+    played_gamedays: 1
+    match_count: 4
+    league_wins: 1
+    league_losses: 3
+    win_percentage: 25.0
 id: 1861c4a9-8873-459c-97ce-38d399b7ed46
 password_hash: $2y$12$a.6/2heUxJiFeNXIu6/SKOEhjnLBcCW82X1QN9hMtvQmxEWsG1pZC
 preferences:
@@ -85,6 +120,7 @@ preferences:
       - groups
       - slug
       - last_login
+      - matches
   nav:
     top_level:
       'content::collections::leagues':

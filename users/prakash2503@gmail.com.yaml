@@ -6,15 +6,42 @@ groups:
 slug: prakash-parthasarathy
 avatar: profile-pictures/aIyLUMVRH9OAwMu0eJtD6uL0rfAxWKzBJ5pE40Xx.jpg
 matches:
-  - 2547a768-0fcd-4eb1-8e99-75a50c648f79
-  - 9a667f06-c7a7-4785-84be-4f30e27a1337
-  - efb31346-bd6e-487b-a6b8-df24d1cfeea0
-  - b8715b12-5118-40a8-84e2-b73a26be8612
-  - fd894e2e-b3a3-4be7-b067-276af6e24bae
-  - 4e8634e6-0ff0-4e93-9b7e-9ce764058edf
-  - dcb6def7-40bb-424d-9a50-1d7d751eeac0
-  - b3ef6b84-72ff-4d3c-b3a5-5ef0bc929fa2
-  - 525fc2ba-b2ba-43ce-a192-75274c4c0f73
-  - a7cc23ff-e573-4b73-bdda-8e28bdffd252
+  - c109c0e5-d534-42fd-a07e-10413cc89985
+  - 2b578334-4c9b-4397-b74e-985640055d19
+  - af206daf-6ce5-4144-ac01-5ea83fa24720
+  - 67881dcf-c64f-4acb-a11b-5121803b0fa4
+global_elo: 1533.16
+total_games: 4
+wins: 4
+elo_history:
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1516.0
+    match: c109c0e5-d534-42fd-a07e-10413cc89985
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1528.95
+    match: 2b578334-4c9b-4397-b74e-985640055d19
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1533.68
+    match: af206daf-6ce5-4144-ac01-5ea83fa24720
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1533.16
+    match: 67881dcf-c64f-4acb-a11b-5121803b0fa4
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+league_stats:
+  -
+    league:
+      - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+    played_gamedays: 1
+    match_count: 4
+    league_wins: 4
+    league_losses: 0
+    win_percentage: 100.0
 id: 1839b591-302d-44a3-8bc9-54582d301c9b
 password_hash: $2y$12$GaN9Xqb/LqcUZk5GIK93BumKqFaaOEnu1QBb04thUlwQaP0hb7udK

@@ -4,5 +4,38 @@ roles:
 groups:
   - players
 slug: joachim-klinkhammer
+avatar: profile-pictures/gGjK1Sm02WPt1FCGjwJPsgwfqAegHZyPeYGr4R6T.jpg
+matches:
+  - 435b5a10-a176-406b-9f7d-72f4238997f3
+  - 2b578334-4c9b-4397-b74e-985640055d19
+  - 0f84745f-d627-4abd-b447-6b381b2f6855
+global_elo: 1517.6
+total_games: 3
+wins: 3
+elo_history:
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1503.35
+    match: 435b5a10-a176-406b-9f7d-72f4238997f3
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1516.3
+    match: 2b578334-4c9b-4397-b74e-985640055d19
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-12T22:00:00+00:00'
+    elo: 1517.6
+    match: 0f84745f-d627-4abd-b447-6b381b2f6855
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+league_stats:
+  -
+    league:
+      - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+    played_gamedays: 1
+    match_count: 3
+    league_wins: 3
+    league_losses: 0
+    win_percentage: 100.0
 id: 84d1d3b0-9bcc-49a8-a34a-e5cf42b2738e
 password_hash: $2y$12$vgTP3yYS6P6nQfa.kk.FeOBuN27giJpGRmsK/RfGbM1s14.4oDwvK
