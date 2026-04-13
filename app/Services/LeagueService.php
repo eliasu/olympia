@@ -6,7 +6,6 @@ use Statamic\Facades\Entry;
 use Statamic\Facades\User;
 use Statamic\Facades\Collection;
 use Statamic\Facades\Stache;
-use Illuminate\Support\Collection as LaravelCollection;
 use Illuminate\Support\Facades\Log;
 
 /**
@@ -70,8 +69,11 @@ class LeagueService
         }
 
         // Calculate total matches needed
-        $courtsCount = $gameday->get('courts_count');
-        $gamesPerCourt = $gameday->get('games_per_court');
+        $courtsCount = (int)$gameday->get('courts_count', 0);
+        $gamesPerCourt = (int)$gameday->get('games_per_court', 0);
+        if ($courtsCount <= 0 || $gamesPerCourt <= 0) {
+            throw new \Exception('Anzahl Courts und Spiele pro Court müssen gesetzt sein.');
+        }
         $totalGames = $courtsCount * $gamesPerCourt;
         
         // Initialize player tracking for matchmaking
@@ -132,6 +134,20 @@ class LeagueService
             $matchesToCreate[] = $match->id();
         }
         
+        // Post-generation fairness check: warn if any player has fewer games than expected
+        $totalSlots = $totalGames * 4;
+        $minExpected = (int)floor($totalSlots / $players->count());
+        $underPlayed = $playerStats->filter(fn($p) => $p['games_today'] < $minExpected);
+        if ($underPlayed->isNotEmpty()) {
+            Log::warning('Fairness-Check: Spieler unter Minimum-Spielzahl nach Generierung', [
+                'expected_min' => $minExpected,
+                'under_played' => $underPlayed->map(fn($p) => [
+                    'id' => $p['id'],
+                    'games_today' => $p['games_today'],
+                ])->values()->all(),
+            ]);
+        }
+
         // Mark gameday as having a generated plan
         $gameday->set('generated_plan', true);
         $gameday->set('matches', $matchesToCreate);
@@ -162,62 +178,107 @@ class LeagueService
             ->values();
         
         $minGames = $available->min('games_today');
-        
-        // Eligible pool: players with minimal games today
-        $eligiblePool = $available->filter(fn($p) => 
-            $p['games_today'] <= $minGames + 1
-        )->values();
-        
-        if ($eligiblePool->count() < 4) {
-            // Fallback: take the 4 with fewest games
-            return $available->take(4);
+
+        // Eligible pool: strictly players at minimum game count first,
+        // then expand one level at a time until we have at least 4.
+        // This guarantees underplayed players are always prioritized.
+        $eligiblePool = $available->filter(fn($p) => $p['games_today'] === $minGames)->values();
+        $expand = 0;
+        while ($eligiblePool->count() < 4) {
+            $expand++;
+            $eligiblePool = $available->filter(fn($p) =>
+                $p['games_today'] <= $minGames + $expand
+            )->values();
         }
         
-        // Select seed player (player with fewest games)
+        // Select seed player (player with fewest games today)
         $seed = $eligiblePool->first();
         $seedElo = $seed['elo'];
-        
-        // Find 3 partners within Elo band
+
+        // Build candidate pool: prefer players within Elo band, expand if needed
         $candidates = $eligiblePool
             ->reject(fn($p) => $p['id'] === $seed['id'])
             ->filter(fn($p) => abs($p['elo'] - $seedElo) <= $eloSpread);
-        
-        // Expand search if not enough candidates
+
         if ($candidates->count() < 3) {
             $candidates = $eligiblePool->reject(fn($p) => $p['id'] === $seed['id']);
         }
-        
-        // Prioritize diversity (avoid repeating partners/opponents)
-        $selected = $candidates
-            ->map(function($p) use ($seed) {
-                // Calculate selection score (lower = better)
-                $eloDiff = abs($p['elo'] - $seed['elo']);
-                
-                // Check if this player was already partner/opponent with seed today
-                $wasPartner = in_array($p['id'], $seed['partners_today']);
-                $wasOpponent = in_array($p['id'], $seed['opponents_today']);
-                
-                $diversityPenalty = 0;
-                if ($wasPartner) $diversityPenalty += self::PARTNER_PENALTY;
-                if ($wasOpponent) $diversityPenalty += self::OPPONENT_PENALTY;
-                
-                $p['selection_score'] = $eloDiff + $diversityPenalty;
-                return $p;
-            })
-            ->sortBy('selection_score')
-            ->take(3);
-        
-        // Fallback if still not enough
-        if ($selected->count() < 3) {
-            $alreadySelected = $selected->pluck('id')->push($seed['id']);
-            $extras = $candidates
-                ->reject(fn($p) => $alreadySelected->contains($p['id']))
-                ->sortBy('games_today')
-                ->take(3 - $selected->count());
-            $selected = $selected->concat($extras);
+
+        // Evaluate all possible groups of (seed + 3 candidates).
+        // Score every group by summing pairwise diversity penalties across all 6 pairs,
+        // using frequency-based penalties (2x partner = 2× PARTNER_PENALTY).
+        $candidateList = $candidates->values()->all();
+        $count = count($candidateList);
+        $bestGroup = null;
+        $bestScore = PHP_INT_MAX;
+
+        for ($i = 0; $i < $count - 2; $i++) {
+            for ($j = $i + 1; $j < $count - 1; $j++) {
+                for ($k = $j + 1; $k < $count; $k++) {
+                    $group = [$seed, $candidateList[$i], $candidateList[$j], $candidateList[$k]];
+                    $score = $this->scoreGroup($group);
+                    if ($score < $bestScore) {
+                        $bestScore = $score;
+                        $bestGroup = $group;
+                    }
+                }
+            }
         }
-        
-        return collect([$seed])->concat($selected);
+
+        // Fallback: seed + first 3 candidates if no valid group found
+        if ($bestGroup === null) {
+            $bestGroup = array_merge([$seed], array_slice($candidateList, 0, 3));
+        }
+
+        return collect($bestGroup);
+    }
+
+    /**
+     * Score a group of 4 players by summing pairwise penalties.
+     *
+     * Evaluates all 6 pairs within the group. For each pair:
+     * - Elo distance contributes to the score
+     * - Repeated partners are penalized (frequency × PARTNER_PENALTY)
+     * - Repeated opponents are penalized (frequency × OPPONENT_PENALTY)
+     *
+     * Lower score = better group.
+     *
+     * @param array $group Array of 4 player stat arrays
+     * @return float Combined penalty score
+     */
+    protected function scoreGroup(array $group): float
+    {
+        $score = 0.0;
+
+        for ($i = 0; $i < 3; $i++) {
+            for ($j = $i + 1; $j < 4; $j++) {
+                $a = $group[$i];
+                $b = $group[$j];
+
+                // Elo distance
+                $score += abs($a['elo'] - $b['elo']);
+
+                // Frequency-based partner penalty (2x partner → 2× penalty)
+                $aPartnerCounts = array_count_values($a['partners_today']);
+                $bPartnerCounts = array_count_values($b['partners_today']);
+                $partnerFreq = max(
+                    $aPartnerCounts[$b['id']] ?? 0,
+                    $bPartnerCounts[$a['id']] ?? 0
+                );
+                $score += $partnerFreq * self::PARTNER_PENALTY;
+
+                // Frequency-based opponent penalty
+                $aOpponentCounts = array_count_values($a['opponents_today']);
+                $bOpponentCounts = array_count_values($b['opponents_today']);
+                $opponentFreq = max(
+                    $aOpponentCounts[$b['id']] ?? 0,
+                    $bOpponentCounts[$a['id']] ?? 0
+                );
+                $score += $opponentFreq * self::OPPONENT_PENALTY;
+            }
+        }
+
+        return $score;
     }
 
     /**
@@ -345,15 +406,16 @@ class LeagueService
             ? $gameday->date()->toIso8601String()
             : now()->toIso8601String();
         
-        // Process Elo for all played matches
+        // Process Elo for all played matches, sorted by slug to guarantee
+        // chronological order (slugs contain match number: match-...-1, match-...-2, etc.).
+        // Without deterministic order, Elo cascades would be wrong for players in multiple matches.
         $matches = Entry::query()
             ->where('collection', 'matches')
             ->where('gameday', $gamedayId)
             ->where('is_played', true)
-            ->get();
-            
-        // OPT: Pass $leagueId and $matchDate into processMatchElo so it does not
-        //      re-fetch the gameday entry once per match (was: 24 redundant queries).
+            ->get()
+            ->sortBy(fn($m) => (int)last(explode('-', $m->slug())));
+
         foreach ($matches as $match) {
             $this->processMatchElo($match, $kFactor, $usersCache, $leagueId, $matchDate);
         }
@@ -368,33 +430,44 @@ class LeagueService
         
         // Store rankings in gameday
         $gameday->set('gameday_rankings', $gamedayRankings);
-        
-        // Mark gameday as finished
+
+        // Mark gameday as finished BEFORE stats queries.
+        // This is required: updatePlayerLeagueStats queries for is_finished gamedays,
+        // so this gameday must be persisted as finished first to be included.
         $gameday->set('is_finished', true);
         $gameday->save();
-        
-        // Update league stats for all present players
-        $presentPlayers = $gameday->get('present_players', []);
-        
-        // PRE-FETCH all gamedays and matches to prevent N+1 queries in the loop
-        $allGamedays = Entry::query()
-            ->where('collection', 'gamedays')
-            ->where('is_finished', true)
-            ->get();
-            
-        $allPlayedMatches = Entry::query()
-            ->where('collection', 'matches')
-            ->where('is_played', true)
-            ->get();
-            
-        foreach ($presentPlayers as $playerId) {
-            $this->updatePlayerLeagueStats($playerId, $allGamedays, $allPlayedMatches);
-        }
 
-        // Recalculate rankings for ALL leagues where present players participate
-        $affectedLeagues = $this->getAllLeaguesForPlayers($presentPlayers);
-        foreach ($affectedLeagues as $affectedLeagueId) {
-            $this->recalculateLeagueRanks($affectedLeagueId);
+        // Update league stats and rankings. Wrapped in try/catch so a partial failure
+        // doesn't silently leave stats inconsistent without any indication.
+        try {
+            $presentPlayers = $gameday->get('present_players', []);
+
+            // PRE-FETCH all gamedays and matches to prevent N+1 queries in the loop
+            $allGamedays = Entry::query()
+                ->where('collection', 'gamedays')
+                ->where('is_finished', true)
+                ->get();
+
+            $allPlayedMatches = Entry::query()
+                ->where('collection', 'matches')
+                ->where('is_played', true)
+                ->get();
+
+            foreach ($presentPlayers as $playerId) {
+                $this->updatePlayerLeagueStats($playerId, $allGamedays, $allPlayedMatches);
+            }
+
+            // Recalculate rankings for ALL leagues where present players participate
+            $affectedLeagues = $this->getAllLeaguesForPlayers($presentPlayers, $usersCache);
+            foreach ($affectedLeagues as $affectedLeagueId) {
+                $this->recalculateLeagueRanks($affectedLeagueId);
+            }
+        } catch (\Throwable $e) {
+            Log::error('Fehler bei Stats/Rankings nach Gameday-Finalisierung. Gameday ist als finished markiert, aber Stats sind möglicherweise inkonsistent.', [
+                'gameday_id' => $gamedayId,
+                'error' => $e->getMessage(),
+            ]);
+            throw $e;
         }
 
         // OPT: Refresh Stache exactly once after all writes are complete.
@@ -534,14 +607,15 @@ class LeagueService
      * a gameday is finalized.
      * 
      * @param array $playerIds Array of player IDs
+     * @param array $usersCache Optional pre-loaded user objects keyed by ID
      * @return array Unique league IDs
      */
-    protected function getAllLeaguesForPlayers($playerIds)
+    protected function getAllLeaguesForPlayers($playerIds, array $usersCache = [])
     {
         $leagueIds = collect();
-        
+
         foreach ($playerIds as $playerId) {
-            $player = User::find($playerId);
+            $player = $usersCache[$playerId] ?? User::find($playerId);
             if (!$player) continue;
             
             $leagueStats = $player->get('league_stats', []);
@@ -778,13 +852,19 @@ class LeagueService
         // Expected win probability for Team A (Elo formula)
         $expectedA = 1 / (1 + pow(10, ($eloB - $eloA) / 400));
         
-        // Actual performance based on score ratio
+        // Actual performance based on score ratio (NOT binary win/loss).
+        // This is an intentional design choice: the margin of victory affects Elo.
+        //   - 11-0 win → actualA ≈ 1.0  → large positive delta
+        //   - 11-9 win → actualA ≈ 0.55 → small positive delta
+        //   - 9-11 loss → actualA ≈ 0.45 → small negative delta
+        // This rewards dominant play and softens the penalty for close losses,
+        // better reflecting individual skill in a doubles format where partners rotate.
         $pointsTotal = $scoreA + $scoreB;
         if ($pointsTotal == 0) return; // Prevent division by zero
-        
+
         $actualA = $scoreA / $pointsTotal;
-        
-        // Calculate Elo delta (TRUE ELO - no win protection)
+
+        // Elo delta: K × (actual - expected). No win floor/ceiling applied.
         $delta = $kFactor * ($actualA - $expectedA);
         
         // OPT: $leagueId and $matchDate are now passed in from finalizeGameday(),
@@ -891,12 +971,23 @@ class LeagueService
         
         $minGameDays = (int)$league->get('min_game_days', 0);
 
-        // OPT: Load all users once and key by ID so the save loop below can reuse
-        //      the same objects without a second User::find() call per player.
-        $allUsers = User::all()->keyBy(fn($u) => $u->id());
-        
-        // Build ranking data for all players
-        $rankingData = $allUsers->map(function($player) use ($leagueId, $minGameDays) {
+        // Collect only player IDs that participated in this league's gamedays,
+        // instead of loading every user in the system.
+        $leaguePlayerIds = Entry::query()
+            ->where('collection', 'gamedays')
+            ->where('league', $leagueId)
+            ->where('is_finished', true)
+            ->get()
+            ->flatMap(fn($day) => (array)$day->get('present_players', []))
+            ->unique()
+            ->values();
+
+        $leagueUsers = $leaguePlayerIds->map(fn($id) => User::find($id))
+            ->filter()
+            ->keyBy(fn($u) => $u->id());
+
+        // Build ranking data for league players only
+        $rankingData = $leagueUsers->map(function($player) use ($leagueId, $minGameDays) {
             $stats = collect($player->get('league_stats', []))->first(function($row) use ($leagueId) {
                 $rowLeagues = (array)($row['league'] ?? []);
                 $rowLeagueId = reset($rowLeagues);
@@ -945,8 +1036,7 @@ class LeagueService
 
         // Assign ranks to players
         foreach ($rankingData as $index => $item) {
-            // OPT: Reuse already-loaded user from $allUsers instead of User::find()
-            $player = $allUsers->get($item['id']);
+            $player = $leagueUsers->get($item['id']);
             if (!$player) continue;
 
             $stats = $player->get('league_stats', []);
