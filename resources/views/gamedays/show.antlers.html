@@ -162,7 +162,7 @@
                                                         <span class="text-[10px] font-black uppercase tracking-widest text-gray-400">Game {{ game_no }}</span>
                                                     </div>
                                                     <div class="flex items-center gap-4 bg-gray-50 dark:bg-gray-900/30 p-4 rounded-2xl border border-gray-100 dark:border-gray-700">
-                                                        <input type="number" value="{{ score_a }}"
+                                                        <input type="number" id="score_a_my_{{ id }}" value="{{ score_a }}"
                                                             onchange="saveScore('{{ id }}', this.value, document.getElementById('score_b_my_{{ id }}').value)"
                                                             {{ if is_finished }}disabled{{ /if }}
                                                             inputmode="numeric" pattern="[0-9]*"
@@ -170,7 +170,7 @@
                                                             placeholder="-">
                                                         <span class="text-gray-300 dark:text-gray-600 font-bold text-xl">:</span>
                                                         <input type="number" id="score_b_my_{{ id }}" value="{{ score_b }}"
-                                                            onchange="saveScore('{{ id }}', document.querySelector(`.score-a-{{ id }}`).value, this.value)"
+                                                            onchange="saveScore('{{ id }}', document.getElementById('score_a_my_{{ id }}').value, this.value)"
                                                             {{ if is_finished }}disabled{{ /if }}
                                                             inputmode="numeric" pattern="[0-9]*"
                                                             class="score-b-{{ id }} w-16 text-center text-2xl font-black rounded-xl border-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-50 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
@@ -281,7 +281,7 @@
                                         </div>
                                         <div
                                             class="flex items-center gap-4 bg-gray-50 dark:bg-gray-900/30 p-4 rounded-2xl border border-gray-100 dark:border-gray-700">
-                                            <input type="number" value="{{ score_a }}"
+                                            <input type="number" id="score_a_{{ id }}" value="{{ score_a }}"
                                                 onchange="saveScore('{{ id }}', this.value, document.getElementById('score_b_{{ id }}').value)"
                                                 {{ if is_finished }}disabled{{ /if }}
                                                 inputmode="numeric" pattern="[0-9]*"
@@ -289,7 +289,7 @@
                                                 placeholder="-">
                                             <span class="text-gray-300 dark:text-gray-600 font-bold text-xl">:</span>
                                             <input type="number" id="score_b_{{ id }}" value="{{ score_b }}"
-                                                onchange="saveScore('{{ id }}', document.querySelector(`.score-a-{{ id }}`).value, this.value)"
+                                                onchange="saveScore('{{ id }}', document.getElementById('score_a_{{ id }}').value, this.value)"
                                                 {{ if is_finished }}disabled{{ /if }}
                                                 inputmode="numeric" pattern="[0-9]*"
                                                 class="score-b-{{ id }} w-16 text-center text-2xl font-black rounded-xl border-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-50 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
