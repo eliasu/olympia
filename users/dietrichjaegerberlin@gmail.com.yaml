@@ -20,3 +20,13 @@ preferences:
       view: list
     gamedays:
       view: list
+      columns:
+        - title
+        - date
+        - league
+        - is_finished
+        - generated_plan
+        - courts_count
+        - games_per_court
+        - slug
+        - present_players

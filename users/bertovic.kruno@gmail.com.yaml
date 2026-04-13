@@ -1,8 +1,21 @@
 name: Kruno
 roles:
   - player
+  - league_manager
 groups:
   - players
 slug: kruno
+matches:
+  - 3050c605-fa73-41e7-8877-1ef4df1ee3f2
+  - e8476075-20e1-4c5f-ab06-23f0c9a300d8
+  - cb315eb3-e1c6-42dc-b075-54d4766cd06c
+  - 3dc7b998-ec4d-4429-84d5-bfa0ab8f49f5
+  - 9f478d40-b221-43ac-adf1-1abc8183a70a
+  - fd894e2e-b3a3-4be7-b067-276af6e24bae
+  - 4e8634e6-0ff0-4e93-9b7e-9ce764058edf
+  - c872a133-fe95-46e6-b517-6d76a68e0657
+  - aeb1cb43-fad1-43d5-ab47-c06d15b1a981
+  - 035b1245-db81-45ca-956b-3a0f44dc54e5
+  - 706d3ff9-678c-4a74-8e67-800a0cf6621b
 id: d2e3a42f-4ec0-4865-97d8-23914431c007
 password_hash: $2y$12$6MCwmzqlPbT24gRt7bHwF.hBLuCA6XM.17QhsCOCNjR/Vxinj6MgO

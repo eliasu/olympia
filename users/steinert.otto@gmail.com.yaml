@@ -4,5 +4,16 @@ roles:
 groups:
   - players
 slug: otto-steinert
+matches:
+  - 2547a768-0fcd-4eb1-8e99-75a50c648f79
+  - e8476075-20e1-4c5f-ab06-23f0c9a300d8
+  - b8715b12-5118-40a8-84e2-b73a26be8612
+  - 816f9821-9ca8-4f24-9347-75e4f71f7600
+  - f10c0b54-e003-4d53-9be4-32adfa4b57e3
+  - 01007f1f-233c-4cd3-9282-0de6bf99ca1c
+  - c872a133-fe95-46e6-b517-6d76a68e0657
+  - b3ef6b84-72ff-4d3c-b3a5-5ef0bc929fa2
+  - 7e81a87f-ecff-4eae-b693-b97f42cfe7e1
+  - a7cc23ff-e573-4b73-bdda-8e28bdffd252
 id: f6decda0-2051-4fbd-85a4-691ed9f9c4da
 password_hash: $2y$12$MzPNiOI6NN7yp/f9TN9hFe9Vp3yDp0LVVkdtTEUWu3OX2FKuw5fni

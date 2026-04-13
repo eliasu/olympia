@@ -4,5 +4,17 @@ roles:
 groups:
   - players
 slug: phan-tri-khoi
+matches:
+  - 3050c605-fa73-41e7-8877-1ef4df1ee3f2
+  - efb31346-bd6e-487b-a6b8-df24d1cfeea0
+  - b8715b12-5118-40a8-84e2-b73a26be8612
+  - 816f9821-9ca8-4f24-9347-75e4f71f7600
+  - f10c0b54-e003-4d53-9be4-32adfa4b57e3
+  - 65b55885-f6f7-48f1-aae0-228f35ce9fdf
+  - c872a133-fe95-46e6-b517-6d76a68e0657
+  - aeb1cb43-fad1-43d5-ab47-c06d15b1a981
+  - 7e81a87f-ecff-4eae-b693-b97f42cfe7e1
+  - 035b1245-db81-45ca-956b-3a0f44dc54e5
+  - 706d3ff9-678c-4a74-8e67-800a0cf6621b
 id: 7b5d0233-b4ae-41ff-b362-0a21e91cee56
 password_hash: $2y$12$XHcf7qMqJ84AEuon0gvl/usf/hRY/oTllbkB1F1QA32gVQvWE340i
