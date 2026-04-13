@@ -131,7 +131,7 @@
                     </h2>
                     
                     <div class="space-y-4">
-                        {{ users sort="global_elo:desc" limit="10" }}
+                        {{ users sort="global_elo:desc" total_games:gt="0" limit="10" }}
                             <a href="/players/{{ slug }}" class="flex items-center justify-between p-3 rounded-2xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all group">
                                 <div class="flex items-center gap-3">
                                     <span class="w-5 text-sm font-black {{ if index < 3 }}text-amber-500{{ else }}text-gray-300 dark:text-gray-600{{ /if }}">{{ index | add(1) }}.</span>
