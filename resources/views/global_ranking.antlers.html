@@ -40,7 +40,7 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100 dark:divide-gray-700/50">
-                    {{ users sort="global_elo:desc" }}
+                    {{ users total_games:gt="0" sort="global_elo:desc" }}
                         <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-700/30 transition-all duration-200">
                             <td class="pl-4 pr-1 sm:px-4 md:px-8 py-4 sm:py-6 whitespace-nowrap">
                                 <span class="text-lg md:text-xl font-black {{ if index < 3 }}text-indigo-600 dark:text-indigo-400{{ else }}text-gray-300 dark:text-gray-600{{ /if }} tracking-tighter">
