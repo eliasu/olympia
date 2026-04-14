@@ -34,8 +34,12 @@ class LeaguePlayers extends Tags
                 $rankA = $this->getLeagueRank($a, $leagueId);
                 $rankB = $this->getLeagueRank($b, $leagueId);
                 
-                // Players without rank go to the end
-                if ($rankA === null && $rankB === null) return 0;
+                // Players without rank go to the end, sorted by elo descending
+                if ($rankA === null && $rankB === null) {
+                    $eloA = $a->get('global_elo') ?? 0;
+                    $eloB = $b->get('global_elo') ?? 0;
+                    return $eloB <=> $eloA;
+                }
                 if ($rankA === null) return 1;
                 if ($rankB === null) return -1;
                 
