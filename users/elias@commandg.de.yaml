@@ -120,7 +120,6 @@ preferences:
       - groups
       - slug
       - last_login
-      - matches
   nav:
     top_level:
       'content::collections::leagues':
