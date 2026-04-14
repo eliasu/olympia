@@ -1,6 +1,7 @@
 name: 'Nicolas Daniel Suarez Mora'
 roles:
   - player
+  - league_manager
 groups:
   - players
 slug: nicolas-daniel-suarez-mora
@@ -15,39 +16,45 @@ total_games: 5
 wins: 4
 elo_history:
   -
-    date: '2026-04-12T22:00:00+00:00'
+    id: AXI0tIJX
+    date: '2026-04-13 00:00'
     elo: 1509.14
     match: f47056e6-42fc-425c-b4c4-efbb8d05840c
     league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
   -
-    date: '2026-04-12T22:00:00+00:00'
+    id: OGvMHDZo
+    date: '2026-04-13 00:00'
     elo: 1519.95
     match: cdf9af75-b5db-419c-88ab-f2913ea07632
     league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
   -
-    date: '2026-04-12T22:00:00+00:00'
+    id: zTAvcZqS
+    date: '2026-04-13 00:00'
     elo: 1514.94
     match: 480c5ac3-d8c1-4f84-86b6-c027a70e13ab
     league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
   -
-    date: '2026-04-12T22:00:00+00:00'
+    id: g4tMOPqS
+    date: '2026-04-13 00:00'
     elo: 1530.41
     match: 2ea27f94-7a18-46f0-8291-7998c0cd8b2c
     league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
   -
-    date: '2026-04-12T22:00:00+00:00'
+    id: H1WA8VKn
+    date: '2026-04-13 00:00'
     elo: 1531.67
     match: 5efd1eef-3a0c-4625-8f99-654749693858
     league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
 losses: 1
 league_stats:
   -
-    league:
-      - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+    id: xTppNivF
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
     played_gamedays: 1
     match_count: 5
     league_wins: 4
     league_losses: 1
     win_percentage: 80.0
+player_status: active
 id: ee76cfe3-5100-446c-8785-080c461f4337
 password_hash: $2y$12$J4kmKrgrfGlwkm2GAcrcNeeEpOQYhSwLlgHrWMQ/atPAQ.c6CPgoq
