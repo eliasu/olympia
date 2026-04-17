@@ -64,10 +64,14 @@ preferences:
       columns:
         - title
         - date
-        - league
         - is_finished
         - generated_plan
-        - courts_count
-        - games_per_court
-        - slug
         - present_players
+  users:
+    columns:
+      - name
+      - total_games
+      - global_elo
+      - player_status
+      - wins
+      - losses
