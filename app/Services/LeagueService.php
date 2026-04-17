@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Log;
 class LeagueService
 {
     // Matchmaking configuration constants
-    const ELO_SPREAD = 150;              // Maximum Elo difference for matchmaking (±150)
+    const ELO_SPREAD = 100;              // Maximum Elo difference for matchmaking (±100)
     const PARTNER_PENALTY = 1000;        // Penalty for repeating partners (strong avoidance)
     const OPPONENT_PENALTY = 500;        // Penalty for repeating opponents (moderate avoidance)
     
@@ -173,6 +173,7 @@ class LeagueService
     {
         // Sort by priority: fewest games today, then fewest league matches
         $available = $playerStats
+            ->shuffle()
             ->sortBy('league_matches')
             ->sortBy('games_today')
             ->values();
@@ -483,8 +484,8 @@ class LeagueService
      * Calculate gameday rankings for all players who participated.
      * 
      * Ranks players based on:
-     * 1. Win% of the day (primary)
-     * 2. Elo Gain of the day (tiebreaker)
+     * 1. Avg Elo gain per match (primary) — normalizes for unequal game counts
+     * 2. Total Elo Gain (tiebreaker)
      * 3. Total Wins of the day (tiebreaker)
      * 4. Global Elo (final tiebreaker)
      * 
@@ -554,7 +555,8 @@ class LeagueService
             
             $matchesPlayed = $winsToday + $lossesToday;
             $winPercentage = $matchesPlayed > 0 ? ($winsToday / $matchesPlayed) * 100 : 0;
-            
+            $avgEloGain = $matchesPlayed > 0 ? round($eloGain / $matchesPlayed, 2) : 0;
+
             $rankings[] = [
                 'player_id' => $playerId,
                 'player' => [$playerId],  // Array format for Statamic entries field
@@ -565,18 +567,19 @@ class LeagueService
                 'elo_start' => round($eloStart, 2),
                 'elo_end' => round($eloEnd, 2),
                 'elo_gain' => $eloGain,
+                'avg_elo_gain' => $avgEloGain,
                 'global_elo' => $eloEnd  // For tiebreaker sorting
             ];
         }
         
         // Sort by ranking criteria
         usort($rankings, function($a, $b) {
-            // 1. Win% (descending)
-            if (abs($a['win_percentage'] - $b['win_percentage']) > 1e-9) {
-                return $b['win_percentage'] <=> $a['win_percentage'];
+            // 1. Avg Elo gain per match (descending) — normalizes for unequal game counts
+            if (abs($a['avg_elo_gain'] - $b['avg_elo_gain']) > 1e-9) {
+                return $b['avg_elo_gain'] <=> $a['avg_elo_gain'];
             }
 
-            // 2. Elo Gain (descending)
+            // 2. Total Elo Gain (descending)
             if (abs($a['elo_gain'] - $b['elo_gain']) > 1e-9) {
                 return $b['elo_gain'] <=> $a['elo_gain'];
             }
