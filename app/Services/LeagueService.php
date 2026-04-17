@@ -572,12 +572,12 @@ class LeagueService
         // Sort by ranking criteria
         usort($rankings, function($a, $b) {
             // 1. Win% (descending)
-            if ($a['win_percentage'] != $b['win_percentage']) {
+            if (abs($a['win_percentage'] - $b['win_percentage']) > 1e-9) {
                 return $b['win_percentage'] <=> $a['win_percentage'];
             }
-            
+
             // 2. Elo Gain (descending)
-            if ($a['elo_gain'] != $b['elo_gain']) {
+            if (abs($a['elo_gain'] - $b['elo_gain']) > 1e-9) {
                 return $b['elo_gain'] <=> $a['elo_gain'];
             }
             
@@ -1020,10 +1020,10 @@ class LeagueService
             if (!$a['is_qualified'] && $b['is_qualified']) return 1;
             
             // 2. Sort by win percentage (descending)
-            if ($a['win_percentage'] != $b['win_percentage']) {
+            if (abs($a['win_percentage'] - $b['win_percentage']) > 1e-9) {
                 return $b['win_percentage'] <=> $a['win_percentage'];
             }
-            
+
             // 3. Tiebreaker 1: League wins (descending)
             if ($a['league_wins'] != $b['league_wins']) {
                 return $b['league_wins'] <=> $a['league_wins'];
