@@ -24,7 +24,7 @@ Our league system measures **your actual performance**, not just how often you s
 **Important:** 
 - **Global Elo** is used for pairings (team composition)
 - **Win Percentage** determines who wins the league
-- **Gameday Winner** is for daily bragging rights (doesn't affect season ranking)
+- **Gameday Winner** is for daily bragging rights — ranked by Avg Elo/Game (doesn't affect season ranking)
 
 ---
 
@@ -125,16 +125,16 @@ After 20 days: 1660 Elo (stabilizes at true level)
 
 ### How Does It Work?
 
-#### **Step 1: Elo Band (±150 Elo)**
+#### **Step 1: Elo Band (±100 Elo)**
 
-The system searches for 3 partners within **your Elo ±150**.
+The system searches for 3 partners within **your Elo ±100**.
 
 **Example:**
 - Your Elo: 1600
-- Possible Partners: 1450-1750
+- Possible Partners: 1500-1700
 
-**Why ±150?**
-- At ±150 Elo = ~30% skill difference in 1v1
+**Why ±100?**
+- At ±100 Elo = ~20% skill difference in 1v1
 - In doubles this balances out through Power Pairing
 - **Prevents:** 1700 vs 1300 games (frustrating for both)
 
@@ -320,12 +320,12 @@ Every gameday has its own **daily champion** based on that day's performance onl
 
 **Ranking Criteria (calculated when gameday is finalized):**
 
-1. **Win% of the Day** (primary)
+1. **Avg Elo Gain per Match** (primary)
    ```
-   Gameday Win% = Wins Today / Matches Today × 100
+   Avg Elo/Game = Total Elo Gain Today / Matches Played Today
    ```
 
-2. **Elo Gain of the Day** (tiebreaker)
+2. **Total Elo Gain of the Day** (tiebreaker)
    ```
    Elo Gain = Ending Elo - Starting Elo
    ```
@@ -338,18 +338,18 @@ Every gameday has its own **daily champion** based on that day's performance onl
 
 **Gameday: Sunday League - February 16, 2025**
 
-| Rank | Player | Matches | W-L | Win% | Elo Gain |
-|------|---------|---------|-----|------|----------|
-| 🥇 1 | Max Weber | 4 | 3-1 | **75.00%** | +8.5 |
-| 🥈 2 | Anna Schmidt | 4 | 3-1 | **75.00%** | +6.2 |
-| 🥉 3 | Lisa Müller | 3 | 2-1 | **66.67%** | +4.1 |
-| 4 | Tom Fischer | 4 | 2-2 | **50.00%** | +2.3 |
-| 5 | Ben Klein | 3 | 1-2 | **33.33%** | -1.5 |
+| Rank | Player | Matches | W-L | Avg Elo/Game |
+|------|---------|---------|-----|--------------|
+| 🥇 1 | Max Weber | 4 | 3-1 | **+6.8/g** |
+| 🥈 2 | Anna Schmidt | 5 | 4-1 | **+5.9/g** |
+| 🥉 3 | Lisa Müller | 3 | 2-1 | **+4.1/g** |
+| 4 | Tom Fischer | 4 | 2-2 | **+2.3/g** |
+| 5 | Ben Klein | 3 | 1-2 | **-1.5/g** |
 
 **Winner: Max Weber** 🏆
-- Same Win% as Anna (75%)
-- But higher Elo Gain (+8.5 vs +6.2)
-- Dominated his wins more
+- Higher avg Elo gain per match (+6.8 vs +5.9)
+- Anna played more games but lower avg performance per game
+- Rewarded for quality, not just quantity
 
 ### 🎯 Key Points About Gameday Winner
 
@@ -361,9 +361,9 @@ Every gameday has its own **daily champion** based on that day's performance onl
    - Winning a gameday doesn't affect your season rank
 
 2. **Fair with Different Match Counts**
-   - Uses Win% (not total wins)
-   - 3 games, 100% Win = better than 4 games, 75% Win
-   - Everyone has equal chance
+   - Uses Avg Elo/Game (not total elo or total wins)
+   - 3 games, high avg = better than 5 games, low avg
+   - Everyone has equal chance regardless of how many games they played
 
 3. **Calculated Automatically**
    - System calculates when gameday is finalized
@@ -384,17 +384,17 @@ Every gameday has its own **daily champion** based on that day's performance onl
    - 3-1 record better than 2-2
 
 2. **Win Decisively**
-   - High wins = more Elo gain
+   - Bigger score margins = more Elo gain per match
    - 21-10 better than 21-19
-   - Acts as tiebreaker
+   - Directly boosts your avg Elo/game
 
 3. **Play Consistently**
-   - All matches count toward daily Win%
-   - One bad loss won't ruin your day
+   - Every match contributes to your avg
+   - One bad loss pulls your avg down — minimize damage
 
-4. **Don't Worry About Others**
-   - Focus on your own performance
-   - Can't control how many games others play
+4. **Don't Worry About Others' Match Count**
+   - Focus on your own performance per game
+   - Playing more games doesn't help if the avg is lower
 
 ### 📈 Gameday Winner vs Season Champion
 
@@ -627,15 +627,15 @@ Win% makes it fair regardless of match count.
 
 ---
 
-### **Q: Two players have same Win% on gameday. Who wins?**
+### **Q: Two players have same Avg Elo/Game on gameday. Who wins?**
 
-**A:** **Elo Gain** is the tiebreaker.
+**A:** **Total Elo Gain** is the tiebreaker, then total wins, then global Elo.
 
 **Example:**
-- Player A: 75% Win, +8.5 Elo → Rank 1
-- Player B: 75% Win, +6.2 Elo → Rank 2
+- Player A: +6.2/g avg, +24.8 total Elo → Rank 1
+- Player B: +6.2/g avg, +18.6 total Elo → Rank 2
 
-Higher Elo gain = more dominant wins = better rank
+Higher total gain = played that avg over more games = better rank
 
 ---
 
@@ -671,17 +671,17 @@ Higher Elo gain = more dominant wins = better rank
 
 ### **Q: Why do I never play with the best/worst players?**
 
-**A:** The system maintains a ±150 Elo spread.
+**A:** The system maintains a ±100 Elo spread.
 
 **Example:**
 - You: 1500 Elo
 - Player A: 1720 Elo (Top)
 - Player B: 1280 Elo (Beginner)
 
-**Difference to A:** 220 > 150 → no pairing  
-**Difference to B:** 220 > 150 → no pairing
+**Difference to A:** 220 > 100 → no pairing  
+**Difference to B:** 220 > 100 → no pairing
 
-**You play with:** 1350-1650 range (your level)
+**You play with:** 1400-1600 range (your level)
 
 **Advantages:**
 - Fair games
@@ -699,8 +699,8 @@ Higher Elo gain = more dominant wins = better rank
 - 3 vs 4 games doesn't matter over time
 
 **For Gameday Winner:**
-- We use Win% of the day
-- 3 games, 100% = better than 4 games, 75%
+- We use Avg Elo/Game of the day
+- 3 games, high avg = can beat 5 games, lower avg
 - Completely fair!
 
 ---
@@ -820,11 +820,11 @@ RANKING ORDER:
 ### Gameday Winner:
 ```
 PRIMARY METRIC:
-Gameday Win% = Wins Today / Matches Today × 100
+Avg Elo/Game = Total Elo Gain Today / Matches Played Today
 
 RANKING ORDER:
-1. Win% of the Day (descending)
-2. Elo Gain of the Day (descending)
+1. Avg Elo/Game (descending)
+2. Total Elo Gain of the Day (descending)
 3. Total Wins of the Day (descending)
 4. Global Elo (descending)
 ```

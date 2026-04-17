@@ -100,6 +100,13 @@ tabs:
                     display: 'Elo Gain'
                     instructions: 'Can be negative'
                     width: 12
+                -
+                  handle: avg_elo_gain
+                  field:
+                    type: float
+                    display: 'Avg Elo/Game'
+                    instructions: 'elo_gain / matches_played — used for gameday ranking'
+                    width: 12
   sidebar:
     display: Sidebar
     sections:
