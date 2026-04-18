@@ -377,7 +377,7 @@
 
                                     <!-- Avg Elo Gain Badge -->
                                     <div class="flex-shrink-0 px-2 py-1 rounded-lg {{ if gd_avg_elo_gain >= 0 }}bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400{{ else }}bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400{{ /if }}">
-                                        <span class="text-xs font-black">{{ if gd_avg_elo_gain >= 0 }}+{{ /if }}{{ gd_avg_elo_gain }}/g</span>
+                                        <span class="text-xs font-black">{{ if gd_avg_elo_gain >= 0 }}+{{ /if }}{{ gd_avg_elo_gain | round(1) }}/g</span>
                                     </div>
                                 </div>
                             </a>
