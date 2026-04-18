@@ -20,8 +20,10 @@ class LeagueService
 {
     // Matchmaking configuration constants
     const ELO_SPREAD = 100;              // Maximum Elo difference for matchmaking (±100)
-    const PARTNER_PENALTY = 1000;        // Penalty for repeating partners (strong avoidance)
-    const OPPONENT_PENALTY = 500;        // Penalty for repeating opponents (moderate avoidance)
+    const PARTNER_PENALTY = 2000;        // Penalty for repeating partners (strong avoidance)
+    const OPPONENT_PENALTY = 1000;       // Penalty for repeating opponents (moderate avoidance)
+    const FOURSOME_REPEAT_PENALTY = 100000;  // Near-hard-block: same 4 players meeting again
+    const TEAM_PAIR_REPEAT_PENALTY = 100000; // Near-hard-block: same 2 players partnered again
     
     /**
      * Generate a gameday plan with balanced matchmaking.
@@ -99,22 +101,37 @@ class LeagueService
         });
 
         $matchesToCreate = [];
-        
+
+        // Track exact foursomes + team pairs already used this gameday.
+        // Keys are sorted pipe-joined player IDs. Values = frequency.
+        // Fed into scoring to block identical matches (e.g. M10 == M15 bug).
+        $usedFoursomes = [];
+        $usedTeamPairs = [];
+
         // Generate each match
         for ($i = 0; $i < $totalGames; $i++) {
             // 1. Select 4 players with skill-based diversity
-            $selectedPlayers = $this->selectDiversePlayers($playerStats, self::ELO_SPREAD);
-            
+            $selectedPlayers = $this->selectDiversePlayers($playerStats, self::ELO_SPREAD, $usedFoursomes);
+
             if ($selectedPlayers->count() < 4) {
                 Log::warning("Not enough players for match " . ($i + 1));
                 continue;
             }
 
-            // 2. Create balanced teams using power pairing
-            $teams = $this->createBalancedTeams($selectedPlayers);
-            
+            // 2. Create balanced teams, avoiding repeated team pairings
+            $teams = $this->createBalancedTeams($selectedPlayers, $usedTeamPairs);
+
             // 3. Update player tracking (games played, partners, opponents)
             $this->updatePlayerTracking($playerStats, $teams);
+
+            // Record foursome + team pairs for repeat avoidance in later matches
+            $foursomeKey = $this->sortedIdKey($selectedPlayers->pluck('id')->all());
+            $usedFoursomes[$foursomeKey] = ($usedFoursomes[$foursomeKey] ?? 0) + 1;
+
+            foreach (['team_a', 'team_b'] as $teamKey) {
+                $pairKey = $this->sortedIdKey($teams[$teamKey]->pluck('id')->all());
+                $usedTeamPairs[$pairKey] = ($usedTeamPairs[$pairKey] ?? 0) + 1;
+            }
             
             // 4. Create match entry
             $matchTitle = $gameday->get('title') . ' - Match ' . ($i + 1);
@@ -169,7 +186,7 @@ class LeagueService
      * @param int $eloSpread Maximum Elo difference allowed
      * @return \Illuminate\Support\Collection Collection of 4 selected players
      */
-    protected function selectDiversePlayers($playerStats, $eloSpread)
+    protected function selectDiversePlayers($playerStats, $eloSpread, array $usedFoursomes = [])
     {
         // Sort by priority: fewest games today, then fewest league matches
         $available = $playerStats
@@ -177,7 +194,7 @@ class LeagueService
             ->sortBy('league_matches')
             ->sortBy('games_today')
             ->values();
-        
+
         $minGames = $available->min('games_today');
 
         // Eligible pool: strictly players at minimum game count first,
@@ -191,9 +208,35 @@ class LeagueService
                 $p['games_today'] <= $minGames + $expand
             )->values();
         }
-        
-        // Select seed player (player with fewest games today)
-        $seed = $eligiblePool->first();
+
+        // If the pool collapsed to exactly 4 AND that foursome already played,
+        // expand one more level. Otherwise the only possible group = the repeat.
+        // Small fairness cost traded for diversity (fixes M10==M15 bug).
+        if ($eligiblePool->count() === 4) {
+            $poolKey = $this->sortedIdKey($eligiblePool->pluck('id')->all());
+            while (isset($usedFoursomes[$poolKey]) && $eligiblePool->count() < $available->count()) {
+                $expand++;
+                $eligiblePool = $available->filter(fn($p) =>
+                    $p['games_today'] <= $minGames + $expand
+                )->values();
+                $poolKey = $this->sortedIdKey($eligiblePool->pluck('id')->all());
+            }
+        }
+
+        // Seed rotation: among players tied at min games_today, pick the one
+        // with fewest partner+opponent interactions today. Random tiebreak via
+        // pre-shuffle. Prevents deterministic seed lock when stats tied.
+        $seedCandidates = $eligiblePool
+            ->filter(fn($p) => $p['games_today'] === $minGames)
+            ->shuffle()
+            ->values();
+        if ($seedCandidates->isEmpty()) {
+            $seedCandidates = $eligiblePool;
+        }
+        $seed = $seedCandidates->sortBy(fn($p) =>
+            count($p['partners_today']) + count($p['opponents_today'])
+        )->first();
+
         $seedElo = $seed['elo'];
 
         // Build candidate pool: prefer players within Elo band, expand if needed
@@ -207,7 +250,7 @@ class LeagueService
 
         // Evaluate all possible groups of (seed + 3 candidates).
         // Score every group by summing pairwise diversity penalties across all 6 pairs,
-        // using frequency-based penalties (2x partner = 2× PARTNER_PENALTY).
+        // plus FOURSOME_REPEAT_PENALTY per prior occurrence of this exact foursome.
         $candidateList = $candidates->values()->all();
         $count = count($candidateList);
         $bestGroup = null;
@@ -217,7 +260,7 @@ class LeagueService
             for ($j = $i + 1; $j < $count - 1; $j++) {
                 for ($k = $j + 1; $k < $count; $k++) {
                     $group = [$seed, $candidateList[$i], $candidateList[$j], $candidateList[$k]];
-                    $score = $this->scoreGroup($group);
+                    $score = $this->scoreGroup($group, $usedFoursomes);
                     if ($score < $bestScore) {
                         $bestScore = $score;
                         $bestGroup = $group;
@@ -235,6 +278,15 @@ class LeagueService
     }
 
     /**
+     * Build a stable key from a list of player IDs. Sort first so order doesn't matter.
+     */
+    protected function sortedIdKey(array $ids): string
+    {
+        sort($ids);
+        return implode('|', $ids);
+    }
+
+    /**
      * Score a group of 4 players by summing pairwise penalties.
      *
      * Evaluates all 6 pairs within the group. For each pair:
@@ -247,7 +299,7 @@ class LeagueService
      * @param array $group Array of 4 player stat arrays
      * @return float Combined penalty score
      */
-    protected function scoreGroup(array $group): float
+    protected function scoreGroup(array $group, array $usedFoursomes = []): float
     {
         $score = 0.0;
 
@@ -279,34 +331,91 @@ class LeagueService
             }
         }
 
+        // Exact foursome repeat: huge penalty, scales with frequency.
+        // Acts as near-hard-block when any alternative group exists.
+        $foursomeKey = $this->sortedIdKey(array_map(fn($p) => $p['id'], $group));
+        $foursomeFreq = $usedFoursomes[$foursomeKey] ?? 0;
+        $score += $foursomeFreq * self::FOURSOME_REPEAT_PENALTY;
+
         return $score;
     }
 
     /**
-     * Create balanced teams using power pairing.
-     * 
-     * Power Pairing Strategy:
-     * - Strongest + Weakest vs. Middle Two
-     * - Example: [1650, 1580, 1520, 1480]
-     *   Team A: 1650 + 1480 = Avg 1565
-     *   Team B: 1580 + 1520 = Avg 1550
+     * Create balanced teams by evaluating all 3 possible splits.
+     *
+     * Four players (sorted by Elo desc: [0]=strongest, [3]=weakest) have exactly
+     * 3 distinct team splits:
+     *  1. Power pairing:  [0,3] vs [1,2]  (strongest+weakest vs middles)
+     *  2. Top-vs-bottom:  [0,1] vs [2,3]
+     *  3. Mixed:          [0,2] vs [1,3]
+     *
+     * Each split scored on: Elo imbalance + partner-repeat penalty + team-pair-repeat
+     * penalty. Lowest score wins. Fixes deterministic split bug that caused
+     * identical match repeats (same 4 players → always same teams).
      *
      * @param \Illuminate\Support\Collection $players Collection of 4 players
+     * @param array $usedTeamPairs Frequency map of already-used team pairs
      * @return array ['team_a' => Collection, 'team_b' => Collection]
      */
-    protected function createBalancedTeams($players)
+    protected function createBalancedTeams($players, array $usedTeamPairs = [])
     {
-        // Sort by Elo (descending)
         $sorted = $players->sortByDesc('elo')->values();
-        
-        // Power pairing: strongest + weakest vs. middle two
-        $teamA = collect([$sorted[0], $sorted[3]]);
-        $teamB = collect([$sorted[1], $sorted[2]]);
-        
-        return [
-            'team_a' => $teamA,
-            'team_b' => $teamB
+        $p = [$sorted[0], $sorted[1], $sorted[2], $sorted[3]];
+
+        $splits = [
+            ['a' => [$p[0], $p[3]], 'b' => [$p[1], $p[2]]],  // power pairing
+            ['a' => [$p[0], $p[1]], 'b' => [$p[2], $p[3]]],  // top vs bottom
+            ['a' => [$p[0], $p[2]], 'b' => [$p[1], $p[3]]],  // mixed
         ];
+
+        $bestSplit = null;
+        $bestScore = PHP_INT_MAX;
+
+        foreach ($splits as $split) {
+            $score = $this->scoreSplit($split['a'], $split['b'], $usedTeamPairs);
+            if ($score < $bestScore) {
+                $bestScore = $score;
+                $bestSplit = $split;
+            }
+        }
+
+        return [
+            'team_a' => collect($bestSplit['a']),
+            'team_b' => collect($bestSplit['b']),
+        ];
+    }
+
+    /**
+     * Score a team split. Lower is better.
+     * Combines Elo imbalance, partner-repeat penalty, and team-pair-repeat penalty.
+     */
+    protected function scoreSplit(array $teamA, array $teamB, array $usedTeamPairs): float
+    {
+        $score = 0.0;
+
+        // Elo balance: absolute diff of team averages
+        $avgA = ($teamA[0]['elo'] + $teamA[1]['elo']) / 2;
+        $avgB = ($teamB[0]['elo'] + $teamB[1]['elo']) / 2;
+        $score += abs($avgA - $avgB);
+
+        // Per-team partner-repeat + prior-pair penalty
+        foreach ([$teamA, $teamB] as $team) {
+            [$x, $y] = $team;
+
+            $xPartnerCounts = array_count_values($x['partners_today']);
+            $yPartnerCounts = array_count_values($y['partners_today']);
+            $partnerFreq = max(
+                $xPartnerCounts[$y['id']] ?? 0,
+                $yPartnerCounts[$x['id']] ?? 0
+            );
+            $score += $partnerFreq * self::PARTNER_PENALTY;
+
+            $pairKey = $this->sortedIdKey([$x['id'], $y['id']]);
+            $pairFreq = $usedTeamPairs[$pairKey] ?? 0;
+            $score += $pairFreq * self::TEAM_PAIR_REPEAT_PENALTY;
+        }
+
+        return $score;
     }
 
     /**
