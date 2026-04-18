@@ -2,7 +2,15 @@
     const _dirtyScores = {};
     const _savedScores = {};
 
+    function clampScore(v) {
+        const n = parseInt(v, 10);
+        if (isNaN(n) || v === '') return v;
+        return String(Math.min(50, Math.max(0, n)));
+    }
+
     function markDirty(matchId, scoreA, scoreB) {
+        scoreA = clampScore(scoreA);
+        scoreB = clampScore(scoreB);
         document.querySelectorAll(`.score-a-${matchId}`).forEach(i => { if (i.value !== scoreA) i.value = scoreA; });
         document.querySelectorAll(`.score-b-${matchId}`).forEach(i => { if (i.value !== scoreB) i.value = scoreB; });
         _dirtyScores[matchId] = { a: scoreA, b: scoreB };
@@ -199,7 +207,7 @@
                                                     oninput="markDirty('{{ id }}', this.value, document.getElementById('score_b_{{ id }}').value)"
                                                     onblur="flushDirty('{{ id }}')"
                                                     {{ if is_finished }}disabled{{ /if }}
-                                                    inputmode="numeric" pattern="[0-9]*"
+                                                    inputmode="numeric" pattern="[0-9]*" min="0" max="50"
                                                     class="relative z-10 score-a-{{ id }} shrink-0 w-16 h-16 text-center text-4xl font-black rounded-2xl border-2 border-gray-200 dark:border-gray-600 dark:bg-gray-900 dark:text-white focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-60 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                                     placeholder="–">
                                             </div>
@@ -222,7 +230,7 @@
                                                     oninput="markDirty('{{ id }}', document.getElementById('score_a_{{ id }}').value, this.value)"
                                                     onblur="flushDirty('{{ id }}')"
                                                     {{ if is_finished }}disabled{{ /if }}
-                                                    inputmode="numeric" pattern="[0-9]*"
+                                                    inputmode="numeric" pattern="[0-9]*" min="0" max="50"
                                                     class="relative z-10 score-b-{{ id }} shrink-0 w-16 h-16 text-center text-4xl font-black rounded-2xl border-2 border-gray-200 dark:border-gray-600 dark:bg-gray-900 dark:text-white focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-60 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                                     placeholder="–">
                                             </div>
@@ -246,7 +254,7 @@
                                                     oninput="markDirty('{{ id }}', this.value, document.getElementById('score_b_dt_{{ id }}').value)"
                                                     onblur="flushDirty('{{ id }}')"
                                                     {{ if is_finished }}disabled{{ /if }}
-                                                    inputmode="numeric" pattern="[0-9]*"
+                                                    inputmode="numeric" pattern="[0-9]*" min="0" max="50"
                                                     class="relative z-10 score-a-{{ id }} w-16 h-16 text-center text-4xl font-black rounded-2xl border-2 border-gray-200 dark:border-gray-600 dark:bg-gray-900 dark:text-white focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-60 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                                     placeholder="–">
                                                 <span class="text-2xl font-black text-gray-300 dark:text-gray-600">:</span>
@@ -254,7 +262,7 @@
                                                     oninput="markDirty('{{ id }}', document.getElementById('score_a_dt_{{ id }}').value, this.value)"
                                                     onblur="flushDirty('{{ id }}')"
                                                     {{ if is_finished }}disabled{{ /if }}
-                                                    inputmode="numeric" pattern="[0-9]*"
+                                                    inputmode="numeric" pattern="[0-9]*" min="0" max="50"
                                                     class="relative z-10 score-b-{{ id }} w-16 h-16 text-center text-4xl font-black rounded-2xl border-2 border-gray-200 dark:border-gray-600 dark:bg-gray-900 dark:text-white focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-60 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                                     placeholder="–">
                                             </div>
