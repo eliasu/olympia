@@ -63,6 +63,25 @@
     setInterval(() => {
         Object.entries(_dirtyScores).forEach(([matchId, scores]) => saveScore(matchId, scores.a, scores.b));
     }, 2000);
+
+    async function pollScores() {
+        try {
+            const res = await fetch('/league/gameday-scores?gameday_id={{ id }}');
+            const scores = await res.json();
+            for (const [matchId, { score_a, score_b }] of Object.entries(scores)) {
+                if (_dirtyScores[matchId]) continue;
+                const saved = _savedScores[matchId];
+                const a = score_a ?? '';
+                const b = score_b ?? '';
+                if (saved && saved.a == a && saved.b == b) continue;
+                document.querySelectorAll(`.score-a-${matchId}`).forEach(i => { if (i.value != a) i.value = a; });
+                document.querySelectorAll(`.score-b-${matchId}`).forEach(i => { if (i.value != b) i.value = b; });
+                _savedScores[matchId] = { a, b };
+            }
+        } catch (e) {}
+    }
+
+    setInterval(pollScores, 5000);
 </script>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

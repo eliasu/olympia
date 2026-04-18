@@ -8,6 +8,7 @@ Route::post('/league/generate-plan', [\App\Http\Controllers\LeagueController::cl
 Route::post('/league/update-players', [\App\Http\Controllers\LeagueController::class, 'updatePlayers']);
 Route::post('/league/update-score', [\App\Http\Controllers\LeagueController::class, 'updateScore']);
 Route::post('/league/finish-gameday', [\App\Http\Controllers\LeagueController::class, 'finishGameday']);
+Route::get('/league/gameday-scores', [\App\Http\Controllers\LeagueController::class, 'gamedayScores']);
 
 // User & Auth Routes
 Route::statamic('/login', 'login', ['title' => 'Log In']);

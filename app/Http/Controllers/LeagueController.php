@@ -26,6 +26,25 @@ class LeagueController extends Controller
         }
     }
 
+    public function gamedayScores(Request $request)
+    {
+        $gamedayId = $request->input('gameday_id');
+        $matches = Entry::query()
+            ->where('collection', 'matches')
+            ->where('gameday', $gamedayId)
+            ->get();
+
+        $scores = [];
+        foreach ($matches as $match) {
+            $scores[$match->id()] = [
+                'score_a' => $match->get('score_a'),
+                'score_b' => $match->get('score_b'),
+            ];
+        }
+
+        return response()->json($scores);
+    }
+
     public function updateScore(Request $request)
     {
         $matchId = $request->input('match_id');
