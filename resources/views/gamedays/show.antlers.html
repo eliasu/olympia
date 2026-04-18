@@ -81,7 +81,8 @@
         } catch (e) {}
     }
 
-    setInterval(pollScores, 5000);
+    const _isFinished = {{ is_finished ? 'true' : 'false' }};
+    if (!_isFinished) setInterval(pollScores, 5000);
 </script>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
