@@ -188,7 +188,6 @@ class LeagueService
      */
     protected function selectDiversePlayers($playerStats, $eloSpread, array $usedFoursomes = [])
     {
-        // Sort by priority: fewest games today, then fewest league matches
         $available = $playerStats
             ->shuffle()
             ->sortBy('league_matches')
@@ -196,70 +195,71 @@ class LeagueService
             ->values();
 
         $minGames = $available->min('games_today');
+        $minTier  = $available->filter(fn($p) => $p['games_today'] === $minGames)->values();
 
-        // Eligible pool: strictly players at minimum game count first,
-        // then expand one level at a time until we have at least 4.
-        // This guarantees underplayed players are always prioritized.
-        $eligiblePool = $available->filter(fn($p) => $p['games_today'] === $minGames)->values();
-        $expand = 0;
-        while ($eligiblePool->count() < 4) {
-            $expand++;
-            $eligiblePool = $available->filter(fn($p) =>
-                $p['games_today'] <= $minGames + $expand
-            )->values();
-        }
+        if ($minTier->count() >= 4) {
+            // Normal path: enough underplayed players to fill a match on their own.
+            $eligiblePool = $minTier;
 
-        // If the pool collapsed to exactly 4 AND that foursome already played,
-        // expand one more level. Otherwise the only possible group = the repeat.
-        // Small fairness cost traded for diversity (fixes M10==M15 bug).
-        if ($eligiblePool->count() === 4) {
-            $poolKey = $this->sortedIdKey($eligiblePool->pluck('id')->all());
-            while (isset($usedFoursomes[$poolKey]) && $eligiblePool->count() < $available->count()) {
-                $expand++;
-                $eligiblePool = $available->filter(fn($p) =>
-                    $p['games_today'] <= $minGames + $expand
-                )->values();
+            // If exactly 4 and that foursome already played, pull in one more from
+            // the next tier so a different group can be formed (fixes M10==M15 bug).
+            if ($eligiblePool->count() === 4) {
                 $poolKey = $this->sortedIdKey($eligiblePool->pluck('id')->all());
+                $expand = 0;
+                while (isset($usedFoursomes[$poolKey]) && $eligiblePool->count() < $available->count()) {
+                    $expand++;
+                    $eligiblePool = $available->filter(fn($p) =>
+                        $p['games_today'] <= $minGames + $expand
+                    )->values();
+                    $poolKey = $this->sortedIdKey($eligiblePool->pluck('id')->all());
+                }
             }
+
+            // Seed: fewest interactions today, random tiebreak
+            $seedCandidates = $eligiblePool
+                ->filter(fn($p) => $p['games_today'] === $minGames)
+                ->shuffle()
+                ->values();
+            if ($seedCandidates->isEmpty()) {
+                $seedCandidates = $eligiblePool;
+            }
+            $seed = $seedCandidates
+                ->sortBy(fn($p) => count($p['partners_today']) + count($p['opponents_today']))
+                ->first();
+
+            $candidates = $eligiblePool->reject(fn($p) => $p['id'] === $seed['id'])->values();
+
+            return collect($this->pickBestGroup($seed, $candidates->all(), $usedFoursomes));
+
+        } else {
+            // Fairness-critical path: fewer than 4 players at minGames.
+            // ALL of them MUST be in this match — otherwise they fall below floor.
+            // Fill remaining spots from the next tier via scoring.
+            $forced    = $minTier->all();   // 1–3 players that are hard-included
+            $forcedIds = array_column($forced, 'id');
+            $fillers   = $available->filter(fn($p) => !in_array($p['id'], $forcedIds))->values();
+
+            $needed = 4 - count($forced);
+            $group  = $this->pickBestFillers($forced, $fillers->all(), $needed, $usedFoursomes);
+
+            return collect($group);
         }
+    }
 
-        // Seed rotation: among players tied at min games_today, pick the one
-        // with fewest partner+opponent interactions today. Random tiebreak via
-        // pre-shuffle. Prevents deterministic seed lock when stats tied.
-        $seedCandidates = $eligiblePool
-            ->filter(fn($p) => $p['games_today'] === $minGames)
-            ->shuffle()
-            ->values();
-        if ($seedCandidates->isEmpty()) {
-            $seedCandidates = $eligiblePool;
-        }
-        $seed = $seedCandidates->sortBy(fn($p) =>
-            count($p['partners_today']) + count($p['opponents_today'])
-        )->first();
-
-        $seedElo = $seed['elo'];
-
-        // Build candidate pool: prefer players within Elo band, expand if needed
-        $candidates = $eligiblePool
-            ->reject(fn($p) => $p['id'] === $seed['id'])
-            ->filter(fn($p) => abs($p['elo'] - $seedElo) <= $eloSpread);
-
-        if ($candidates->count() < 3) {
-            $candidates = $eligiblePool->reject(fn($p) => $p['id'] === $seed['id']);
-        }
-
-        // Evaluate all possible groups of (seed + 3 candidates).
-        // Score every group by summing pairwise diversity penalties across all 6 pairs,
-        // plus FOURSOME_REPEAT_PENALTY per prior occurrence of this exact foursome.
-        $candidateList = $candidates->values()->all();
-        $count = count($candidateList);
+    /**
+     * Pick the best group of (seed + 3 others) by evaluating all combinations.
+     * Returns the 4-element array with the lowest score.
+     */
+    protected function pickBestGroup(array $seed, array $candidates, array $usedFoursomes): array
+    {
+        $n         = count($candidates);
         $bestGroup = null;
         $bestScore = PHP_INT_MAX;
 
-        for ($i = 0; $i < $count - 2; $i++) {
-            for ($j = $i + 1; $j < $count - 1; $j++) {
-                for ($k = $j + 1; $k < $count; $k++) {
-                    $group = [$seed, $candidateList[$i], $candidateList[$j], $candidateList[$k]];
+        for ($i = 0; $i < $n - 2; $i++) {
+            for ($j = $i + 1; $j < $n - 1; $j++) {
+                for ($k = $j + 1; $k < $n; $k++) {
+                    $group = [$seed, $candidates[$i], $candidates[$j], $candidates[$k]];
                     $score = $this->scoreGroup($group, $usedFoursomes);
                     if ($score < $bestScore) {
                         $bestScore = $score;
@@ -269,12 +269,47 @@ class LeagueService
             }
         }
 
-        // Fallback: seed + first 3 candidates if no valid group found
-        if ($bestGroup === null) {
-            $bestGroup = array_merge([$seed], array_slice($candidateList, 0, 3));
+        return $bestGroup ?? array_merge([$seed], array_slice($candidates, 0, 3));
+    }
+
+    /**
+     * Given forced players (must all be included) and filler candidates,
+     * pick the best $needed fillers to complete a group of 4.
+     * Returns the full 4-player group.
+     */
+    protected function pickBestFillers(array $forced, array $fillers, int $needed, array $usedFoursomes): array
+    {
+        $n         = count($fillers);
+        $bestGroup = null;
+        $bestScore = PHP_INT_MAX;
+
+        if ($needed === 1) {
+            foreach ($fillers as $f) {
+                $group = array_merge($forced, [$f]);
+                $score = $this->scoreGroup($group, $usedFoursomes);
+                if ($score < $bestScore) { $bestScore = $score; $bestGroup = $group; }
+            }
+        } elseif ($needed === 2) {
+            for ($i = 0; $i < $n - 1; $i++) {
+                for ($j = $i + 1; $j < $n; $j++) {
+                    $group = array_merge($forced, [$fillers[$i], $fillers[$j]]);
+                    $score = $this->scoreGroup($group, $usedFoursomes);
+                    if ($score < $bestScore) { $bestScore = $score; $bestGroup = $group; }
+                }
+            }
+        } elseif ($needed === 3) {
+            for ($i = 0; $i < $n - 2; $i++) {
+                for ($j = $i + 1; $j < $n - 1; $j++) {
+                    for ($k = $j + 1; $k < $n; $k++) {
+                        $group = array_merge($forced, [$fillers[$i], $fillers[$j], $fillers[$k]]);
+                        $score = $this->scoreGroup($group, $usedFoursomes);
+                        if ($score < $bestScore) { $bestScore = $score; $bestGroup = $group; }
+                    }
+                }
+            }
         }
 
-        return collect($bestGroup);
+        return $bestGroup ?? array_merge($forced, array_slice($fillers, 0, $needed));
     }
 
     /**
