@@ -10,9 +10,15 @@ matches:
   - 647f7344-6004-484b-9985-53b422f02e90
   - af206daf-6ce5-4144-ac01-5ea83fa24720
   - 67881dcf-c64f-4acb-a11b-5121803b0fa4
-global_elo: 1522.51
-total_games: 4
-wins: 4
+  - 1c8510c8-a08b-4dcc-abe4-403f946d5f60
+  - 1183f8bb-f3bb-4394-8328-c28409599cb6
+  - a439df68-4f87-4c2e-b657-c11ebbbb7bdb
+  - 6b0c06e8-1c26-4ab3-9707-d8573f5cfdb8
+  - 8a0de7dc-fa8d-4c72-ac9d-685464e254ae
+  - d9190452-b6f6-4c26-9b98-282ca0dd9ecc
+global_elo: 1519.95
+total_games: 10
+wins: 7
 elo_history:
   -
     date: '2026-04-12T22:00:00+00:00'
@@ -34,14 +40,45 @@ elo_history:
     elo: 1522.51
     match: 67881dcf-c64f-4acb-a11b-5121803b0fa4
     league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-20T20:00:00+00:00'
+    elo: 1526.06
+    match: 1c8510c8-a08b-4dcc-abe4-403f946d5f60
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-20T20:00:00+00:00'
+    elo: 1530.16
+    match: 1183f8bb-f3bb-4394-8328-c28409599cb6
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-20T20:00:00+00:00'
+    elo: 1528.2
+    match: a439df68-4f87-4c2e-b657-c11ebbbb7bdb
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-20T20:00:00+00:00'
+    elo: 1543.39
+    match: 6b0c06e8-1c26-4ab3-9707-d8573f5cfdb8
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-20T20:00:00+00:00'
+    elo: 1531.07
+    match: 8a0de7dc-fa8d-4c72-ac9d-685464e254ae
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-20T20:00:00+00:00'
+    elo: 1519.95
+    match: d9190452-b6f6-4c26-9b98-282ca0dd9ecc
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
 league_stats:
   -
     league:
       - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
-    played_gamedays: 1
-    match_count: 4
-    league_wins: 4
-    league_losses: 0
-    win_percentage: 100.0
+    played_gamedays: 2
+    match_count: 10
+    league_wins: 7
+    league_losses: 3
+    win_percentage: 70.0
+losses: 3
 id: fd5fcd99-dfa2-4ad6-864b-1ddf584adfdb
 password_hash: $2y$12$tB1/zch2ijF/VFeRz08nbu0k/f8u3aw8RDB3DfHNiquoZKumpvpJa

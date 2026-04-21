@@ -6,11 +6,11 @@ groups:
   - league_managers
 slug: dietrich-jaeger
 avatar: profile-pictures/FwfGuQfgqDjfsCNZVcjp2bxID6GGUM62UMCmsH99.jpg
-global_elo: 1506.47
+global_elo: 1482.05
 player_status: active
-total_games: 5
+total_games: 10
 wins: 3
-losses: 2
+losses: 7
 super: false
 matches:
   - f47056e6-42fc-425c-b4c4-efbb8d05840c
@@ -18,6 +18,11 @@ matches:
   - 66ebf6fa-3e61-4f9d-bb48-3e8727aea589
   - 7c094976-fb71-44fb-bd31-0c296619b88b
   - 05df4d98-e25e-465f-9179-9d1c70d3b835
+  - 59dde6c0-1212-4b26-80fa-8e4413bfc0e4
+  - 1183f8bb-f3bb-4394-8328-c28409599cb6
+  - a439df68-4f87-4c2e-b657-c11ebbbb7bdb
+  - 354fbc71-c363-4cea-8468-becd63f9cebd
+  - 1e2694a7-c2dd-4549-9f66-2f73b8ad88d4
 elo_history:
   -
     date: '2026-04-12T22:00:00+00:00'
@@ -44,15 +49,40 @@ elo_history:
     elo: 1506.47
     match: 05df4d98-e25e-465f-9179-9d1c70d3b835
     league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-20T20:00:00+00:00'
+    elo: 1502.77
+    match: 59dde6c0-1212-4b26-80fa-8e4413bfc0e4
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-20T20:00:00+00:00'
+    elo: 1498.67
+    match: 1183f8bb-f3bb-4394-8328-c28409599cb6
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-20T20:00:00+00:00'
+    elo: 1496.71
+    match: a439df68-4f87-4c2e-b657-c11ebbbb7bdb
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-20T20:00:00+00:00'
+    elo: 1484.14
+    match: 354fbc71-c363-4cea-8468-becd63f9cebd
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-20T20:00:00+00:00'
+    elo: 1482.05
+    match: 1e2694a7-c2dd-4549-9f66-2f73b8ad88d4
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
 league_stats:
   -
     league:
       - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
-    played_gamedays: 1
-    match_count: 5
+    played_gamedays: 2
+    match_count: 10
     league_wins: 3
-    league_losses: 2
-    win_percentage: 60.0
+    league_losses: 7
+    win_percentage: 30.0
 id: 756d2847-4537-40b2-9a28-81c5ad112c08
 password_hash: $2y$12$zC45bCSQTu2YWLJ6vJMwxejUqLMy76DnLv7mZolsyfj5vGBZ7aBl2
 preferences:

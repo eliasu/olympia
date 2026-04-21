@@ -1,0 +1,54 @@
+name: 'sahin yalabik'
+roles:
+  - player
+groups:
+  - players
+slug: sahin-yalabik
+avatar: profile-pictures/XQaAZoClfZZ3MhWFTcYDUSGyo7zWm5Qrh8To4sik.png
+matches:
+  - 59dde6c0-1212-4b26-80fa-8e4413bfc0e4
+  - 63a47bdc-8e09-46d6-90ca-f1f460595ab6
+  - c1e036a1-9d9d-4c96-a6d4-fdbd47f1de4a
+  - 921ee1a6-7cbd-489d-ba54-974a5387fd66
+  - d9190452-b6f6-4c26-9b98-282ca0dd9ecc
+global_elo: 1505.18
+total_games: 5
+wins: 3
+elo_history:
+  -
+    date: '2026-04-20T20:00:00+00:00'
+    elo: 1503.7
+    match: 59dde6c0-1212-4b26-80fa-8e4413bfc0e4
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-20T20:00:00+00:00'
+    elo: 1495.91
+    match: 63a47bdc-8e09-46d6-90ca-f1f460595ab6
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-20T20:00:00+00:00'
+    elo: 1501.03
+    match: c1e036a1-9d9d-4c96-a6d4-fdbd47f1de4a
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-20T20:00:00+00:00'
+    elo: 1494.06
+    match: 921ee1a6-7cbd-489d-ba54-974a5387fd66
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-20T20:00:00+00:00'
+    elo: 1505.18
+    match: d9190452-b6f6-4c26-9b98-282ca0dd9ecc
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+losses: 2
+league_stats:
+  -
+    league:
+      - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+    played_gamedays: 1
+    match_count: 5
+    league_wins: 3
+    league_losses: 2
+    win_percentage: 60.0
+id: ee895ae9-2f54-4be5-9221-73c49c20b152
+password_hash: $2y$12$2wxdtIqvACEWRpbsZDOU1uagpVsCtZnntezrWedy/VoQeGg0cXz0q

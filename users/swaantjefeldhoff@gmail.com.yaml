@@ -10,9 +10,14 @@ matches:
   - 2b578334-4c9b-4397-b74e-985640055d19
   - 0f84745f-d627-4abd-b447-6b381b2f6855
   - 5efd1eef-3a0c-4625-8f99-654749693858
-global_elo: 1493.01
-total_games: 4
-wins: 2
+  - 945352ba-d678-4dc0-aafa-8869c50b960d
+  - 7e6179dd-51ab-4b82-b430-026d9709604d
+  - c1e036a1-9d9d-4c96-a6d4-fdbd47f1de4a
+  - 6b0c06e8-1c26-4ab3-9707-d8573f5cfdb8
+  - 1e2694a7-c2dd-4549-9f66-2f73b8ad88d4
+global_elo: 1501.1
+total_games: 9
+wins: 4
 elo_history:
   -
     date: '2026-04-12T22:00:00+00:00'
@@ -34,15 +39,40 @@ elo_history:
     elo: 1493.01
     match: 5efd1eef-3a0c-4625-8f99-654749693858
     league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
-losses: 2
+  -
+    date: '2026-04-20T20:00:00+00:00'
+    elo: 1485.52
+    match: 945352ba-d678-4dc0-aafa-8869c50b960d
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-20T20:00:00+00:00'
+    elo: 1493.12
+    match: 7e6179dd-51ab-4b82-b430-026d9709604d
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-20T20:00:00+00:00'
+    elo: 1488.0
+    match: c1e036a1-9d9d-4c96-a6d4-fdbd47f1de4a
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-20T20:00:00+00:00'
+    elo: 1503.19
+    match: 6b0c06e8-1c26-4ab3-9707-d8573f5cfdb8
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-20T20:00:00+00:00'
+    elo: 1501.1
+    match: 1e2694a7-c2dd-4549-9f66-2f73b8ad88d4
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+losses: 5
 league_stats:
   -
     league:
       - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
-    played_gamedays: 1
-    match_count: 4
-    league_wins: 2
-    league_losses: 2
-    win_percentage: 50.0
+    played_gamedays: 2
+    match_count: 9
+    league_wins: 4
+    league_losses: 5
+    win_percentage: 44.44
 id: 15312789-11be-4608-b548-8c1ac126eb64
 password_hash: $2y$12$YlPnc8vqoDaOmR.tQ5Cupe6ah00uSIxNGUP2tBolhTkp/uOu4X5/2

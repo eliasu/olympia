@@ -1,10 +1,10 @@
 name: Elias
 super: true
-global_elo: 1502.29
-total_games: 4
-wins: 1
+global_elo: 1529.51
+total_games: 9
+wins: 5
 player_status: active
-losses: 3
+losses: 4
 slug: elias
 avatar: profile-pictures/9MMaSQD5BbO98sArUjPXqWipHOQUJ6vMyprLN6PM.jpg
 groups:
@@ -14,6 +14,11 @@ matches:
   - d8291a67-b7eb-4542-9bda-e4199e929afd
   - 4e501879-275f-4a7b-b02a-c70c24141a80
   - 67881dcf-c64f-4acb-a11b-5121803b0fa4
+  - 5868c4fe-23ae-4427-b604-2d332b0d1574
+  - 4f50696f-0e4d-47ef-a6b9-4e03ceaf07c0
+  - c1e036a1-9d9d-4c96-a6d4-fdbd47f1de4a
+  - 354fbc71-c363-4cea-8468-becd63f9cebd
+  - 8a0de7dc-fa8d-4c72-ac9d-685464e254ae
 elo_history:
   -
     date: '2026-04-12T22:00:00+00:00'
@@ -35,15 +40,40 @@ elo_history:
     elo: 1502.29
     match: 67881dcf-c64f-4acb-a11b-5121803b0fa4
     league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-20T20:00:00+00:00'
+    elo: 1508.17
+    match: 5868c4fe-23ae-4427-b604-2d332b0d1574
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-20T20:00:00+00:00'
+    elo: 1499.5
+    match: 4f50696f-0e4d-47ef-a6b9-4e03ceaf07c0
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-20T20:00:00+00:00'
+    elo: 1504.62
+    match: c1e036a1-9d9d-4c96-a6d4-fdbd47f1de4a
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-20T20:00:00+00:00'
+    elo: 1517.19
+    match: 354fbc71-c363-4cea-8468-becd63f9cebd
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-04-20T20:00:00+00:00'
+    elo: 1529.51
+    match: 8a0de7dc-fa8d-4c72-ac9d-685464e254ae
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
 league_stats:
   -
     league:
       - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
-    played_gamedays: 1
-    match_count: 4
-    league_wins: 1
-    league_losses: 3
-    win_percentage: 25.0
+    played_gamedays: 2
+    match_count: 9
+    league_wins: 5
+    league_losses: 4
+    win_percentage: 55.56
 id: 1861c4a9-8873-459c-97ce-38d399b7ed46
 password_hash: $2y$12$a.6/2heUxJiFeNXIu6/SKOEhjnLBcCW82X1QN9hMtvQmxEWsG1pZC
 preferences:
