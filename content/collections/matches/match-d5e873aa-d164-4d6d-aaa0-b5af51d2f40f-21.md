@@ -11,19 +11,19 @@ team_b:
 is_played: true
 gameday:
   - d5e873aa-d164-4d6d-aaa0-b5af51d2f40f
-score_a: '1'
+score_a: '11'
 score_b: '6'
-elo_delta: -12.31507888448
+elo_delta: 3.8193748970326
 team_a_elo_before:
   - 1543.39
   - 1498.88
 team_a_elo_after:
-  - 1531.07
-  - 1486.56
+  - 1547.21
+  - 1502.7
 team_b_elo_before:
   - 1517.19
   - 1486.54
 team_b_elo_after:
-  - 1529.51
-  - 1498.86
+  - 1513.37
+  - 1482.72
 ---

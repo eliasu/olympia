@@ -16,7 +16,7 @@ matches:
   - de1e3e70-3bb6-4569-9b3d-99fec93a95e1
   - 921ee1a6-7cbd-489d-ba54-974a5387fd66
   - d9190452-b6f6-4c26-9b98-282ca0dd9ecc
-global_elo: 1525.23
+global_elo: 1525.61
 total_games: 10
 losses: 4
 elo_history:
@@ -67,7 +67,7 @@ elo_history:
     league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
   -
     date: '2026-04-20T20:00:00+00:00'
-    elo: 1525.23
+    elo: 1525.61
     match: d9190452-b6f6-4c26-9b98-282ca0dd9ecc
     league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
 wins: 6

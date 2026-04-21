@@ -13,17 +13,17 @@ gameday:
   - d5e873aa-d164-4d6d-aaa0-b5af51d2f40f
 score_a: '2'
 score_b: '11'
-elo_delta: -11.124586447356
+elo_delta: -11.496127860997
 team_a_elo_before:
-  - 1531.07
+  - 1547.21
   - 1479.17
 team_a_elo_after:
-  - 1519.95
-  - 1468.05
+  - 1535.71
+  - 1467.67
 team_b_elo_before:
   - 1494.06
   - 1514.11
 team_b_elo_after:
-  - 1505.18
-  - 1525.23
+  - 1505.56
+  - 1525.61
 ---

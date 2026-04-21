@@ -16,9 +16,9 @@ matches:
   - 6b0c06e8-1c26-4ab3-9707-d8573f5cfdb8
   - 8a0de7dc-fa8d-4c72-ac9d-685464e254ae
   - d9190452-b6f6-4c26-9b98-282ca0dd9ecc
-global_elo: 1519.95
+global_elo: 1535.71
 total_games: 10
-wins: 7
+wins: 8
 elo_history:
   -
     date: '2026-04-12T22:00:00+00:00'
@@ -62,12 +62,12 @@ elo_history:
     league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
   -
     date: '2026-04-20T20:00:00+00:00'
-    elo: 1531.07
+    elo: 1547.21
     match: 8a0de7dc-fa8d-4c72-ac9d-685464e254ae
     league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
   -
     date: '2026-04-20T20:00:00+00:00'
-    elo: 1519.95
+    elo: 1535.71
     match: d9190452-b6f6-4c26-9b98-282ca0dd9ecc
     league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
 league_stats:
@@ -76,9 +76,9 @@ league_stats:
       - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
     played_gamedays: 2
     match_count: 10
-    league_wins: 7
-    league_losses: 3
-    win_percentage: 70.0
-losses: 3
+    league_wins: 8
+    league_losses: 2
+    win_percentage: 80.0
+losses: 2
 id: fd5fcd99-dfa2-4ad6-864b-1ddf584adfdb
 password_hash: $2y$12$tB1/zch2ijF/VFeRz08nbu0k/f8u3aw8RDB3DfHNiquoZKumpvpJa
