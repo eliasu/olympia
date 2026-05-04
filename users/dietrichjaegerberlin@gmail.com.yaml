@@ -97,6 +97,7 @@ preferences:
         - is_finished
         - generated_plan
         - present_players
+      after_save: listing
   users:
     columns:
       - name
