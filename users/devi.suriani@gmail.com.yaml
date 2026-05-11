@@ -10,9 +10,15 @@ matches:
   - 822e3e9a-1d9c-464e-8c06-b20bb69874c8
   - d286d775-6b3e-4a07-b39f-fe4f767482c6
   - 2ea27f94-7a18-46f0-8291-7998c0cd8b2c
-global_elo: 1482.85
-total_games: 4
-wins: 2
+  - d0986e70-0d5c-48cf-bf0a-6addf2441a0e
+  - e29a080c-445c-4141-8b21-74ae5199618e
+  - 03457b45-234a-442f-90d9-1403be2c76ce
+  - e10f3bd7-6503-42a1-8444-8934d9876de3
+  - b5c81db2-23bb-4e9f-a346-a3b0d4075af5
+  - 78c85c73-d944-4859-9061-73f1b7b37bf1
+global_elo: 1462.63
+total_games: 10
+wins: 3
 elo_history:
   -
     date: '2026-04-12T22:00:00+00:00'
@@ -34,15 +40,45 @@ elo_history:
     elo: 1482.85
     match: 2ea27f94-7a18-46f0-8291-7998c0cd8b2c
     league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
-losses: 2
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1470.42
+    match: d0986e70-0d5c-48cf-bf0a-6addf2441a0e
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1466.95
+    match: e29a080c-445c-4141-8b21-74ae5199618e
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1465.53
+    match: 03457b45-234a-442f-90d9-1403be2c76ce
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1471.04
+    match: e10f3bd7-6503-42a1-8444-8934d9876de3
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1463.42
+    match: b5c81db2-23bb-4e9f-a346-a3b0d4075af5
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1462.63
+    match: 78c85c73-d944-4859-9061-73f1b7b37bf1
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+losses: 7
 league_stats:
   -
     league:
       - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
-    played_gamedays: 1
-    match_count: 4
-    league_wins: 2
-    league_losses: 2
-    win_percentage: 50.0
+    played_gamedays: 2
+    match_count: 10
+    league_wins: 3
+    league_losses: 7
+    win_percentage: 30.0
 id: 0480a6c7-9259-4411-a187-5d743259ee68
 password_hash: $2y$12$xiLF8V8l/D8wStMWVBLMsuWeTrHD4LTFRClH961rAcER5mGz.0mJ6

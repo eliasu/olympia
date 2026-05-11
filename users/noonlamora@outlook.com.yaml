@@ -11,9 +11,15 @@ matches:
   - 480c5ac3-d8c1-4f84-86b6-c027a70e13ab
   - 2ea27f94-7a18-46f0-8291-7998c0cd8b2c
   - 5efd1eef-3a0c-4625-8f99-654749693858
-global_elo: 1531.67
-total_games: 5
-wins: 4
+  - dd5b2be3-ec37-4713-9512-67d814e82e0c
+  - 4f98ef93-c877-48dd-b0b4-734cdaf4e12b
+  - 82eb3be0-0b64-44bd-97fa-6a48e283f847
+  - e10f3bd7-6503-42a1-8444-8934d9876de3
+  - 1bc1f915-0dd2-49a4-87a3-c618b6338d00
+  - a188d80a-c633-4511-8ccb-aabafb568c24
+global_elo: 1555.63
+total_games: 11
+wins: 9
 elo_history:
   -
     id: AXI0tIJX
@@ -45,16 +51,46 @@ elo_history:
     elo: 1531.67
     match: 5efd1eef-3a0c-4625-8f99-654749693858
     league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
-losses: 1
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1537.04
+    match: dd5b2be3-ec37-4713-9512-67d814e82e0c
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1539.26
+    match: 4f98ef93-c877-48dd-b0b4-734cdaf4e12b
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1544.4
+    match: 82eb3be0-0b64-44bd-97fa-6a48e283f847
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1549.91
+    match: e10f3bd7-6503-42a1-8444-8934d9876de3
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1547.64
+    match: 1bc1f915-0dd2-49a4-87a3-c618b6338d00
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1555.63
+    match: a188d80a-c633-4511-8ccb-aabafb568c24
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+losses: 2
 league_stats:
   -
-    id: xTppNivF
-    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
-    played_gamedays: 1
-    match_count: 5
-    league_wins: 4
-    league_losses: 1
-    win_percentage: 80.0
+    league:
+      - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+    played_gamedays: 2
+    match_count: 11
+    league_wins: 9
+    league_losses: 2
+    win_percentage: 81.82
 player_status: active
 id: ee76cfe3-5100-446c-8785-080c461f4337
 password_hash: $2y$12$J4kmKrgrfGlwkm2GAcrcNeeEpOQYhSwLlgHrWMQ/atPAQ.c6CPgoq

@@ -9,9 +9,15 @@ matches:
   - 822e3e9a-1d9c-464e-8c06-b20bb69874c8
   - d286d775-6b3e-4a07-b39f-fe4f767482c6
   - d869126a-6114-4a04-9c5f-c17055b28ad3
-global_elo: 1499.4
-total_games: 4
-losses: 3
+  - 510bc3cf-078b-45b0-bfe9-439c477ec08d
+  - d0986e70-0d5c-48cf-bf0a-6addf2441a0e
+  - d3130c7c-cd23-4f88-baf0-9636fb254031
+  - 82eb3be0-0b64-44bd-97fa-6a48e283f847
+  - 7544bf1f-92c6-4b45-b4bb-d1662aad9e05
+  - c8d75aee-20a3-4607-941b-2787ac71a773
+global_elo: 1495.8
+total_games: 10
+losses: 6
 elo_history:
   -
     date: '2026-04-12T22:00:00+00:00'
@@ -33,15 +39,45 @@ elo_history:
     elo: 1499.4
     match: d869126a-6114-4a04-9c5f-c17055b28ad3
     league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
-wins: 1
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1495.83
+    match: 510bc3cf-078b-45b0-bfe9-439c477ec08d
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1483.4
+    match: d0986e70-0d5c-48cf-bf0a-6addf2441a0e
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1492.7
+    match: d3130c7c-cd23-4f88-baf0-9636fb254031
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1497.84
+    match: 82eb3be0-0b64-44bd-97fa-6a48e283f847
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1493.86
+    match: 7544bf1f-92c6-4b45-b4bb-d1662aad9e05
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1495.8
+    match: c8d75aee-20a3-4607-941b-2787ac71a773
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+wins: 4
 league_stats:
   -
     league:
       - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
-    played_gamedays: 1
-    match_count: 4
-    league_wins: 1
-    league_losses: 3
-    win_percentage: 25.0
+    played_gamedays: 2
+    match_count: 10
+    league_wins: 4
+    league_losses: 6
+    win_percentage: 40.0
 id: f6decda0-2051-4fbd-85a4-691ed9f9c4da
 password_hash: $2y$12$MzPNiOI6NN7yp/f9TN9hFe9Vp3yDp0LVVkdtTEUWu3OX2FKuw5fni

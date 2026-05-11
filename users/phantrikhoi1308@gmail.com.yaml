@@ -14,9 +14,15 @@ matches:
   - 7451e8cb-751a-40e2-977d-cc0c2c2dface
   - ca02ee83-efa9-4a1c-bfa7-9fca6d0936c2
   - 8a0de7dc-fa8d-4c72-ac9d-685464e254ae
-global_elo: 1502.7
-total_games: 9
-losses: 5
+  - dd5b2be3-ec37-4713-9512-67d814e82e0c
+  - e29a080c-445c-4141-8b21-74ae5199618e
+  - 225d57bb-e4e7-49d7-a273-6229ae274672
+  - c7515699-90b4-45a6-b267-a75b504d25fc
+  - 7544bf1f-92c6-4b45-b4bb-d1662aad9e05
+  - 177d8cfd-6bbb-4420-a3ad-9b1a7dff51e6
+global_elo: 1468.23
+total_games: 15
+losses: 10
 elo_history:
   -
     date: '2026-04-12T22:00:00+00:00'
@@ -63,15 +69,45 @@ elo_history:
     elo: 1502.7
     match: 8a0de7dc-fa8d-4c72-ac9d-685464e254ae
     league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
-wins: 4
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1497.33
+    match: dd5b2be3-ec37-4713-9512-67d814e82e0c
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1500.8
+    match: e29a080c-445c-4141-8b21-74ae5199618e
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1485.28
+    match: 225d57bb-e4e7-49d7-a273-6229ae274672
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1485.14
+    match: c7515699-90b4-45a6-b267-a75b504d25fc
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1481.16
+    match: 7544bf1f-92c6-4b45-b4bb-d1662aad9e05
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1468.23
+    match: 177d8cfd-6bbb-4420-a3ad-9b1a7dff51e6
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+wins: 5
 league_stats:
   -
     league:
       - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
-    played_gamedays: 2
-    match_count: 9
-    league_wins: 4
-    league_losses: 5
-    win_percentage: 44.44
+    played_gamedays: 3
+    match_count: 15
+    league_wins: 5
+    league_losses: 10
+    win_percentage: 33.33
 id: 7b5d0233-b4ae-41ff-b362-0a21e91cee56
 password_hash: $2y$12$XHcf7qMqJ84AEuon0gvl/usf/hRY/oTllbkB1F1QA32gVQvWE340i

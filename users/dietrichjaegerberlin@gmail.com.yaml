@@ -6,11 +6,11 @@ groups:
   - league_managers
 slug: dietrich-jaeger
 avatar: profile-pictures/FwfGuQfgqDjfsCNZVcjp2bxID6GGUM62UMCmsH99.jpg
-global_elo: 1482.05
+global_elo: 1514.38
 player_status: active
-total_games: 10
-wins: 3
-losses: 7
+total_games: 16
+wins: 8
+losses: 8
 super: false
 matches:
   - f47056e6-42fc-425c-b4c4-efbb8d05840c
@@ -23,6 +23,12 @@ matches:
   - a439df68-4f87-4c2e-b657-c11ebbbb7bdb
   - 354fbc71-c363-4cea-8468-becd63f9cebd
   - 1e2694a7-c2dd-4549-9f66-2f73b8ad88d4
+  - d0986e70-0d5c-48cf-bf0a-6addf2441a0e
+  - 4f98ef93-c877-48dd-b0b4-734cdaf4e12b
+  - 225d57bb-e4e7-49d7-a273-6229ae274672
+  - bf19f654-41c6-4446-bfcc-f3d52d115cd9
+  - 7544bf1f-92c6-4b45-b4bb-d1662aad9e05
+  - 78c85c73-d944-4859-9061-73f1b7b37bf1
 elo_history:
   -
     date: '2026-04-12T22:00:00+00:00'
@@ -74,15 +80,45 @@ elo_history:
     elo: 1482.05
     match: 1e2694a7-c2dd-4549-9f66-2f73b8ad88d4
     league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1494.48
+    match: d0986e70-0d5c-48cf-bf0a-6addf2441a0e
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1496.7
+    match: 4f98ef93-c877-48dd-b0b4-734cdaf4e12b
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1512.22
+    match: 225d57bb-e4e7-49d7-a273-6229ae274672
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1509.61
+    match: bf19f654-41c6-4446-bfcc-f3d52d115cd9
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1513.59
+    match: 7544bf1f-92c6-4b45-b4bb-d1662aad9e05
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1514.38
+    match: 78c85c73-d944-4859-9061-73f1b7b37bf1
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
 league_stats:
   -
     league:
       - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
-    played_gamedays: 2
-    match_count: 10
-    league_wins: 3
-    league_losses: 7
-    win_percentage: 30.0
+    played_gamedays: 3
+    match_count: 16
+    league_wins: 8
+    league_losses: 8
+    win_percentage: 50.0
 id: 756d2847-4537-40b2-9a28-81c5ad112c08
 password_hash: $2y$12$zC45bCSQTu2YWLJ6vJMwxejUqLMy76DnLv7mZolsyfj5vGBZ7aBl2
 preferences:

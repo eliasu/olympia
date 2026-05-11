@@ -5,5 +5,56 @@ groups:
   - players
 slug: pranshu-khanna
 avatar: profile-pictures/3ZFqJaCQC5F7VicikxgrAnKOYKXOlKcTJFWQJf9X.jpg
+matches:
+  - 510bc3cf-078b-45b0-bfe9-439c477ec08d
+  - 4f98ef93-c877-48dd-b0b4-734cdaf4e12b
+  - 03457b45-234a-442f-90d9-1403be2c76ce
+  - c7515699-90b4-45a6-b267-a75b504d25fc
+  - 92fec493-04ff-4d86-9e3b-b83157aff4f0
+  - a188d80a-c633-4511-8ccb-aabafb568c24
+global_elo: 1513.24
+total_games: 6
+wins: 5
+elo_history:
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1503.57
+    match: 510bc3cf-078b-45b0-bfe9-439c477ec08d
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1501.35
+    match: 4f98ef93-c877-48dd-b0b4-734cdaf4e12b
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1502.77
+    match: 03457b45-234a-442f-90d9-1403be2c76ce
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1502.91
+    match: c7515699-90b4-45a6-b267-a75b504d25fc
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1505.25
+    match: 92fec493-04ff-4d86-9e3b-b83157aff4f0
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1513.24
+    match: a188d80a-c633-4511-8ccb-aabafb568c24
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+losses: 1
+league_stats:
+  -
+    league:
+      - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+    played_gamedays: 1
+    match_count: 6
+    league_wins: 5
+    league_losses: 1
+    win_percentage: 83.33
 id: 83016b69-50f9-4c0c-8351-c525663a55cd
 password_hash: $2y$12$jWq4gf5zqA5YzaKidSLzAOnLAh0wxq9XdVZqBcBUGbhu.eCCgH5tW

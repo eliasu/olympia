@@ -15,9 +15,16 @@ matches:
   - c1e036a1-9d9d-4c96-a6d4-fdbd47f1de4a
   - 6b0c06e8-1c26-4ab3-9707-d8573f5cfdb8
   - 1e2694a7-c2dd-4549-9f66-2f73b8ad88d4
-global_elo: 1501.1
-total_games: 9
-wins: 4
+  - 510bc3cf-078b-45b0-bfe9-439c477ec08d
+  - e29a080c-445c-4141-8b21-74ae5199618e
+  - c98a5866-683a-42e1-8530-27814a21588b
+  - bf19f654-41c6-4446-bfcc-f3d52d115cd9
+  - 92fec493-04ff-4d86-9e3b-b83157aff4f0
+  - 78c85c73-d944-4859-9061-73f1b7b37bf1
+  - a188d80a-c633-4511-8ccb-aabafb568c24
+global_elo: 1486.59
+total_games: 16
+wins: 7
 elo_history:
   -
     date: '2026-04-12T22:00:00+00:00'
@@ -64,15 +71,50 @@ elo_history:
     elo: 1501.1
     match: 1e2694a7-c2dd-4549-9f66-2f73b8ad88d4
     league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
-losses: 5
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1497.53
+    match: 510bc3cf-078b-45b0-bfe9-439c477ec08d
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1501.0
+    match: e29a080c-445c-4141-8b21-74ae5199618e
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1493.52
+    match: c98a5866-683a-42e1-8530-27814a21588b
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1496.13
+    match: bf19f654-41c6-4446-bfcc-f3d52d115cd9
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1493.79
+    match: 92fec493-04ff-4d86-9e3b-b83157aff4f0
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1494.58
+    match: 78c85c73-d944-4859-9061-73f1b7b37bf1
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1486.59
+    match: a188d80a-c633-4511-8ccb-aabafb568c24
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+losses: 9
 league_stats:
   -
     league:
       - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
-    played_gamedays: 2
-    match_count: 9
-    league_wins: 4
-    league_losses: 5
-    win_percentage: 44.44
+    played_gamedays: 3
+    match_count: 16
+    league_wins: 7
+    league_losses: 9
+    win_percentage: 43.75
 id: 15312789-11be-4608-b548-8c1ac126eb64
 password_hash: $2y$12$YlPnc8vqoDaOmR.tQ5Cupe6ah00uSIxNGUP2tBolhTkp/uOu4X5/2

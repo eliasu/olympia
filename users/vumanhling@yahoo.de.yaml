@@ -5,5 +5,56 @@ groups:
   - players
 slug: ling-vu
 avatar: profile-pictures/VxWwtlNGQFwo7iXhpoBjaFuXEG2orDIBNCHEurZO.jpg
+matches:
+  - 510bc3cf-078b-45b0-bfe9-439c477ec08d
+  - 79ecb9e1-f119-4622-9e06-b90c99a7a52d
+  - 225d57bb-e4e7-49d7-a273-6229ae274672
+  - e10f3bd7-6503-42a1-8444-8934d9876de3
+  - b5c81db2-23bb-4e9f-a346-a3b0d4075af5
+  - c8d75aee-20a3-4607-941b-2787ac71a773
+global_elo: 1485.48
+total_games: 6
+wins: 2
+elo_history:
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1503.57
+    match: 510bc3cf-078b-45b0-bfe9-439c477ec08d
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1500.83
+    match: 79ecb9e1-f119-4622-9e06-b90c99a7a52d
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1485.31
+    match: 225d57bb-e4e7-49d7-a273-6229ae274672
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1479.8
+    match: e10f3bd7-6503-42a1-8444-8934d9876de3
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1487.42
+    match: b5c81db2-23bb-4e9f-a346-a3b0d4075af5
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1485.48
+    match: c8d75aee-20a3-4607-941b-2787ac71a773
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+losses: 4
+league_stats:
+  -
+    league:
+      - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+    played_gamedays: 1
+    match_count: 6
+    league_wins: 2
+    league_losses: 4
+    win_percentage: 33.33
 id: 6bd97622-cd2e-4c71-85ea-42b8b5f019b4
 password_hash: $2y$12$hjjBdxB64Y6D7xD0m6R6A.vzBJzmeoDWhCiOaz6ebh/DIvubP97bK

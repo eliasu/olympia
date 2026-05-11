@@ -1,10 +1,10 @@
 name: Elias
 super: true
-global_elo: 1513.37
-total_games: 9
-wins: 4
+global_elo: 1545.91
+total_games: 15
+wins: 9
 player_status: active
-losses: 5
+losses: 6
 slug: elias
 avatar: profile-pictures/9MMaSQD5BbO98sArUjPXqWipHOQUJ6vMyprLN6PM.jpg
 groups:
@@ -19,6 +19,12 @@ matches:
   - c1e036a1-9d9d-4c96-a6d4-fdbd47f1de4a
   - 354fbc71-c363-4cea-8468-becd63f9cebd
   - 8a0de7dc-fa8d-4c72-ac9d-685464e254ae
+  - d595f21b-e64d-4035-b06d-daf2d8e5ddc3
+  - c98a5866-683a-42e1-8530-27814a21588b
+  - 225d57bb-e4e7-49d7-a273-6229ae274672
+  - 82eb3be0-0b64-44bd-97fa-6a48e283f847
+  - b5c81db2-23bb-4e9f-a346-a3b0d4075af5
+  - 92fec493-04ff-4d86-9e3b-b83157aff4f0
 elo_history:
   -
     date: '2026-04-12T22:00:00+00:00'
@@ -65,15 +71,45 @@ elo_history:
     elo: 1513.37
     match: 8a0de7dc-fa8d-4c72-ac9d-685464e254ae
     league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1518.09
+    match: d595f21b-e64d-4035-b06d-daf2d8e5ddc3
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1525.57
+    match: c98a5866-683a-42e1-8530-27814a21588b
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1541.09
+    match: 225d57bb-e4e7-49d7-a273-6229ae274672
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1535.95
+    match: 82eb3be0-0b64-44bd-97fa-6a48e283f847
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1543.57
+    match: b5c81db2-23bb-4e9f-a346-a3b0d4075af5
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
+  -
+    date: '2026-05-04T20:00:00+00:00'
+    elo: 1545.91
+    match: 92fec493-04ff-4d86-9e3b-b83157aff4f0
+    league: 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
 league_stats:
   -
     league:
       - 93ccb9a3-ffe8-46a6-8359-377e9fbbc9ff
-    played_gamedays: 2
-    match_count: 9
-    league_wins: 4
-    league_losses: 5
-    win_percentage: 44.44
+    played_gamedays: 3
+    match_count: 15
+    league_wins: 9
+    league_losses: 6
+    win_percentage: 60.0
 id: 1861c4a9-8873-459c-97ce-38d399b7ed46
 password_hash: $2y$12$a.6/2heUxJiFeNXIu6/SKOEhjnLBcCW82X1QN9hMtvQmxEWsG1pZC
 preferences:
